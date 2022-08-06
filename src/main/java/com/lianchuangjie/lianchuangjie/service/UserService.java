@@ -1,7 +1,8 @@
 package com.lianchuangjie.lianchuangjie.service;
 
-import com.lianchuangjie.lianchuangjie.po.User;
+import com.lianchuangjie.lianchuangjie.dto.EmployeeLoginDTO;
+import com.lianchuangjie.lianchuangjie.entity.UserEntity;
 
 public interface UserService {
-    public Boolean login(User user);
+    UserEntity login(EmployeeLoginDTO employee);
 }
