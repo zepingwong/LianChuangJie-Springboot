@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lianchuangjie.lianchuangjie.mapper.EnquiryMapper">
+
+    <select id="selectByDocEntry" resultType="com.lianchuangjie.lianchuangjie.entity.EnquiryEntity">
+        DECLARE @FormID BIGINT;
+        DECLARE @DataPur VARCHAR(10);
+        SELECT @FormID = FormID
+        FROM T_OUDW
+        WHERE UdoID = 'T_ICIN';
+        SELECT @DataPur = [dbo].[UF_DataPurview](#{UserSign}, @FormID);
+        SELECT TOP (1) T0.*, T_OVTG.Name AS 'U_VatGroup', T_OVTG.Rate AS 'U_VatRate'
+        FROM T_ICIN T0
+                 LEFT JOIN T_OVTG ON T_OVTG.Code = T0.U_VatGroup
+                 LEFT JOIN (SELECT DeptCode FROM T_OUDL WHERE UserSign = #{UserSign}) T2 ON T0.DeptCode = T2.DeptCode
+        WHERE T0.DocEntry = #{DocEntry}
+          AND (
+                    @DataPur = 'ALL' /*可看所有*/
+                OR T0.OwnerCode = #{UserSign}
+                OR T0.UserSign = #{UserSign} /*仅看自己，销售员或者制单人 等于 当前登录用户*/
+                OR (@DataPur = 'Dept' AND ISNULL(T2.DeptCode, '') != '') /*可看本部门，当前登录用户所属部门 包括 当前订单的所属部门*/
+            )
+    </select>
+    <select id="existByDocEntry" resultType="java.lang.Boolean">
+        IF (SELECT COUNT(*)
+            FROM T_ICIN
+            WHERE DocEntry = #{DocEntry}) > 0
+            SELECT 1
+        ELSE
+            SELECT 0
+    </select>
+</mapper>

@@ -4,11 +4,16 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
+/**
+ * @description 用户实体类
+ */
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @TableName("T_OUSI")
 public class UserEntity {
     // 用户编号

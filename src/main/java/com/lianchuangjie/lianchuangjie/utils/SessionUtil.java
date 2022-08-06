@@ -5,14 +5,14 @@ import javax.servlet.http.HttpSession;
 
 public class SessionUtil {
 
-    public <T> void setSession(HttpServletRequest request, String SessionName, T SessionValue) {
+    public static  <T> void setSession(HttpServletRequest request, String SessionName, T SessionValue) {
         HttpSession session = request.getSession();
         session.setAttribute(SessionName,SessionValue);
         // 设置 Session 7天过期
         session.setMaxInactiveInterval(60*60*24*7);
     }
 
-    public Object getSession(HttpServletRequest request, String sessionName) {
+    public static Object getSession(HttpServletRequest request, String sessionName) {
         HttpSession session = request.getSession();
         return session.getAttribute(sessionName);
     }
@@ -20,5 +20,17 @@ public class SessionUtil {
         HttpSession session = request.getSession();
         session.invalidate();
         return true;
+    }
+
+    public static ThreadLocal<Long> context = new ThreadLocal<>();
+
+    public static void setUserSign(Long userSign) {
+        context.set(userSign);
+    }
+    public static Long getUserSign() {
+        return context.get();
+    }
+    public static void shutdown() {
+        context.remove();
     }
 }

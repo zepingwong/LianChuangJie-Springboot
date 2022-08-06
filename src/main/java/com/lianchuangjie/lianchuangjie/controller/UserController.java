@@ -32,8 +32,7 @@ public class UserController {
         LoginResVO userInfo = new LoginResVO();
         BeanUtils.copyProperties(user, userInfo);
         // 登录成功
-        SessionUtil sessionUtil = new SessionUtil();
-        sessionUtil.setSession(request, "UserSign", userInfo.getUserSign());
+        SessionUtil.setSession(request, "User", user);
         return Result.success(userInfo);
     }
 }
