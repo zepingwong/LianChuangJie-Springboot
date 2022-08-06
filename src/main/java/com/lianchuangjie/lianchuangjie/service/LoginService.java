@@ -1,12 +1,13 @@
 package com.lianchuangjie.lianchuangjie.service;
 
+import com.lianchuangjie.lianchuangjie.dto.EmployeeLoginDTO;
 import com.lianchuangjie.lianchuangjie.entity.UserEntity;
 
 public interface LoginService {
     /**
      * @description 员工登录
-     * @param userEntity 员工信息
+     * @param employee 员工账号、密码
      * @return UserEntity
      */
-    UserEntity employeeLoginService(UserEntity userEntity);
+    UserEntity employeeLoginService(EmployeeLoginDTO employee);
 }

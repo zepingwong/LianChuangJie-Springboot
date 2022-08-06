@@ -2,11 +2,11 @@ package com.lianchuangjie.lianchuangjie.controller;
 
 import com.lianchuangjie.lianchuangjie.dto.EmployeeLoginDTO;
 import com.lianchuangjie.lianchuangjie.entity.UserEntity;
-import com.lianchuangjie.lianchuangjie.service.UserService;
+import com.lianchuangjie.lianchuangjie.service.LoginService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
+import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
 import com.lianchuangjie.lianchuangjie.vo.LoginResVO;
 import org.springframework.beans.BeanUtils;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @RestController
@@ -21,16 +22,18 @@ import javax.validation.Valid;
 @Validated
 public class UserController {
     @Resource
-    UserService userService;
-    @PostMapping("/login")
+    LoginService loginService;
+    @PostMapping("/login/employee")
     public Result<LoginResVO> loginController(
             @RequestBody @Valid EmployeeLoginDTO employee,
-            BindingResult result
+            HttpServletRequest request
     ) {
-        System.out.println(employee);
-        UserEntity user = userService.login(employee);
+        UserEntity user = loginService.employeeLoginService(employee);
         LoginResVO userInfo = new LoginResVO();
         BeanUtils.copyProperties(user, userInfo);
+        // 登录成功
+        SessionUtil sessionUtil = new SessionUtil();
+        sessionUtil.setSession(request, "UserSign", userInfo.getUserSign());
         return Result.success(userInfo);
     }
 }
