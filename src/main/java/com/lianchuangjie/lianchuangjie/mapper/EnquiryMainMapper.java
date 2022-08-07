@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.lianchuangjie.lianchuangjie.entity.EnquiryMainEntity;
 import com.lianchuangjie.lianchuangjie.searchDTO.EnquiryMainSearchDTO;
-import com.lianchuangjie.lianchuangjie.vo.EnquiryMainVO;
+import com.lianchuangjie.lianchuangjie.vo.EnquiryMainItemVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -28,8 +28,8 @@ public interface EnquiryMainMapper extends BaseMapper<EnquiryMainEntity> {
      */
     Boolean existByDocEntry(@Param("DocEntry") Long docEntry);
 
-    IPage<EnquiryMainVO> selectList(
-            IPage<EnquiryMainVO> page,
+    IPage<EnquiryMainItemVO> selectList(
+            IPage<EnquiryMainItemVO> page,
             @Param("searchDTO") EnquiryMainSearchDTO searchDTO
     );
 }

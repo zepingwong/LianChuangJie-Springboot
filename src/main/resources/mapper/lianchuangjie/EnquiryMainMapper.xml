@@ -9,7 +9,11 @@
         FROM T_OUDW
         WHERE UdoID = 'T_ICIN';
         SELECT @DataPur = [dbo].[UF_DataPurview](#{UserSign}, @FormID);
-        SELECT TOP (1) T0.*, T_OVTG.Name AS 'U_VatGroup', T_OVTG.Rate AS 'U_VatRate', MAX(U_ICIN1.ExpDate) AS 'InvalidDateMax', Min(U_ICIN1.ExpDate) AS 'InvalidDateMin'
+        SELECT TOP (1) T0.*,
+                       T_OVTG.Name          AS 'U_VatGroup',
+                       T_OVTG.Rate          AS 'U_VatRate',
+                       MAX(U_ICIN1.ExpDate) AS 'InvalidDateMax',
+                       Min(U_ICIN1.ExpDate) AS 'InvalidDateMin'
         FROM T_ICIN T0
                  LEFT JOIN T_OVTG ON T_OVTG.Code = T0.U_VatGroup
                  LEFT JOIN (SELECT DeptCode FROM T_OUDL WHERE UserSign = #{UserSign}) T2 ON T0.DeptCode = T2.DeptCode
@@ -21,7 +25,12 @@
                 OR T0.UserSign = #{UserSign} /*仅看自己，销售员或者制单人 等于 当前登录用户*/
                 OR (@DataPur = 'Dept' AND ISNULL(T2.DeptCode, '') != '') /*可看本部门，当前登录用户所属部门 包括 当前订单的所属部门*/
             )
-        GROUP BY T_OVTG.Name, T_OVTG.Rate, T0.DocEntry, UserSign, OwnerCode, DocStatus, CreateDate, UpdateTime, T0.ExpDate, InquiryDate, T0.DeptCode, TransType, Branchs, Attachment, CardCode, CardName, Remark, U_Buyer, U_ComCode, U_Delivery, U_DocCur, U_DocType, U_ItemCode, U_OrderType, U_PrjCode, U_SlpCode, U_UrgentType, U_VatGroup, U_Industries, PrjCode, U_UserName, U_DeptName, U_CusLevel, U_CusGroupCode, U_CusIndustries, U_SaleLevel, U_UserCode1, U_UserCode2, U_Region, U_DomainName, U_CntctCode, U_CardStatus, U_ShortCode, State, New, SourceType, T0.Year, U_TransaPlace
+        GROUP BY T_OVTG.Name, T_OVTG.Rate, T0.DocEntry, UserSign, OwnerCode, DocStatus, CreateDate, UpdateTime,
+                 T0.ExpDate, InquiryDate, T0.DeptCode, TransType, Branchs, Attachment, CardCode, CardName, Remark,
+                 U_Buyer, U_ComCode, U_Delivery, U_DocCur, U_DocType, U_ItemCode, U_OrderType, U_PrjCode, U_SlpCode,
+                 U_UrgentType, U_VatGroup, U_Industries, PrjCode, U_UserName, U_DeptName, U_CusLevel, U_CusGroupCode,
+                 U_CusIndustries, U_SaleLevel, U_UserCode1, U_UserCode2, U_Region, U_DomainName, U_CntctCode,
+                 U_CardStatus, U_ShortCode, State, New, SourceType, T0.Year, U_TransaPlace
     </select>
     <select id="existByDocEntry" resultType="java.lang.Boolean">
         IF (SELECT COUNT(*)
@@ -31,14 +40,27 @@
         ELSE
             SELECT 0
     </select>
-    <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.EnquiryMainVO">
-        SELECT T_ICIN.*
-            FROM T_ICIN
+    <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.EnquiryMainItemVO">
+        SELECT
+        T_ICIN.*,
+        COUNT ( U_ICIN1.LineNum ) AS 'EnquireSum',
+        SUM(IIF(U_ICIN1.PriceAfVAT IS NOT NULL, 1, 0)) AS 'EnquireComplete',
+        MIN(U_ICIN1.ExpDate) AS 'InvalidDateMin',
+        MAX(U_ICIN1.ExpDate) AS 'InvalidDateMax',
+        (SELECT COUNT(*) FROM T_ICIN1 WHERE T_ICIN1.U_Status = 'Y' AND T_ICIN1.DocEntry = T_ICIN.DocEntry) AS
+        'PurchaseReply'
+        FROM T_ICIN
+        LEFT JOIN U_ICIN1 ON T_ICIN.DocEntry = U_ICIN1.DocEntry
         <where>
             <if test="searchDTO.OwnerCode != null">
                 AND T_ICIN.OwnerCode = #{searchDTO.OwnerCode}
             </if>
         </where>
-
+        GROUP BY T_ICIN.DocEntry, UserSign, OwnerCode, DocStatus, CreateDate, UpdateTime, T_ICIN.ExpDate, InquiryDate,
+        DeptCode, TransType, Branchs, Attachment, CardCode, CardName, Remark, T_ICIN.U_Buyer, T_ICIN.U_ComCode,
+        T_ICIN.U_Delivery, U_DocCur, U_DocType, T_ICIN.U_ItemCode, U_OrderType, U_PrjCode, T_ICIN.U_SlpCode,
+        U_UrgentType, T_ICIN.U_VatGroup, T_ICIN.U_Industries, PrjCode, U_UserName, U_DeptName, U_CusLevel,
+        U_CusGroupCode, U_CusIndustries, T_ICIN.U_SaleLevel, U_UserCode1, U_UserCode2, U_Region, U_DomainName,
+        U_CntctCode, T_ICIN.U_CardStatus, T_ICIN.U_ShortCode, State, New, SourceType, T_ICIN.Year, U_TransaPlace
     </select>
 </mapper>

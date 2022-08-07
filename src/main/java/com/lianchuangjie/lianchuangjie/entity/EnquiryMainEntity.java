@@ -37,7 +37,7 @@ public class EnquiryMainEntity {
     private Integer TransType = 34002;
     // U_Delivery
     private String uDelivery;
-    // 处理情况 State
+    // 处理情况-报价次数 State
     private Integer State;
     // New
     private String New;
