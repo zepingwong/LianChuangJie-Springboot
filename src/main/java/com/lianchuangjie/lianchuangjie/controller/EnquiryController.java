@@ -1,24 +1,50 @@
 package com.lianchuangjie.lianchuangjie.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lianchuangjie.lianchuangjie.config.Authentication;
-import com.lianchuangjie.lianchuangjie.service.EnquiryService;
+import com.lianchuangjie.lianchuangjie.searchDTO.EnquiryMainSearchDTO;
+import com.lianchuangjie.lianchuangjie.service.EnquiryMainService;
+import com.lianchuangjie.lianchuangjie.service.EnquirySubService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
+import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
 import com.lianchuangjie.lianchuangjie.vo.EnquiryMainVO;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.lianchuangjie.lianchuangjie.vo.EnquirySubVO;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @RestController
 @RequestMapping("/enquiry")
 public class EnquiryController {
     @Resource
-    EnquiryService enquiryService;
+    EnquiryMainService enquiryMainService;
+    @Resource
+    EnquirySubService enquirySubService;
+    @GetMapping("/main")
+    @Authentication(sale = true)
+    public Result<Page<EnquiryMainVO>> getEnquiryMainListController(
+            @RequestParam(defaultValue = "#{null}", value = "page") Integer page,
+            @RequestParam(defaultValue = "#{null}",value = "size") Integer size
+    ) {
+        EnquiryMainSearchDTO searchCondition = new EnquiryMainSearchDTO();
+        searchCondition.setPage(page);
+        searchCondition.setSize(size);
+        searchCondition.setOwnerCode(SessionUtil.getUserSign());
+        Page<EnquiryMainVO> pages = enquiryMainService.getListService(searchCondition);
+        return Result.success(pages);
+    }
+
     @GetMapping("/main/{docEntry}")
     @Authentication(sale = true)
     public Result<EnquiryMainVO> getEnquiryMainInfoController(@PathVariable Long docEntry) {
-        return Result.success(enquiryService.getEnquiryMainService(docEntry));
+        return Result.success(enquiryMainService.getMainService(docEntry));
+    }
+    @GetMapping("/sub")
+    @Authentication(sale = true)
+    public Result<List<EnquirySubVO>> enquirySubController(
+            @RequestParam(defaultValue = "#{null}", value = "DocEntry") Long docEntry) {
+        List<EnquirySubVO> list = enquirySubService.getListService(docEntry);
+        return Result.success(list);
     }
 }

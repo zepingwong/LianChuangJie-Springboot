@@ -22,6 +22,12 @@ public class EnquiryMainVO {
     // 询价单编号-主键 DocEntry
     @JsonProperty("DocEntry")
     private Long DocEntry;
+    // 销售部门名称 U_DeptName
+    @JsonProperty("U_DeptName")
+    private String uDeptName;
+    /**
+     * 客户信息
+     */
     // 客户编号 CardCode
     @JsonProperty("CardCode")
     private String CardCode;
@@ -31,15 +37,21 @@ public class EnquiryMainVO {
     // 需求客户性质名称 U_CusGroupCode
     @JsonProperty("U_CusGroupCode")
     private String uCusGroupCode;
-    // 销售部门名称 U_DeptName
-    @JsonProperty("U_DeptName")
-    private String uDeptName;
-    // 需求货币 U_DocCur
-    @JsonProperty("U_DocCur")
-    private String uDocCur;
-     // 客户行业领域名称 U_DomainName
+    // 客户行业领域名称 U_DomainName
     @JsonProperty("U_DomainName")
     private String uDomainName;
+    // 需求客户等级名称 U_CusLevel
+    @JsonProperty("U_CusLevel")
+    private String uCusLevel;
+    // 交易地点 U_TransaPlace
+    @JsonProperty("U_TransaPlace")
+    private String uTransaPlace;
+    /**
+     * @description 需求信息
+     */
+    // 需求货币 Currency
+    @JsonProperty("Currency")
+    private String Currency;
     // 销售员姓名 U_UserName
     @JsonProperty("U_UserName")
     private String uUserName;
@@ -52,13 +64,8 @@ public class EnquiryMainVO {
     private Date InvalidDateMax;
     // 失效时间下限 InvalidDateMin
     @JsonProperty("InvalidDateMin")
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date InvalidDateMin;
-    // 需求客户等级名称 U_CusLevel
-    @JsonProperty("U_CusLevel")
-    private String uCusLevel;
-    // 交易地点 U_TransaPlace
-    @JsonProperty("U_TransaPlace")
-    private String uTransaPlace;
     // 税率税点 U_VatRate
     @JsonProperty("U_VatRate")
     private BigDecimal uVatRate;

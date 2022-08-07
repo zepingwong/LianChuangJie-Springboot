@@ -10,13 +10,13 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * 询价单主表实体类
+ * 客户询价主表
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName("T_ICIN")
-public class EnquiryEntity {
+public class EnquiryMainEntity {
     // BOM单编号-主键 T_ICIN.DocEntry
     private Long DocEntry;
     // 制单人编号 T_ICIN.UserSign
@@ -27,6 +27,12 @@ public class EnquiryEntity {
     private Date UpdateTime;
     // 询价日期 InquiryDate
     private Date InquiryDate = new Date();
+    // 失效时间上限 InvalidDateMax
+    @TableField(exist = false)
+    private Date InvalidDateMax;
+    // 失效时间下限 InvalidDateMin
+    @TableField(exist = false)
+    private Date InvalidDateMin;
     // 单据类型代码
     private Integer TransType = 34002;
     // U_Delivery

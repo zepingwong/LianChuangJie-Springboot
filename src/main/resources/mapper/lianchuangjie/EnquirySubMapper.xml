@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lianchuangjie.lianchuangjie.mapper.EnquirySubMapper">
+
+    <select id="searchAllByDocEntry" resultType="com.lianchuangjie.lianchuangjie.entity.EnquirySubEntity">
+        SELECT U_ICIN1.*
+            FROM U_ICIN1
+            LEFT JOIN T_ICIN1 ON U_ICIN1.BaseEntry = T_ICIN1.DocEntry AND U_ICIN1.BaseLine = T_ICIN1.LineNum
+            WHERE U_ICIN1.DocEntry = #{DocEntry}
+    </select>
+</mapper>
