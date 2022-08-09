@@ -1,10 +1,7 @@
 package com.lianchuangjie.lianchuangjie.controller;
 
 import com.lianchuangjie.lianchuangjie.config.Authentication;
-import com.lianchuangjie.lianchuangjie.service.ClientService;
-import com.lianchuangjie.lianchuangjie.service.ClienteleGroupService;
-import com.lianchuangjie.lianchuangjie.service.ClienteleIndustryService;
-import com.lianchuangjie.lianchuangjie.service.ClienteleRegionService;
+import com.lianchuangjie.lianchuangjie.service.*;
 import com.lianchuangjie.lianchuangjie.utils.Result;
 import com.lianchuangjie.lianchuangjie.vo.*;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +14,8 @@ import java.util.List;
 public class ClientController {
     @Resource
     ClientService clientService;
+    @Resource
+    ClienteleLevelService clienteleLevelService;
     @Resource
     ClienteleGroupService clienteleGroupService;
     @Resource
@@ -72,6 +71,14 @@ public class ClientController {
     @Authentication(buyer = true,sale = true)
     Result<List<ClienteleIndustryItemVO>> getClienteleIndustryController(){
         List<ClienteleIndustryItemVO> list = clienteleIndustryService.getParentClienteleIndustryListService("0");
+        return Result.success(list, "success");
+    }
+    @GetMapping("/level")
+    @Authentication(buyer = true,sale = true)
+    public Result<List<?>> getClienteleLevelController(
+            @RequestParam(defaultValue = "#{null}", value = "Type") String Type
+    ){
+        List<?> list = clienteleLevelService.getClienteleLevelListService(Type);
         return Result.success(list, "success");
     }
 }
