@@ -2,6 +2,7 @@ package com.lianchuangjie.lianchuangjie.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lianchuangjie.lianchuangjie.config.Authentication;
+import com.lianchuangjie.lianchuangjie.dto.EnquirySubItemDTO;
 import com.lianchuangjie.lianchuangjie.searchDTO.EnquiryMainSearchDTO;
 import com.lianchuangjie.lianchuangjie.service.EnquiryMainService;
 import com.lianchuangjie.lianchuangjie.service.EnquirySubService;
@@ -60,5 +61,14 @@ public class EnquiryController {
             @RequestParam(defaultValue = "#{null}", value = "DocEntry") Long docEntry) {
         List<EnquirySubVO> list = enquirySubService.getListService(docEntry);
         return Result.success(list);
+    }
+
+    @PutMapping("/sub")
+    @Authentication(sale = true)
+     public Result<Boolean> saveEnquirySubController(
+             @RequestBody List<EnquirySubItemDTO> enquirySubItemDTOList
+    ) {
+        System.out.println(enquirySubItemDTOList);
+        return null;
     }
 }
