@@ -32,19 +32,19 @@ public class ClientInfoVO {
     // U_Level
     @JsonProperty("U_Level")
     private Integer uLevel;
-    // 业务合作伙伴等级名称 U_CusLevel
+    // 业务合作伙伴等级名称 U_OHDJ.Level
     @JsonProperty("U_CusLevel")
     private String uCusLevel;
     // 业务合作伙伴区域代码 U_Region
     @JsonProperty("U_Region")
     private Integer uRegion;
-    // 客户区域名称
+    // 客户区域名称 U_OADD.DoMain
     @JsonProperty("DoMain")
     private String DoMain;
-    // 业务合作伙伴性质代码
+    // 业务合作伙伴性质代码 T_OCRD.GroupCode
     @JsonProperty("GroupCode")
     private Integer GroupCode;
-    // 业务合作伙伴性质名称 U_GroupName
+    // 业务合作伙伴性质名称 T_OCRG.Name
     @JsonProperty("U_GroupName")
     private String uGroupName;
     // 业务合作伙伴行业领域代码 U_Industries
@@ -62,7 +62,7 @@ public class ClientInfoVO {
     // 业务合作伙伴默认税率 VatGroup
     @JsonProperty("VatGroup")
     private String VatGroup;
-    // Currency+VatGroup
+    // Currency+VatGroup+VatRate
     @JsonProperty("CurVat")
     private String CurVat;
     // 业务合作伙伴所属部门编号 DeptCode

@@ -1,5 +1,6 @@
 package com.lianchuangjie.lianchuangjie.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,10 +23,13 @@ public class ClienteleEntity {
     private Long OwnerCode;
     // 业务合作伙伴等级代码 U_Level
     private Integer uLevel;
-    // U_CusLevel
+    // 业务合作伙伴等级名称 U_CusLevel
     private String uCusLevel;
     // 业务合作伙伴区域代码 U_Region
     private Integer uRegion;
+    // 业务合作伙伴地区名称 U_OADD.DoMain
+    @TableField(exist = false)
+    private String DoMain;
     // 业务合作伙伴性质代码 GroupCode
     private Integer GroupCode;
      // 业务合作伙伴性质名称 U_GroupName
@@ -48,4 +52,8 @@ public class ClienteleEntity {
     private String CardType;
     // 业务合作伙伴创建时间 CreateDate
     private Date CreateDate;
+    // Currency+VatGroup+VatRate
+    @TableField(exist = false)
+    private String CurVat;
+
 }
