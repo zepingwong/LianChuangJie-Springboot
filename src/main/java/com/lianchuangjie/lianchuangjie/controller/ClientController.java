@@ -3,12 +3,10 @@ package com.lianchuangjie.lianchuangjie.controller;
 import com.lianchuangjie.lianchuangjie.config.Authentication;
 import com.lianchuangjie.lianchuangjie.service.ClientService;
 import com.lianchuangjie.lianchuangjie.service.ClienteleGroupService;
+import com.lianchuangjie.lianchuangjie.service.ClienteleIndustryService;
 import com.lianchuangjie.lianchuangjie.service.ClienteleRegionService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
-import com.lianchuangjie.lianchuangjie.vo.ClientInfoVO;
-import com.lianchuangjie.lianchuangjie.vo.ClienteleGroupItemVO;
-import com.lianchuangjie.lianchuangjie.vo.ClienteleItemVO;
-import com.lianchuangjie.lianchuangjie.vo.ClienteleRegionItemVO;
+import com.lianchuangjie.lianchuangjie.vo.*;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -23,6 +21,8 @@ public class ClientController {
     ClienteleGroupService clienteleGroupService;
     @Resource
     ClienteleRegionService clienteleRegionService;
+    @Resource
+    ClienteleIndustryService clienteleIndustryService;
 
     @GetMapping("/client")
     @Authentication(sale = true)
@@ -62,6 +62,16 @@ public class ClientController {
     @Authentication(buyer = true, sale = true)
     Result<List<ClienteleRegionItemVO>> getParentRegionController() {
         List<ClienteleRegionItemVO> list = clienteleRegionService.getParentRegionService(0);
+        return Result.success(list, "success");
+    }
+    /**
+     * @description 获得业务合作伙伴行业领域列表接口
+     * @return List<ClienteleIndustry>
+     */
+    @GetMapping("/industry")
+    @Authentication(buyer = true,sale = true)
+    Result<List<ClienteleIndustryItemVO>> getClienteleIndustryController(){
+        List<ClienteleIndustryItemVO> list = clienteleIndustryService.getParentClienteleIndustryListService("0");
         return Result.success(list, "success");
     }
 }
