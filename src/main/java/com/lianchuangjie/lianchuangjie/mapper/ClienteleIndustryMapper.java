@@ -6,10 +6,12 @@ import com.lianchuangjie.lianchuangjie.entity.ClienteleIndustryEntity;
 import com.lianchuangjie.lianchuangjie.vo.ClienteleIndustryItemVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Mapper
+@Repository
 public interface ClienteleIndustryMapper extends BaseMapper<ClienteleIndustryEntity> {
     List<ClienteleIndustryItemVO> selectList(@Param("ew") QueryWrapper<ClienteleIndustryItemVO> queryWrapper);
 }
