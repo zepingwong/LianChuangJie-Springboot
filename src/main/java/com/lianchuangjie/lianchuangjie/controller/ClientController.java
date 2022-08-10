@@ -16,7 +16,9 @@ import java.util.Objects;
 @RequestMapping("/clientele")
 public class ClientController {
     @Resource
-    ClientService clientService;
+    ClienteleClientService clienteleClientService;
+    @Resource
+    ClienteleSupplierService clienteleSupplierService;
     @Resource
     ClienteleClientLevelService clienteleClientLevelService;
     @Resource
@@ -33,16 +35,34 @@ public class ClientController {
     public Result<List<ClienteleItemVO>> getClientListController(
             @RequestParam(defaultValue = "#{null}", value = "CardName") String CardName
     ) {
-        List<ClienteleItemVO> list = clientService.queryListService(CardName);
+        List<ClienteleItemVO> list = clienteleClientService.list(CardName);
         return Result.success(list, "success");
     }
 
     @GetMapping("/client/{CardCode}")
-    public Result<ClientInfoVO> getClientInfoController(
+    @Authentication(sale = true)
+    public Result<ClienteleInfoVO> getClientInfoController(
             @PathVariable String CardCode
     ) {
-        ClientInfoVO clientInfoVO = clientService.queryInfoService(CardCode);
-        return Result.success(clientInfoVO, "success");
+        ClienteleInfoVO clienteleInfoVO = clienteleClientService.getOne(CardCode);
+        return Result.success(clienteleInfoVO, "success");
+    }
+
+    @GetMapping("/supplier")
+    @Authentication(buyer = true)
+    public Result<List<ClienteleItemVO>> getSupplierListController(
+            @RequestParam(defaultValue = "#{null}", value = "CardName") String CardName
+    ) {
+        List<ClienteleItemVO> list = clienteleSupplierService.list(CardName);
+        return Result.success(list, "success");
+    }
+    @GetMapping("/supplier/{CardCode}")
+    @Authentication(buyer = true)
+    public Result<ClienteleInfoVO> getSupplierInfoController(
+            @PathVariable String CardCode
+    ) {
+        ClienteleInfoVO clienteleInfoVO = clienteleSupplierService.getOne(CardCode);
+        return Result.success(clienteleInfoVO, "success");
     }
 
     /**
@@ -68,7 +88,9 @@ public class ClientController {
     @GetMapping("/parentregion")
     @Authentication(buyer = true, sale = true)
     Result<List<ClienteleRegionItemVO>> getParentRegionController() {
-        List<ClienteleRegionItemVO> list = clienteleRegionService.getParentRegionService(0);
+        QueryWrapper<ClienteleRegionItemVO> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("ParentCode", 0);
+        List<ClienteleRegionItemVO> list = clienteleRegionService.list(queryWrapper);
         return Result.success(list, "success");
     }
 
