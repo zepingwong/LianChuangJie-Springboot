@@ -13,13 +13,13 @@ import java.util.Date;
 @NoArgsConstructor
 @TableName("T_OCRD")
 public class ClienteleEntity {
-     // 业务合作伙伴代码-主键 CardCode
+    // 业务合作伙伴代码-主键 CardCode
     private String CardCode;
-     // 业务合作伙伴名称 CardName
+    // 业务合作伙伴名称 CardName
     private String CardName;
-     // 业务合作伙伴简称 ShortName
+    // 业务合作伙伴简称 ShortName
     private String ShortName;
-     // 业务合作伙伴所属人编号 OwnerCode
+    // 业务合作伙伴所属人编号 OwnerCode
     private Long OwnerCode;
     // 业务合作伙伴等级代码 U_Level
     private Integer uLevel;
@@ -32,7 +32,7 @@ public class ClienteleEntity {
     private String DoMain;
     // 业务合作伙伴性质代码 GroupCode
     private Integer GroupCode;
-     // 业务合作伙伴性质名称 U_GroupName
+    // 业务合作伙伴性质名称 U_GroupName
     private String uGroupName;
     // 业务合作伙伴行业领域代码 U_Industries
     private String uIndustries;

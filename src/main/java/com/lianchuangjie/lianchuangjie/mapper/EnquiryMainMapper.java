@@ -28,8 +28,20 @@ public interface EnquiryMainMapper extends BaseMapper<EnquiryMainEntity> {
      */
     Boolean existByDocEntry(@Param("DocEntry") Long docEntry);
 
+    /**
+     * 查询询价单主表列表
+     * @param page 分页查询
+     * @param searchDTO 查询条件
+     * @return page
+     */
     IPage<EnquiryMainItemVO> selectList(
             IPage<EnquiryMainItemVO> page,
             @Param("searchDTO") EnquiryMainSearchDTO searchDTO
     );
+
+    /**
+     * 查询最大的文档编号
+     * @return
+     */
+    Long selectMaxDocEntry();
 }

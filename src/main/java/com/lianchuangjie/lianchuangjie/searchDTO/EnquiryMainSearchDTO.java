@@ -28,16 +28,18 @@ public class EnquiryMainSearchDTO {
      * @maxValue 50
      */
     @NotNull(message = "每页显示数量不能为空")
-    @Max(value = 50,message = "每页最多显示50条数据")
+    @Max(value = 50, message = "每页最多显示50条数据")
     private Integer size;
     /**
      * @description 销售员编号
      * @defaultValue 当前登录用户编号
      */
     private Long OwnerCode;
+
     public void setOwnerCode(Long OwnerCode) {
         this.OwnerCode = OwnerCode != null ? OwnerCode : SessionUtil.getUserSign();
     }
+
     /**
      * @description 询价单位编号
      */

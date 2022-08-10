@@ -15,6 +15,7 @@ public interface ClientMapper extends BaseMapper<ClienteleEntity> {
             @Param("CardName") String CardName,
             @Param("UserSign") Long UserSign
     );
+
     ClientInfoVO queryByCardCode(
             @Param("CardCode") String CardCode,
             @Param("UserSign") Long UserSign

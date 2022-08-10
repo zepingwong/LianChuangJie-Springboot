@@ -1,10 +1,10 @@
 package com.lianchuangjie.lianchuangjie.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 /**
  * @description 业务合作伙伴地区代码表
  */
@@ -19,6 +19,6 @@ public class ClienteleRegionEntity {
     private String DoMain;
     // 一级地区代码
     private Integer ParentCode;
-     // 简称-只有一级地区有简称
+    // 简称-只有一级地区有简称
     private String ShortName;
 }

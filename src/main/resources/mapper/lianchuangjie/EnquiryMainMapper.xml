@@ -63,4 +63,8 @@
         U_CusGroupCode, U_CusIndustries, T_ICIN.U_SaleLevel, U_UserCode1, U_UserCode2, U_Region, U_DomainName,
         U_CntctCode, T_ICIN.U_CardStatus, T_ICIN.U_ShortCode, State, New, SourceType, T_ICIN.Year, U_TransaPlace
     </select>
+    <select id="selectMaxDocEntry" resultType="java.lang.Long">
+        SELECT MAX(DocEntry)
+        FROM T_ICIN
+    </select>
 </mapper>

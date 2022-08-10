@@ -4,8 +4,8 @@
 
     <select id="searchAllByDocEntry" resultType="com.lianchuangjie.lianchuangjie.entity.EnquirySubEntity">
         SELECT U_ICIN1.*
-            FROM U_ICIN1
-            LEFT JOIN T_ICIN1 ON U_ICIN1.BaseEntry = T_ICIN1.DocEntry AND U_ICIN1.BaseLine = T_ICIN1.LineNum
-            WHERE U_ICIN1.DocEntry = #{DocEntry}
+        FROM U_ICIN1
+                 LEFT JOIN T_ICIN1 ON U_ICIN1.BaseEntry = T_ICIN1.DocEntry AND U_ICIN1.BaseLine = T_ICIN1.LineNum
+        WHERE U_ICIN1.DocEntry = #{DocEntry}
     </select>
 </mapper>

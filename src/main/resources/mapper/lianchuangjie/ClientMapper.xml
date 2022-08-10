@@ -62,9 +62,9 @@
 
         SELECT T0.*,
                T5.DoMain,
-               T6.Name       AS 'U_GroupName',
-               T7.DomainName AS 'U_DomainName',
-               T8.Level      AS 'U_CusLevel',
+               T6.Name                                                            AS 'U_GroupName',
+               T7.DomainName                                                      AS 'U_DomainName',
+               T8.Level                                                           AS 'U_CusLevel',
                (T0.Currency + '+' + T0.VatGroup + '+' + CAST(T9.Rate AS VARCHAR)) AS 'CurVat'
         FROM T_OCRD T0
                  LEFT JOIN T_OUSI T1 ON T1.UserSign = T0.OwnerCode
