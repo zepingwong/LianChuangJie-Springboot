@@ -1,5 +1,6 @@
 package com.lianchuangjie.lianchuangjie.mapper;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.lianchuangjie.lianchuangjie.entity.ClienteleGroupEntity;
 import com.lianchuangjie.lianchuangjie.vo.ClienteleGroupItemVO;
@@ -10,5 +11,5 @@ import java.util.List;
 
 @Mapper
 public interface ClienteleGroupMapper extends BaseMapper<ClienteleGroupEntity> {
-    List<ClienteleGroupItemVO> queryByType(@Param("Type") String Type);
+    List<ClienteleGroupItemVO> selectList(@Param("ew") QueryWrapper<ClienteleGroupItemVO> queryWrapper);
 }
