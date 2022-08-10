@@ -21,14 +21,16 @@ public class HomeController {
     ToDoService toDoService;
     @Resource
     HomeService homeService;
+
     @GetMapping("/todo")
-    @Authentication(buyer = true,sale = true)
+    @Authentication(buyer = true, sale = true)
     public Result<Map<String, Long>> todoController() {
         Map<String, Long> query = toDoService.getTodoNum(SessionUtil.getUserSign());
         return Result.success(query);
     }
+
     @GetMapping("/chart")
-    @Authentication(buyer = true,sale = true)
+    @Authentication(buyer = true, sale = true)
     public Result<HashMap<String, List<Map<String, String>>>> ChartInfoController() {
         HashMap<String, List<Map<String, String>>> data = new HashMap<>();
         data.put("salesRank", homeService.getSalesRankService());

@@ -23,6 +23,7 @@ import javax.validation.Valid;
 public class UserController {
     @Resource
     LoginService loginService;
+
     @PostMapping("/login/employee")
     public Result<LoginResVO> loginController(
             @RequestBody @Valid EmployeeLoginDTO employee,

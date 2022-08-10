@@ -30,7 +30,8 @@ public interface EnquiryMainMapper extends BaseMapper<EnquiryMainEntity> {
 
     /**
      * 查询询价单主表列表
-     * @param page 分页查询
+     *
+     * @param page      分页查询
      * @param searchDTO 查询条件
      * @return page
      */
@@ -41,7 +42,8 @@ public interface EnquiryMainMapper extends BaseMapper<EnquiryMainEntity> {
 
     /**
      * 查询最大的文档编号
-     * @return
+     *
+     * @return max docEntry
      */
     Long selectMaxDocEntry();
 }
