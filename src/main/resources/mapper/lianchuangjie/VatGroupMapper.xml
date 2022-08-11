@@ -3,6 +3,16 @@
 <mapper namespace="com.lianchuangjie.lianchuangjie.mapper.VatGroupMapper">
     <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.VatGroupVO">
         SELECT *
-        FROM T_OVTG ${ew.getCustomSqlSegment()}
+        FROM T_OVTG
+        <where>
+            ${ew.getSqlSegment()}
+        </where>
+    </select>
+    <select id="selectOne" resultType="com.lianchuangjie.lianchuangjie.vo.VatGroupVO">
+        SELECT *
+        FROM T_OVTG
+        <where>
+            ${ew.getSqlSegment()}
+        </where>
     </select>
 </mapper>

@@ -3,6 +3,9 @@
 <mapper namespace="com.lianchuangjie.lianchuangjie.mapper.ClienteleSupplierLevelMapper">
     <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.ClienteleLevelItemVO">
         SELECT *
-        FROM U_OGHZ ${ew.getCustomSqlSegment()}
+        FROM U_OGHZ
+        <where>
+            ${ew.getSqlSegment()}
+        </where>
     </select>
 </mapper>

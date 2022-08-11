@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -46,4 +47,24 @@ public class VatCurConfEntity {
      */
     @TableField(value = "UpdateTime")
     private Date updateTime;
+    /**
+     * @description 税点
+     */
+    @TableField(exist = false)
+    private BigDecimal vatRate;
+    /**
+     * @description 类型-I代表进项，O代表销项
+     */
+    @TableField(exist = false)
+    private String type;
+    /**
+     * @description 下拉列表 value
+     */
+    @TableField(exist = false)
+    private String value;
+    /**
+     * @description 下拉列表 value
+     */
+    @TableField(exist = false)
+    private String label;
 }

@@ -3,6 +3,9 @@
 <mapper namespace="com.lianchuangjie.lianchuangjie.mapper.ClienteleRegionMapper">
     <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.ClienteleRegionItemVO">
         SELECT *
-        FROM U_OADD ${ew.getCustomSqlSegment()}
+        FROM U_OADD
+        <where>
+            ${ew.getSqlSegment()}
+        </where>
     </select>
 </mapper>

@@ -14,4 +14,5 @@ import java.util.List;
 @Repository
 public interface VatGroupMapper extends BaseMapper<VatGroupEntity> {
     List<VatGroupVO> selectList(@Param("ew") QueryWrapper<VatGroupVO> queryWrapper);
+    VatGroupVO selectOne(@Param("ew") QueryWrapper<VatGroupVO> queryWrapper);
 }

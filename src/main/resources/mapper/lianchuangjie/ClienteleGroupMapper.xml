@@ -3,6 +3,9 @@
 <mapper namespace="com.lianchuangjie.lianchuangjie.mapper.ClienteleGroupMapper">
     <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.ClienteleGroupItemVO">
         SELECT *
-        FROM T_OCRG ${ew.getCustomSqlSegment()}
+        FROM T_OCRG
+        <where>
+            ${ew.getSqlSegment()}
+        </where>
     </select>
 </mapper>

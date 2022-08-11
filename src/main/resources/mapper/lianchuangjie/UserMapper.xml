@@ -4,17 +4,19 @@
     <select id="getOne" resultType="com.lianchuangjie.lianchuangjie.entity.UserEntity">
         SELECT T_OUSI.*, T_OCDP.Name AS 'DftDeptName'
         FROM T_OUSI
-                 LEFT JOIN T_OCDP ON T_OUSI.DftDept = T_OCDP.DeptCode
-            ${ew.getCustomSqlSegment()}
+        LEFT JOIN T_OCDP ON T_OUSI.DftDept = T_OCDP.DeptCode
+        <where>
+            ${ew.getSqlSegment()}
+        </where>
     </select>
     <select id="getInfo" resultType="com.lianchuangjie.lianchuangjie.vo.UserInfoVO">
 
 
-
-
         SELECT T_OUSI.*, T_OCDP.Name AS 'DftDeptName'
         FROM T_OUSI
-                 LEFT JOIN T_OCDP ON T_OUSI.DftDept = T_OCDP.DeptCode
-            ${ew.getCustomSqlSegment()}
+        LEFT JOIN T_OCDP ON T_OUSI.DftDept = T_OCDP.DeptCode
+        <where>
+            ${ew.getSqlSegment()}
+        </where>
     </select>
 </mapper>

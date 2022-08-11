@@ -19,4 +19,8 @@ public class VatGroupServiceImpl extends ServiceImpl<VatGroupMapper, VatGroupEnt
     public List<VatGroupVO> list(QueryWrapper<VatGroupVO> queryWrapper) {
         return vatGroupMapper.selectList(queryWrapper);
     }
+    @Override
+    public VatGroupVO getOne(QueryWrapper<VatGroupVO> queryWrapper) {
+        return vatGroupMapper.selectOne(queryWrapper);
+    }
 }

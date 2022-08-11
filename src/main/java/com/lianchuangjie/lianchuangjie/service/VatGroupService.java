@@ -9,4 +9,5 @@ import java.util.List;
 
 public interface VatGroupService extends IService<VatGroupEntity> {
     List<VatGroupVO> list(QueryWrapper<VatGroupVO> queryWrapper);
+    VatGroupVO getOne(QueryWrapper<VatGroupVO> queryWrapper);
 }
