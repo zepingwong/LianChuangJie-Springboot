@@ -4,9 +4,11 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lianchuangjie.lianchuangjie.config.Authentication;
 import com.lianchuangjie.lianchuangjie.dto.EnquirySubItemDTO;
 import com.lianchuangjie.lianchuangjie.searchDTO.EnquiryMainSearchDTO;
+import com.lianchuangjie.lianchuangjie.service.EnquiryHotwordsService;
 import com.lianchuangjie.lianchuangjie.service.EnquiryMainService;
 import com.lianchuangjie.lianchuangjie.service.EnquirySubService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
+import com.lianchuangjie.lianchuangjie.vo.EnquiryHotwordsVO;
 import com.lianchuangjie.lianchuangjie.vo.EnquiryMainInfoVO;
 import com.lianchuangjie.lianchuangjie.vo.EnquiryMainItemVO;
 import com.lianchuangjie.lianchuangjie.vo.EnquirySubVO;
@@ -23,6 +25,8 @@ public class EnquiryController {
     EnquiryMainService enquiryMainService;
     @Resource
     EnquirySubService enquirySubService;
+    @Resource
+    EnquiryHotwordsService enquiryHotwordsService;
     @GetMapping("/main")
     @Authentication(sale = true)
     public Result<Page<EnquiryMainItemVO>> getEnquiryMainListController(
@@ -70,5 +74,16 @@ public class EnquiryController {
     ) {
         System.out.println(enquirySubItemDTOList);
         return null;
+    }
+
+    /**
+     * @description 查询热搜词
+     * @return 排名前两个的热搜词
+     */
+    @GetMapping("hotwords")
+    @Authentication(sale = true)
+    public Result<List<EnquiryHotwordsVO>> getEnquiryHotwords() {
+        List<EnquiryHotwordsVO> list = enquiryHotwordsService.getList();
+        return Result.success(list);
     }
 }
