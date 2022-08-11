@@ -3,7 +3,6 @@ package com.lianchuangjie.lianchuangjie.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lianchuangjie.lianchuangjie.entity.ClienteleEntity;
 import com.lianchuangjie.lianchuangjie.mapper.ClienteleClientMapper;
-import com.lianchuangjie.lianchuangjie.mapper.ClienteleMapper;
 import com.lianchuangjie.lianchuangjie.service.ClienteleClientService;
 import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
 import com.lianchuangjie.lianchuangjie.vo.ClienteleInfoVO;
@@ -13,7 +12,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
 @Service
-public class ClienteleClientServiceImpl extends ServiceImpl<ClienteleMapper, ClienteleEntity> implements ClienteleClientService {
+public class ClienteleClientServiceImpl extends ServiceImpl<ClienteleClientMapper, ClienteleEntity> implements ClienteleClientService {
     @Resource
     ClienteleClientMapper clienteleClientMapper;
     @Override

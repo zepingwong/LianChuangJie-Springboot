@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lianchuangjie.lianchuangjie.mapper.UserMapper">
-    <select id="selectByUserCode" resultType="com.lianchuangjie.lianchuangjie.entity.UserEntity">
-        SELECT TOP(1) T_OUSI.*,T_OCDP.Name AS 'DftDeptName'
+    <select id="getOne" resultType="com.lianchuangjie.lianchuangjie.entity.UserEntity">
+        SELECT T_OUSI.*, T_OCDP.Name AS 'DftDeptName'
         FROM T_OUSI
                  LEFT JOIN T_OCDP ON T_OUSI.DftDept = T_OCDP.DeptCode
-        WHERE UserCode = #{UserCode}
+            ${ew.getCustomSqlSegment()}
+    </select>
+    <select id="getInfo" resultType="com.lianchuangjie.lianchuangjie.vo.UserInfoVO">
+
+
+
+
+        SELECT T_OUSI.*, T_OCDP.Name AS 'DftDeptName'
+        FROM T_OUSI
+                 LEFT JOIN T_OCDP ON T_OUSI.DftDept = T_OCDP.DeptCode
+            ${ew.getCustomSqlSegment()}
     </select>
 </mapper>

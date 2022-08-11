@@ -1,5 +1,6 @@
 package com.lianchuangjie.lianchuangjie.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lianchuangjie.lianchuangjie.dto.EmployeeLoginDTO;
 import com.lianchuangjie.lianchuangjie.entity.UserEntity;
 import com.lianchuangjie.lianchuangjie.exception.ResponseEnum;
@@ -15,8 +16,10 @@ public class LoginServiceImpl implements LoginService {
     UserMapper userMapper;
     @Override
     public UserEntity employeeLoginService(EmployeeLoginDTO employee) {
+        QueryWrapper<UserEntity> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("UserCode", employee.getUserCode());
         // 根据 UserCode 查询用户
-        UserEntity user = userMapper.selectByUserCode(employee.getUserCode());
+        UserEntity user = userMapper.getOne(queryWrapper);
         // 断言用户不为空
         ResponseEnum.ISNULL.assertNotNull(user, "员工账号不存在");
         // 密码错误

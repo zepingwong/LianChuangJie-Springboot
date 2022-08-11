@@ -1,5 +1,6 @@
 package com.lianchuangjie.lianchuangjie.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,12 +12,15 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("U_OGHZ")
+@TableName("U_OBPL")
 public class CompanyLetterheadEntity {
     // 公司编号
-    private Long DocEntry;
+    @TableField(value = "DocEntry")
+    private Long docEntry;
     // 公司代码
-    private String ComCode;
+    @TableField(value = "ComCode")
+    private String comCode;
     // 公司名称
-    private String Company;
+    @TableField(value = "Company")
+    private String company;
 }
