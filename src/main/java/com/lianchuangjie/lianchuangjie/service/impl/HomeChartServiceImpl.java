@@ -1,14 +1,14 @@
 package com.lianchuangjie.lianchuangjie.service.impl;
 
 import com.lianchuangjie.lianchuangjie.mapper.HomeMapper;
-import com.lianchuangjie.lianchuangjie.service.HomeService;
+import com.lianchuangjie.lianchuangjie.service.HomeChartService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 @Service
-public class HomeServiceImpl implements HomeService {
+public class HomeChartServiceImpl implements HomeChartService {
     @Resource
     HomeMapper homeMapper;
     @Override

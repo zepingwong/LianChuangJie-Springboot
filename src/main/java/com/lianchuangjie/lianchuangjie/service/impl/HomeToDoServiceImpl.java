@@ -3,14 +3,14 @@ package com.lianchuangjie.lianchuangjie.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lianchuangjie.lianchuangjie.entity.EnquiryMainEntity;
 import com.lianchuangjie.lianchuangjie.mapper.EnquiryMainMapper;
-import com.lianchuangjie.lianchuangjie.service.ToDoService;
+import com.lianchuangjie.lianchuangjie.service.HomeToDoService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
 @Service
-public class ToDoServiceImpl implements ToDoService {
+public class HomeToDoServiceImpl implements HomeToDoService {
     @Resource
     EnquiryMainMapper enquiryMainMapper;
     @Override

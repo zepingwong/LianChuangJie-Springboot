@@ -5,13 +5,13 @@ import com.lianchuangjie.lianchuangjie.dto.EmployeeLoginDTO;
 import com.lianchuangjie.lianchuangjie.entity.UserEntity;
 import com.lianchuangjie.lianchuangjie.exception.ResponseEnum;
 import com.lianchuangjie.lianchuangjie.mapper.UserMapper;
-import com.lianchuangjie.lianchuangjie.service.LoginService;
+import com.lianchuangjie.lianchuangjie.service.UserLoginService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
 @Service
-public class LoginServiceImpl implements LoginService {
+public class UserLoginServiceImpl implements UserLoginService {
     @Resource
     UserMapper userMapper;
     @Override

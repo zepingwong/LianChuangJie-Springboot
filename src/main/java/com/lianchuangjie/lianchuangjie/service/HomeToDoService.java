@@ -2,7 +2,7 @@ package com.lianchuangjie.lianchuangjie.service;
 
 import java.util.Map;
 
-public interface ToDoService {
+public interface HomeToDoService {
     /**
      * @description 获取待处理询价单、报价单数量
      */

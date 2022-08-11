@@ -3,7 +3,7 @@ package com.lianchuangjie.lianchuangjie.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lianchuangjie.lianchuangjie.dto.EmployeeLoginDTO;
 import com.lianchuangjie.lianchuangjie.entity.UserEntity;
-import com.lianchuangjie.lianchuangjie.service.LoginService;
+import com.lianchuangjie.lianchuangjie.service.UserLoginService;
 import com.lianchuangjie.lianchuangjie.service.UserInfoService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
 import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
@@ -22,7 +22,7 @@ import javax.validation.Valid;
 @Validated
 public class UserController {
     @Resource
-    LoginService loginService;
+    UserLoginService userLoginService;
     @Resource
     UserInfoService userInfoService;
 
@@ -31,7 +31,7 @@ public class UserController {
             @RequestBody @Valid EmployeeLoginDTO employee,
             HttpServletRequest request
     ) {
-        UserEntity user = loginService.employeeLoginService(employee);
+        UserEntity user = userLoginService.employeeLoginService(employee);
         LoginResVO userInfo = new LoginResVO();
         BeanUtils.copyProperties(user, userInfo);
         // 登录成功

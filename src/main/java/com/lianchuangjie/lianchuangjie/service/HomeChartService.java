@@ -3,7 +3,7 @@ package com.lianchuangjie.lianchuangjie.service;
 import java.util.List;
 import java.util.Map;
 
-public interface HomeService {
+public interface HomeChartService {
     /**
      * @description 销售排名
      * @return List

@@ -1,8 +1,8 @@
 package com.lianchuangjie.lianchuangjie.controller;
 
 import com.lianchuangjie.lianchuangjie.config.Authentication;
-import com.lianchuangjie.lianchuangjie.service.HomeService;
-import com.lianchuangjie.lianchuangjie.service.ToDoService;
+import com.lianchuangjie.lianchuangjie.service.HomeChartService;
+import com.lianchuangjie.lianchuangjie.service.HomeToDoService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
 import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,14 +18,14 @@ import java.util.Map;
 @RequestMapping("/home")
 public class HomeController {
     @Resource
-    ToDoService toDoService;
+    HomeToDoService homeToDoService;
     @Resource
-    HomeService homeService;
+    HomeChartService homeChartService;
 
     @GetMapping("/todo")
     @Authentication(buyer = true, sale = true)
     public Result<Map<String, Long>> todoController() {
-        Map<String, Long> query = toDoService.getTodoNum(SessionUtil.getUserSign());
+        Map<String, Long> query = homeToDoService.getTodoNum(SessionUtil.getUserSign());
         return Result.success(query);
     }
 
@@ -33,9 +33,9 @@ public class HomeController {
     @Authentication(buyer = true, sale = true)
     public Result<HashMap<String, List<Map<String, String>>>> ChartInfoController() {
         HashMap<String, List<Map<String, String>>> data = new HashMap<>();
-        data.put("salesRank", homeService.getSalesRankService());
-        data.put("monthSales", homeService.getMonthSalesService());
-        data.put("yearSales", homeService.getYearSalesService());
+        data.put("salesRank", homeChartService.getSalesRankService());
+        data.put("monthSales", homeChartService.getMonthSalesService());
+        data.put("yearSales", homeChartService.getYearSalesService());
         return Result.success(data, "success");
     }
 }
