@@ -9,6 +9,7 @@ import com.lianchuangjie.lianchuangjie.mapper.BomHeadDicMapper;
 import com.lianchuangjie.lianchuangjie.service.BomMainService;
 import com.lianchuangjie.lianchuangjie.service.BomSubService;
 import com.lianchuangjie.lianchuangjie.service.BomUploadService;
+import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
 import com.lianchuangjie.lianchuangjie.vo.BomUploadResVO;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -48,6 +49,7 @@ public class BomUploadServiceImpl implements BomUploadService {
             // 保存Bom单主表信息
             BomMainEntity bomMainEntity = new BomMainEntity();
             bomMainEntity.setFileName(fileName);
+            bomMainEntity.setOwnerCode(SessionUtil.getUserSign());
             bomMainService.save(bomMainEntity);
             // 主表信息保存后，BomMainEntity产生DocEntry
             Long docEntry = bomMainEntity.getDocEntry();

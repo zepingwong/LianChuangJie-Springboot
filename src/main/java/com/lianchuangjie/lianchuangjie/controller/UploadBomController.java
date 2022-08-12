@@ -1,7 +1,6 @@
 package com.lianchuangjie.lianchuangjie.controller;
 
 import com.lianchuangjie.lianchuangjie.config.Authentication;
-import com.lianchuangjie.lianchuangjie.exception.BaseException;
 import com.lianchuangjie.lianchuangjie.service.BomUploadService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
 import com.lianchuangjie.lianchuangjie.vo.BomUploadResVO;
@@ -29,12 +28,7 @@ public class UploadBomController {
     @PostMapping("uploadBom")
     @Authentication(sale = true)
     public Result<BomUploadResVO> uploadBom(@RequestParam("file") MultipartFile file) {
-        try {
-            BomUploadResVO result = bomUploadService.uploadService(file);
-            return Result.success(result);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new BaseException(500, "上传失败" + e.getMessage());
-        }
+        BomUploadResVO result = bomUploadService.uploadService(file);
+        return Result.success(result);
     }
 }

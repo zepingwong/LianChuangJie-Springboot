@@ -1,6 +1,6 @@
 package com.lianchuangjie.lianchuangjie.entity;
 
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,15 +13,21 @@ import java.util.Date;
 @TableName("T_BOM")
 public class BomMainEntity {
     // 文件编号-主键 DocEntry
-    private Long DocEntry;
+    @TableId(type = IdType.AUTO, value = "DocEntry")
+    private Long docEntry;
     // 关联询价单编号
-    private Long BaseEntry;
+    @TableField(value = "BaseEntry")
+    private Long baseEntry;
     // 上传时间
-    private Date UploadTime;
+    @TableField(fill = FieldFill.INSERT, value = "CreateTime")
+    private Date createTime;
     // 原文件名
-    private String FileName;
+    @TableField(value = "FileName")
+    private String fileName;
     // 原文件存储位置
-    private String Location;
+    @TableField(value = "Location")
+    private String location;
     // 销售员编号
-    private Long OwnerCode;
+    @TableField(value = "OwnerCode")
+    private Long ownerCode;
 }

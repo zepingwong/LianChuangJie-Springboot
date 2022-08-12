@@ -9,7 +9,7 @@ import java.util.Map;
 
 @Mapper
 @Repository
-public interface HomeMapper {
+public interface HomeChartMapper {
     @MapKey("DocEntry")
     List<Map<String, String>> querySalesRank();
 

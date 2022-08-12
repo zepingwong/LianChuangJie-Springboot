@@ -20,7 +20,7 @@ public class EnquiryMainServiceImpl implements EnquiryMainService {
     @Resource
     EnquiryMainMapper enquiryMainMapper;
     @Override
-    public EnquiryMainInfoVO getMainService(Long docEntry) {
+    public EnquiryMainInfoVO getOne(Long docEntry) {
         ResponseEnum.ISNULL.assertIsFalse(enquiryMainMapper.existByDocEntry(docEntry), "编号为" +docEntry+"的询价单不存在");
         Long userSign = SessionUtil.getUserSign();
         EnquiryMainEntity enquiryMainEntity = enquiryMainMapper.selectByDocEntry(docEntry, userSign);
@@ -31,7 +31,7 @@ public class EnquiryMainServiceImpl implements EnquiryMainService {
     }
 
     @Override
-    public Page<EnquiryMainItemVO> getListService(EnquiryMainSearchDTO searchCondition) {
+    public Page<EnquiryMainItemVO> list(EnquiryMainSearchDTO searchCondition) {
         Page<EnquiryMainItemVO> page = Page.of(searchCondition.getPage(),searchCondition.getSize());
         page.addOrder(OrderItem.desc("T_ICIN.CreateDate"));
         enquiryMainMapper.selectList(page, searchCondition);

@@ -50,14 +50,14 @@ public class EnquiryController {
         searchCondition.setInvalidDateEnd(InvalidDateEnd);
         searchCondition.setCreateDateStart(CreateDateStart);
         searchCondition.setCreateDateEnd(CreateDateEnd);
-        Page<EnquiryMainItemVO> pages = enquiryMainService.getListService(searchCondition);
+        Page<EnquiryMainItemVO> pages = enquiryMainService.list(searchCondition);
         return Result.success(pages);
     }
 
     @GetMapping("/main/{docEntry}")
     @Authentication(sale = true)
     public Result<EnquiryMainInfoVO> getEnquiryMainInfoController(@PathVariable Long docEntry) {
-        return Result.success(enquiryMainService.getMainService(docEntry));
+        return Result.success(enquiryMainService.getOne(docEntry));
     }
     @GetMapping("/sub")
     @Authentication(sale = true)

@@ -16,14 +16,11 @@ import java.util.Map;
 public class BomUploadResVO {
     // BOM单编号
     @JsonProperty("DocEntry")
-    private Long DocEntry;
-    // BOM单标题
+    private Long docEntry;
+    // BOM单标题列表
     @JsonProperty("TitleList")
-    private List<String> TitleList;
-    // BOM单数据项
+    private List<String> titleList;
+    // BOM单数据项列表
     @JsonProperty("BomItemList")
-    private List<Map<String, String>> BomItemList;
-    // BOM单子表
-    @JsonProperty("BomSubList")
-    private List<BomSubVO> BomSubList;
+    private List<Map<String, String>> bomItemList;
 }

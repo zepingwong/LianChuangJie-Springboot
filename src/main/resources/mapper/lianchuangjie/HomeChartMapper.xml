@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lianchuangjie.lianchuangjie.mapper.HomeMapper">
+<mapper namespace="com.lianchuangjie.lianchuangjie.mapper.HomeChartMapper">
 
     <select id="querySalesRank" resultType="java.util.Map">
         SELECT TOP 10 c.UserName, a.UserSign, SUM(b.U_PriceAfVAT) AS sales
@@ -11,14 +11,17 @@
         ORDER BY sales DESC
     </select>
     <select id="queryMonthSales" resultType="java.util.Map">
-        SELECT U_GroupCode name, SUM(U_PriceAfVAT) sales
+        SELECT U_GroupCode AS    name,
+               SUM(U_PriceAfVAT) sales
         FROM T_ICIN1
+        WHERE U_GroupCode IS NOT NULL
         GROUP BY U_GroupCode
         ORDER BY sales DESC
     </select>
     <select id="getYearSales" resultType="java.util.Map">
         SELECT U_GroupCode name, SUM(U_PriceAfVAT) sales
         FROM T_ICIN1
+        WHERE U_GroupCode IS NOT NULL
         GROUP BY U_GroupCode
         ORDER BY sales DESC
     </select>

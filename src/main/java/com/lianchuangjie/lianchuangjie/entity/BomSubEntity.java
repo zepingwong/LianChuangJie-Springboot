@@ -1,5 +1,6 @@
 package com.lianchuangjie.lianchuangjie.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,15 +14,21 @@ import java.math.BigDecimal;
 @TableName("T_BOM1")
 public class BomSubEntity {
     // 文件编号-主键 DocEntry
-    private Long DocEntry;
+    @TableField(value = "DocEntry")
+    private Long docEntry;
     // 文件内部行号-主键 LineNum
-    private Long LineNum;
+    @TableField(value = "LineNum")
+    private Long lineNum;
     // 型号 Modle
-    private String Modle;
+    @TableField(value = "Modle")
+    private String modle;
     // 品牌 Brand
-    private String Brand;
+    @TableField(value = "Brand")
+    private String brand;
     // 需求数量 DemandQty
-    private BigDecimal DemandQty;
+    @TableField(value = "DemandQty")
+    private BigDecimal demandQty;
     // 客户备注 CurRemark
-    private String CurRemark;
+    @TableField(value = "CurRemark")
+    private String curRemark;
 }
