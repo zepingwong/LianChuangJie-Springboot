@@ -16,8 +16,8 @@ import lombok.experimental.Accessors;
 public class ClienteleItemVO {
     // 业务合作伙伴代码-主键 CardCode
     @JsonProperty("CardCode")
-    private String CardCode;
+    private String cardCode;
     // 业务合作伙伴名称 CardName
     @JsonProperty("CardName")
-    private String CardName;
+    private String cardName;
 }

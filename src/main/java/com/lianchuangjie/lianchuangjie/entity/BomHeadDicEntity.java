@@ -16,37 +16,42 @@ import java.util.List;
 @TableName("T_BOHD")
 @Component
 public class BomHeadDicEntity {
-    private Integer Id;
+    @TableField(value = "Id")
+    private Integer id;
     // 型号别名，每个别名用逗号隔开
-    private String Modle;
+    @TableField(value = "Modle")
+    private String modle;
     @TableField(exist = false)
     private List<String> ModleList;
     // 品牌别名，每个别名用逗号隔开
-    private String Brand;
+    @TableField(value = "Brand")
+    private String brand;
     @TableField(exist = false)
     private List<String> brandList;
     // 数量别名，每个别名用逗号隔开
-    private String Quantity;
+    @TableField(value = "Quantity")
+    private String quantity;
     @TableField(exist = false)
     private List<String> quantityList;
     // 备注别名，每个别名用逗号隔开
-    private String Remark;
+    @TableField(value = "Remark")
+    private String remark;
     @TableField(exist = false)
     private List<String> remarkList;
 
     public List<String> getModleList() {
-        return Arrays.asList(Modle.split(","));
+        return Arrays.asList(modle.split(","));
     }
 
     public List<String> getBrandList() {
-        return Arrays.asList(Brand.split(","));
+        return Arrays.asList(brand.split(","));
     }
 
     public List<String> getQuantityList() {
-        return Arrays.asList(Quantity.split(","));
+        return Arrays.asList(quantity.split(","));
     }
 
     public List<String> getRemarkList() {
-        return Arrays.asList(Remark.split(","));
+        return Arrays.asList(remark.split(","));
     }
 }

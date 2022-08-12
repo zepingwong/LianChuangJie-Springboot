@@ -16,22 +16,22 @@ import java.util.Date;
 public class UserInfoVO {
     // 用户编号 T_OUSI.UserSign
     @JsonProperty("UserSign")
-    private Long UserSign;
+    private Long userSign;
     // 用户姓名 T_OUSI.UserName
     @JsonProperty("UserName")
-    private String UserName;
+    private String userName;
     // 用户Id T_OUSI.UserCode
     @JsonProperty("UserCode")
-    private String UserCode;
+    private String userCode;
     // 所属部门代码 T_OUSI.DftDept
     @JsonProperty("DftDept")
-    private String DftDept;
+    private String dftDept;
     // 所属部门名称 T_OCDP.Name
     @JsonProperty("DftDeptName")
-    private String DftDeptName;
+    private String dftDeptName;
     // 头像URL T_OUSI.Avatar
     @JsonProperty("Avatar")
-    private String Avatar;
+    private String avatar;
     // 是否为采购员 T_OUSI.U_IsBuyer
     @JsonProperty("U_IsBuyer")
     private String uIsBuyer;
@@ -43,9 +43,9 @@ public class UserInfoVO {
     private String uIsVir;
     // 是否为管理员 T_OUSI.SuperUser
     @JsonProperty("SuperUser")
-    private String SuperUser;
+    private String superUser;
     // 修改密码日期 T_OUSI.ModifyPwdDate
     @JsonProperty("ModifyPwdDate")
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date ModifyPwdDate;
+    private Date modifyPwdDate;
 }

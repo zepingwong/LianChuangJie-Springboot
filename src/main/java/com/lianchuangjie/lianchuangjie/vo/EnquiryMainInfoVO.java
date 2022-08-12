@@ -20,13 +20,13 @@ import java.util.Date;
 public class EnquiryMainInfoVO {
     // BOM单编号-主键 DocEntry
     @JsonProperty("DocEntry")
-    private Long DocEntry;
+    private Long docEntry;
     // 客户编号 CardCode
     @JsonProperty("CardCode")
-    private String CardCode;
+    private String cardCode;
     // 客户名称 CardName
     @JsonProperty("CardName")
-    private String CardName;
+    private String cardName;
     // 需求客户性质名称 U_CusGroupCode
     @JsonProperty("U_CusGroupCode")
     private String uCusGroupCode;
@@ -44,15 +44,15 @@ public class EnquiryMainInfoVO {
     private String uUserName;
     // 销售员编号 OwnerCode
     @JsonProperty("OwnerCode")
-    private Long OwnerCode;
+    private Long ownerCode;
     // 失效时间上限 InvalidDateMax
     @JsonProperty("InvalidDateMax")
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date InvalidDateMax;
+    private Date invalidDateMax;
     // 失效时间下限 InvalidDateMin
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonProperty("InvalidDateMin")
-    private Date InvalidDateMin;
+    private Date invalidDateMin;
     // 需求客户等级名称 U_CusLevel
     @JsonProperty("U_CusLevel")
     private String uCusLevel;

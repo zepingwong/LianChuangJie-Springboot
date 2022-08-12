@@ -13,8 +13,8 @@ import lombok.experimental.Accessors;
 public class ClienteleLevelItemVO {
     // 等级代码
     @JsonProperty("Code")
-    private Integer Code;
+    private Integer code;
     // 等级
     @JsonProperty("Level")
-    private String Level;
+    private String level;
 }

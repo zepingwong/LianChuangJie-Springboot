@@ -32,11 +32,13 @@ public class UserController {
             HttpServletRequest request
     ) {
         UserEntity user = userLoginService.employeeLoginService(employee);
-        LoginResVO userInfo = new LoginResVO();
+        LoginResVO loginRes = new LoginResVO();
+        UserInfoVO userInfo = new UserInfoVO();
         BeanUtils.copyProperties(user, userInfo);
+        loginRes.setInfo(userInfo);
         // 登录成功
         SessionUtil.setSession(request, "User", user);
-        return Result.success(userInfo);
+        return Result.success(loginRes);
     }
 
     /**

@@ -13,11 +13,11 @@ import lombok.experimental.Accessors;
 public class CompanyLetterheadVO {
     // 公司编号
     @JsonProperty("DocEntry")
-    private Long DocEntry;
+    private Long docEntry;
     // 公司代码
     @JsonProperty("ComCode")
-    private String ComCode;
+    private String comCode;
     // 公司名称
     @JsonProperty("Company")
-    private String Company;
+    private String company;
 }

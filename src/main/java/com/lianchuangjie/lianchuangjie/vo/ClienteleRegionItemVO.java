@@ -13,14 +13,14 @@ import lombok.experimental.Accessors;
 public class ClienteleRegionItemVO {
     // 地区代码
     @JsonProperty("KeyCode")
-    private Integer KeyCode;
+    private Integer keyCode;
     // 地区名称
     @JsonProperty("DoMain")
-    private String DoMain;
+    private String doMain;
     // 一级地区代码
     @JsonProperty("ParentCode")
-    private Integer ParentCode;
+    private Integer parentCode;
     // 简称-只有一级地区有简称
     @JsonProperty("ShortName")
-    private String ShortName;
+    private String shortName;
 }

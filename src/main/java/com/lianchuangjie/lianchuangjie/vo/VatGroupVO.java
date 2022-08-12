@@ -15,14 +15,14 @@ import java.math.BigDecimal;
 public class VatGroupVO {
     // 税率代码
     @JsonProperty("Code")
-    private String Code;
+    private String code;
     // 名称
     @JsonProperty("Name")
-    private String Name;
+    private String name;
     // 类型
     @JsonProperty("Type")
-    private String Type;
+    private String type;
     // 税率
     @JsonProperty("Rate")
-    private BigDecimal Rate;
+    private BigDecimal rate;
 }
