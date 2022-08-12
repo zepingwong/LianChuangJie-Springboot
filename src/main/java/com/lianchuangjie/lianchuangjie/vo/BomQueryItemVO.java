@@ -125,14 +125,14 @@ public class BomQueryItemVO {
      * @description 负责采购
      */
     @JsonProperty("Purchaser")
-    private List<BuyerItemVO> purchaser;
-    public List<BuyerItemVO> getPurchaser() {
+    private List<EnquiryBuyerItemVO> purchaser;
+    public List<EnquiryBuyerItemVO> getPurchaser() {
         if (Buyer == null) return null;
-        List<BuyerItemVO> list = new ArrayList<>();
+        List<EnquiryBuyerItemVO> list = new ArrayList<>();
         String[] buyerStrList = Buyer.split(",");
         for (String buyerStr : buyerStrList) {
             String[] buyerObj = buyerStr.split(":");
-            BuyerItemVO buyer = new BuyerItemVO(Long.parseLong(buyerObj[0]), buyerObj[1]);
+            EnquiryBuyerItemVO buyer = new EnquiryBuyerItemVO(Long.parseLong(buyerObj[0]), buyerObj[1]);
             list.add(buyer);
         }
         return list;

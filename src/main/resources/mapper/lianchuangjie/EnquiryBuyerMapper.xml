@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lianchuangjie.lianchuangjie.mapper.EnquiryBuyerMapper">
+
+    <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.EnquiryBuyerItemVO">
+        SELECT T_OUSI.UserSign, T_OUSI.UserName
+        FROM T_OUSI
+        LEFT JOIN U_PUR1 ON U_PUR1.OwnerCode = T_OUSI.UserSign
+        LEFT JOIN U_PUR2 ON U_PUR2.OwnerCode = T_OUSI.UserSign
+        LEFT JOIN U_PUR9 ON U_PUR9.OwnerCode = T_OUSI.UserSign
+        WHERE T_OUSI.U_IsBuyer = 'Y'
+        <if test="sc.brand != null">
+            AND U_PUR2.Brand LIKE CONCAT('%',#{sc.brand},'%')
+        </if>
+        <if test="sc.slpCode != null">
+            AND ( ( U_PUR9.SlpCode = #{sc.slpCode} AND U_PUR1.IsSale = 'Y' ) OR ( U_PUR1.IsSale = 'N' AND ', ' +
+            U_PUR1.DeptCode + ', ' LIKE CONCAT ( '%, ', #{sc.deptCode} , '%' )) )
+        </if>
+        <if test="sc.startTotal != null">
+            AND (U_PUR1.StartTotal &lt; #{sc.startTotal} OR U_PUR1.StartTotal = 0 OR U_PUR1.StartTotal IS NULL )
+        </if>
+        <if test="sc.eccn != null">
+            AND (U_PUR1.ECCN LIKE CONCAT('%', #{sc.eccn} ,'%') OR (U_PUR1.ECCN IS NULL))
+        </if>
+        GROUP BY T_OUSI.UserSign, T_OUSI.UserName
+    </select>
+</mapper>

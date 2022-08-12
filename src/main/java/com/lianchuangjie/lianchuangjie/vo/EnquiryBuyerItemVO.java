@@ -13,7 +13,7 @@ import lombok.experimental.Accessors;
 @AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain = true)
-public class BuyerItemVO {
+public class EnquiryBuyerItemVO {
     @JsonProperty("UserSign")
     private Long userSign;
     @JsonProperty("UserName")
