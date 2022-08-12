@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lianchuangjie.lianchuangjie.mapper.BomQueryMapper">
+
+    <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.BomQueryItemVO">
+        DECLARE @DocEntry INT;-- 询价单编号
+        DECLARE
+            @DeptCode VARCHAR(255);-- 销售部门
+        DECLARE
+            @SlpCode INT;-- 销售员
+        SET @DeptCode = #{DeptCode};
+        SET @DocEntry = #{DocEntry};
+        SET @SlpCode = #{UserSign};
+        SELECT T1.LineNum,
+               T1.Brand,
+               T1.QuoBrand,
+               T1.Modle,
+               T1.sno,
+               T1.DemandQty,
+               T1.DemandTag,
+               T1.TAG,
+               T1.MATCH AS 'Match',
+               T1.TotalPrice,
+               T1.PrePrice,
+               SDADA_3.ECCN,
+               SDADA_3.spq,
+               T1.Quantity,
+               T1.Status,
+               T1.CurRemark,
+               (
+                   CASE
+                       WHEN T1.Status = 'B'
+                           AND T1.TAG IS NOT NULL THEN
+                           (SELECT CAST
+                                       (CAST(T_OUSI.UserSign AS VARCHAR) + ':' + T_OUSI.UserName AS VARCHAR) + ','
+                            FROM T_OUSI T_OUSI
+                                     LEFT JOIN U_PUR1 U_PUR1 ON U_PUR1.OwnerCode = T_OUSI.UserSign
+                                     LEFT JOIN U_PUR2 U_PUR2 ON U_PUR2.OwnerCode = T_OUSI.UserSign
+                                     LEFT JOIN U_PUR9 U_PUR9 ON U_PUR9.OwnerCode = T_OUSI.UserSign
+                            WHERE T_OUSI.U_IsBuyer = 'Y'
+                              AND U_PUR2.Brand LIKE CONCAT('%', T1.QuoBrand, '%')
+                              AND (
+                                    (U_PUR9.SlpCode = @SlpCode AND U_PUR1.IsSale = 'Y')
+                                    OR (U_PUR1.IsSale = 'N' AND
+                                        ', ' + U_PUR1.DeptCode + ', ' LIKE CONCAT('%, ', @DeptCode, '%'))
+                                )
+                              AND U_PUR1.ECCN LIKE CONCAT('%', SDADA_3.ECCN, '%')
+                              AND (U_PUR1.StartTotal IS NULL OR U_PUR1.StartTotal &lt; T1.TotalPrice)
+                            GROUP BY T_OUSI.UserSign,
+                                     T_OUSI.UserName
+                            FOR xml path ( '' ))
+                       END
+                   )    AS Buyer
+        FROM (SELECT enquiry.Brand,
+                     SDADA_2.QuoBrand,
+                     enquiry.Modle,
+                     enquiry.DemandQty,
+                     enquiry.LineNum,
+                     enquiry.DemandTag,
+                     SDADA_2.TAG,
+                     SDADA_2.sno,
+                     stock.Quantity,
+                     (
+                         CASE
+
+                             WHEN SDADA_2.TAG IS NULL THEN
+                                 N'未匹配到'
+                             WHEN SDADA_2.QuoBrand = enquiry.Brand
+                                 AND SDADA_2.sno = enquiry.Modle THEN
+                                 N'完全匹配'
+                             WHEN enquiry.DemandTag = SDADA_2.TAG THEN
+                                 N'关联型号'
+                             END
+                         )                               AS MATCH,
+                     (
+                         CASE
+
+                             WHEN SDADA_2.TAG IS NULL THEN 'B'
+                             WHEN enquiry.DemandQty &lt; stock.Quantity THEN
+                                 'C'
+                             WHEN U_OPRI.PrePrice * enquiry.DemandQty > 1000
+                                 OR U_OPRI.PrePrice * enquiry.DemandQty IS NULL THEN
+                                 'B'
+                             ELSE 'E'
+                             END
+                         )                               AS Status,
+                     U_OPRI.PrePrice,
+                     U_OPRI.PrePrice * enquiry.DemandQty AS 'TotalPrice',
+                     enquiry.CurRemark
+              FROM (SELECT T_BOM1_1.Brand,
+                           T_BOM1_1.Modle,
+                           T_BOM1_1.DemandQty,
+                           T_BOM1_1.CurRemark,
+                           T_BOM1_1.LineNum,
+                           SDADA_1.TAG AS 'DemandTag'
+                    FROM T_BOM1 T_BOM1_1
+                             LEFT JOIN SDADA SDADA_1 ON T_BOM1_1.Brand = SDADA_1.QuoBrand
+                        AND T_BOM1_1.Modle = SDADA_1.sno
+                    WHERE T_BOM1_1.DocEntry = @DocEntry) enquiry
+                       LEFT JOIN SDADA SDADA_2 ON SDADA_2.TAG = enquiry.DemandTag
+                       LEFT JOIN U_OPRI U_OPRI ON U_OPRI.ItemName = enquiry.Modle
+                       LEFT JOIN (SELECT ItemName,
+                                         SUM(自由库存数) AS Quantity
+                                  FROM (SELECT ItemName,
+                                               (Quantity - U_LockQty) AS '自由库存数'
+                                        FROM (SELECT MdAbsEntry, SUM(Quantity) AS Quantity
+                                              FROM T_OBTQ
+                                              GROUP BY MdAbsEntry) T
+                                                 INNER JOIN T_OBTN ON T.MdAbsEntry = T_OBTN.AbsEntry) m4
+                                  GROUP BY ItemName) stock ON stock.ItemName = SDADA_2.sno
+              GROUP BY enquiry.Brand,
+                       SDADA_2.QuoBrand,
+                       enquiry.Modle,
+                       enquiry.DemandQty,
+                       enquiry.LineNum,
+                       enquiry.DemandTag,
+                       SDADA_2.TAG,
+                       U_OPRI.PrePrice,
+                       SDADA_2.sno,
+                       stock.Quantity,
+                       enquiry.CurRemark) T1
+                 LEFT JOIN SDADA SDADA_3 ON SDADA_3.sno = T1.sno
+            AND SDADA_3.QuoBrand = T1.QuoBrand
+        ORDER BY T1.LineNum,
+                 T1.[MATCH] DESC
+    </select>
+</mapper>
