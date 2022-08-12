@@ -65,7 +65,7 @@
                T6.Name                                                            AS 'U_GroupName',
                T7.DomainName                                                      AS 'U_DomainName',
                T8.Level                                                           AS 'U_CusLevel',
-               (T0.Currency + '+' + T0.VatGroup + '+' + CAST(T9.Rate AS VARCHAR)) AS 'CurVat'
+               (T0.Currency + '+' + T0.VatGroup + '+' + CONVERT(VARCHAR,  CAST(T9.Rate AS FLOAT))) AS 'CurVat'
         FROM T_OCRD T0
                  LEFT JOIN T_OUSI T1 ON T1.UserSign = T0.OwnerCode
             /*U_CUR18：该表为设置哪些部门的用户可以看到哪个虚拟用户名下的客户，如需设置新人组 可以看到 综合部门和终端部门的公共客户*/

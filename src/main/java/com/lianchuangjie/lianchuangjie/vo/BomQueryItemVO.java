@@ -1,16 +1,13 @@
 package com.lianchuangjie.lianchuangjie.vo;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,8 +21,8 @@ public class BomQueryItemVO {
     /**
      * @description 序号-关联型号序号相同
      */
-    @JsonProperty("Id")
-    private Long id;
+    @JsonProperty("ItemId")
+    private Long itemId;
     /**
      * @description 行号
      */
@@ -35,7 +32,7 @@ public class BomQueryItemVO {
      * @description 型号
      */
     @JsonProperty("Modle")
-    private String Modle;
+    private String modle;
     /**
      * @description 关联型号
      */
@@ -45,50 +42,50 @@ public class BomQueryItemVO {
      * @description 品牌
      */
     @JsonProperty("Brand")
-    private String Brand;
+    private String brand;
     /**
      * @description 匹配品牌
      */
     @JsonProperty("QuoBrand")
     private String QuoBrand;
     /**
-     * @description 达标情况
+     * @description 打标情况
      */
     @JsonProperty("TAG")
-    private String TAG;
+    private String tag;
     /**
      * @description 需求数量
      */
     @JsonProperty("DemandQty")
-    private BigDecimal DemandQty;
+    private BigDecimal demandQty;
     /**
      * @description 客户备注 CurRemark
      */
     @JsonProperty("CurRemark")
-    private String CurRemark;
+    private String curRemark;
     /**
      * @description 库存数量
      */
     @JsonProperty("Quantity")
-    private BigDecimal Quantity;
+    private BigDecimal quantity;
     /**
      * @description 参考价格
      */
     @JsonProperty("PrePrice")
-    private BigDecimal PrePrice;
+    private BigDecimal prePrice;
     /**
      * @description 询价状态代码
      */
     @JsonProperty("Status")
-    private String Status;
+    private String status;
     /**
      * @description 处理方式
      */
 
     @JsonProperty("ItemDescStatus")
-    private String ItemDescStatus;
+    private String itemDescStatus;
     public String getItemDescStatus() {
-        switch (Status) {
+        switch (status) {
             case "B" : {
                 return "采购报价";
             }
@@ -110,7 +107,7 @@ public class BomQueryItemVO {
      * @description 总价
      */
     @JsonProperty("TotalPrice")
-    private BigDecimal TotalPrice;
+    private BigDecimal totalPrice;
     /**
      * @description ECCN
      */
@@ -120,16 +117,16 @@ public class BomQueryItemVO {
      * @description 采购
      */
     @JsonProperty("Buyer")
-    private String Buyer;
+    private String buyer;
     /**
      * @description 负责采购
      */
     @JsonProperty("Purchaser")
     private List<EnquiryBuyerItemVO> purchaser;
     public List<EnquiryBuyerItemVO> getPurchaser() {
-        if (Buyer == null) return null;
+        if (buyer == null) return null;
         List<EnquiryBuyerItemVO> list = new ArrayList<>();
-        String[] buyerStrList = Buyer.split(",");
+        String[] buyerStrList = buyer.split(",");
         for (String buyerStr : buyerStrList) {
             String[] buyerObj = buyerStr.split(":");
             EnquiryBuyerItemVO buyer = new EnquiryBuyerItemVO(Long.parseLong(buyerObj[0]), buyerObj[1]);
@@ -141,27 +138,10 @@ public class BomQueryItemVO {
      * @description 匹配情况
      */
     @JsonProperty("Match")
-    private String Match;
+    private String match;
     /**
      * @description spq
      */
     @JsonProperty("spq")
     private String spq;
-    /**
-     * @description 失效时间
-     */
-    @JsonProperty("ExpiredTime")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") // 接参数
-    @JsonFormat( pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
-    private Date expiredTime;
-    /**
-     * @description 负责采购
-     */
-    @JsonProperty("SelectedPurchasers")
-    private List<String> SelectedPurchasers;
-    /**
-     * @description 重要程度
-     */
-    @JsonProperty("KeyPoint")
-    private String keyPoint;
 }

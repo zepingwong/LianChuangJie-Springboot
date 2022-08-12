@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -26,4 +27,9 @@ public class BomQueryResVO {
      */
     @JsonProperty("TotalSize")
     Integer totalSize;
+    /**
+     * @description 需求数量
+     */
+    @JsonProperty("DemandQty")
+    private BigDecimal demandQty;
 }
