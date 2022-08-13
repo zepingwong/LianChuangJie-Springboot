@@ -10,12 +10,13 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BomQueryConsInfoDTO {
+public class BomQueryMainDTO {
     // 交易地点 T_ICIN.U_TransaPlace
     @NotNull(message = "交易地点不能为空")
     @JsonProperty("U_TransaPlace")
@@ -23,6 +24,8 @@ public class BomQueryConsInfoDTO {
     // 需求交期 T_ICIN.U_Delivery
     @JsonProperty("U_Delivery")
     private String uDelivery;
+    // 询价来源 T_ICIN.SourceType
+    private String sourceType = "BOM单";
     /**
      * 货币及税率
      */
@@ -53,6 +56,16 @@ public class BomQueryConsInfoDTO {
     @NotBlank(message = "客户性质不能为空")
     @JsonAlias({"U_CusGroupCode", "U_GroupName"})
     private String uCusGroupCode;
+    // 贸易商/终端
+    private String uCusGroup;
+    public String getUCusGroup() {
+        return Objects.equals(uCusGroupCode, "关系型贸易商") | Objects.equals(uCusGroupCode, "一般贸易商") | Objects.equals(uCusGroupCode, "其它") ? "贸易商" : "终端";
+    }
+
+    // 客户地区代码
+    @NotNull(message = "客户地区不能为空")
+    @JsonProperty("U_Region")
+    private Integer regionCode;
     // 客户地区名称 T_ICIN.U_Region
     @NotNull(message = "客户地区不能为空")
     @JsonProperty("DoMain")
@@ -65,4 +78,6 @@ public class BomQueryConsInfoDTO {
     @NotBlank(message = "客户代码不能为空")
     @JsonProperty("CardCode")
     private String cardCode;
+    // 单据重用字段 1表示客户需求 3表示客户长期需求 5表示期货价格需求 6表示竞价需求
+    private Integer uDocType=1;
 }

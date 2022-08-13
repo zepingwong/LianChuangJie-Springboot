@@ -18,13 +18,7 @@ public enum ResponseEnum implements BusinessExceptionAssert {
     ISNULL(8001, "{0}"),
     // 数据重复
     DATA_DUPLICATION_ERROR(516, "{0}"),
-    // token 错误
-    TOKEN_ERROR(401,"token 无效{0}"),
-    TOKEN_ISNULL(401, "令牌为空{0}"),
-    TOKEN_SIGNATURE(401, "无效签名{0}"),
-    TOKEN_EXPIRED(401, "token 过期{0}"),
     SESSION_EXPIRED(408, "Session 已过期，请重新登录"),
-    TOKEN_ALGORITHM_MISMATCH(401, "算法不一致{0}"),
     // authentication 权限错误
     HAS_NO_AUTHENTICATION(403, "权限错误.{0}"),
     // 下载失败

@@ -23,7 +23,7 @@ import java.util.List;
 @Validated
 @RestController
 @RequestMapping("/search")
-public class SearchController {
+public class SearchController extends BaseController{
     @Resource
     BomQueryService bomQueryService;
     @Resource

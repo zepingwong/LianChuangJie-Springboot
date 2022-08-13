@@ -14,8 +14,8 @@ import java.util.List;
 public class BomQuerySaveDTO {
     @Valid
     @JsonProperty("BomQueryConsInfo")
-    BomQueryConsInfoDTO bomQueryConsInfo;
+    BomQueryMainDTO bomQueryMain;
     @Valid
     @JsonProperty("BomQueryItemList")
-    List<BomQueryItemDTO> bomQueryItemList;
+    List<BomQuerySubDTO> bomQuerySubList;
 }

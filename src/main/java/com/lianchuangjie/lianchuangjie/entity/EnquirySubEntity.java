@@ -18,67 +18,95 @@ import java.util.Date;
 @TableName("U_ICIN1")
 public class EnquirySubEntity {
     // 询价单编号-主键 U_ICIN1.DocEntry
-    private Long DocEntry;
+    @TableField(value = "DocEntry")
+    private Long docEntry;
     // 行号-主键 U_ICIN1.LineNum
-    private Long LineNum;
-    // 关联型号ItemId相同 U_ICIN1.ExpDate
-    private Long ItemId;
+    @TableField(value = "LineNum")
+    private Long lineNum;
+    // 关联型号ItemId相同 U_ICIN1.ItemId
+    @TableField(value = "ItemId")
+    private Long itemId;
     // 失效时间 U_ICIN1.ExpDate
-    private Date ExpDate;
+    @TableField(value = "ExpDate")
+    private Date expDate;
     // 询价状态代码，B表示采购报价、C表示直接定价、D表示暂不处理、E表示24H报价
-    private String Status;
+    @TableField(value = "Status")
+    private String status;
     // 询价状态名称
-    private String ItemDescStatus;
+    @TableField(value = "ItemDescStatus")
+    private String itemDescStatus;
     /**
      * @description 客户需求信息
      */
     // 需求型号 U_ICIN1.Modle
-    private String Modle;
+    @TableField(value = "Modle")
+    private String modle;
     // 需求品牌 U_ICIN1.Brand
-    private String Brand;
+    @TableField(value = "Brand")
+    private String brand;
     // 需求数量 U_ICIN1.DemandQty
-    private BigDecimal DemandQty;
+    @TableField(value = "DemandQty")
+    private BigDecimal demandQty;
     //  需求批次 Year
+    @TableField(value = "Year")
     private String year;
     // 需求ECCN ECCN
-    private String ECCN;
+    @TableField(value = "ECCN")
+    private String eccn;
     // 需求交期 Delivery
-    private String Delivery;
+    @TableField(value = "Delivery")
+    private String delivery;
     // 接受价格 ExpectedPrice
-    private BigDecimal ExpectedPrice;
+    @TableField(value = "ExpectedPrice")
+    private BigDecimal expectedPrice;
     // 客户备注 CurRemark
-    private String CurRemark;
+    @TableField(value = "CurRemark")
+    private String curRemark;
     // 重要程度
-    private String KeyPoint;
+    @TableField(value = "KeyPoint")
+    private String keyPoint;
     // 紧急程度 UrgentType N表示紧急、O表示正常
-    private String UrgentType;
+    @TableField(value = "UrgentType")
+    private String urgentType;
     // 需求销项税代码 VatGroup
-    private String VatGroup;
+    @TableField(value = "VatGroup")
+    private String vatGroup;
     // 销项税文本 VatName
-    private String VatName;
+    @TableField(value = "VatName")
+    private String vatName;
     // 销项税税点 百分比
-    private BigDecimal VatRate;
+    @TableField(exist = false)
+    private BigDecimal vatRate;
     /**
      * 采购
      */
     // 报价的采购员 Buyers
-    private String Buyers;
+    @TableField(value = "Buyers")
+    private String buyers;
     // 是否保密标记 Secrecy
-    private String Secrecy;
+    @TableField(value = "Secrecy")
+    private String secrecy;
     // 引用采购报价货币 QuoCurr
-    private String QuoCurr;
+    @TableField(value = "QuoCurr")
+    private String quoCurr;
     // 引用采购报价税率 QuoVatGroup
-    private String QuoVatGroup;
+    @TableField(value = "QuoVatGroup")
+    private String quoVatGroup;
     // 引用采购报价单价 QuoPrice
-    private BigDecimal QuoPrice;
+    @TableField(value = "QuoPrice")
+    private BigDecimal quoPrice;
     // 采购报价单编号 BaseEntry
-    private Long BaseEntry;
+    @TableField(value = "BaseEntry")
+    private Long baseEntry;
     // 采购报价单行号-第几次报价 BaseLine
-    private Long BaseLine;
+    @TableField(value = "BaseLine")
+    private Long baseLine;
     // 引用用采购报价的采购员编号 SuoBuyer
-    private Long SuoBuyer;
+    @TableField(value = "SuoBuyer")
+    private Long suoBuyer;
     // 引用采购报价的采购员ID U_ICIN1.SuoBuyerName
-    private String SuoBuyerName;
+    @TableField(value = "SuoBuyerName")
+    private String suoBuyerName;
     // 采购部门名称/货源  T_OCRD.U_DftDeptName
     @TableField(exist = false)
     private String uDftDeptName;
@@ -86,30 +114,42 @@ public class EnquirySubEntity {
      * @description 报价信息
      */
     // 报价型号 QuoModle
-    private String QuoModle;
+    @TableField(value = "QuoModle")
+    private String quoModle;
     // 报价品牌
-    private String QuoBrand;
+    @TableField(value = "QuoBrand")
+    private String quoBrand;
     // 报价交期 SuoDelivery
-    private String SuoDelivery;
+    @TableField(value = "SuoDelivery")
+    private String suoDelivery;
     // 报价批次 SuoYear
-    private String SuoYear;
+    @TableField(value = "SuoYear")
+    private String suoYear;
     // 报价数量 SuoQuantity
-    private BigDecimal SuoQuantity;
+    @TableField(value = "SuoQuantity")
+    private BigDecimal suoQuantity;
     // 销售报价单价 PriceAfVAT
-    private BigDecimal PriceAfVAT;
+    @TableField(value = "PriceAfVAT")
+    private BigDecimal priceAfVAT;
     // 确认报价日期 CheckINDateT
-    private Date CheckINDateT;
+    @TableField(value = "CheckINDateT")
+    private Date checkINDateT;
     // 是否确认报价 CheckIN
-    private String CheckIN;
+    @TableField(value = "CheckIN")
+    private String checkIN;
     // 预估价格
-    private BigDecimal PrePrice;
+    @TableField(value = "PrePrice")
+    private BigDecimal prePrice;
     // 交易货币
-    private String Currency;
+    @TableField(value = "Currency")
+    private String currency;
     /**
      * 其他
      */
     // 销售备注 LineRemark
-    private String LineRemark;
+    @TableField(value = "LineRemark")
+    private String lineRemark;
     // 物料编号
-    private String ItemCode;
+    @TableField(value = "ItemCode")
+    private String itemCode;
 }

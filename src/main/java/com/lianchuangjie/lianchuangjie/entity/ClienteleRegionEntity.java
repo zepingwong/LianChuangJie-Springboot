@@ -1,5 +1,8 @@
 package com.lianchuangjie.lianchuangjie.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,11 +17,15 @@ import lombok.NoArgsConstructor;
 @TableName("U_OADD")
 public class ClienteleRegionEntity {
     // 地区代码
-    private Integer KeyCode;
+    @TableId(type = IdType.AUTO, value = "KeyCode")
+    private Integer keyCode;
     // 地区名称
-    private String DoMain;
+    @TableField(value = "DoMain")
+    private String doMain;
     // 一级地区代码
-    private Integer ParentCode;
+    @TableField(value = "ParentCode")
+    private Integer parentCode;
     // 简称-只有一级地区有简称
-    private String ShortName;
+    @TableField(value = "ShortName")
+    private String shortName;
 }

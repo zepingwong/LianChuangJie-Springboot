@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
@@ -16,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BomQueryItemDTO {
+public class BomQuerySubDTO {
     /**
      * @description 序号-关联型号序号相同
      */
@@ -63,7 +64,7 @@ public class BomQueryItemDTO {
     @JsonProperty("ExpiredTime")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") // 接参数
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date expiredTime;
+    private Date expDate;
     /**
      * @description 负责采购
      */
@@ -74,4 +75,34 @@ public class BomQueryItemDTO {
      */
     @JsonProperty("KeyPoint")
     private String keyPoint;
+    /**
+     * @description 重要程度
+     */
+    @JsonProperty("ECCN")
+    private String eccn;
+    //
+    @JsonProperty("Currency")
+    private String currency;
+    // 需求数量 U_ICIN1.DemandQty
+    @JsonProperty("DemandQty")
+    private BigDecimal demandQty;
+    // Delivery 需求交期
+    @JsonProperty("Delivery")
+    private String delivery;
+    // Year 需求批次
+    @JsonProperty("Year")
+    private String year;
+    @JsonProperty("VatRate")
+    private BigDecimal vatRate;
+    // 是否确认报价
+    private String checkIN = "0";
+    // 选中的采购
+    private String buyers;
+    public String getBuyers() {
+        return StringUtils.join(selectedPurchasers, ",");
+    }
+    private String vatName;
+    public String getVatName() {
+        return "销项" + vatRate + "%";
+    }
 }

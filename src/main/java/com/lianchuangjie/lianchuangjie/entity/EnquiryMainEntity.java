@@ -27,9 +27,6 @@ public class EnquiryMainEntity {
     // 发送时间 CreateDate
     @TableField(fill = FieldFill.INSERT, value = "CreateDate")
     private Date createDate;
-    // 更新时间 UpdateTime
-    @TableField(fill = FieldFill.INSERT, value = "UpdateTime")
-    private Date updateTime;
     // 询价日期 InquiryDate
     @TableField(fill = FieldFill.INSERT, value = "InquiryDate")
     private Date inquiryDate;
@@ -54,6 +51,9 @@ public class EnquiryMainEntity {
     // 询价来源 SourceType
     @TableField(value = "SourceType")
     private String sourceType;
+    // U_DocType
+    @TableField(value = "U_DocType")
+    private Integer uDocType;
     /**
      * 销售
      */
@@ -71,7 +71,7 @@ public class EnquiryMainEntity {
     private String uDeptName;
     // 单据状态 DocStatus O表示有效、Q表示无效
     @TableField(value = "DocStatus")
-    private String docStatus;
+    private String docStatus = "O";
     /**
      * 货币及税率
      */
@@ -111,4 +111,8 @@ public class EnquiryMainEntity {
     // 交易地点 U_TransaPlace
     @TableField(value = "U_TransaPlace")
     private String uTransaPlace;
+
+
+    @TableField(value = "U_ShortCode")
+    private String uShortCode;
 }

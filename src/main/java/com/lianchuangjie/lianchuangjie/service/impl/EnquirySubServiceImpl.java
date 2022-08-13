@@ -1,5 +1,6 @@
 package com.lianchuangjie.lianchuangjie.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lianchuangjie.lianchuangjie.entity.EnquirySubEntity;
 import com.lianchuangjie.lianchuangjie.mapper.EnquirySubMapper;
 import com.lianchuangjie.lianchuangjie.service.EnquirySubService;
@@ -12,7 +13,7 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 @Service
-public class EnquirySubServiceImpl implements EnquirySubService {
+public class EnquirySubServiceImpl extends ServiceImpl<EnquirySubMapper, EnquirySubEntity> implements EnquirySubService {
     @Resource
     EnquirySubMapper enquirySubMapper;
     @Override
