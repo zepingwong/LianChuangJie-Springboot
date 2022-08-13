@@ -11,13 +11,16 @@ import com.lianchuangjie.lianchuangjie.utils.Result;
 import com.lianchuangjie.lianchuangjie.vo.BomQueryResVO;
 import com.lianchuangjie.lianchuangjie.vo.EnquiryBuyerItemVO;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.List;
 
 @Slf4j
+@Validated
 @RestController
 @RequestMapping("/search")
 public class SearchController {
@@ -27,16 +30,16 @@ public class SearchController {
     EnquiryBuyerService enquiryBuyerService;
     @Resource
     BomQuerySaveService bomQuerySaveService;
+
     /**
      * bom单批量询价
+     *
      * @param docEntry 单据编号
      * @return bom单查询结果
      */
     @GetMapping("bomQuery")
     @Authentication(sale = true)
-    public Result<BomQueryResVO> bomQueryController(
-            @RequestParam(defaultValue = "#{null}", value = "DocEntry") Long docEntry
-    ) {
+    public Result<BomQueryResVO> bomQueryController(@RequestParam(defaultValue = "#{null}", value = "DocEntry") Long docEntry) {
         try {
             BomQueryResVO result = bomQueryService.queryService(docEntry);
             return Result.success(result, "Success");
@@ -49,18 +52,13 @@ public class SearchController {
 
     /**
      * 根据品牌查询采购人员
+     *
      * @param brand 品牌
      * @return buyers
      */
     @GetMapping("buyer")
     @Authentication(sale = true)
-    public Result<List<EnquiryBuyerItemVO>> getPurchaserController(
-            @RequestParam(name = "Brand", defaultValue = "#{null}") String brand,
-            @RequestParam(name = "ECCN", defaultValue = "#{null}") String eccn,
-            @RequestParam(name = "TotalPrice", defaultValue = "#{null}") BigDecimal totalPrice,
-            @RequestParam(name = "SlpCode", defaultValue = "#{null}") Long slpCode,
-            @RequestParam(name = "DeptCode", defaultValue = "#{null}") String deptCode
-    ) {
+    public Result<List<EnquiryBuyerItemVO>> getPurchaserController(@RequestParam(name = "Brand", defaultValue = "#{null}") String brand, @RequestParam(name = "ECCN", defaultValue = "#{null}") String eccn, @RequestParam(name = "TotalPrice", defaultValue = "#{null}") BigDecimal totalPrice, @RequestParam(name = "SlpCode", defaultValue = "#{null}") Long slpCode, @RequestParam(name = "DeptCode", defaultValue = "#{null}") String deptCode) {
         EnquiryBuyerSearchDTO enquiryBuyerSearchDTO = new EnquiryBuyerSearchDTO();
         enquiryBuyerSearchDTO.setBrand(brand);
         enquiryBuyerSearchDTO.setSlpCode(slpCode);
@@ -73,9 +71,7 @@ public class SearchController {
 
     @PostMapping("saveQuery")
     @Authentication(sale = true)
-    public Result<Boolean> saveQueryController(
-            @RequestBody BomQuerySaveDTO bomQuerySaveDTO
-    ) {
+    public Result<Boolean> saveQueryController(@RequestBody @Valid BomQuerySaveDTO bomQuerySaveDTO) {
         Boolean res = bomQuerySaveService.save(bomQuerySaveDTO);
         return Result.success(res, "Success");
     }
