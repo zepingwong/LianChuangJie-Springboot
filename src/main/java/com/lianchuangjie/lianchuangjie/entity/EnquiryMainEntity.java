@@ -1,6 +1,7 @@
 package com.lianchuangjie.lianchuangjie.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,7 @@ import java.util.Date;
 public class EnquiryMainEntity {
     // BOM单编号-主键 T_ICIN.DocEntry
     @TableId(type = IdType.AUTO, value = "DocEntry")
+    @JsonProperty("DocEntry")
     private Long docEntry;
     // 制单人编号 T_ICIN.UserSign
     @TableField(value = "UserSign")

@@ -19,7 +19,6 @@ public class BomQuerySaveServiceImpl implements BomQuerySaveService {
         BomQueryConsInfoDTO bomQueryConsInfo = bomQuerySaveDTO.getBomQueryConsInfo();
         EnquiryMainEntity enquiryMainEntity = new EnquiryMainEntity();
         BeanUtils.copyProperties(enquiryMainEntity, bomQueryConsInfo);
-        System.out.println(bomQueryConsInfo);
         return null;
     }
 }

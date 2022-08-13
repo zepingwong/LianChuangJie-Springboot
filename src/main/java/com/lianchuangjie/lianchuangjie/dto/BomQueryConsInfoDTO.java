@@ -19,7 +19,7 @@ public class BomQueryConsInfoDTO {
      */
     @NotBlank(message = "客户名称不能为空")
     @JsonProperty("CardName")
-    private String cardName;
+    private String CardName;
     /**
      * @description 客户代码
      * @target T_ICIN.CardCode
@@ -108,4 +108,14 @@ public class BomQueryConsInfoDTO {
      */
     @JsonProperty("U_Delivery")
     private String uDelivery;
+    /**
+     * @description 客户名称简称
+     */
+    @JsonProperty("ShortName")
+    private String shortName;
+    /**
+     * @description CardType
+     */
+    @JsonProperty("CardType")
+    private String cardType;
 }

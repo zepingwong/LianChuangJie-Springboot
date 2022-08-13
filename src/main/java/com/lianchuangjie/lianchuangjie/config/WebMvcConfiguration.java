@@ -1,19 +1,12 @@
 package com.lianchuangjie.lianchuangjie.config;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
-
-import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -49,17 +42,17 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
     }
 
 
-    @Override
-    protected void configureMessageConverters(@NotNull List<HttpMessageConverter<?>> converters) {
-        super.configureMessageConverters(converters);
-        converters.add(mappingJackson2HttpMessageConverter());
-    }
-
-    // 解决序列化空对象问题
-    private MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
-        ObjectMapper mapper = new ObjectMapper();
-        // 关键代码
-        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-        return new MappingJackson2HttpMessageConverter(mapper);
-    }
+//    @Override
+//    protected void configureMessageConverters(@NotNull List<HttpMessageConverter<?>> converters) {
+//        super.configureMessageConverters(converters);
+//        converters.add(mappingJackson2HttpMessageConverter());
+//    }
+//
+//    // 解决序列化空对象问题
+//    private MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
+//        ObjectMapper mapper = new ObjectMapper();
+//        // 关键代码
+//        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+//        return new MappingJackson2HttpMessageConverter(mapper);
+//    }
 }
