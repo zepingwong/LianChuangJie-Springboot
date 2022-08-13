@@ -18,7 +18,8 @@ public class BomQuerySaveServiceImpl implements BomQuerySaveService {
     public Boolean save(BomQuerySaveDTO bomQuerySaveDTO) {
         BomQueryConsInfoDTO bomQueryConsInfo = bomQuerySaveDTO.getBomQueryConsInfo();
         EnquiryMainEntity enquiryMainEntity = new EnquiryMainEntity();
-        BeanUtils.copyProperties(enquiryMainEntity, bomQueryConsInfo);
+        BeanUtils.copyProperties(bomQueryConsInfo, enquiryMainEntity);
+        System.out.println(enquiryMainEntity);
         return null;
     }
 }

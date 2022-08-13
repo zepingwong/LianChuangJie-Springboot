@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 @AllArgsConstructor
@@ -67,6 +68,7 @@ public class BomQueryConsInfoDTO {
      * @description 客户地区代码 U_Region
      * @target T_ICIN.U_Region
      */
+    @NotNull(message = "客户地区代码不能为空")
     @JsonProperty("U_Region")
     private Integer uRegion;
     /**

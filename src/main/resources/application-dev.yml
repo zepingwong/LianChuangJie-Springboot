@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: net.sourceforge.jtds.jdbc.Driver
-    url: jdbc:jtds:sqlserver://192.168.16.207:1433/LCJ_SAP360_NEW;useLOBs=false
+    url: jdbc:jtds:sqlserver://114.115.142.197/LCJ_SAP360_NEW;useLOBs=false
     username: sa
     password: 25429125Lcj
     hikari:
@@ -34,6 +34,6 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 
-debug: true
+debug: false
 
 
