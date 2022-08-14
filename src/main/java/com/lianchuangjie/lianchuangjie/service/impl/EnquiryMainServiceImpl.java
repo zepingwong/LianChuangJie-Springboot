@@ -1,9 +1,12 @@
 package com.lianchuangjie.lianchuangjie.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
 import com.lianchuangjie.lianchuangjie.entity.EnquiryMainEntity;
+import com.lianchuangjie.lianchuangjie.entity.EnquirySubEntity;
 import com.lianchuangjie.lianchuangjie.exception.ResponseEnum;
 import com.lianchuangjie.lianchuangjie.mapper.EnquiryMainMapper;
 import com.lianchuangjie.lianchuangjie.searchDTO.EnquiryMainSearchDTO;
@@ -35,8 +38,31 @@ public class EnquiryMainServiceImpl extends ServiceImpl<EnquiryMainMapper, Enqui
     @Override
     public Page<EnquiryMainItemVO> list(EnquiryMainSearchDTO searchCondition) {
         Page<EnquiryMainItemVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
-        page.addOrder(OrderItem.desc("T_ICIN.CreateDate"));
-        enquiryMainMapper.selectList(page, searchCondition);
+
+        QueryWrapper<EnquiryMainItemVO> queryWrapper = new QueryWrapper<>();
+        String mainTable = SqlHelper.table(EnquiryMainEntity.class).getTableName();
+        String subTable = SqlHelper.table(EnquirySubEntity.class).getTableName();
+        page.addOrder(OrderItem.desc(mainTable + ".CreateDate"));
+        if (searchCondition.getCardCode() != null) {
+            queryWrapper.eq( mainTable + ".CardCode", searchCondition.getCardCode());
+        }
+        if (searchCondition.getState() != null) {
+            queryWrapper.eq(mainTable + ".State", searchCondition.getState());
+        }
+        if (searchCondition.getCreateDateStart() != null) {
+            queryWrapper.ge(mainTable + ".CreateDate", searchCondition.getCreateDateStart());
+        }
+        if (searchCondition.getCreateDateEnd() != null) {
+            queryWrapper.le(mainTable + ".CreateDate", searchCondition.getCreateDateEnd());
+        }
+        if (searchCondition.getInvalidDateStart() != null) {
+            queryWrapper.ge(subTable + ".ExpDate",searchCondition.getInvalidDateStart());
+        }
+        if (searchCondition.getInvalidDateEnd() != null) {
+            queryWrapper.le(subTable + ".ExpDate",searchCondition.getInvalidDateEnd());
+        }
+        queryWrapper.eq(mainTable+".OwnerCode", searchCondition.getOwnerCode());
+        enquiryMainMapper.selectList(page, queryWrapper);
         return page;
     }
 }

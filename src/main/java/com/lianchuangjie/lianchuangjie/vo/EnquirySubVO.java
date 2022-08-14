@@ -45,13 +45,9 @@ public class EnquirySubVO {
     // 接受价格 U_ICIN1.ExpectedPrice
     @JsonProperty("ExpectedPrice")
     private BigDecimal expectedPrice;
-    // 最低报价 MinQuoPrice
-    private BigDecimal minQuoPrice;
     // 推荐报价 RecoPrice
     @JsonProperty("RecoPrice")
     private BigDecimal recoPrice;
-    // SuccRate 成单率
-    private BigDecimal succRate;
     // 报价型号 U_ICIN1.QuoModle
     @JsonProperty("QuoModle")
     private String quoModle;
@@ -111,13 +107,15 @@ public class EnquirySubVO {
     // 是否保密标记 Secrecy
     @JsonProperty("Secrecy")
     private String secrecy;
-
+    // 最低报价 MinQuoPrice
     @JsonProperty("MinQuoPrice")
+    private BigDecimal minQuoPrice;
     public BigDecimal getMinQuoPrice() {
         return BigDecimal.valueOf(1);
     }
-
+    // SuccRate 成单率
     @JsonProperty("SuccRate")
+    private BigDecimal succRate;
     public BigDecimal getSuccRate() {
         return BigDecimal.valueOf(80);
     }

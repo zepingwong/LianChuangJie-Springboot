@@ -52,9 +52,7 @@
         FROM T_ICIN
         LEFT JOIN U_ICIN1 ON T_ICIN.DocEntry = U_ICIN1.DocEntry
         <where>
-            <if test="searchDTO.OwnerCode != null">
-                AND T_ICIN.OwnerCode = #{searchDTO.OwnerCode}
-            </if>
+            ${ew.getSqlSegment()}
         </where>
         GROUP BY T_ICIN.DocEntry, UserSign, OwnerCode, DocStatus, CreateDate, UpdateTime, T_ICIN.ExpDate, InquiryDate,
         DeptCode, TransType, Branchs, Attachment, CardCode, CardName, Remark, T_ICIN.U_Buyer, T_ICIN.U_ComCode,

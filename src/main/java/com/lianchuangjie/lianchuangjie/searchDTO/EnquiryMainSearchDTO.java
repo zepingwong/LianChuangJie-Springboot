@@ -18,13 +18,11 @@ import java.util.Date;
 public class EnquiryMainSearchDTO {
     /**
      * @description 页码
-     * @defaultValue 1
      */
     @NotNull(message = "页码不能为空")
     private Integer page;
     /**
      * @description 每页显示数量
-     * @defaultValue 10
      * @maxValue 50
      */
     @NotNull(message = "每页显示数量不能为空")
@@ -34,34 +32,34 @@ public class EnquiryMainSearchDTO {
      * @description 销售员编号
      * @defaultValue 当前登录用户编号
      */
-    private Long OwnerCode;
+    private Long ownerCode;
 
-    public void setOwnerCode(Long OwnerCode) {
-        this.OwnerCode = OwnerCode != null ? OwnerCode : SessionUtil.getUserSign();
+    public void setOwnerCode(Long ownerCode) {
+        this.ownerCode = ownerCode != null ? ownerCode : SessionUtil.getUserSign();
     }
 
     /**
      * @description 询价单位编号
      */
-    private String CardCode;
+    private String cardCode;
     /**
      * @description 处理情况-销售报价次数
      */
-    private Integer State;
+    private Integer state;
     /**
      * @description 失效时间上限
      */
-    private Date InvalidDateStart;
+    private Date invalidDateStart;
     /**
      * @description 失效时间下限
      */
-    private Date InvalidDateEnd;
+    private Date invalidDateEnd;
     /**
      * @description 发送时间上限
      */
-    private Date CreateDateStart;
+    private Date createDateStart;
     /**
      * @description 发送时间下限
      */
-    private Date CreateDateEnd;
+    private Date createDateEnd;
 }

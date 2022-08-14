@@ -1,9 +1,9 @@
 package com.lianchuangjie.lianchuangjie.mapper;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.lianchuangjie.lianchuangjie.entity.EnquiryMainEntity;
-import com.lianchuangjie.lianchuangjie.searchDTO.EnquiryMainSearchDTO;
 import com.lianchuangjie.lianchuangjie.vo.EnquiryMainItemVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -33,13 +33,13 @@ public interface EnquiryMainMapper extends BaseMapper<EnquiryMainEntity> {
     /**
      * 查询询价单主表列表
      *
-     * @param page      分页查询
-     * @param searchDTO 查询条件
+     * @param page         分页查询
+     * @param queryWrapper 查询条件
      * @return page
      */
     IPage<EnquiryMainItemVO> selectList(
             IPage<EnquiryMainItemVO> page,
-            @Param("searchDTO") EnquiryMainSearchDTO searchDTO
+            @Param("ew") QueryWrapper<EnquiryMainItemVO> queryWrapper
     );
 
     /**

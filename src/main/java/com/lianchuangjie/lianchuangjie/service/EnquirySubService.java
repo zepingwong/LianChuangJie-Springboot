@@ -7,5 +7,5 @@ import com.lianchuangjie.lianchuangjie.vo.EnquirySubVO;
 import java.util.List;
 
 public interface EnquirySubService extends IService<EnquirySubEntity> {
-    List<EnquirySubVO> getListService(Long docEntry);
+    List<EnquirySubVO> list(Long docEntry);
 }

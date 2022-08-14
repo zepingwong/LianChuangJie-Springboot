@@ -20,36 +20,27 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/enquiry")
-public class EnquiryController {
+public class EnquiryController extends BaseController {
     @Resource
     EnquiryMainService enquiryMainService;
     @Resource
     EnquirySubService enquirySubService;
     @Resource
     EnquiryHotwordsService enquiryHotwordsService;
+
     @GetMapping("/main")
     @Authentication(sale = true)
-    public Result<Page<EnquiryMainItemVO>> getEnquiryMainListController(
-            @RequestParam(defaultValue = "#{null}", value = "page") Integer page,
-            @RequestParam(defaultValue = "#{null}",value = "size") Integer size,
-            @RequestParam(defaultValue = "#{null}", value = "OwnerCode") Long OwnerCode,
-            @RequestParam(defaultValue = "#{null}", value = "InvalidDateStart") Date InvalidDateStart,
-            @RequestParam(defaultValue = "#{null}", value = "InvalidDateEnd") Date InvalidDateEnd,
-            @RequestParam(defaultValue = "#{null}", value = "CreateDateStart") Date CreateDateStart,
-            @RequestParam(defaultValue = "#{null}", value = "CreateDateEnd") Date CreateDateEnd,
-            @RequestParam(defaultValue = "#{null}", value = "CardCode") String CardCode,
-            @RequestParam(defaultValue = "#{null}", value = "State") Integer State
-    ) {
+    public Result<Page<EnquiryMainItemVO>> getEnquiryMainListController(@RequestParam(defaultValue = "#{null}", value = "page") Integer page, @RequestParam(defaultValue = "#{null}", value = "size") Integer size, @RequestParam(defaultValue = "#{null}", value = "OwnerCode") Long ownerCode, @RequestParam(defaultValue = "#{null}", value = "InvalidDateStart") Date invalidDateStart, @RequestParam(defaultValue = "#{null}", value = "InvalidDateEnd") Date invalidDateEnd, @RequestParam(defaultValue = "#{null}", value = "CreateDateStart") Date createDateStart, @RequestParam(defaultValue = "#{null}", value = "CreateDateEnd") Date createDateEnd, @RequestParam(defaultValue = "#{null}", value = "CardCode") String cardCode, @RequestParam(defaultValue = "#{null}", value = "State") Integer state) {
         EnquiryMainSearchDTO searchCondition = new EnquiryMainSearchDTO();
         searchCondition.setPage(page);
         searchCondition.setSize(size);
-        searchCondition.setOwnerCode(OwnerCode);
-        searchCondition.setCardCode(CardCode);
-        searchCondition.setState(State);
-        searchCondition.setInvalidDateStart(InvalidDateStart);
-        searchCondition.setInvalidDateEnd(InvalidDateEnd);
-        searchCondition.setCreateDateStart(CreateDateStart);
-        searchCondition.setCreateDateEnd(CreateDateEnd);
+        searchCondition.setOwnerCode(ownerCode);
+        searchCondition.setCardCode(cardCode);
+        searchCondition.setState(state);
+        searchCondition.setInvalidDateStart(invalidDateStart);
+        searchCondition.setInvalidDateEnd(invalidDateEnd);
+        searchCondition.setCreateDateStart(createDateStart);
+        searchCondition.setCreateDateEnd(createDateEnd);
         Page<EnquiryMainItemVO> pages = enquiryMainService.list(searchCondition);
         return Result.success(pages);
     }
@@ -59,26 +50,24 @@ public class EnquiryController {
     public Result<EnquiryMainInfoVO> getEnquiryMainInfoController(@PathVariable Long docEntry) {
         return Result.success(enquiryMainService.getOne(docEntry));
     }
+
     @GetMapping("/sub")
     @Authentication(sale = true)
-    public Result<List<EnquirySubVO>> enquirySubController(
-            @RequestParam(defaultValue = "#{null}", value = "DocEntry") Long docEntry) {
-        List<EnquirySubVO> list = enquirySubService.getListService(docEntry);
-        return Result.success(list);
+    public Result<List<EnquirySubVO>> enquirySubController(@RequestParam(defaultValue = "#{null}", value = "DocEntry") Long docEntry) {
+        List<EnquirySubVO> list = enquirySubService.list(docEntry);
+        return Result.success(list, "Success");
     }
 
     @PutMapping("/sub")
     @Authentication(sale = true)
-     public Result<Boolean> saveEnquirySubController(
-             @RequestBody List<EnquirySubItemDTO> enquirySubItemDTOList
-    ) {
+    public Result<Boolean> saveEnquirySubController(@RequestBody List<EnquirySubItemDTO> enquirySubItemDTOList) {
         System.out.println(enquirySubItemDTOList);
         return null;
     }
 
     /**
-     * @description 查询热搜词
      * @return 排名前两个的热搜词
+     * @description 查询热搜词
      */
     @GetMapping("hotwords")
     @Authentication(sale = true)
