@@ -4,9 +4,16 @@
     <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.QuotationVO">
         SELECT
         U_ICIN1.*,
+        U_ICIN1.PrePrice AS 'U_PrePrice',
         fp.U_BaseLine,
         fp.U_BaseEntry,
-        fp.U_Status
+        fp.U_Status,
+        T_ICIN.InquiryDate,
+        T_ICIN.U_DomainName,
+        T_ICIN.U_CusLevel,
+        T_ICIN.U_CusGroupCode,
+        T_ICIN.U_DeptName,
+        T_ICIN.U_UserName
         FROM
         U_ICIN1 U_ICIN1
         LEFT JOIN (

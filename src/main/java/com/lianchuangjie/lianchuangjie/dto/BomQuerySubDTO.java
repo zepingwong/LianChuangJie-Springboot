@@ -1,5 +1,6 @@
 package com.lianchuangjie.lianchuangjie.dto;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -92,8 +93,12 @@ public class BomQuerySubDTO {
     // Year 需求批次
     @JsonProperty("Year")
     private String year;
+    // 税点
     @JsonProperty("VatRate")
     private BigDecimal vatRate;
+    // 是否保密标记 Secrecy
+    @JsonProperty("Secrecy")
+    private String secrecy;
     // 是否确认报价
     private String checkIN = "0";
     // 选中的采购

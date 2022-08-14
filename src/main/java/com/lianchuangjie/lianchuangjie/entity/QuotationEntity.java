@@ -82,17 +82,12 @@ public class QuotationEntity {
     @TableField(value = "U_ECCN")
     private String uEccn;
     /**
-     * @description 币种 U_Currency
-     */
-    @TableField(value = "U_Currency")
-    private String uCurrency;
-    /**
-     * @description 采购报价税率 U_QuoVatGroup
+     * @description 采购报价税率代码 U_QuoVatGroup
      */
     @TableField(value = "U_QuoVatGroup")
     private String uQuoVatGroup;
     /**
-     * @description 单价 U_PrePrice
+     * @description 预估价格/参考价格 U_PrePrice
      */
     @TableField(value = "U_PrePrice")
     private BigDecimal uPrePrice;

@@ -51,14 +51,34 @@ public class QuotationVO {
     @JsonProperty("Modle")
     private String modle;
     /**
+     * @description 采购报价品牌 U_QuoBrand
+     */
+    @JsonProperty("U_QuoModle")
+    private String uQuoModle;
+
+    public String getUQuoModle() {
+        return uQuoModle == null ? modle : uQuoModle;
+    }
+
+    /**
      * @description 需求品牌 Brand
      * @resource U_ICIN1.Brand
      */
     @JsonProperty("Brand")
     private String brand;
     /**
+     * @description 采购报价品牌 U_QuoBrand
+     */
+    @JsonProperty("U_QuoBrand")
+    private String uQuoBrand;
+
+    public String getUQuoBrand() {
+        return uQuoBrand == null ? brand : uQuoBrand;
+    }
+
+    /**
      * @description 需求数量 DemandQty
-     * @resource  U_ICIN1.DemandQty
+     * @resource U_ICIN1.DemandQty
      */
     @JsonProperty("DemandQty")
     private BigDecimal demandQty;
@@ -153,17 +173,16 @@ public class QuotationVO {
     @JsonProperty("U_CardName")
     private String uCardName;
     /**
-     * @description 采购报价型号 U_QuoModle
-     * @resource T_ICIN1.U_QuoModle
-     */
-    @JsonProperty("U_QuoModle")
-    private String uQuoModle;
-    /**
      * @description 采购报价数量 U_QuoQty
      * @resource T_ICIN1.U_QuoQty
      */
     @JsonProperty("U_QuoQty")
     private BigDecimal uQuoQty;
+
+    public BigDecimal getUQuoQty() {
+        return uQuoQty == null ? demandQty : uQuoQty;
+    }
+
     /**
      * @description 单价 U_QuoPrice
      * @resource T_ICIN1.U_QuoPrice
@@ -187,6 +206,20 @@ public class QuotationVO {
      */
     @JsonProperty("U_QuoDelivery")
     private String uQuoDelivery;
+
+    public String getUQuoDelivery() {
+        if (uQuoDelivery != null) {
+            return uQuoDelivery;
+        } else {
+            if (delivery != null) {
+                String[] strList = delivery.replace("周", "").split("-");
+                return (Integer.parseInt(strList[0]) + 2) + "-" + (Integer.parseInt(strList[1]) + 2) + "周";
+            } else {
+                return null;
+            }
+        }
+    }
+
     /**
      * @description 采购备注 U_Remark1
      * @resource T_ICIN1.U_Remark1
@@ -248,25 +281,27 @@ public class QuotationVO {
     @JsonProperty("ExpDate")
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date expDate;
+
     /**
      * @description 到期时间 InvalidDate 当距离到期时间超过24h时，显示距离到期时间天数，否则显示距离到期时间小时数；当超过过期时间超过24h时，显示超过到期时间天数，否则显示超过到期时间小时数
      */
     @JsonProperty("InvalidDate")
     private String invalidDate;
+
     public String getInvalidDate() {
         // 是否有失效时间
         if (expDate != null) {
             Date date = new Date();
-            long offset = date.getTime()-expDate.getTime()- 28800000L; // 要剪掉 8 小时时区差值
+            long offset = date.getTime() - expDate.getTime() - 28800000L; // 要剪掉 8 小时时区差值
             if (offset < 0) {
                 // 未到
-                String str = offset < -86400000 ? Math.round(offset/86400000.0) + "T" : Math.round(offset/3600000.0) + "H";
+                String str = offset < -86400000 ? Math.round(offset / 86400000.0) + "T" : Math.round(offset / 3600000.0) + "H";
                 return str.replace("-", "");
             } else {
                 // 已过期
-                return offset > 86400000 ? "-" + Math.round(offset/86400000.0) + "T" : "-" +  Math.round(offset/3600000.0) + "H";
+                return offset > 86400000 ? "-" + Math.round(offset / 86400000.0) + "T" : "-" + Math.round(offset / 3600000.0) + "H";
             }
-        }else {
+        } else {
             return null;
         }
     }
@@ -277,4 +312,14 @@ public class QuotationVO {
      */
     @JsonProperty("BaseLine")
     private Long baseLine;
+    // 预估价格
+    @JsonProperty("U_PrePrice")
+    private BigDecimal uPrePrice;
+    // ECCN
+    @JsonProperty("ECCN")
+    private String ECCN;
+    // 保密
+    @JsonProperty("Secrecy")
+    private String secrecy;
+    //
 }
