@@ -51,7 +51,7 @@ public class QuotationVO {
     @JsonProperty("Modle")
     private String modle;
     /**
-     * @description 采购报价品牌 U_QuoBrand
+     * @description 采购报价型号 U_QuoModle
      */
     @JsonProperty("U_QuoModle")
     private String uQuoModle;
@@ -188,6 +188,13 @@ public class QuotationVO {
      */
     @JsonProperty("U_QuoCurr")
     private String uQuoCurr;
+    @JsonProperty("U_QuoVatGroup")
+    private String uQuoVatGroup;
+    @JsonProperty("U_QuoVatRate")
+    private BigDecimal uQuoVatRate;
+    public String getUQuoCurr() {
+        return (uQuoCurr != null ? uQuoCurr : "") + (uQuoVatRate != null ? "（" + uQuoVatRate.stripTrailingZeros() + "%）" : "");
+    }
     /**
      * @description 供方交期 U_QuoDelivery
      * @resource T_ICIN1.U_QuoDelivery

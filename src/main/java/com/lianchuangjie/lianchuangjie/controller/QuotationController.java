@@ -3,9 +3,13 @@ package com.lianchuangjie.lianchuangjie.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lianchuangjie.lianchuangjie.config.Authentication;
+import com.lianchuangjie.lianchuangjie.dto.QuotationReplyDTO;
 import com.lianchuangjie.lianchuangjie.dto.QuotationSaveDTO;
+import com.lianchuangjie.lianchuangjie.entity.EnquiryMainEntity;
 import com.lianchuangjie.lianchuangjie.entity.QuotationEntity;
+import com.lianchuangjie.lianchuangjie.mapper.EnquiryMainMapper;
 import com.lianchuangjie.lianchuangjie.searchDTO.QuotationSearchDTO;
+import com.lianchuangjie.lianchuangjie.service.EnquiryMainService;
 import com.lianchuangjie.lianchuangjie.service.QuotationService;
 import com.lianchuangjie.lianchuangjie.service.UserInfoService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
@@ -28,6 +32,10 @@ public class QuotationController extends BaseController {
     QuotationService quotationService;
     @Resource
     UserInfoService userInfoService;
+    @Resource
+    EnquiryMainService enquiryMainService;
+    @Resource
+    EnquiryMainMapper enquiryMainMapper;
 
     @GetMapping("quote")
     @Authentication(buyer = true)
@@ -68,5 +76,20 @@ public class QuotationController extends BaseController {
         quotationEntity.setUserName(user.getUserName()); // 采购员姓名
         quotationEntity.setUDeptCod(user.getDftDeptName()); // 采购部门名称
         return Result.success(quotationService.save(quotationEntity));
+    }
+
+    @PatchMapping("quote")
+    @Authentication(buyer = true)
+    public Result<Boolean> replyQuotationController(@RequestBody @Valid QuotationReplyDTO quotationReplyDTO) {
+        QueryWrapper<QuotationEntity> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("DocEntry", quotationReplyDTO.getDocEntry());
+        queryWrapper.eq("U_BaseLine", quotationReplyDTO.getLineNum());
+        QuotationEntity quotationEntity = quotationService.getOne(queryWrapper);
+        quotationEntity.setUStatus("Y");
+        Boolean res = quotationService.update(quotationEntity, queryWrapper);
+        EnquiryMainEntity enquiryMainEntity = enquiryMainMapper.selectByDocEntry(quotationReplyDTO.getDocEntry(), SessionUtil.getUserSign());
+        enquiryMainEntity.setNew("Y");
+        enquiryMainService.updateById(enquiryMainEntity);
+        return Result.success(res, "Success");
     }
 }

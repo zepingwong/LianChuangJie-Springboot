@@ -48,4 +48,5 @@ public interface EnquiryMainMapper extends BaseMapper<EnquiryMainEntity> {
      * @return max docEntry
      */
     Long selectMaxDocEntry();
+
 }

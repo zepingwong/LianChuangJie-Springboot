@@ -13,4 +13,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface QuotationMapper extends BaseMapper<QuotationEntity> {
     IPage<QuotationVO> selectList(IPage<QuotationVO> page, @Param("ew") QueryWrapper<QuotationVO> queryWrapper, @Param("UserSign") Long userSign);
+    QuotationEntity selectOne(@Param("ew") QueryWrapper<QuotationEntity> queryWrapper);
 }

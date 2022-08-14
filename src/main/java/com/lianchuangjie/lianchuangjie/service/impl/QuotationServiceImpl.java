@@ -26,7 +26,6 @@ public class QuotationServiceImpl extends ServiceImpl<QuotationMapper, Quotation
         QueryWrapper<QuotationVO> queryWrapper = new QueryWrapper<>();
         String enquirySubTable = SqlHelper.table(EnquirySubEntity.class).getTableName();
         String enquiryMainTable = SqlHelper.table(EnquiryMainEntity.class).getTableName();
-        String quotationTable = SqlHelper.table(QuotationEntity.class).getTableName();
         if (searchCondition.getModle() != null) {
             queryWrapper.like(enquirySubTable + ".Modle", searchCondition.getModle());
         }
@@ -42,5 +41,10 @@ public class QuotationServiceImpl extends ServiceImpl<QuotationMapper, Quotation
         page.addOrder(OrderItem.desc(enquiryMainTable + ".CreateDate"));
         quotationMapper.selectList(page, queryWrapper, searchCondition.getUBuyer());
         return page;
+    }
+
+    @Override
+    public QuotationEntity getOne(QueryWrapper<QuotationEntity> queryWrapper) {
+        return quotationMapper.selectOne(queryWrapper);
     }
 }
