@@ -17,6 +17,7 @@ import java.util.List;
 public class CompanyDepartmentController {
     @Resource
     CompanyDepartmentService companyDepartmentService;
+
     @GetMapping("/department")
     @Authentication(sale = true, buyer = true)
     public Result<List<CompanyDepartmentVO>> letterheadListController() {

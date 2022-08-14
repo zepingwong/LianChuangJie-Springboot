@@ -4,6 +4,7 @@ import com.lianchuangjie.lianchuangjie.config.Authentication;
 import com.lianchuangjie.lianchuangjie.service.BrandService;
 import com.lianchuangjie.lianchuangjie.service.SellerService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
+import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
 import com.lianchuangjie.lianchuangjie.vo.BrandItemVO;
 import com.lianchuangjie.lianchuangjie.vo.SellerVO;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,23 +26,22 @@ public class BuyerController {
 
     /**
      * 获取采购负责的品牌
+     *
      * @param ownerCode 采购员编号
      * @return List<BrandItemVO>
      */
     @GetMapping("/brand")
     @Authentication(buyer = true)
-    public Result<List<BrandItemVO>> getBuyersBrandController(
-            @RequestParam(defaultValue = "#{null}", value = "OwnerCode") Long ownerCode
-    ) {
+    public Result<List<BrandItemVO>> getBuyersBrandController(@RequestParam(defaultValue = "#{null}", value = "OwnerCode") Long ownerCode) {
+        if (ownerCode == null) ownerCode = SessionUtil.getUserSign();
         List<BrandItemVO> list = brandService.list(ownerCode);
         return Result.success(list, "success");
     }
 
     @GetMapping("/seller")
     @Authentication(buyer = true)
-    public Result<List<SellerVO>> getBuyersSellerController(
-            @RequestParam(defaultValue = "#{null}", value = "OwnerCode") Long ownerCode
-    ) {
+    public Result<List<SellerVO>> getBuyersSellerController(@RequestParam(defaultValue = "#{null}", value = "OwnerCode") Long ownerCode) {
+        if (ownerCode == null) ownerCode = SessionUtil.getUserSign();
         List<SellerVO> list = sellerService.list(ownerCode);
         return Result.success(list, "success");
     }

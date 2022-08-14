@@ -56,6 +56,7 @@ public class ClientController {
         List<ClienteleItemVO> list = clienteleSupplierService.list(CardName);
         return Result.success(list, "success");
     }
+
     @GetMapping("/supplier/{CardCode}")
     @Authentication(buyer = true)
     public Result<ClienteleInfoVO> getSupplierInfoController(

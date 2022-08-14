@@ -16,7 +16,7 @@ import java.util.Date;
 
 @RestController
 @RequestMapping("/")
-public class QuotationController extends BaseController{
+public class QuotationController extends BaseController {
     @Resource
     QuotationService quotationService;
 

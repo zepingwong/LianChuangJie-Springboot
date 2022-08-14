@@ -1,7 +1,7 @@
 package com.lianchuangjie.lianchuangjie.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.sql.SqlUtils;
+import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
@@ -33,12 +33,13 @@ public class QuotationServiceImpl extends ServiceImpl<QuotationMapper, Quotation
         if (searchCondition.getBrand() != null) {
             queryWrapper.eq(enquirySubTable+ ".Brand", searchCondition.getBrand());
         }
-//        if (searchCondition.getUStatus() != null) {
-//            queryWrapper.eq(quotationTable+ "U_Status", searchCondition.getUStatus());
-//        }
+        if (searchCondition.getUStatus() != null) {
+            queryWrapper.eq("fp.U_Status", searchCondition.getUStatus());
+        }
         if (searchCondition.getOwnerCode() != null) {
             queryWrapper.eq(enquiryMainTable + ".OwnerCode", searchCondition.getOwnerCode());
         }
+        page.addOrder(OrderItem.desc(enquiryMainTable + ".CreateDate"));
         quotationMapper.selectList(page, queryWrapper, searchCondition.getUBuyer());
         return page;
     }

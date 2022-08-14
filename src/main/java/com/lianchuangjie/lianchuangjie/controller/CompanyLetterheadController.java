@@ -17,6 +17,7 @@ import java.util.List;
 public class CompanyLetterheadController {
     @Resource
     CompanyLetterheadService companyLetterheadService;
+
     @GetMapping("/letterhead")
     @Authentication(sale = true)
     public Result<List<CompanyLetterheadVO>> letterheadListController() {

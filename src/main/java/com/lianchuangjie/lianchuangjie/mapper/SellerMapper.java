@@ -1,6 +1,5 @@
 package com.lianchuangjie.lianchuangjie.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.lianchuangjie.lianchuangjie.vo.SellerVO;
 import org.apache.ibatis.annotations.Param;
 

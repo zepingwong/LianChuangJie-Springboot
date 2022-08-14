@@ -3,6 +3,10 @@
 <mapper namespace="com.lianchuangjie.lianchuangjie.mapper.SellerMapper">
 
     <select id="selectByBuyer" resultType="com.lianchuangjie.lianchuangjie.vo.SellerVO">
-        SELECT * FROM U_PUR9 WHERE OwnerCode = #{UserSign}
+        SELECT DISTINCT (SlpCode),
+                        SlpName,
+                        DeptCode
+        FROM U_PUR9
+        WHERE OwnerCode = #{UserSign}
     </select>
 </mapper>

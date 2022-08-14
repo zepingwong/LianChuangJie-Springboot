@@ -44,7 +44,7 @@ public class EnquiryMainServiceImpl extends ServiceImpl<EnquiryMainMapper, Enqui
         String subTable = SqlHelper.table(EnquirySubEntity.class).getTableName();
         page.addOrder(OrderItem.desc(mainTable + ".CreateDate"));
         if (searchCondition.getCardCode() != null) {
-            queryWrapper.eq( mainTable + ".CardCode", searchCondition.getCardCode());
+            queryWrapper.eq(mainTable + ".CardCode", searchCondition.getCardCode());
         }
         if (searchCondition.getState() != null) {
             queryWrapper.eq(mainTable + ".State", searchCondition.getState());
@@ -56,12 +56,12 @@ public class EnquiryMainServiceImpl extends ServiceImpl<EnquiryMainMapper, Enqui
             queryWrapper.le(mainTable + ".CreateDate", searchCondition.getCreateDateEnd());
         }
         if (searchCondition.getInvalidDateStart() != null) {
-            queryWrapper.ge(subTable + ".ExpDate",searchCondition.getInvalidDateStart());
+            queryWrapper.ge(subTable + ".ExpDate", searchCondition.getInvalidDateStart());
         }
         if (searchCondition.getInvalidDateEnd() != null) {
-            queryWrapper.le(subTable + ".ExpDate",searchCondition.getInvalidDateEnd());
+            queryWrapper.le(subTable + ".ExpDate", searchCondition.getInvalidDateEnd());
         }
-        queryWrapper.eq(mainTable+".OwnerCode", searchCondition.getOwnerCode());
+        queryWrapper.eq(mainTable + ".OwnerCode", searchCondition.getOwnerCode());
         enquiryMainMapper.selectList(page, queryWrapper);
         return page;
     }
