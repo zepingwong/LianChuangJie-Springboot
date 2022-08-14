@@ -17,6 +17,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
         this.setFieldValByName("updateTime", new Date(), metaObject);
         this.setFieldValByName("createDate", new Date(), metaObject);
         this.setFieldValByName("inquiryDate", new Date(), metaObject);
+        this.setFieldValByName("uQuoDate", new Date(), metaObject);
     }
 
     @Override

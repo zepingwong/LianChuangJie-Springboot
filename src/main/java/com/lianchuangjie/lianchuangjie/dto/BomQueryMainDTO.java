@@ -1,5 +1,6 @@
 package com.lianchuangjie.lianchuangjie.dto;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -44,10 +45,13 @@ public class BomQueryMainDTO {
     /**
      * @description 客户信息
      */
-    // 客户行业 T_ICIN.U_DomainName
+    // 客户行业领域名称 T_ICIN.U_DomainName
     @NotBlank(message = "客户行业名称不能为空")
     @JsonProperty("U_DomainName")
     private String uDomainName;
+    // 客户行业领域代码
+    @JsonAlias({"U_CusIndustries", "U_Industries"})
+    private String uCusIndustries;
     // 客户等级名称  T_ICIN.U_CusLevel
     @NotBlank(message = "客户等级名称不能为空")
     @JsonProperty("U_CusLevel")

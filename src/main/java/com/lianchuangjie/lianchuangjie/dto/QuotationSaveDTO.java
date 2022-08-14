@@ -1,6 +1,5 @@
 package com.lianchuangjie.lianchuangjie.dto;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -62,6 +61,9 @@ public class QuotationSaveDTO {
     @NotBlank(message = "供应商名称不能为空")
     @JsonProperty("U_CardName")
     private String uCardName;
+    // U_QuoGroupCode 采购报价供应商性质
+    @JsonProperty("U_QuoGroupCode")
+    private String uQuoGroupCode;
     /**
      * @description 报价型号 U_QuoModle
      * @target T_ICIN1.U_QuoModle
@@ -90,6 +92,12 @@ public class QuotationSaveDTO {
     @NotNull(message = "报价货币不能为空")
     @JsonProperty("U_QuoCurr")
     private String uQuoCurr;
+
+    public String getUQuoCurr() {
+        String[] strList = uQuoCurr.split("\\+");
+        return strList[0];
+    }
+
     /**
      * @description 采购报价批次 U_QuoYear
      */
@@ -162,6 +170,21 @@ public class QuotationSaveDTO {
     @JsonProperty(value = "U_QuoBrand")
     private String uQuoBrand;
     /**
+     * 客户信息
+     */
+    // 客户行业领域 U_Industries
+    @JsonProperty("U_Industries")
+    private String uIndustries;
+    // 客户等级
+    @JsonProperty("U_U_Level")
+    private String uULevel;
+    // 需求销项税代码
+    @JsonProperty("U_VatGroup")
+    private String uVatGroup;
+    // 客户性质名称
+    @JsonProperty("U_GroupCode")
+    private String uGroupCode;
+    /**
      * @description 客户需求
      */
     // 需求交期 U_Delivery
@@ -185,6 +208,10 @@ public class QuotationSaveDTO {
     // 预估价格/参考价格 U_PrePrice
     @JsonProperty("U_PrePrice")
     private BigDecimal uPrePrice;
+    private BigDecimal uPreTotal;
+    public BigDecimal getUPreTotal() {
+        return uPrePrice.multiply(demandQty);
+    }
     // 发送时间/录入时间 InquiryDate
     @JsonProperty("DemandDate")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") // 接参数
@@ -199,6 +226,9 @@ public class QuotationSaveDTO {
     // 重要程度 U_KeyPoint
     @JsonProperty("U_KeyPoint")
     private String uKeyPoint;
+    // 客户简称代码
+    @JsonProperty("U_ShortCode")
+    private String uShortCode;
     // 关联询价单编号
     private Long uBaseEntry;
 

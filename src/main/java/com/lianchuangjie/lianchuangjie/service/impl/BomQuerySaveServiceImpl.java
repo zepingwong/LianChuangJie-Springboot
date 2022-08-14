@@ -16,7 +16,6 @@ import com.lianchuangjie.lianchuangjie.service.BomQuerySaveService;
 import com.lianchuangjie.lianchuangjie.service.EnquiryMainService;
 import com.lianchuangjie.lianchuangjie.service.EnquirySubService;
 import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
-import org.apache.poi.ss.formula.functions.WeekNum;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -41,17 +40,11 @@ public class BomQuerySaveServiceImpl implements BomQuerySaveService {
     @Override
     public Boolean save(BomQuerySaveDTO bomQuerySaveData) {
         BomQueryMainDTO bomQueryConsInfo = bomQuerySaveData.getBomQueryMain();
+        System.out.println(bomQueryConsInfo);
         ClienteleRegionEntity clienteleRegion = clienteleRegionMapper.selectById(bomQueryConsInfo.getRegionCode());
         EnquiryMainEntity enquiryMainEntity = new EnquiryMainEntity();
         BeanUtils.copyProperties(bomQueryConsInfo, enquiryMainEntity);
-        enquiryMainEntity.setUShortCode(clienteleRegion.getShortName() +
-                " " +
-                bomQueryConsInfo.getUDomainName() +
-                " " +
-                bomQueryConsInfo.getUCusGroup() +
-                "-"
-        );
-
+        enquiryMainEntity.setUShortCode(clienteleRegion.getShortName() + " " + bomQueryConsInfo.getUDomainName() + " " + bomQueryConsInfo.getUCusGroup() + "-" + bomQueryConsInfo.getCardCode().replace("C", ""));
         QueryWrapper<UserEntity> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("UserSign", SessionUtil.getUserSign());
         UserEntity user = userMapper.getOne(queryWrapper);
@@ -61,7 +54,7 @@ public class BomQuerySaveServiceImpl implements BomQuerySaveService {
         enquiryMainEntity.setDeptCode(user.getDftDept()); // 销售部门代码
         enquiryMainEntity.setUDeptName(user.getDftDeptName()); // 销售部门名称
         // 询价单编号
-        Long docEntry = enquiryMainMapper.selectMaxDocEntry()+1;
+        Long docEntry = enquiryMainMapper.selectMaxDocEntry() + 1;
         enquiryMainEntity.setDocEntry(docEntry);
         // 保存询价单主表信息
         boolean res = enquiryMainService.save(enquiryMainEntity);
@@ -77,7 +70,7 @@ public class BomQuerySaveServiceImpl implements BomQuerySaveService {
                 enquirySubEntity.setDocEntry(docEntry);
                 enquirySubEntity.setLineNum(lineNum);
                 saveList.add(enquirySubEntity);
-                lineNum ++;
+                lineNum++;
             }
         }
         enquirySubService.saveBatch(saveList);

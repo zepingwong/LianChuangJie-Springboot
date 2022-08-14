@@ -1,5 +1,6 @@
 package com.lianchuangjie.lianchuangjie.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
@@ -57,7 +58,7 @@ public class QuotationEntity {
     /**
      * @description 需求品牌 Brand
      */
-    @TableField(exist = false)
+    @TableField(value = "Brand")
     private String brand;
     /**
      * @description 采购报价品牌 U_QuoBrand
@@ -92,11 +93,10 @@ public class QuotationEntity {
     @TableField(value = "U_PrePrice")
     private BigDecimal uPrePrice;
     /**
-     * @description 总价 U_PreTotal
+     * @description 预估总价 U_PreTotal
      */
     @TableField(value = "U_PreTotal")
     private BigDecimal uPreTotal;
-
     /**
      * @description 是否保密 U_Secrecy
      */
@@ -130,7 +130,7 @@ public class QuotationEntity {
     /**
      * @description 采购报价时间 U_QuoDate
      */
-    @TableField(value = "U_QuoDate")
+    @TableField(fill = FieldFill.INSERT, value = "U_QuoDate")
     private Date uQuoDate;
     /**
      * @description 供方报价 U_QuoPrice
@@ -177,7 +177,6 @@ public class QuotationEntity {
      */
     @TableField(value = "U_KeyRemark")
     private String uKeyRemark;
-
     /**
      * @description 无法报价
      */
@@ -242,10 +241,10 @@ public class QuotationEntity {
     @TableField(exist = false)
     private String uDftDept;
     /**
-     * @description 采购部门名称 U_DftDeptName
+     * @description 采购部门名称 U_DeptCod
      */
-    @TableField(exist = false)
-    private String uDftDeptName;
+    @TableField(value = "U_DeptCod")
+    private String uDeptCod;
     /**
      * @description 销售员编号
      * @resource 根据 T_ICIN1.DocEntry 匹配 T_ICIN.DocEntry 获取 T_ICIN.OwnerCode
@@ -339,4 +338,18 @@ public class QuotationEntity {
      */
     @TableField(exist = false)
     private String GroupName;
+    // 客户行业领域代码
+    @TableField(value = "U_Industries")
+    private String uIndustries;
+    // 客户等级名称
+    @TableField(value = "U_U_Level")
+    private String uULevel;
+    // 客户性质名称
+    @TableField(value = "U_GroupCode")
+    private String uGroupCode;
+    // 需求销项税代码
+    @TableField(value = "U_VatGroup")
+    private String uVatGroup;
+    @TableField(value = "U_ShortCode")
+    private String uShortCode;
 }

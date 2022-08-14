@@ -105,6 +105,9 @@ public class EnquiryMainEntity {
     // 需求客户行业领域名称 U_DomainName
     @TableField(value = "U_DomainName")
     private String uDomainName;
+    // 客户行业领域代码
+    @TableField(value = "U_CusIndustries")
+    private String uCusIndustries;
     // 需求客户区域名称 U_Region
     @TableField(value = "U_Region")
     private String uRegion;

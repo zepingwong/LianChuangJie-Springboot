@@ -136,18 +136,6 @@ public class QuotationVO {
     @JsonProperty("U_DeptName")
     private String uDeptName;
     /**
-     * @description 需求客户性质名称 U_CusGroupCode
-     * @resource T_ICIN.U_CusGroupCode
-     */
-    @JsonProperty("U_CusGroupCode")
-    private String uCusGroupCode;
-    /**
-     * @description 需求客户等级名称 U_CusLevel
-     * @resource T_ICIN.U_CusLevel
-     */
-    @JsonProperty("U_CusLevel")
-    private String uCusLevel;
-    /**
      * @description 需求客户行业领域名称 U_DomainName
      * @resource T_ICIN.U_DomainName
      */
@@ -321,5 +309,19 @@ public class QuotationVO {
     // 保密
     @JsonProperty("Secrecy")
     private String secrecy;
-    //
+    // 客户行业领域 U_Industries
+    @JsonProperty("U_Industries")
+    private String uIndustries;
+    // 需求销项税代码 U_VatGroup
+    @JsonProperty("U_VatGroup")
+    private String uVatGroup;
+    // 需求客户性质名称 U_CusGroupCode
+    @JsonProperty("U_CusGroupCode")
+    private String uCusGroupCode;
+     // 需求客户等级名称 U_CusLevel
+    @JsonProperty("U_CusLevel")
+    private String uCusLevel;
+    @JsonProperty("U_ShortCode")
+    private String uShortCode;
+
 }

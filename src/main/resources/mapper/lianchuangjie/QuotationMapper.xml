@@ -10,10 +10,13 @@
         fp.U_Status,
         T_ICIN.InquiryDate,
         T_ICIN.U_DomainName,
+        T_ICIN.U_CusIndustries AS 'U_Industries',
         T_ICIN.U_CusLevel,
         T_ICIN.U_CusGroupCode,
         T_ICIN.U_DeptName,
-        T_ICIN.U_UserName
+        T_ICIN.U_UserName,
+        T_ICIN.U_VatGroup,
+        T_ICIN.U_ShortCode
         FROM
         U_ICIN1 U_ICIN1
         LEFT JOIN (

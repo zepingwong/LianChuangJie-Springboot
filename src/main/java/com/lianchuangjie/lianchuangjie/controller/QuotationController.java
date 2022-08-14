@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lianchuangjie.lianchuangjie.config.Authentication;
 import com.lianchuangjie.lianchuangjie.dto.QuotationSaveDTO;
 import com.lianchuangjie.lianchuangjie.entity.QuotationEntity;
-import com.lianchuangjie.lianchuangjie.entity.UserEntity;
 import com.lianchuangjie.lianchuangjie.searchDTO.QuotationSearchDTO;
 import com.lianchuangjie.lianchuangjie.service.QuotationService;
 import com.lianchuangjie.lianchuangjie.service.UserInfoService;
@@ -59,7 +58,7 @@ public class QuotationController extends BaseController {
         QueryWrapper<QuotationEntity> queryWrapper = new QueryWrapper<>();
         // T_ICIN1.LineNum表示报价次数
         queryWrapper.eq("DocEntry", quotationSaveDTO.getDocEntry());
-        quotationEntity.setLineNum(quotationService.count() + 1);
+        quotationEntity.setLineNum(quotationService.count(queryWrapper) + 1);
         // 采购员和采购部门信息
         Long userSign = SessionUtil.getUserSign();
         quotationEntity.setUBuyer(userSign);
@@ -67,8 +66,7 @@ public class QuotationController extends BaseController {
         userInfoVOQueryWrapper.eq("UserSign", userSign); // 采购员编号
         UserInfoVO user = userInfoService.getOne(userInfoVOQueryWrapper);
         quotationEntity.setUserName(user.getUserName()); // 采购员姓名
-        quotationEntity.setUDftDept(user.getDftDept()); // 采购部门代码
-        quotationEntity.setUDftDeptName(user.getDftDeptName()); // 采购部门名称
+        quotationEntity.setUDeptCod(user.getDftDeptName()); // 采购部门名称
         return Result.success(quotationService.save(quotationEntity));
     }
 }
