@@ -17,7 +17,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain = true)
-public class ClienteleInfoVO {
+public class ClienteleClientInfoVO {
     // 业务合作伙伴代码-主键 CardCode
     @JsonProperty("CardCode")
     private String cardCode;

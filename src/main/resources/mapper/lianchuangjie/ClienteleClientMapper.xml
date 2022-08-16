@@ -48,7 +48,7 @@
         </if>
         ORDER BY T0.CardName
     </select>
-    <select id="selectOne" resultType="com.lianchuangjie.lianchuangjie.vo.ClienteleInfoVO">
+    <select id="selectOne" resultType="com.lianchuangjie.lianchuangjie.vo.ClienteleClientInfoVO">
         DECLARE @DataPur NVARCHAR(10);
         DECLARE @BaseFormID BIGINT;
         DECLARE @DftDept NVARCHAR(20);

@@ -2,7 +2,7 @@ package com.lianchuangjie.lianchuangjie.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.lianchuangjie.lianchuangjie.entity.ClienteleEntity;
-import com.lianchuangjie.lianchuangjie.vo.ClienteleInfoVO;
+import com.lianchuangjie.lianchuangjie.vo.ClienteleClientInfoVO;
 import com.lianchuangjie.lianchuangjie.vo.ClienteleItemVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -18,7 +18,7 @@ public interface ClienteleClientMapper extends BaseMapper<ClienteleEntity> {
             @Param("UserSign") Long UserSign
     );
 
-    ClienteleInfoVO selectOne(
+    ClienteleClientInfoVO selectOne(
             @Param("CardCode") String CardCode,
             @Param("UserSign") Long UserSign
     );

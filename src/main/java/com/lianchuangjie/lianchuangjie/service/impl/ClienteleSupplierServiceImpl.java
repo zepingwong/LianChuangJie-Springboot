@@ -5,8 +5,8 @@ import com.lianchuangjie.lianchuangjie.entity.ClienteleEntity;
 import com.lianchuangjie.lianchuangjie.mapper.ClienteleSupplierMapper;
 import com.lianchuangjie.lianchuangjie.service.ClienteleSupplierService;
 import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
-import com.lianchuangjie.lianchuangjie.vo.ClienteleInfoVO;
 import com.lianchuangjie.lianchuangjie.vo.ClienteleItemVO;
+import com.lianchuangjie.lianchuangjie.vo.ClienteleSupplierInfoVO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -23,7 +23,7 @@ public class ClienteleSupplierServiceImpl extends ServiceImpl<ClienteleSupplierM
     }
 
     @Override
-    public ClienteleInfoVO getOne(String CardCode) {
+    public ClienteleSupplierInfoVO getOne(String CardCode) {
         return clienteleSupplierMapper.selectOne(CardCode, SessionUtil.getUserSign());
     }
 }

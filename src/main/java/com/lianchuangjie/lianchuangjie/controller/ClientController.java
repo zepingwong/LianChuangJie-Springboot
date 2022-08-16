@@ -41,11 +41,11 @@ public class ClientController {
 
     @GetMapping("/client/{CardCode}")
     @Authentication(sale = true)
-    public Result<ClienteleInfoVO> getClientInfoController(
+    public Result<ClienteleClientInfoVO> getClientInfoController(
             @PathVariable String CardCode
     ) {
-        ClienteleInfoVO clienteleInfoVO = clienteleClientService.getOne(CardCode);
-        return Result.success(clienteleInfoVO, "success");
+        ClienteleClientInfoVO clienteleClientInfoVO = clienteleClientService.getOne(CardCode);
+        return Result.success(clienteleClientInfoVO, "success");
     }
 
     @GetMapping("/supplier")
@@ -59,11 +59,11 @@ public class ClientController {
 
     @GetMapping("/supplier/{CardCode}")
     @Authentication(buyer = true)
-    public Result<ClienteleInfoVO> getSupplierInfoController(
+    public Result<ClienteleSupplierInfoVO> getSupplierInfoController(
             @PathVariable String CardCode
     ) {
-        ClienteleInfoVO clienteleInfoVO = clienteleSupplierService.getOne(CardCode);
-        return Result.success(clienteleInfoVO, "success");
+        ClienteleSupplierInfoVO clienteleClientInfo = clienteleSupplierService.getOne(CardCode);
+        return Result.success(clienteleClientInfo, "success");
     }
 
     /**

@@ -46,7 +46,7 @@
             AND T0.CardName LIKE CONCAT('%', #{CardName}, '%')
         </if>
     </select>
-    <select id="selectOne" resultType="com.lianchuangjie.lianchuangjie.vo.ClienteleInfoVO">
+    <select id="selectOne" resultType="com.lianchuangjie.lianchuangjie.vo.ClienteleSupplierInfoVO">
         DECLARE @DataPur NVARCHAR(10);
         DECLARE @BaseFormID BIGINT;
         DECLARE @DftDept NVARCHAR(20);
