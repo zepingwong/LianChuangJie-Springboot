@@ -56,6 +56,9 @@ public class EnquirySubEntity {
     // 需求交期 Delivery
     @TableField(value = "Delivery")
     private String delivery;
+    // 需求封装
+    @TableField(value = "Package")
+    private String packages;
     // 接受价格 ExpectedPrice
     @TableField(value = "ExpectedPrice")
     private BigDecimal expectedPrice;

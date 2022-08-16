@@ -18,41 +18,33 @@ import java.util.Date;
 @NoArgsConstructor
 public class QuotationSaveDTO {
     /**
-     * @description 状态 U_Status
+     * @description 编号
      */
-    @JsonProperty("U_Status")
-    private String uStatus;
-    /**
-     * @description 询价单编号-主键 DocEntry
-     * @target U_ICIN1.DocEntry
-     */
+    // 询价单编号-主键 U_ICIN1.DocEntry
     @NotNull(message = "询价单编号不能为空")
     @JsonProperty("DocEntry")
     private Long docEntry;
-    /**
-     * @description 行号-主键 LineNum
-     * @target U_ICIN1.LineNum
-     */
+    // 行号-主键 U_ICIN1.LineNum
     @NotNull(message = "询价单行号不能为空")
     @JsonProperty("LineNum")
     private Long lineNum;
-    /**
-     * @description 无法报价
-     * @target T_ICIN1.UnableQuote
-     */
+    // 关联询价单编号
+    @TableField(value = "U_BaseEntry")
+    private Long uBaseEntry;
+    // 关联询价单行号
+    @TableField(value = "U_BaseLine")
+    private Long uBaseLine;
+    // 无法报价 T_ICIN1.UnableQuote
     @JsonProperty("UnableQuote")
     private String unableQuote;
     /**
-     * @description 供应商代码 U_CardCode
-     * @target T_ICIN1.U_CardCode
+     * @description 供应商
      */
+    // 供应商代码 U_CardCode
     @NotBlank(message = "供应商代码不能为空")
     @JsonProperty("U_CardCode")
     private String uCardCode;
-    /**
-     * @description 供应商名称 U_CardName
-     * @target T_ICIN1.U_CardName
-     */
+    // 供应商名称 T_ICIN1.U_CardName
     @NotBlank(message = "供应商名称不能为空")
     @JsonProperty("U_CardName")
     private String uCardName;
@@ -60,99 +52,35 @@ public class QuotationSaveDTO {
     @JsonProperty("U_QuoGroupCode")
     private String uQuoGroupCode;
     /**
-     * @description 报价型号 U_QuoModle
-     * @target T_ICIN1.U_QuoModle
+     * @description 报价信息
      */
+    // 报价型号 T_ICIN1.U_QuoModle
     @NotBlank(message = "报价型号不能为空")
     @JsonProperty("U_QuoModle")
     private String uQuoModle;
-    /**
-     * @description 采购报价数量 U_QuoQty
-     * @target T_ICIN1.U_QuoQty
-     */
+    // 采购报价数量 T_ICIN1.U_QuoQty
     @NotNull(message = "报价数量不能为空")
     @JsonProperty("U_QuoQty")
     private BigDecimal uQuoQty;
-    /**
-     * @description 单价 U_QuoPrice
-     * @target T_ICIN1.U_QuoPrice
-     */
+    // 单价 T_ICIN1.U_QuoPrice
     @NotNull(message = "供方报价不能为空")
     @JsonProperty("U_QuoPrice")
     private BigDecimal uQuoPrice;
-    /**
-     * @description 采购报价货币 U_QuoCurr
-     * @target T_ICIN1.U_QuoCurr
-     */
+    // 采购报价货币 T_ICIN1.U_QuoCurr
     @NotNull(message = "报价货币不能为空")
     @JsonProperty("U_QuoCurr")
     private String uQuoCurr;
-
     public String getUQuoCurr() {
         String[] strList = uQuoCurr.split("\\+");
         return strList[0];
     }
-
-    /**
-     * @description 采购报价批次 U_QuoYear
-     */
+    // 采购报价批次 T_ICIN1.U_QuoYear
     @JsonProperty("U_QuoYear")
     private String uQuoYear;
-    /**
-     * @description 供方交期 U_QuoDelivery
-     * @target T_ICIN1.U_QuoDelivery
-     */
+    // 供方交期 T_ICIN1.U_QuoDelivery
+    @NotBlank(message = "供方交期不能为空")
     @JsonProperty("U_QuoDelivery")
     private String uQuoDelivery;
-    /**
-     * @description 供方备注 U_QuoRemark
-     * @target T_ICIN1.U_QuoRemark
-     */
-    @JsonProperty("U_QuoRemark")
-    private String uQuoRemark;
-    /**
-     * @description 采购备注 U_Remark1
-     * @target T_ICIN1.U_Remark1
-     */
-    @JsonProperty("U_Remark1")
-    private String uRemark1;
-    /**
-     * @description 起订量
-     * @target T_ICIN1.MinQty
-     */
-    @JsonProperty("MinQty")
-    private Integer minQty;
-    /**
-     * @description 联系人
-     * @target T_ICIN1.ContPerson
-     */
-    @JsonProperty("ContPerson")
-    private String contPerson;
-    /**
-     * @description 电话
-     * @target T_ICIN1.ContPhone
-     */
-    @JsonProperty("ContPhone")
-    private String contPhone;
-    /**
-     * @description 地址
-     * @target T_ICIN1.ContAddress
-     */
-    @JsonProperty("ContAddress")
-    private String contAddress;
-    /**
-     * @description 邮箱
-     * @resource T_ICIN1.ContEmail
-     */
-    @JsonProperty("ContEmail")
-    private String contEmail;
-    // 标准包装 T_ICIN1.StanPackage
-    @JsonProperty("StanPackage")
-    private String stanPackage;
-    // 采购报价供应商等级名称 U_QuoLevel
-    @JsonProperty("U_QuoLevel")
-    private String uQuoLevel;
-
     // 采购报价税率代码 U_QuoVatGroup
     private String uQuoVatGroup;
 
@@ -164,6 +92,39 @@ public class QuotationSaveDTO {
     // 采购报价品牌 U_QuoBrand
     @JsonProperty(value = "U_QuoBrand")
     private String uQuoBrand;
+    /**
+     * @description 其他
+     */
+    // 状态 T_ICIN1.U_Status N表示已保存，Y表示已回复
+    @JsonProperty("U_Status")
+    private String uStatus;
+    // 起订量 T_ICIN1.MinQty
+    @JsonProperty("MinQty")
+    private Integer minQty;
+    // 联系人 T_ICIN1.ContPerson
+    @JsonProperty("ContPerson")
+    private String contPerson;
+    // 电话 T_ICIN1.ContPhone
+    @JsonProperty("ContPhone")
+    private String contPhone;
+    // 地址 T_ICIN1.ContAddress
+    @JsonProperty("ContAddress")
+    private String contAddress;
+    // 邮箱 T_ICIN1.ContEmail
+    @JsonProperty("ContEmail")
+    private String contEmail;
+    // 标准包装 T_ICIN1.StanPackage
+    @JsonProperty("StanPackage")
+    private String stanPackage;
+    // 采购报价供应商等级名称 U_QuoLevel
+    @JsonProperty("U_QuoLevel")
+    private String uQuoLevel;
+    // 供方备注 T_ICIN1.U_QuoRemark
+    @JsonProperty("U_QuoRemark")
+    private String uQuoRemark;
+    // 采购备注 T_ICIN1.U_Remark1
+    @JsonProperty("U_Remark1")
+    private String uRemark1;
     /**
      * 客户信息
      */
@@ -203,11 +164,10 @@ public class QuotationSaveDTO {
     // 预估价格/参考价格 U_PrePrice
     @JsonProperty("U_PrePrice")
     private BigDecimal uPrePrice;
+    // 预估总价
+    @JsonProperty("U_PreTotal")
     private BigDecimal uPreTotal;
-    public BigDecimal getUPreTotal() {
-        return uPrePrice.multiply(demandQty);
-    }
-    // 发送时间/录入时间 InquiryDate
+    // 发送时间/录入时间 T_ICIN1.DemandDate
     @JsonProperty("DemandDate")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") // 接参数
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
@@ -230,17 +190,4 @@ public class QuotationSaveDTO {
     // 标记为重点报价用户
     @TableField(value = "U_KeyUser")
     private Long uKeyUser;
-    // 关联询价单编号
-    private Long uBaseEntry;
-
-    public Long getUBaseEntry() {
-        return docEntry;
-    }
-
-    // 关联询价单行号
-    private Long uBaseLine;
-
-    public Long getUBaseLine() {
-        return lineNum;
-    }
 }

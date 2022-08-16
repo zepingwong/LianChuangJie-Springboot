@@ -76,7 +76,7 @@ public class BomQuerySubDTO {
     @JsonProperty("KeyPoint")
     private String keyPoint;
     /**
-     * @description 重要程度
+     * @description ECCN
      */
     @JsonProperty("ECCN")
     private String eccn;
@@ -98,16 +98,14 @@ public class BomQuerySubDTO {
     // 是否保密标记 Secrecy
     @JsonProperty("Secrecy")
     private String secrecy;
-    private Integer state=0;
+    // 需求封装
+    @JsonProperty("Package")
+    private String packages;
+    // 报价状态，默认为 0
+    private Integer state = 0;
     // 是否确认报价
     private String checkIN = "0";
     // 选中的采购
-    private String buyers;
-    public String getBuyers() {
-        return StringUtils.join(selectedPurchasers, ",");
-    }
-    private String vatName;
-    public String getVatName() {
-        return "销项" + vatRate + "%";
-    }
+    private String buyers = StringUtils.join(selectedPurchasers, ",");
+    private String vatName = "销项" + vatRate + "%";
 }

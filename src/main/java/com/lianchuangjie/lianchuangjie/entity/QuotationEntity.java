@@ -332,12 +332,7 @@ public class QuotationEntity {
      * @description 询价单位行业领域名称 DomainName
      */
     @TableField(exist = false)
-    private String DomainName;
-    /**
-     * @description 询价单位性质名称 GroupName
-     */
-    @TableField(exist = false)
-    private String GroupName;
+    private String uDomainName;
     // 客户行业领域代码
     @TableField(value = "U_Industries")
     private String uIndustries;

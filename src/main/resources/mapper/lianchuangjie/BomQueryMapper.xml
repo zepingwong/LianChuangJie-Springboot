@@ -21,6 +21,7 @@
                SDADA_2.QuoBrand, /*匹配品牌*/
                SDADA_2.TAG, /*匹配TAG*/
                SDADA_2.sno, /*匹配型号*/
+               SDADA_2.package AS 'Package', /*封装*/
                SDADA_2.spq, /*spq*/
                SDADA_2.ECCN, /*ECCN*/
                StockQuantity.Quantity, /*库存数量*/
@@ -128,7 +129,7 @@
                  ProposedPrice.PrePrice,
                  SDADA_2.sno,
                  StockQuantity.Quantity,
-                 ClientNeeds.CurRemark
+                 ClientNeeds.CurRemark, SDADA_2.package
         ORDER BY LineNum,
                  MATCH DESC /*按照客户上传的BOM单内部行号进行排序，关联型号在完全匹配型号下面*/
     </select>

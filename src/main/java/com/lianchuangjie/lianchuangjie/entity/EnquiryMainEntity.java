@@ -96,13 +96,13 @@ public class EnquiryMainEntity {
     // 客户名称 CardName
     @TableField(value = "CardName")
     private String cardName;
-    // 需求客户性质名称 U_CusGroupCode
+    // 客户性质名称 U_CusGroupCode
     @TableField(value = "U_CusGroupCode")
     private String uCusGroupCode;
     // 需求客户等级名称 U_CusLevel
     @TableField(value = "U_CusLevel")
     private String uCusLevel;
-    // 需求客户行业领域名称 U_DomainName
+    // 客户行业领域名称 U_DomainName
     @TableField(value = "U_DomainName")
     private String uDomainName;
     // 客户行业领域代码
