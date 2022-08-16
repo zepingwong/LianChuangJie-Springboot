@@ -1,4 +1,4 @@
-package com.lianchuangjie.lianchuangjie.searchDTO;
+package com.lianchuangjie.lianchuangjie.dto.search;
 
 import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
 import lombok.AllArgsConstructor;

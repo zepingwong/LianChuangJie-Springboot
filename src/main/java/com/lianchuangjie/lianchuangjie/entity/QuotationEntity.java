@@ -257,6 +257,9 @@ public class QuotationEntity {
      */
     @TableField(exist = false)
     private String UserName;
+    // 销售员等级
+    @TableField(value = "U_SaleLevel")
+    private String uSaleLevel;
     /**
      * @description 销售部门编号
      */
@@ -347,4 +350,7 @@ public class QuotationEntity {
     private String uVatGroup;
     @TableField(value = "U_ShortCode")
     private String uShortCode;
+    // 需求货币
+    @TableField(value = "U_Currency")
+    private String uCurrency;
 }

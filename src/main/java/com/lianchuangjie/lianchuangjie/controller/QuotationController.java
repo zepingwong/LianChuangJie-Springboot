@@ -8,7 +8,7 @@ import com.lianchuangjie.lianchuangjie.dto.QuotationSaveDTO;
 import com.lianchuangjie.lianchuangjie.entity.EnquiryMainEntity;
 import com.lianchuangjie.lianchuangjie.entity.QuotationEntity;
 import com.lianchuangjie.lianchuangjie.mapper.EnquiryMainMapper;
-import com.lianchuangjie.lianchuangjie.searchDTO.QuotationSearchDTO;
+import com.lianchuangjie.lianchuangjie.dto.search.QuotationSearchDTO;
 import com.lianchuangjie.lianchuangjie.service.EnquiryMainService;
 import com.lianchuangjie.lianchuangjie.service.QuotationService;
 import com.lianchuangjie.lianchuangjie.service.UserInfoService;
@@ -39,7 +39,17 @@ public class QuotationController extends BaseController {
 
     @GetMapping("quote")
     @Authentication(buyer = true)
-    public Result<Page<QuotationVO>> getQuotationListController(@RequestParam(defaultValue = "#{null}", value = "page") Integer page, @RequestParam(defaultValue = "#{null}", value = "size") Integer size, @RequestParam(defaultValue = "#{null}", value = "Modle") String modle, @RequestParam(defaultValue = "#{null}", value = "Brand") String brand, @RequestParam(defaultValue = "#{null}", value = "U_Status") String uStatus, @RequestParam(defaultValue = "#{null}", required = false, value = "InquiryDateStart") Date inquiryDateStart, @RequestParam(defaultValue = "#{null}", required = false, value = "InquiryDateEnd") Date inquiryDateEnd, @RequestParam(defaultValue = "#{null}", value = "U_Buyer") Long uBuyer, @RequestParam(defaultValue = "#{null}", value = "OwnerCode") Long ownerCode) {
+    public Result<Page<QuotationVO>> getQuotationListController(
+            @RequestParam(defaultValue = "#{null}", value = "page") Integer page,
+            @RequestParam(defaultValue = "#{null}", value = "size") Integer size,
+            @RequestParam(defaultValue = "#{null}", value = "Modle") String modle,
+            @RequestParam(defaultValue = "#{null}", value = "Brand") String brand,
+            @RequestParam(defaultValue = "#{null}", value = "U_Status") String uStatus,
+            @RequestParam(defaultValue = "#{null}", required = false, value = "InquiryDateStart") Date inquiryDateStart,
+            @RequestParam(defaultValue = "#{null}", required = false, value = "InquiryDateEnd") Date inquiryDateEnd,
+            @RequestParam(defaultValue = "#{null}", value = "U_Buyer") Long uBuyer,
+            @RequestParam(defaultValue = "#{null}", value = "OwnerCode") Long ownerCode
+    ) {
         QuotationSearchDTO quotationSearchDTO = new QuotationSearchDTO();
         quotationSearchDTO.setPage(page);
         quotationSearchDTO.setSize(size);

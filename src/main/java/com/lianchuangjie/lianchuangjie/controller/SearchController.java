@@ -5,7 +5,7 @@ import com.lianchuangjie.lianchuangjie.config.Authentication;
 import com.lianchuangjie.lianchuangjie.dto.BomQuerySaveDTO;
 import com.lianchuangjie.lianchuangjie.entity.UserEntity;
 import com.lianchuangjie.lianchuangjie.exception.BaseException;
-import com.lianchuangjie.lianchuangjie.searchDTO.EnquiryBuyerSearchDTO;
+import com.lianchuangjie.lianchuangjie.dto.search.EnquiryBuyerSearchDTO;
 import com.lianchuangjie.lianchuangjie.service.BomQueryService;
 import com.lianchuangjie.lianchuangjie.service.EnquiryBuyerService;
 import com.lianchuangjie.lianchuangjie.utils.Result;

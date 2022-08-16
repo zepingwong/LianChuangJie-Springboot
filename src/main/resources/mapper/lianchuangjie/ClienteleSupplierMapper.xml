@@ -66,7 +66,8 @@
                T6.Name                                                                            AS 'U_GroupName',
                T7.DomainName                                                                      AS 'U_DomainName',
                T8.Level                                                                           AS 'U_CusLevel',
-               (T0.Currency + '+' + T0.VatGroup + '+' + CONVERT(VARCHAR, CAST(T9.Rate AS FLOAT))) AS 'CurVat'
+               (T0.Currency + '+' + T0.VatGroup + '+' + CONVERT(VARCHAR, CAST(T9.Rate AS FLOAT))) AS 'CurVat',
+               T9.Rate                                                                            AS 'VatRate'
         FROM T_OCRD T0
                  LEFT JOIN
                  (SELECT DeptCode FROM T_OUDL WHERE UserSign = ${UserSign}) T1 ON T0.DeptCode = T1.DeptCode
@@ -88,17 +89,16 @@
                  LEFT JOIN T_OVTG T9 ON T0.VatGroup = T9.Code /*税率*/
 
         WHERE T0.CardType = 'S'
-            AND T0.U_DocStatus != 'C' /*非锁定状态*/
-            AND ISNULL(T0.U_BlackList, 'N') = 'N' /*非黑名单*/
-            AND (@DataPur = 'ALL' /*看所有*/
-                OR T0.OwnerCode = ${UserSign} /*采购员本人*/
-                OR ISNULL(T2.DeptCode, '') != '' /*可看其他部门的所有供应商 如：海外一组的成员，可以看整个海外组+现货组的所有供应商*/
-                OR
-                 (ISNULL(T3.DeptCode, '') != '' AND ISNULL(T4.GroupCode1, 0) > 0) /*可看其他部门的部分供应商，如海外一组的成员，仅可以看如大中华组的贸易商、库存分销商*/
-                OR (@DataPur = 'Dept' AND ISNULL(T1.DeptCode, '') != '') /*可看本部分*/
-                  )
-            AND T0.CardCode = #{CardCode}
-           OR T0.CardName = #{CardCode}
+          AND T0.U_DocStatus != 'C' /*非锁定状态*/
+          AND ISNULL(T0.U_BlackList, 'N') = 'N' /*非黑名单*/
+          AND (@DataPur = 'ALL' /*看所有*/
+            OR T0.OwnerCode = ${UserSign} /*采购员本人*/
+            OR ISNULL(T2.DeptCode, '') != '' /*可看其他部门的所有供应商 如：海外一组的成员，可以看整个海外组+现货组的所有供应商*/
+            OR
+               (ISNULL(T3.DeptCode, '') != '' AND ISNULL(T4.GroupCode1, 0) > 0) /*可看其他部门的部分供应商，如海外一组的成员，仅可以看如大中华组的贸易商、库存分销商*/
+            OR (@DataPur = 'Dept' AND ISNULL(T1.DeptCode, '') != '') /*可看本部分*/
+            )
+          AND T0.CardCode = #{CardCode}
 
     </select>
 </mapper>

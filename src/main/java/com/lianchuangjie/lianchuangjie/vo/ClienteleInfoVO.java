@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -62,6 +63,8 @@ public class ClienteleInfoVO {
     // 业务合作伙伴默认税率 VatGroup
     @JsonProperty("VatGroup")
     private String vatGroup;
+    @JsonProperty("VatRate")
+    private BigDecimal vatRate;
     // Currency+VatGroup+VatRate
     @JsonProperty("CurVat")
     private String curVat;

@@ -2,7 +2,7 @@ package com.lianchuangjie.lianchuangjie.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.lianchuangjie.lianchuangjie.entity.EnquiryBuyerEntity;
-import com.lianchuangjie.lianchuangjie.searchDTO.EnquiryBuyerSearchDTO;
+import com.lianchuangjie.lianchuangjie.dto.search.EnquiryBuyerSearchDTO;
 import com.lianchuangjie.lianchuangjie.vo.EnquiryBuyerItemVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

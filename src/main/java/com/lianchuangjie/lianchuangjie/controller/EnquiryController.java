@@ -3,7 +3,7 @@ package com.lianchuangjie.lianchuangjie.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lianchuangjie.lianchuangjie.config.Authentication;
 import com.lianchuangjie.lianchuangjie.dto.EnquirySubItemDTO;
-import com.lianchuangjie.lianchuangjie.searchDTO.EnquiryMainSearchDTO;
+import com.lianchuangjie.lianchuangjie.dto.search.EnquiryMainSearchDTO;
 import com.lianchuangjie.lianchuangjie.service.EnquiryHotwordsService;
 import com.lianchuangjie.lianchuangjie.service.EnquiryMainService;
 import com.lianchuangjie.lianchuangjie.service.EnquirySubService;

@@ -9,7 +9,7 @@ import com.lianchuangjie.lianchuangjie.entity.EnquiryMainEntity;
 import com.lianchuangjie.lianchuangjie.entity.EnquirySubEntity;
 import com.lianchuangjie.lianchuangjie.entity.QuotationEntity;
 import com.lianchuangjie.lianchuangjie.mapper.QuotationMapper;
-import com.lianchuangjie.lianchuangjie.searchDTO.QuotationSearchDTO;
+import com.lianchuangjie.lianchuangjie.dto.search.QuotationSearchDTO;
 import com.lianchuangjie.lianchuangjie.service.QuotationService;
 import com.lianchuangjie.lianchuangjie.vo.QuotationVO;
 import org.springframework.stereotype.Service;
@@ -37,6 +37,12 @@ public class QuotationServiceImpl extends ServiceImpl<QuotationMapper, Quotation
         }
         if (searchCondition.getOwnerCode() != null) {
             queryWrapper.eq(enquiryMainTable + ".OwnerCode", searchCondition.getOwnerCode());
+        }
+        if (searchCondition.getInquiryDateStart() != null) {
+            queryWrapper.ge("T_ICIN.CreateDate", searchCondition.getInquiryDateStart());
+        }
+        if (searchCondition.getInquiryDateEnd() != null) {
+            queryWrapper.le("T_ICIN.CreateDate", searchCondition.getInquiryDateEnd());
         }
         page.addOrder(OrderItem.desc(enquiryMainTable + ".CreateDate"));
         quotationMapper.selectList(page, queryWrapper, searchCondition.getUBuyer());

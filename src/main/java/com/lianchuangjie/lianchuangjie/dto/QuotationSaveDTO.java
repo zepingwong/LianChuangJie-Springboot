@@ -1,6 +1,5 @@
 package com.lianchuangjie.lianchuangjie.dto;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -29,10 +28,10 @@ public class QuotationSaveDTO {
     @JsonProperty("LineNum")
     private Long lineNum;
     // 关联询价单编号
-    @TableField(value = "U_BaseEntry")
+    @JsonProperty(value = "U_BaseEntry")
     private Long uBaseEntry;
     // 关联询价单行号
-    @TableField(value = "U_BaseLine")
+    @JsonProperty(value = "U_BaseLine")
     private Long uBaseLine;
     // 无法报价 T_ICIN1.UnableQuote
     @JsonProperty("UnableQuote")
@@ -140,6 +139,9 @@ public class QuotationSaveDTO {
     // 客户性质名称
     @JsonProperty("U_GroupCode")
     private String uGroupCode;
+    // 客户简称代码
+    @JsonProperty("U_ShortCode")
+    private String uShortCode;
     /**
      * @description 客户需求
      */
@@ -155,6 +157,9 @@ public class QuotationSaveDTO {
     // 需求批次 Year
     @JsonProperty("Year")
     private String year;
+    // 需求货币
+    @JsonProperty("U_Currency")
+    private String uCurrency;
     // 需求数量 DemandQty
     @JsonProperty("DemandQty")
     private BigDecimal demandQty;
@@ -178,16 +183,19 @@ public class QuotationSaveDTO {
     // 接受价格 ExpectedPrice U_ICIN1.ExpectedPrice
     @JsonProperty("ExpectedPrice")
     private BigDecimal expectedPrice;
-    // 客户简称代码
-    @JsonProperty("U_ShortCode")
-    private String uShortCode;
     // 重点报价
-    @TableField(value = "U_KeyPoint")
+    @JsonProperty(value = "U_KeyPoint")
     private String uKeyPoint;
     // 重点报价说明
-    @TableField(value = "U_KeyRemark")
+    @JsonProperty(value = "U_KeyRemark")
     private String uKeyRemark;
     // 标记为重点报价用户
-    @TableField(value = "U_KeyUser")
+    @JsonProperty(value = "U_KeyUser")
     private Long uKeyUser;
+    /**
+     * @description 销售员
+     */
+    // 销售员等级
+    @JsonProperty("U_SaleLevel")
+    private String uSaleLevel;
 }

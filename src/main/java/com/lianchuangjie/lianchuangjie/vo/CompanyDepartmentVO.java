@@ -19,6 +19,6 @@ public class CompanyDepartmentVO {
     /**
      * @description 部门名称
      */
-    @JsonProperty("Name")
+    @JsonProperty("DeptName")
     private String name;
 }

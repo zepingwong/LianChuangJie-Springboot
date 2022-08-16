@@ -4,6 +4,7 @@
     <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.QuotationVO">
         SELECT
         U_ICIN1.*,
+        U_ICIN1.ECCN AS 'U_ECCN', /*ECCN*/
         U_ICIN1.KeyPoint AS 'U_KeyPoint', /*标记为重点询价*/
         U_ICIN1.KeyRemark AS 'U_KeyRemark', /*重点报价说明*/
         U_ICIN1.KeyUser AS 'U_KeyUser', /*标记重点报价用户编号*/
@@ -16,6 +17,7 @@
         T_ICIN.U_CusGroupCode AS 'U_GroupCode', /*客户性质名称*/
         T_ICIN.U_DeptName, /*销售部门名称*/
         T_ICIN.U_UserName, /*销售员姓名*/
+        T_ICIN.U_DocCur AS 'U_Currency', /*需求货币*/
         T_ICIN.U_VatGroup,
         T_ICIN.U_ShortCode,
         fp.UnableQuote, /*无法报价*/
@@ -39,6 +41,7 @@
         fp.U_QuoLevel, /*供方评级*/
         fp.U_QuoVatGroup,
         fp.U_QuoCurr,
+        U_CUR4.Level AS 'U_SaleLevel', /*销售员等级*/
         T_OVTG.Rate AS 'U_QuoVatRate'
         FROM
         U_ICIN1
@@ -53,7 +56,8 @@
         U_Buyer = #{UserSign}
         ) fp ON U_ICIN1.DocEntry = fp.DocEntry AND U_ICIN1.LineNum = fp.U_BaseLine
         LEFT JOIN T_ICIN ON T_ICIN.DocEntry = U_ICIN1.DocEntry
-        LEFT JOIN T_OVTG ON fp.U_QuoVatGroup = T_OVTG.Code
+        LEFT JOIN T_OVTG ON fp.U_QuoVatGroup = T_OVTG.Code /*税率表*/
+        LEFT JOIN U_CUR4 ON T_ICIN.UserSign = U_CUR4.OwnerCode /*销售员等级表*/
         <where>
             ${ew.getSqlSegment()}
             AND ',' + U_ICIN1.Buyers + ',' LIKE CONCAT('%,', #{UserSign} ,',%')

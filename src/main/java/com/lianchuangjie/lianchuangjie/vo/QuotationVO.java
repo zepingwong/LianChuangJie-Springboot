@@ -64,11 +64,14 @@ public class QuotationVO {
     @JsonProperty("U_VatGroup")
     private String uVatGroup;
     // ECCN
-    @JsonProperty("ECCN")
-    private String ECCN;
+    @JsonProperty("U_ECCN")
+    private String uEccn;
     // 客户接受价格 U_ICIN1.ExpectedPrice
     @JsonProperty("ExpectedPrice")
     private BigDecimal expectedPrice;
+    // 需求货币
+    @JsonProperty("U_Currency")
+    private String uCurrency;
     /**
      * @description 客户信息
      */
@@ -236,6 +239,9 @@ public class QuotationVO {
     // 销售部门名称 T_ICIN.U_DeptName
     @JsonProperty("U_DeptName")
     private String uDeptName;
+    // 销售员等级
+    @JsonProperty("U_SaleLevel")
+    private String uSaleLevel;
     /**
      * @description 供应商信息
      */

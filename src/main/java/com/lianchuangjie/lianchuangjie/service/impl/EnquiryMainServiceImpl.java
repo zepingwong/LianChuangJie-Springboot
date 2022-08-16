@@ -9,7 +9,7 @@ import com.lianchuangjie.lianchuangjie.entity.EnquiryMainEntity;
 import com.lianchuangjie.lianchuangjie.entity.EnquirySubEntity;
 import com.lianchuangjie.lianchuangjie.exception.ResponseEnum;
 import com.lianchuangjie.lianchuangjie.mapper.EnquiryMainMapper;
-import com.lianchuangjie.lianchuangjie.searchDTO.EnquiryMainSearchDTO;
+import com.lianchuangjie.lianchuangjie.dto.search.EnquiryMainSearchDTO;
 import com.lianchuangjie.lianchuangjie.service.EnquiryMainService;
 import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
 import com.lianchuangjie.lianchuangjie.vo.EnquiryMainInfoVO;
