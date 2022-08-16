@@ -4,12 +4,12 @@ import com.lianchuangjie.lianchuangjie.config.Authentication;
 import com.lianchuangjie.lianchuangjie.service.HomeChartService;
 import com.lianchuangjie.lianchuangjie.service.HomeToDoService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
-import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,8 +24,8 @@ public class HomeController {
 
     @GetMapping("/todo")
     @Authentication(buyer = true, sale = true)
-    public Result<Map<String, Long>> todoController() {
-        Map<String, Long> query = homeToDoService.getTodoNum(SessionUtil.getUserSign());
+    public Result<Map<String, Long>> todoController(HttpServletRequest request) {
+        Map<String, Long> query = homeToDoService.getToDoNum(request);
         return Result.success(query);
     }
 

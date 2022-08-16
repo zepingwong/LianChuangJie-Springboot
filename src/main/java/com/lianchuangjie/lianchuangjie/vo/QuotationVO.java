@@ -1,5 +1,6 @@
 package com.lianchuangjie.lianchuangjie.vo;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -38,12 +39,6 @@ public class QuotationVO {
      */
     @JsonProperty("ItemId")
     private Long itemId;
-    /**
-     * @description 重要程度
-     * @resource U_ICIN1.KeyPoint
-     */
-    @JsonProperty("KeyPoint")
-    private String keyPoint;
     /**
      * @description 需求型号 Modle
      * @resource U_ICIN1.Modle
@@ -330,5 +325,13 @@ public class QuotationVO {
     private String uCusLevel;
     @JsonProperty("U_ShortCode")
     private String uShortCode;
-
+    // 重点报价
+    @TableField(value = "KeyPoint")
+    private String keyPoint;
+    // 重点报价说明
+    @TableField(value = "KeyRemark")
+    private String keyRemark;
+    // 标记为重点报价用户
+    @TableField(value = "KeyUser")
+    private Long keyUser;
 }

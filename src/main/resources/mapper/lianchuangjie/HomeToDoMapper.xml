@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lianchuangjie.lianchuangjie.mapper.HomeToDoMapper">
+
+    <select id="countEnquiry" resultType="java.lang.Long" parameterType="java.lang.Long">
+        SELECT COUNT(*)
+        FROM T_ICIN
+        WHERE State IS NULL
+          AND UserSign = ${UserSign}
+    </select>
+    <select id="countQuotation" resultType="java.lang.Long" parameterType="java.lang.Long">
+        SELECT COUNT(*)
+        FROM U_ICIN1
+        WHERE ',' + LTRIM(RTRIM(REPLACE(Buyers, ' ', ''))) + ',' LIKE CONCAT('%', #{UserSign}, '%')
+          AND U_ICIN1.ExpDate &gt; GETDATE()
+    </select>
+</mapper>

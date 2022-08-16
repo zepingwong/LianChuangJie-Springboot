@@ -12,6 +12,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserMapper extends BaseMapper<UserEntity> {
     UserEntity getOne(@Param("ew") QueryWrapper<UserEntity> queryWrapper);
-
     UserInfoVO getInfo(@Param("ew") QueryWrapper<UserInfoVO> queryWrapper);
 }

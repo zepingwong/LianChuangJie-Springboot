@@ -65,4 +65,12 @@
         SELECT MAX(DocEntry)
         FROM T_ICIN
     </select>
+    <select id="existByCardName" resultType="java.lang.Boolean" parameterType="java.lang.String">
+        IF (SELECT COUNT(*)
+            FROM T_ICIN
+            WHERE CardName = #{CardName}) > 0
+        SELECT 1
+            ELSE
+        SELECT 0
+    </select>
 </mapper>

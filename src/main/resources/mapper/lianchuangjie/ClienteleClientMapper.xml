@@ -4,7 +4,7 @@
 
     <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.ClienteleItemVO">
         DECLARE @DataPur NVARCHAR(10);
-        DECLARE @BaseFormID BIGINT;
+        DECLARE @BaseFormID BIGINT; /*视图编号*/
         DECLARE @DftDept NVARCHAR(20);
         DECLARE @IsSale VARCHAR(1);
         SELECT TOP 1 @BaseFormID = TransType
@@ -24,16 +24,18 @@
         /*U_CUR18：该表为设置哪些部门的用户可以看到哪个虚拟用户名下的客户，如需设置新人组 可以看到 综合部门和终端部门的公共客户*/
         LEFT JOIN U_CUR18 T2
         ON T0.OwnerCode = T2.OwnerCode AND T2.DeptCode = @DftDept
+        /*T_OUDL: 前登录用户的所属部门，一个用户可同时属于多个部门*/
         LEFT JOIN (SELECT DeptCode FROM T_OUDL WHERE UserSign = #{UserSign}) T3 ON T0.DeptCode = T3.DeptCode
+
         LEFT JOIN (SELECT CardCode FROM T_OCRD2 WHERE OptUser = #{UserSign}) T4 ON T0.CardCode = T4.CardCode
         WHERE T0.CardType = 'C'
         AND T0.U_DocStatus != 'C' /*客户为非锁定状态*/
         /*客户的基本信息不能为空，包括：客户性质、客户区域、行业领域、注册资金、客户公司属性*/
-        AND ISNULL(T0.U_CorNature, '') != ''
-        AND ISNULL(T0.U_Region, '') != ''
-        AND ISNULL(T0.U_Industries, '') != ''
-        AND ISNULL(T0.GroupCode, 0) > 0
-        AND ISNULL(T0.U_Capital, 0) > 0
+        AND ISNULL(T0.U_CorNature, '') != '' /*客户公司属性*/
+        AND ISNULL(T0.U_Region, '') != '' /*客户区域*/
+        AND ISNULL(T0.U_Industries, '') != '' /*行业领域*/
+        AND ISNULL(T0.GroupCode, 0) > 0 /*客户性质*/
+        AND ISNULL(T0.U_Capital, 0) > 0 /*注册资金*/
         AND (@DataPur = 'ALL' /*可看所有*/
         OR T0.OwnerCode = #{UserSign} /*销售员本人*/
         OR ISNULL(T0.OwnerCode, 0) = 0 /*客户的所属人为空，表示为公海客户*/

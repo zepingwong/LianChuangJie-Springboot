@@ -62,9 +62,6 @@ public class EnquirySubEntity {
     // 客户备注 CurRemark
     @TableField(value = "CurRemark")
     private String curRemark;
-    // 重要程度
-    @TableField(value = "KeyPoint")
-    private String keyPoint;
     // 紧急程度 UrgentType N表示紧急、O表示正常
     @TableField(value = "UrgentType")
     private String urgentType;
@@ -152,4 +149,13 @@ public class EnquirySubEntity {
     // 物料编号
     @TableField(value = "ItemCode")
     private String itemCode;
+    // 重点报价
+    @TableField(value = "KeyPoint")
+    private String keyPoint;
+    // 重点报价说明
+    @TableField(value = "KeyRemark")
+    private String keyRemark;
+    // 标记为重点报价用户
+    @TableField(value = "KeyUser")
+    private Long keyUser;
 }

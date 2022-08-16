@@ -6,6 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * 业务合作伙伴行业领域表
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

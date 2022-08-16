@@ -114,8 +114,10 @@ public class EnquiryMainEntity {
     // 交易地点 U_TransaPlace
     @TableField(value = "U_TransaPlace")
     private String uTransaPlace;
-
-
+    // 客户简称代码
     @TableField(value = "U_ShortCode")
     private String uShortCode;
+    // 是否为新客户
+    @TableField(value = "U_CardStatus")
+    private String uCardStatus;
 }

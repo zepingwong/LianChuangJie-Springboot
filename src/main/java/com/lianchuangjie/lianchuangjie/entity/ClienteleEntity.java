@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
+/**
+ * 业务合作伙伴表
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

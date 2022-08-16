@@ -1,6 +1,5 @@
 package com.lianchuangjie.lianchuangjie.dto;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -99,6 +98,7 @@ public class BomQuerySubDTO {
     // 是否保密标记 Secrecy
     @JsonProperty("Secrecy")
     private String secrecy;
+    private Integer state=0;
     // 是否确认报价
     private String checkIN = "0";
     // 选中的采购

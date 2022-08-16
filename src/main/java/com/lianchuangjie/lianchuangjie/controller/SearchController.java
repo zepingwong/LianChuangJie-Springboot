@@ -1,13 +1,15 @@
 package com.lianchuangjie.lianchuangjie.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lianchuangjie.lianchuangjie.config.Authentication;
 import com.lianchuangjie.lianchuangjie.dto.BomQuerySaveDTO;
+import com.lianchuangjie.lianchuangjie.entity.UserEntity;
 import com.lianchuangjie.lianchuangjie.exception.BaseException;
 import com.lianchuangjie.lianchuangjie.searchDTO.EnquiryBuyerSearchDTO;
 import com.lianchuangjie.lianchuangjie.service.BomQueryService;
-import com.lianchuangjie.lianchuangjie.service.BomQuerySaveService;
 import com.lianchuangjie.lianchuangjie.service.EnquiryBuyerService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
+import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
 import com.lianchuangjie.lianchuangjie.vo.BomQueryResVO;
 import com.lianchuangjie.lianchuangjie.vo.EnquiryBuyerItemVO;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +17,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.List;
@@ -28,8 +31,6 @@ public class SearchController extends BaseController {
     BomQueryService bomQueryService;
     @Resource
     EnquiryBuyerService enquiryBuyerService;
-    @Resource
-    BomQuerySaveService bomQuerySaveService;
 
     /**
      * bom单批量询价
@@ -41,7 +42,7 @@ public class SearchController extends BaseController {
     @Authentication(sale = true)
     public Result<BomQueryResVO> bomQueryController(@RequestParam(defaultValue = "#{null}", value = "DocEntry") Long docEntry) {
         try {
-            BomQueryResVO result = bomQueryService.queryService(docEntry);
+            BomQueryResVO result = bomQueryService.query(docEntry);
             return Result.success(result, "Success");
         } catch (Exception e) {
             log.error("查询失败");
@@ -71,8 +72,11 @@ public class SearchController extends BaseController {
 
     @PostMapping("saveQuery")
     @Authentication(sale = true)
-    public Result<Boolean> saveQueryController(@RequestBody @Valid BomQuerySaveDTO bomQuerySaveDTO) {
-        Boolean res = bomQuerySaveService.save(bomQuerySaveDTO);
+    public Result<Boolean> saveQueryController(@RequestBody @Valid BomQuerySaveDTO bomQuerySaveDTO, HttpServletRequest request) {
+        Object obj = SessionUtil.getSession(request, "User");
+        ObjectMapper objectMapper = new ObjectMapper();
+        UserEntity user = objectMapper.convertValue(obj, UserEntity.class);
+        Boolean res = bomQueryService.save(bomQuerySaveDTO, user);
         return Result.success(res, "Success");
     }
 }

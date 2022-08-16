@@ -1,5 +1,6 @@
 package com.lianchuangjie.lianchuangjie.dto;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -41,12 +42,6 @@ public class QuotationSaveDTO {
      */
     @JsonProperty("UnableQuote")
     private String unableQuote;
-    /**
-     * @description U_KeyRemark 重点询价说明
-     * @resource T_ICIN1.U_KeyRemark
-     */
-    @JsonProperty("U_KeyRemark")
-    private String uKeyRemark;
     /**
      * @description 供应商代码 U_CardCode
      * @target T_ICIN1.U_CardCode
@@ -223,12 +218,18 @@ public class QuotationSaveDTO {
     // 接受价格 ExpectedPrice U_ICIN1.ExpectedPrice
     @JsonProperty("ExpectedPrice")
     private BigDecimal expectedPrice;
-    // 重要程度 U_KeyPoint
-    @JsonProperty("U_KeyPoint")
-    private String uKeyPoint;
     // 客户简称代码
     @JsonProperty("U_ShortCode")
     private String uShortCode;
+    // 重点报价
+    @TableField(value = "U_KeyPoint")
+    private String uKeyPoint;
+    // 重点报价说明
+    @TableField(value = "U_KeyRemark")
+    private String uKeyRemark;
+    // 标记为重点报价用户
+    @TableField(value = "U_KeyUser")
+    private Long uKeyUser;
     // 关联询价单编号
     private Long uBaseEntry;
 
