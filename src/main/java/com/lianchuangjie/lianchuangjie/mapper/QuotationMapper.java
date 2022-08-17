@@ -17,6 +17,5 @@ import java.util.List;
 public interface QuotationMapper extends BaseMapper<QuotationEntity> {
     IPage<QuotationVO> selectList(IPage<QuotationVO> page, @Param("ew") QueryWrapper<QuotationVO> queryWrapper, @Param("UserSign") Long userSign);
     IPage<TabMyQuotationVO> selectMyList(IPage<TabMyQuotationVO> page, @Param("modleList") List<String> list, @Param("UserSign") Long userSign);
-
     QuotationEntity selectOne(@Param("ew") QueryWrapper<QuotationEntity> queryWrapper);
 }

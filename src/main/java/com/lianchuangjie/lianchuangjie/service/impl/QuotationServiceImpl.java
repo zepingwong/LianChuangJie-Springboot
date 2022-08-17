@@ -51,9 +51,15 @@ public class QuotationServiceImpl extends ServiceImpl<QuotationMapper, Quotation
         return page;
     }
 
+    /**
+     * @description 我的报价
+     * @param searchCondition 查询条件
+     * @return Page<TabMyQuotationVO>
+     */
     @Override
     public Page<TabMyQuotationVO> tabMy(TabSearchDTO searchCondition) {
         Page<TabMyQuotationVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
+        page.addOrder(OrderItem.desc("T_ICIN1.U_QuoDate"));
         quotationMapper.selectMyList(page, searchCondition.getModleList(), searchCondition.getUserSign());
         return page;
     }

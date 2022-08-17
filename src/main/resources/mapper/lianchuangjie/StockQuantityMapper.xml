@@ -2,4 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lianchuangjie.lianchuangjie.mapper.StockQuantityMapper">
 
+    <select id="selectTabList" resultType="com.lianchuangjie.lianchuangjie.vo.TabStockVO">
+        SELECT SDADA_2.*, SDADA_2.package AS 'packages', StockQuantity.Quantity
+        FROM SDADA SDADA_1
+        LEFT JOIN SDADA SDADA_2 ON SDADA_2.TAG = SDADA_1.TAG
+        LEFT JOIN (
+        SELECT T_OBTN.ItemName,
+        SUM(T.Quantity - T_OBTN.U_LockQty) AS Quantity
+        FROM (SELECT MdAbsEntry, SUM(Quantity) AS Quantity FROM T_OBTQ GROUP BY MdAbsEntry) T
+        INNER JOIN T_OBTN ON T.MdAbsEntry = T_OBTN.AbsEntry
+        GROUP BY ItemName
+        ) StockQuantity ON StockQuantity.ItemName = SDADA_2.sno
+        WHERE SDADA_1.sno IN
+        <foreach collection="modleList " item="item" open="(" separator="," close=")" index="index">
+            '${item}'
+        </foreach>
+    </select>
 </mapper>
