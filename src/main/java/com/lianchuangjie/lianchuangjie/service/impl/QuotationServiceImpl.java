@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
+import com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.EnquiryMainEntity;
 import com.lianchuangjie.lianchuangjie.entity.EnquirySubEntity;
 import com.lianchuangjie.lianchuangjie.entity.QuotationEntity;
@@ -12,6 +13,7 @@ import com.lianchuangjie.lianchuangjie.mapper.QuotationMapper;
 import com.lianchuangjie.lianchuangjie.dto.search.QuotationSearchDTO;
 import com.lianchuangjie.lianchuangjie.service.QuotationService;
 import com.lianchuangjie.lianchuangjie.vo.QuotationVO;
+import com.lianchuangjie.lianchuangjie.vo.TabMyQuotationVO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -46,6 +48,13 @@ public class QuotationServiceImpl extends ServiceImpl<QuotationMapper, Quotation
         }
         page.addOrder(OrderItem.desc(enquiryMainTable + ".CreateDate"));
         quotationMapper.selectList(page, queryWrapper, searchCondition.getUBuyer());
+        return page;
+    }
+
+    @Override
+    public Page<TabMyQuotationVO> tabMy(TabSearchDTO searchCondition) {
+        Page<TabMyQuotationVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
+        quotationMapper.selectMyList(page, searchCondition.getModleList(), searchCondition.getUserSign());
         return page;
     }
 

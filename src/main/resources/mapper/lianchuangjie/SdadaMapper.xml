@@ -2,4 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lianchuangjie.lianchuangjie.mapper.SdadaMapper">
 
+    <select id="selectTabList" resultType="com.lianchuangjie.lianchuangjie.vo.SdadaVO">
+        SELECT SDADA_2.*, SDADA_2.package AS 'packages'
+        FROM SDADA SDADA_1
+        LEFT JOIN SDADA SDADA_2 ON SDADA_2.TAG = SDADA_1.TAG
+        WHERE SDADA_1.sno IN
+        <foreach collection="modleList " item="item" open="(" separator="," close=")" index="index">
+            '${item}'
+        </foreach>
+
+    </select>
 </mapper>

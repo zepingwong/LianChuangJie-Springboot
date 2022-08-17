@@ -71,4 +71,13 @@
             ${ew.getSqlSegment()}
         </where>
     </select>
+    <select id="selectMyList" resultType="com.lianchuangjie.lianchuangjie.vo.TabMyQuotationVO">
+        SELECT T_ICIN1.*
+        FROM T_ICIN1
+        WHERE T_ICIN1.U_Buyer = #{UserSign}
+        AND T_ICIN1.Modle IN
+        <foreach collection="modleList " item="item" open="(" separator="," close=")" index="index">
+            '${item}'
+        </foreach>
+    </select>
 </mapper>
