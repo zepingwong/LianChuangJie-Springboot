@@ -14,7 +14,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain = true)
-public class TabSalesOrderVO {
+public class TabEnquirySalesOrderVO {
     /**
      * @description 订单日期 DocDate
      * @resource T_ORDR.DocDate

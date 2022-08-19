@@ -49,6 +49,10 @@ public class TabSearchDTO {
         } else {
             return modleList;
         }
-
     }
+    /**
+     * @description 批次
+     */
+    @JsonProperty("Year")
+    private String year;
 }

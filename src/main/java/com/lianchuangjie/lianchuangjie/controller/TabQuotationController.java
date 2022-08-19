@@ -10,7 +10,7 @@ import com.lianchuangjie.lianchuangjie.service.StockQuantityService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
 import com.lianchuangjie.lianchuangjie.vo.TabMyQuotationVO;
 import com.lianchuangjie.lianchuangjie.vo.TabQuotationNeedsVO;
-import com.lianchuangjie.lianchuangjie.vo.TabSalesOrderVO;
+import com.lianchuangjie.lianchuangjie.vo.TabQuotationSalesOrderVO;
 import com.lianchuangjie.lianchuangjie.vo.TabStockVO;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -86,16 +86,20 @@ public class TabQuotationController {
     }
 
     /**
-     *
+     * @param page  页码
+     * @param size  每页显示数量
+     * @param modle 单个型号
+     * @return Page<TabQuotationSalesOrderVO>
+     * @description 销售订单
      */
-    @GetMapping("/quote/sale")
+    @GetMapping("/quote/sales")
     @Authentication(buyer = true)
-    public Result<Page<TabSalesOrderVO>> getSaleListController(@RequestParam(defaultValue = "#{null}", value = "page") Integer page, @RequestParam(defaultValue = "#{null}", value = "size") Integer size, @RequestParam(defaultValue = "#{null}", value = "Modle") String modle) {
+    public Result<Page<TabQuotationSalesOrderVO>> getSaleListController(@RequestParam(defaultValue = "#{null}", value = "page") Integer page, @RequestParam(defaultValue = "#{null}", value = "size") Integer size, @RequestParam(defaultValue = "#{null}", value = "Modle") String modle) {
         TabSearchDTO tabSearchDTO = new TabSearchDTO();
         tabSearchDTO.setPage(page);
         tabSearchDTO.setSize(size);
         tabSearchDTO.setModle(modle);
-        Page<TabSalesOrderVO> pages = salesOrderSubService.tabList(tabSearchDTO);
+        Page<TabQuotationSalesOrderVO> pages = salesOrderSubService.quotationTabList(tabSearchDTO);
         return Result.success(pages, "Success");
     }
 }

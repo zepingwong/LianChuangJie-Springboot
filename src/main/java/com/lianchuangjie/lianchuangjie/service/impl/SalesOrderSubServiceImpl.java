@@ -6,7 +6,7 @@ import com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.SalesOrderSubEntity;
 import com.lianchuangjie.lianchuangjie.mapper.SalesOrderSubMapper;
 import com.lianchuangjie.lianchuangjie.service.SalesOrderSubService;
-import com.lianchuangjie.lianchuangjie.vo.TabSalesOrderVO;
+import com.lianchuangjie.lianchuangjie.vo.TabQuotationSalesOrderVO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -15,10 +15,9 @@ import javax.annotation.Resource;
 public class SalesOrderSubServiceImpl extends ServiceImpl<SalesOrderSubMapper, SalesOrderSubEntity> implements SalesOrderSubService {
     @Resource
     SalesOrderSubMapper salesOrderSubMapper;
-    @Override
-    public Page<TabSalesOrderVO> tabList(TabSearchDTO searchCondition) {
-        Page<TabSalesOrderVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
-        salesOrderSubMapper.selectTabList(page, searchCondition.getModleList(), searchCondition.getUserSign());
+    public Page<TabQuotationSalesOrderVO> quotationTabList(TabSearchDTO searchCondition) {
+        Page<TabQuotationSalesOrderVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
+        salesOrderSubMapper.selectTabList(page, searchCondition);
         return page;
     }
 }

@@ -5,6 +5,7 @@ import com.lianchuangjie.lianchuangjie.dto.EmployeeLoginDTO;
 import com.lianchuangjie.lianchuangjie.entity.UserEntity;
 import com.lianchuangjie.lianchuangjie.service.UserLoginService;
 import com.lianchuangjie.lianchuangjie.service.UserInfoService;
+import com.lianchuangjie.lianchuangjie.service.UserLogoutService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
 import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
 import com.lianchuangjie.lianchuangjie.vo.LoginResVO;
@@ -24,13 +25,20 @@ public class UserController {
     @Resource
     UserLoginService userLoginService;
     @Resource
+    UserLogoutService userLogoutService;
+    @Resource
     UserInfoService userInfoService;
 
+    /**
+     * @param employee 工号、密码
+     * @param request  http 请求
+     * @return LoginResVO
+     * @description 员工登录接口
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     */
     @PostMapping("/login/employee")
-    public Result<LoginResVO> loginController(
-            @RequestBody @Valid EmployeeLoginDTO employee,
-            HttpServletRequest request
-    ) {
+    public Result<LoginResVO> loginController(@RequestBody @Valid EmployeeLoginDTO employee, HttpServletRequest request) {
         UserEntity user = userLoginService.employeeLoginService(employee);
         LoginResVO loginRes = new LoginResVO();
         UserInfoVO userInfo = new UserInfoVO();
@@ -42,10 +50,26 @@ public class UserController {
     }
 
     /**
+     * @param request http 请求
+     * @return Boolean
+     * @description 退出登录
+     * @date 2022/7/26
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     */
+    @GetMapping("logout")
+    public Result<Boolean> logoutController(HttpServletRequest request) {
+        Boolean res = userLogoutService.logoutService(request);
+        return Result.success(res, "成功");
+    }
+
+    /**
      * @param id 用户Id UserCode 或用户编号 UserSign
      * @return user
      * @description 查看用户信息
      * @date 2022/5/26
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
      */
     @GetMapping("/{id}")
     public Result<UserInfoVO> getUserInfoController(@PathVariable String id) {

@@ -25,18 +25,26 @@
         T_ICIN.U_CusGroupCode, /*客户性质名称*/
         T_ICIN.U_CusLevel, /*客户等级名称*/
         T_ICIN.U_DomainName /*客户行业名称*/
-        FROM U_ICIN1
-        LEFT JOIN T_ICIN ON U_ICIN1.DocEntry = T_ICIN.DocEntry
-        WHERE Modle IN (
-        SELECT SDADA_2.sno
-        FROM SDADA SDADA_1
-        LEFT JOIN SDADA SDADA_2 ON SDADA_2.TAG = SDADA_1.TAG
-        WHERE SDADA_1.sno IN
+        FROM
+        U_ICIN1
+        LEFT JOIN T_ICIN ON T_ICIN.DocEntry = U_ICIN1.DocEntry
+        WHERE
+        U_ICIN1.Modle IN (
+        SELECT
+        SDADA_1.sno
+        FROM
+        SDADA SDADA_1
+        WHERE
+        SDADA_1.TAG IN
+        (
+        SELECT SDADA.TAG FROM SDADA WHERE SDADA.sno IN
         <foreach collection="modleList " item="item" open="(" separator="," close=")" index="index">
             '${item}'
         </foreach>
         )
-        AND U_ICIN1.Secrecy = 'N' /*非保密*/
+        )
+        AND T_ICIN.UserSign = 1
+        AND U_ICIN1.Secrecy != 'Y' /*非保密*/
     </select>
     <select id="selectEnquiryTabList" resultType="com.lianchuangjie.lianchuangjie.vo.TabEnquiryNeedsVO">
 
