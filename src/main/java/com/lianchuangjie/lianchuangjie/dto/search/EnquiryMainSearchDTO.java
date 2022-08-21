@@ -1,5 +1,6 @@
 package com.lianchuangjie.lianchuangjie.dto.search;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -49,17 +50,21 @@ public class EnquiryMainSearchDTO {
     /**
      * @description 失效时间上限
      */
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date invalidDateStart;
     /**
      * @description 失效时间下限
      */
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date invalidDateEnd;
     /**
      * @description 发送时间上限
      */
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createDateStart;
     /**
      * @description 发送时间下限
      */
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createDateEnd;
 }

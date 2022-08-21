@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * @description 销售报价页面-客户需求TAB
+ * @description 销售报价页面-客户需求一行信息
  */
 @Data
 @AllArgsConstructor
@@ -112,4 +112,6 @@ public class TabEnquiryNeedsVO {
      */
     @JsonProperty("LineRemark")
     private String lineRemark;
+    // 价格类型 U_ICIN1.Status
+    private String status;
 }

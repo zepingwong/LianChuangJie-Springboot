@@ -13,7 +13,6 @@ import com.lianchuangjie.lianchuangjie.mapper.QuotationMapper;
 import com.lianchuangjie.lianchuangjie.dto.search.QuotationSearchDTO;
 import com.lianchuangjie.lianchuangjie.service.QuotationService;
 import com.lianchuangjie.lianchuangjie.vo.QuotationVO;
-import com.lianchuangjie.lianchuangjie.vo.TabEnquiryNeedsVO;
 import com.lianchuangjie.lianchuangjie.vo.TabEnquiryQuotationVO;
 import com.lianchuangjie.lianchuangjie.vo.TabMyQuotationVO;
 import org.springframework.stereotype.Service;

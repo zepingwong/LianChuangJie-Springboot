@@ -18,9 +18,10 @@
                  LEFT JOIN T_OVTG ON T_OVTG.Code = T0.U_VatGroup
                  LEFT JOIN (SELECT DeptCode FROM T_OUDL WHERE UserSign = #{UserSign}) T2 ON T0.DeptCode = T2.DeptCode
                  LEFT JOIN U_ICIN1 ON U_ICIN1.DocEntry = T0.DocEntry
-        WHERE T0.DocEntry = #{DocEntry}
-          AND (
-                    @DataPur = 'ALL' /*可看所有*/
+        WHERE
+            T0.DocEntry = #{DocEntry}
+            AND (
+                @DataPur = 'ALL' /*可看所有*/
                 OR T0.OwnerCode = #{UserSign}
                 OR T0.UserSign = #{UserSign} /*仅看自己，销售员或者制单人 等于 当前登录用户*/
                 OR (@DataPur = 'Dept' AND ISNULL(T2.DeptCode, '') != '') /*可看本部门，当前登录用户所属部门 包括 当前订单的所属部门*/
@@ -41,25 +42,78 @@
             SELECT 0
     </select>
     <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.EnquiryMainItemVO">
+        DECLARE @UserSign BIGINT
+        DECLARE @DataPur NVARCHAR ( 10 ) /*All/Dept/selft*/
+        DECLARE @BaseFormID BIGINT /*视图编号*/
+        DECLARE @PageSize INT
+        DECLARE @CurrentPage INT
+        SET @PageSize = ${sc.getSize} /*每页显示数量*/
+        SET @CurrentPage = ${sc.getPage} /*当前页码*/
+        SET @UserSign = ${sc.getOwnerCode}
+        SELECT TOP (1) @BaseFormID = TransType FROM T_ICIN WHERE TransType IS NOT NULL /*单据类型*/
+        SELECT @DataPur = [dbo].[UF_DataPurview] ( @UserSign, @BaseFormID ) /*判断权限*/
+        SELECT TOP (@PageSize) * FROM (
+            SELECT
+            ROW_NUMBER()OVER(ORDER BY T_ICIN.CreateDate DESC) AS ROWNUMBER,
+            T_ICIN.*,
+            COUNT ( U_ICIN1.LineNum ) AS 'EnquireSum',
+            SUM(IIF(U_ICIN1.PriceAfVAT IS NOT NULL, 1, 0)) AS 'EnquireComplete',
+            MIN(U_ICIN1.ExpDate) AS 'InvalidDateMin',
+            MAX(U_ICIN1.ExpDate) AS 'InvalidDateMax',
+            (SELECT COUNT(*) FROM T_ICIN1 WHERE T_ICIN1.U_Status = 'Y' AND T_ICIN1.DocEntry = T_ICIN.DocEntry) AS 'PurchaseReply'
+            FROM T_ICIN
+            LEFT JOIN U_ICIN1 ON T_ICIN.DocEntry = U_ICIN1.DocEntry
+            LEFT JOIN (SELECT DeptCode FROM T_OUDL WHERE UserSign = @UserSign) T3 ON T_ICIN.DeptCode = T3.DeptCode
+            <where>
+                ${ew.getSqlSegment()}
+                AND T_ICIN.DocStatus = 'O' /*O表示有效、Q表示无效*/
+                AND (
+                    @DataPur = 'ALL' /*可看所有*/
+                    OR (@DataPur = 'Dept' AND ISNULL(T3.DeptCode, '') != '') /*判断当前用户可看本部门数据，如部门主任*/
+                    OR (@DataPur = 'Self' AND T_ICIN.UserSign = @UserSign) /*销售员本人*/
+                )
+            </where>
+            GROUP BY T_ICIN.DocEntry, UserSign, OwnerCode, DocStatus, CreateDate, UpdateTime, T_ICIN.ExpDate, InquiryDate,
+            T_ICIN.DeptCode, TransType, Branchs, Attachment, CardCode, CardName, Remark, T_ICIN.U_Buyer, T_ICIN.U_ComCode,
+            T_ICIN.U_Delivery, U_DocCur, U_DocType, T_ICIN.U_ItemCode, U_OrderType, U_PrjCode, T_ICIN.U_SlpCode,
+            U_UrgentType, T_ICIN.U_VatGroup, T_ICIN.U_Industries, PrjCode, U_UserName, U_DeptName, U_CusLevel,
+            U_CusGroupCode, U_CusIndustries, T_ICIN.U_SaleLevel, U_UserCode1, U_UserCode2, U_Region, U_DomainName,
+            U_CntctCode, T_ICIN.U_CardStatus, T_ICIN.U_ShortCode, State, New, SourceType, T_ICIN.Year, U_TransaPlace
+        ) T
+        WHERE T.ROWNUMBER > (@CurrentPage - 1) * @PageSize
+        ORDER BY T.CreateDate DESC
+    </select>
+    <select id="countList" resultType="java.lang.Integer">
+        DECLARE @UserSign BIGINT
+        DECLARE @DataPur NVARCHAR ( 10 ) /*All/Dept/selft*/
+        DECLARE @BaseFormID BIGINT /*视图编号*/
+        SET @UserSign = ${sc.getOwnerCode}
+        SELECT TOP (1) @BaseFormID = TransType FROM T_ICIN WHERE TransType IS NOT NULL /*单据类型*/
+        SELECT @DataPur = [dbo].[UF_DataPurview] ( @UserSign, @BaseFormID ) /*判断权限*/
         SELECT
-        T_ICIN.*,
-        COUNT ( U_ICIN1.LineNum ) AS 'EnquireSum',
-        SUM(IIF(U_ICIN1.PriceAfVAT IS NOT NULL, 1, 0)) AS 'EnquireComplete',
-        MIN(U_ICIN1.ExpDate) AS 'InvalidDateMin',
-        MAX(U_ICIN1.ExpDate) AS 'InvalidDateMax',
-        (SELECT COUNT(*) FROM T_ICIN1 WHERE T_ICIN1.U_Status = 'Y' AND T_ICIN1.DocEntry = T_ICIN.DocEntry) AS
-        'PurchaseReply'
-        FROM T_ICIN
-        LEFT JOIN U_ICIN1 ON T_ICIN.DocEntry = U_ICIN1.DocEntry
-        <where>
-            ${ew.getSqlSegment()}
-        </where>
-        GROUP BY T_ICIN.DocEntry, UserSign, OwnerCode, DocStatus, CreateDate, UpdateTime, T_ICIN.ExpDate, InquiryDate,
-        DeptCode, TransType, Branchs, Attachment, CardCode, CardName, Remark, T_ICIN.U_Buyer, T_ICIN.U_ComCode,
-        T_ICIN.U_Delivery, U_DocCur, U_DocType, T_ICIN.U_ItemCode, U_OrderType, U_PrjCode, T_ICIN.U_SlpCode,
-        U_UrgentType, T_ICIN.U_VatGroup, T_ICIN.U_Industries, PrjCode, U_UserName, U_DeptName, U_CusLevel,
-        U_CusGroupCode, U_CusIndustries, T_ICIN.U_SaleLevel, U_UserCode1, U_UserCode2, U_Region, U_DomainName,
-        U_CntctCode, T_ICIN.U_CardStatus, T_ICIN.U_ShortCode, State, New, SourceType, T_ICIN.Year, U_TransaPlace
+            COUNT(*)
+        FROM (
+            SELECT
+            T_ICIN.*
+            FROM T_ICIN
+            LEFT JOIN U_ICIN1 ON T_ICIN.DocEntry = U_ICIN1.DocEntry
+            LEFT JOIN (SELECT DeptCode FROM T_OUDL WHERE UserSign = @UserSign) T3 ON T_ICIN.DeptCode = T3.DeptCode
+            <where>
+                ${ew.getSqlSegment()}
+                AND T_ICIN.DocStatus = 'O' /*O表示有效、Q表示无效*/
+                AND (
+                    @DataPur = 'ALL' /*可看所有*/
+                    OR (@DataPur = 'Dept' AND ISNULL(T3.DeptCode, '') != '') /*判断当前用户可看本部门数据，如部门主任*/
+                    OR (@DataPur = 'Self' AND T_ICIN.UserSign = @UserSign) /*销售员本人*/
+                )
+            </where>
+            GROUP BY T_ICIN.DocEntry, UserSign, OwnerCode, DocStatus, CreateDate, UpdateTime, T_ICIN.ExpDate, InquiryDate,
+            T_ICIN.DeptCode, TransType, Branchs, Attachment, CardCode, CardName, Remark, T_ICIN.U_Buyer, T_ICIN.U_ComCode,
+            T_ICIN.U_Delivery, U_DocCur, U_DocType, T_ICIN.U_ItemCode, U_OrderType, U_PrjCode, T_ICIN.U_SlpCode,
+            U_UrgentType, T_ICIN.U_VatGroup, T_ICIN.U_Industries, PrjCode, U_UserName, U_DeptName, U_CusLevel,
+            U_CusGroupCode, U_CusIndustries, T_ICIN.U_SaleLevel, U_UserCode1, U_UserCode2, U_Region, U_DomainName,
+            U_CntctCode, T_ICIN.U_CardStatus, T_ICIN.U_ShortCode, State, New, SourceType, T_ICIN.Year, U_TransaPlace
+        ) T
     </select>
     <select id="selectMaxDocEntry" resultType="java.lang.Long">
         SELECT MAX(DocEntry)

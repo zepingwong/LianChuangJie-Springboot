@@ -63,7 +63,10 @@ public class EnquirySubServiceImpl extends ServiceImpl<EnquirySubMapper, Enquiry
     public Page<TabEnquiryNeedsVO> enquiryTabList(TabSearchDTO searchCondition) {
         Page<TabEnquiryNeedsVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
         page.addOrder(OrderItem.desc("T_ICIN.InquiryDate"));
-        enquirySubMapper.selectEnquiryTabList(page, searchCondition);
+        page.setOptimizeCountSql(false);
+        page.setSearchCount(false);
+        page.setRecords(enquirySubMapper.selectEnquiryTabList(searchCondition));
+        page.setTotal(enquirySubMapper.countEnquiryTabList(searchCondition));
         return page;
     }
 }

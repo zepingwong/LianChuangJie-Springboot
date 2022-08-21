@@ -38,7 +38,6 @@ public class EnquiryMainServiceImpl extends ServiceImpl<EnquiryMainMapper, Enqui
     @Override
     public Page<EnquiryMainItemVO> list(EnquiryMainSearchDTO searchCondition) {
         Page<EnquiryMainItemVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
-
         QueryWrapper<EnquiryMainItemVO> queryWrapper = new QueryWrapper<>();
         String mainTable = SqlHelper.table(EnquiryMainEntity.class).getTableName();
         String subTable = SqlHelper.table(EnquirySubEntity.class).getTableName();
@@ -62,7 +61,8 @@ public class EnquiryMainServiceImpl extends ServiceImpl<EnquiryMainMapper, Enqui
             queryWrapper.le(subTable + ".ExpDate", searchCondition.getInvalidDateEnd());
         }
         queryWrapper.eq(mainTable + ".OwnerCode", searchCondition.getOwnerCode());
-        enquiryMainMapper.selectList(page, queryWrapper);
+        page.setRecords(enquiryMainMapper.selectList(queryWrapper, searchCondition));
+        page.setTotal(enquiryMainMapper.countList(queryWrapper, searchCondition));
         return page;
     }
 }
