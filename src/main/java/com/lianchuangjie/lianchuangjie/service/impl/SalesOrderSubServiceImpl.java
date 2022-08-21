@@ -17,6 +17,7 @@ import javax.annotation.Resource;
 public class SalesOrderSubServiceImpl extends ServiceImpl<SalesOrderSubMapper, SalesOrderSubEntity> implements SalesOrderSubService {
     @Resource
     SalesOrderSubMapper salesOrderSubMapper;
+
     public Page<TabQuotationSalesOrderVO> quotationTabList(TabSearchDTO searchCondition) {
         Page<TabQuotationSalesOrderVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
         salesOrderSubMapper.selectQuotationTabList(page, searchCondition);
@@ -28,6 +29,7 @@ public class SalesOrderSubServiceImpl extends ServiceImpl<SalesOrderSubMapper, S
         Page<TabEnquirySalesOrderVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
         page.addOrder(OrderItem.desc("T_ORDR.DocDate"));
         page.setRecords(salesOrderSubMapper.selectEnquiryTabList(searchCondition));
+        page.setTotal(salesOrderSubMapper.countEnquiryTabList(searchCondition));
         return page;
     }
 }
