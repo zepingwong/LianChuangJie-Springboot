@@ -10,6 +10,7 @@ import com.lianchuangjie.lianchuangjie.vo.SdadaVO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class SdadaServiceImpl extends ServiceImpl<SdadaMapper, SdadaEntity> implements SdadaService {
@@ -21,5 +22,15 @@ public class SdadaServiceImpl extends ServiceImpl<SdadaMapper, SdadaEntity> impl
         page.setOptimizeCountSql(false);
         sdadaMapper.selectTabList(page,searchCondition.getModleList());
         return page;
+    }
+
+    @Override
+    public List<SdadaVO> containList(String modle) {
+        return sdadaMapper.selectContain(modle);
+    }
+
+    @Override
+    public List<SdadaVO> relatedList(String modle) {
+        return sdadaMapper.selectRelated(modle);
     }
 }

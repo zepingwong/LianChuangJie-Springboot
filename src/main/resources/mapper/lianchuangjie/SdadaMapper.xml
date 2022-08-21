@@ -24,4 +24,18 @@
         </foreach>
         )
     </select>
+    <select id="selectContain" resultType="com.lianchuangjie.lianchuangjie.vo.SdadaVO" parameterType="java.lang.String">
+        DECLARE @sno AS VARCHAR(255);
+        SET @sno = #{sno};
+        SELECT *
+        FROM SDADA
+        WHERE sno IN (SELECT sno FROM SDADA WHERE sno LIKE '%' + @sno + '%');
+    </select>
+    <select id="selectRelated" resultType="com.lianchuangjie.lianchuangjie.vo.SdadaVO" parameterType="java.lang.String">
+        DECLARE @sno AS VARCHAR(255);
+        SET @sno = #{sno};
+        SELECT *
+        FROM SDADA SDADA_1
+        WHERE SDADA_1.TAG IN (SELECT SDADA.TAG FROM SDADA WHERE SDADA.sno = @sno)
+    </select>
 </mapper>

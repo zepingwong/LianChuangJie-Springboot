@@ -144,4 +144,7 @@ public class BomQueryItemVO {
      */
     @JsonProperty("spq")
     private String spq;
+    // 关联型号折叠
+    @JsonProperty("children")
+    List<BomQueryItemVO> children;
 }

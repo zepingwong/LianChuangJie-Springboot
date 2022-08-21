@@ -113,7 +113,6 @@ public class BomQueryServiceImpl implements BomQueryService {
             }
         }
         enquirySubService.saveBatch(saveList);
-        System.out.println(enquiryMainEntity);
         return true;
     }
 }

@@ -1,17 +1,17 @@
 package com.lianchuangjie.lianchuangjie.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lianchuangjie.lianchuangjie.config.Authentication;
 import com.lianchuangjie.lianchuangjie.dto.BomQuerySaveDTO;
+import com.lianchuangjie.lianchuangjie.dto.SingleQueryDTO;
 import com.lianchuangjie.lianchuangjie.entity.UserEntity;
 import com.lianchuangjie.lianchuangjie.exception.BaseException;
 import com.lianchuangjie.lianchuangjie.dto.search.EnquiryBuyerSearchDTO;
-import com.lianchuangjie.lianchuangjie.service.BomQueryService;
-import com.lianchuangjie.lianchuangjie.service.EnquiryBuyerService;
+import com.lianchuangjie.lianchuangjie.service.*;
 import com.lianchuangjie.lianchuangjie.utils.Result;
 import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
-import com.lianchuangjie.lianchuangjie.vo.BomQueryResVO;
-import com.lianchuangjie.lianchuangjie.vo.EnquiryBuyerItemVO;
+import com.lianchuangjie.lianchuangjie.vo.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +30,13 @@ public class SearchController extends BaseController {
     @Resource
     BomQueryService bomQueryService;
     @Resource
+    SdadaService sdadaService;
+    @Resource
     EnquiryBuyerService enquiryBuyerService;
+    @Resource
+    SingleQueryService singleQueryService;
+    @Resource
+    UserInfoService userInfoService;
 
     /**
      * bom单批量询价
@@ -78,5 +84,48 @@ public class SearchController extends BaseController {
         UserEntity user = objectMapper.convertValue(obj, UserEntity.class);
         Boolean res = bomQueryService.save(bomQuerySaveDTO, user);
         return Result.success(res, "Success");
+    }
+
+    /**
+     * @param modle modle
+     * @return Result
+     * @description 型号模糊搜索
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 8/21/2022
+     */
+    @GetMapping("/snosuggestion")
+    @Authentication(sale = true, buyer = true)
+    public Result<List<SdadaVO>> getSnosuggestionController(@RequestParam(name = "Modle", defaultValue = "#{null}") String modle) {
+        List<SdadaVO> list = sdadaService.containList(modle);
+        return Result.success(list, "Success");
+    }
+
+    /**
+     * @param modle modle
+     * @return Result
+     * @description 查询关联型号
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 8/21/2022
+     */
+    @GetMapping("related")
+    @Authentication(sale = true, buyer = true)
+    public Result<List<SdadaVO>> getRelatedListController(@RequestParam(name = "Modle", defaultValue = "#{null}") String modle) {
+        List<SdadaVO> list = sdadaService.relatedList(modle);
+        return Result.success(list, "Success");
+    }
+
+    @PostMapping("singleQuery")
+    @Authentication(sale = true)
+    public Result<BomQueryItemVO> getSingleQueryController(@RequestBody SingleQueryDTO singleQueryDTO) {
+        Long userSign = SessionUtil.getUserSign();
+        QueryWrapper<UserInfoVO> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("UserSign", userSign);
+        UserInfoVO user = userInfoService.getOne(queryWrapper);
+        singleQueryDTO.setSlpCode(userSign);
+        singleQueryDTO.setDeptCode(user.getDftDept());
+        BomQueryItemVO bomQueryItem = singleQueryService.query(singleQueryDTO);
+        return Result.success(bomQueryItem);
     }
 }
