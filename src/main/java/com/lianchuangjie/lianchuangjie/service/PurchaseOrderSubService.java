@@ -10,7 +10,23 @@ import com.lianchuangjie.lianchuangjie.vo.TabQuotationPurchaseOrderVO;
 import com.lianchuangjie.lianchuangjie.vo.TabQuotationSalesOrderVO;
 
 public interface PurchaseOrderSubService extends IService<PurchaseOrderSubEntity> {
+    /**
+     * @param tabSearchDTO tabSearchDTO
+     * @return Page
+     * @description 采购报价页面-采购订单Tab
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 8/21/2022
+     */
     Page<TabQuotationPurchaseOrderVO> quotationTabList(TabSearchDTO tabSearchDTO);
 
+    /**
+     * @param tabSearchDTO tabSearchDTO
+     * @return Page
+     * @description 销售报价页面-采购订单Tab
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 8/21/2022
+     */
     Page<TabEnquiryPurchaseOrderVO> enquiryTabList(TabSearchDTO tabSearchDTO);
 }
