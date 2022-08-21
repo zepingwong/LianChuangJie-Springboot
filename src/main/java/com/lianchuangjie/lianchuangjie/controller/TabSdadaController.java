@@ -15,16 +15,20 @@ import javax.annotation.Resource;
 public class TabSdadaController {
     @Resource
     SdadaService sdadaService;
+
     /**
-     * @description 标准型号
+     * @param page  page 页码
+     * @param size  size 每页显示数量
+     * @param modle modle 型号
+     * @return Result
+     * @description 标准型号-单个型号
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 8/19/2022
      */
     @GetMapping("/sdada")
-    @Authentication(sale = true,buyer = true)
-    public Result<Page<SdadaVO>> getStandardData(
-            @RequestParam(defaultValue = "1", value = "page") Integer page,
-            @RequestParam(defaultValue = "10", value = "size") Integer size,
-            @RequestParam(defaultValue = "#{null}", value = "Modle") String modle
-    ) {
+    @Authentication(sale = true, buyer = true)
+    public Result<Page<SdadaVO>> getStandardData(@RequestParam(defaultValue = "1", value = "page") Integer page, @RequestParam(defaultValue = "10", value = "size") Integer size, @RequestParam(defaultValue = "#{null}", value = "Modle") String modle) {
         TabSearchDTO tabSearchDTO = new TabSearchDTO();
         tabSearchDTO.setPage(page);
         tabSearchDTO.setSize(size);
@@ -32,11 +36,18 @@ public class TabSdadaController {
         Page<SdadaVO> res = sdadaService.tabList(tabSearchDTO);
         return Result.success(res);
     }
+
+    /**
+     * @param tabSearchDTO tabSearchDTO
+     * @return Result
+     * @description 标准型号-多个型号
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 8/19/2022
+     */
     @PostMapping("/sdada")
-    @Authentication(sale = true,buyer = true)
-    public Result<Page<SdadaVO>> getStandardData(
-            @RequestBody TabSearchDTO tabSearchDTO
-    ) {
+    @Authentication(sale = true, buyer = true)
+    public Result<Page<SdadaVO>> getStandardData(@RequestBody TabSearchDTO tabSearchDTO) {
         Page<SdadaVO> res = sdadaService.tabList(tabSearchDTO);
         return Result.success(res);
     }

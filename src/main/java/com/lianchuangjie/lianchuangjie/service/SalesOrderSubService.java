@@ -7,5 +7,13 @@ import com.lianchuangjie.lianchuangjie.entity.SalesOrderSubEntity;
 import com.lianchuangjie.lianchuangjie.vo.TabQuotationSalesOrderVO;
 
 public interface SalesOrderSubService extends IService<SalesOrderSubEntity> {
+    /**
+     * @param tabSearchDTO tabSearchDTO
+     * @return Page
+     * @description 采购报价页面-销售订单TAB
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 8/20/2022
+     */
     Page<TabQuotationSalesOrderVO> quotationTabList(TabSearchDTO tabSearchDTO);
 }

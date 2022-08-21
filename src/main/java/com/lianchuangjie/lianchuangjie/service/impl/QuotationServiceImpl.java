@@ -13,6 +13,8 @@ import com.lianchuangjie.lianchuangjie.mapper.QuotationMapper;
 import com.lianchuangjie.lianchuangjie.dto.search.QuotationSearchDTO;
 import com.lianchuangjie.lianchuangjie.service.QuotationService;
 import com.lianchuangjie.lianchuangjie.vo.QuotationVO;
+import com.lianchuangjie.lianchuangjie.vo.TabEnquiryNeedsVO;
+import com.lianchuangjie.lianchuangjie.vo.TabEnquiryQuotationVO;
 import com.lianchuangjie.lianchuangjie.vo.TabMyQuotationVO;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,7 @@ import javax.annotation.Resource;
 public class QuotationServiceImpl extends ServiceImpl<QuotationMapper, QuotationEntity> implements QuotationService {
     @Resource
     QuotationMapper quotationMapper;
+
     @Override
     public Page<QuotationVO> list(QuotationSearchDTO searchCondition) {
         Page<QuotationVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
@@ -32,7 +35,7 @@ public class QuotationServiceImpl extends ServiceImpl<QuotationMapper, Quotation
             queryWrapper.like(enquirySubTable + ".Modle", searchCondition.getModle());
         }
         if (searchCondition.getBrand() != null) {
-            queryWrapper.eq(enquirySubTable+ ".Brand", searchCondition.getBrand());
+            queryWrapper.eq(enquirySubTable + ".Brand", searchCondition.getBrand());
         }
         if (searchCondition.getUStatus() != null) {
             queryWrapper.eq("fp.U_Status", searchCondition.getUStatus());
@@ -52,12 +55,12 @@ public class QuotationServiceImpl extends ServiceImpl<QuotationMapper, Quotation
     }
 
     /**
-     * @description 我的报价
      * @param searchCondition 查询条件
      * @return Page<TabMyQuotationVO>
+     * @description 我的报价
      */
     @Override
-    public Page<TabMyQuotationVO> tabMy(TabSearchDTO searchCondition) {
+    public Page<TabMyQuotationVO> tabMyList(TabSearchDTO searchCondition) {
         Page<TabMyQuotationVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
         page.addOrder(OrderItem.desc("T_ICIN1.U_QuoDate"));
         quotationMapper.selectMyList(page, searchCondition.getModleList(), searchCondition.getUserSign());
@@ -67,5 +70,13 @@ public class QuotationServiceImpl extends ServiceImpl<QuotationMapper, Quotation
     @Override
     public QuotationEntity getOne(QueryWrapper<QuotationEntity> queryWrapper) {
         return quotationMapper.selectOne(queryWrapper);
+    }
+
+    @Override
+    public Page<TabEnquiryQuotationVO> enquiryTabList(TabSearchDTO searchCondition) {
+        Page<TabEnquiryQuotationVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
+        page.addOrder(OrderItem.desc("T_ICIN1.U_QuoDate"));
+        quotationMapper.selectEnquiryList(page, searchCondition);
+        return page;
     }
 }

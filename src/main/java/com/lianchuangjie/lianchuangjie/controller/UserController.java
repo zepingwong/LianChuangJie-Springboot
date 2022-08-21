@@ -30,12 +30,13 @@ public class UserController {
     UserInfoService userInfoService;
 
     /**
-     * @param employee 工号、密码
-     * @param request  http 请求
-     * @return LoginResVO
+     * @param employee employee
+     * @param request  request
+     * @return Result
      * @description 员工登录接口
      * @author WANG Zeping
      * @email zepingwong@gmail.com
+     * @date 8/1/2022
      */
     @PostMapping("/login/employee")
     public Result<LoginResVO> loginController(@RequestBody @Valid EmployeeLoginDTO employee, HttpServletRequest request) {
@@ -50,12 +51,12 @@ public class UserController {
     }
 
     /**
-     * @param request http 请求
-     * @return Boolean
-     * @description 退出登录
-     * @date 2022/7/26
+     * @param request request
+     * @return Result
+     * @description 用户登出接口
      * @author WANG Zeping
      * @email zepingwong@gmail.com
+     * @date 7/26/2022
      */
     @GetMapping("logout")
     public Result<Boolean> logoutController(HttpServletRequest request) {
@@ -65,11 +66,11 @@ public class UserController {
 
     /**
      * @param id 用户Id UserCode 或用户编号 UserSign
-     * @return user
+     * @return Result
      * @description 查看用户信息
-     * @date 2022/5/26
      * @author WANG Zeping
      * @email zepingwong@gmail.com
+     * @date 5/26/2022
      */
     @GetMapping("/{id}")
     public Result<UserInfoVO> getUserInfoController(@PathVariable String id) {

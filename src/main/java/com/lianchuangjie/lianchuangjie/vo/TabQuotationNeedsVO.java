@@ -10,6 +10,9 @@ import lombok.experimental.Accessors;
 import java.math.BigDecimal;
 import java.util.Date;
 
+/**
+ * @description 采购报价页面-客户需求TAB
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -94,32 +97,18 @@ public class TabQuotationNeedsVO {
      */
     @JsonProperty("ECCN")
     private String eccn;
-    /**
-     * @description 引用采购报价货币 QuoCurr
-     * @resource U_ICIN1.QuoCurr
-     */
-    @JsonProperty("QuoCurr")
-    private String quoCurr;
-    /**
-     * @description 引用采购报价税率 QuoVatGroup
-     */
-    @JsonProperty("QuoVatGroup")
-    private String quoVatGroup;
-    /**
-     * @description 税率文本描述 QuoVatName
-     */
-    @JsonProperty("QuoVatName")
-    private String quoVatName;
-    /**
-     * @description 税点 QuoVatRate
-     */
-    @JsonProperty("QuoVatRate")
-    private BigDecimal quoVatRate;
-    /**
-     * @description 销售报价单价 PriceAfVAT
-     */
-    @JsonProperty("PriceAfVAT")
-    private BigDecimal priceAfVAT;
+    // 报价货币 U_ICIN1.U_DocCur
+    @JsonProperty("U_DocCur")
+    private String uDocCur;
+    // 引用采购报价税率 U_ICIN1.U_VatGroup
+    @JsonProperty("U_VatGroup")
+    private String uVatGroup;
+    // 税率文本描述 U_VatName
+    @JsonProperty("U_VatName")
+    private String uVatName;
+    // 税点 U_VatRate
+    @JsonProperty("U_VatRate")
+    private BigDecimal uVatRate;
     /**
      * @description 报价交期 SuoDelivery
      */

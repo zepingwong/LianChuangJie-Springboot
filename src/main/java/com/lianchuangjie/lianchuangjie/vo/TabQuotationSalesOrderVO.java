@@ -10,6 +10,9 @@ import lombok.experimental.Accessors;
 import java.math.BigDecimal;
 import java.util.Date;
 
+/**
+ * @description 采购报价页面-销售订单TAB
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

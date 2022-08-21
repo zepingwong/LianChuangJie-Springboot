@@ -12,7 +12,24 @@ import java.util.List;
 
 public interface EnquirySubService extends IService<EnquirySubEntity> {
     List<EnquirySubVO> list(Long docEntry);
+
+    /**
+     * @param tabSearchDTO tabSearchDTO
+     * @return Page
+     * @description 采购报价页面-客户需求TAB
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 8/20/2022
+     */
     Page<TabQuotationNeedsVO> quotationTabList(TabSearchDTO tabSearchDTO);
 
+    /**
+     * @param tabSearchDTO tabSearchDTO
+     * @return Page
+     * @description 销售报价页面-客户需求TAB
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 8/20/2022
+     */
     Page<TabEnquiryNeedsVO> enquiryTabList(TabSearchDTO tabSearchDTO);
 }

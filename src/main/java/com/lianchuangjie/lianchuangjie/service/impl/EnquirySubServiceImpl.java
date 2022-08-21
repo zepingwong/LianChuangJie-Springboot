@@ -36,22 +36,34 @@ public class EnquirySubServiceImpl extends ServiceImpl<EnquirySubMapper, Enquiry
     }
 
     /**
-     * @param searchCondition 查询条件
-     * @return Page<TabNeedsVO>
-     * @description 客户需求
+     * @param searchCondition searchCondition
+     * @return Page
+     * @description 采购报价页面-客户需求TAB
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 8/20/2022
      */
     @Override
     public Page<TabQuotationNeedsVO> quotationTabList(TabSearchDTO searchCondition) {
         Page<TabQuotationNeedsVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
         page.addOrder(OrderItem.desc("T_ICIN.InquiryDate"));
-        enquirySubMapper.selectQuotationTabList(page, searchCondition.getModleList(), searchCondition.getUserSign());
+        enquirySubMapper.selectQuotationTabList(page, searchCondition);
         return page;
     }
 
+    /**
+     * @param searchCondition searchCondition
+     * @return Page
+     * @description 销售报价页面-客户需求TAB
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 8/20/2022
+     */
     @Override
     public Page<TabEnquiryNeedsVO> enquiryTabList(TabSearchDTO searchCondition) {
         Page<TabEnquiryNeedsVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
-        enquirySubMapper.selectEnquiryTabList(page, searchCondition.getModleList(), searchCondition.getUserSign());
+        page.addOrder(OrderItem.desc("T_ICIN.InquiryDate"));
+        enquirySubMapper.selectEnquiryTabList(page, searchCondition);
         return page;
     }
 }
