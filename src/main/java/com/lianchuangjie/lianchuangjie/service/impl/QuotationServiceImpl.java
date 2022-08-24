@@ -13,6 +13,7 @@ import com.lianchuangjie.lianchuangjie.mapper.QuotationMapper;
 import com.lianchuangjie.lianchuangjie.dto.search.QuotationSearchDTO;
 import com.lianchuangjie.lianchuangjie.service.QuotationService;
 import com.lianchuangjie.lianchuangjie.vo.QuotationVO;
+import com.lianchuangjie.lianchuangjie.vo.TabEffectiveQuotationVO;
 import com.lianchuangjie.lianchuangjie.vo.TabEnquiryQuotationVO;
 import com.lianchuangjie.lianchuangjie.vo.TabMyQuotationVO;
 import org.springframework.stereotype.Service;
@@ -62,7 +63,23 @@ public class QuotationServiceImpl extends ServiceImpl<QuotationMapper, Quotation
     public Page<TabMyQuotationVO> tabMyList(TabSearchDTO searchCondition) {
         Page<TabMyQuotationVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
         page.addOrder(OrderItem.desc("T_ICIN1.U_QuoDate"));
-        quotationMapper.selectMyList(page, searchCondition.getModleList(), searchCondition.getUserSign());
+        quotationMapper.selectMyList(page, searchCondition);
+        return page;
+    }
+
+    /**
+     * @param searchCondition searchCondition
+     * @return Page
+     * @description 有效报价
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 8/24/2022
+     */
+    @Override
+    public Page<TabEffectiveQuotationVO> tabEffectiveList(TabSearchDTO searchCondition) {
+        Page<TabEffectiveQuotationVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
+        page.addOrder(OrderItem.desc("T_ICIN1.U_QuoDate"));
+        page.setRecords(quotationMapper.selectEffectiveList(searchCondition));
         return page;
     }
 

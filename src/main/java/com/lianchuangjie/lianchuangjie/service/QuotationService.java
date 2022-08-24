@@ -7,6 +7,7 @@ import com.lianchuangjie.lianchuangjie.dto.search.QuotationSearchDTO;
 import com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.QuotationEntity;
 import com.lianchuangjie.lianchuangjie.vo.QuotationVO;
+import com.lianchuangjie.lianchuangjie.vo.TabEffectiveQuotationVO;
 import com.lianchuangjie.lianchuangjie.vo.TabEnquiryQuotationVO;
 import com.lianchuangjie.lianchuangjie.vo.TabMyQuotationVO;
 
@@ -22,6 +23,15 @@ public interface QuotationService extends IService<QuotationEntity> {
      * @date 8/20/2022
      */
     Page<TabMyQuotationVO> tabMyList(TabSearchDTO searchCondition);
+    /**
+     * @param searchCondition searchCondition
+     * @return Page
+     * @description 有效报价
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 8/20/2022
+     */
+    Page<TabEffectiveQuotationVO> tabEffectiveList(TabSearchDTO searchCondition);
 
     QuotationEntity getOne(QueryWrapper<QuotationEntity> queryWrapper);
 

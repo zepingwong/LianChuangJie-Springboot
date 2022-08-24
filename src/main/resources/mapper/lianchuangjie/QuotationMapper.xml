@@ -89,12 +89,12 @@
         SDADA_1.TAG IN
         (
         SELECT SDADA.TAG FROM SDADA WHERE SDADA.sno IN
-        <foreach collection="modleList " item="item" open="(" separator="," close=")" index="index">
+        <foreach collection="sc.modleList " item="item" open="(" separator="," close=")" index="index">
             '${item}'
         </foreach>
         )
         )
-        AND T_ICIN1.U_Buyer = #{UserSign}
+        AND T_ICIN1.U_Buyer = ${sc.getUserSign}
         AND T_ICIN1.U_QuoDate IS NOT NULL
     </select>
     <select id="selectEnquiryList" resultType="com.lianchuangjie.lianchuangjie.vo.TabEnquiryQuotationVO">
@@ -138,5 +138,31 @@
         </foreach>
         )
         )
+    </select>
+    <select id="selectEffectiveList" resultType="com.lianchuangjie.lianchuangjie.vo.TabEffectiveQuotationVO"
+            parameterType="com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO">
+        SELECT
+        T_ICIN1.*,
+        T_OUSI.UserName AS 'U_BuyerName', /*采购员姓名*/
+        T_OCDP.Name AS 'DftDeptName' /*采购部门*/
+        FROM T_ICIN1
+        LEFT JOIN T_OUSI ON T_ICIN1.U_Buyer = T_OUSI.UserSign /*采购员信息*/
+        LEFT JOIN T_OCDP ON T_OUSI.DftDept = T_OCDP.DeptCode /*公司部门*/
+        WHERE
+        T_ICIN1.Modle IN (
+        SELECT
+        SDADA_1.sno
+        FROM
+        SDADA SDADA_1
+        WHERE
+        SDADA_1.TAG IN
+        (
+        SELECT SDADA.TAG FROM SDADA WHERE SDADA.sno IN
+        <foreach collection="sc.modleList " item="item" open="(" separator="," close=")" index="index">
+            '${item}'
+        </foreach>
+        )
+        )
+        AND T_ICIN1.U_QuoDate IS NOT NULL
     </select>
 </mapper>

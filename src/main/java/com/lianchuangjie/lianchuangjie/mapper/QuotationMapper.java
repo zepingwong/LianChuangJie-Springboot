@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.QuotationEntity;
 import com.lianchuangjie.lianchuangjie.vo.QuotationVO;
+import com.lianchuangjie.lianchuangjie.vo.TabEffectiveQuotationVO;
 import com.lianchuangjie.lianchuangjie.vo.TabEnquiryQuotationVO;
 import com.lianchuangjie.lianchuangjie.vo.TabMyQuotationVO;
 import org.apache.ibatis.annotations.Mapper;
@@ -19,8 +20,10 @@ import java.util.List;
 @Repository
 public interface QuotationMapper extends BaseMapper<QuotationEntity> {
     IPage<QuotationVO> selectList(IPage<QuotationVO> page, @Param("ew") QueryWrapper<QuotationVO> queryWrapper, @Param("UserSign") Long userSign);
-    IPage<TabMyQuotationVO> selectMyList(IPage<TabMyQuotationVO> page, @Param("modleList") List<String> list, @Param("UserSign") Long userSign);
+    IPage<TabMyQuotationVO> selectMyList(IPage<TabMyQuotationVO> page, @Param("sc") TabSearchDTO searchCondition);
     QuotationEntity selectOne(@Param("ew") QueryWrapper<QuotationEntity> queryWrapper);
 
     IPage<TabEnquiryQuotationVO> selectEnquiryList(Page<TabEnquiryQuotationVO> page, @Param("sc") TabSearchDTO searchCondition);
+
+    List<TabEffectiveQuotationVO> selectEffectiveList(@Param("sc") TabSearchDTO searchCondition);
 }
