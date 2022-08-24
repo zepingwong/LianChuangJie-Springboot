@@ -161,8 +161,8 @@ public class QuotationVO {
     @JsonProperty("LineRemark")
     private String lineRemark;
     // 无法报价 UnableQuote
-    @JsonProperty("UnableQuote")
-    private String unableQuote;
+    @JsonProperty("U_NoPrice")
+    private String uNoPrice;
     // 发送时间/录入时间 T_ICIN.InquiryDate
     @JsonProperty("DemandDate")
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")

@@ -41,6 +41,7 @@
         fp.U_QuoLevel, /*供方评级*/
         fp.U_QuoVatGroup,
         fp.U_QuoCurr,
+        fp.U_NoPrice, /*无法报价*/
         U_CUR4.Level AS 'U_SaleLevel', /*销售员等级*/
         T_OVTG.Rate AS 'U_QuoVatRate'
         FROM

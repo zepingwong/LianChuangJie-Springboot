@@ -1,8 +1,6 @@
 package com.lianchuangjie.lianchuangjie.service;
 
-import com.lianchuangjie.lianchuangjie.dto.BomQuerySaveDTO;
 import com.lianchuangjie.lianchuangjie.dto.SingleQueryDTO;
-import com.lianchuangjie.lianchuangjie.entity.UserEntity;
 import com.lianchuangjie.lianchuangjie.vo.BomQueryItemVO;
 import com.lianchuangjie.lianchuangjie.vo.BomQueryResVO;
 
@@ -12,5 +10,4 @@ public interface QueryService {
     BomQueryResVO queryBom(Long docEntry);
     BomQueryItemVO querySingle(SingleQueryDTO singleQueryDTO);
     List<BomQueryItemVO> queryRelated(SingleQueryDTO singleQueryDTO);
-    Boolean save(BomQuerySaveDTO bomQuerySaveDTO, UserEntity user);
 }

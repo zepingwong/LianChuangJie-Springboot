@@ -6,6 +6,7 @@ import com.lianchuangjie.lianchuangjie.dto.BomQuerySaveDTO;
 import com.lianchuangjie.lianchuangjie.dto.SingleQueryDTO;
 import com.lianchuangjie.lianchuangjie.dto.search.EnquiryBuyerSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.UserEntity;
+import com.lianchuangjie.lianchuangjie.service.BomUploadService;
 import com.lianchuangjie.lianchuangjie.service.EnquiryBuyerService;
 import com.lianchuangjie.lianchuangjie.service.QueryService;
 import com.lianchuangjie.lianchuangjie.service.SdadaService;
@@ -34,6 +35,8 @@ public class SearchController extends BaseController {
     QueryService queryService;
     @Resource
     SdadaService sdadaService;
+    @Resource
+    BomUploadService bomUploadService;
     @Resource
     EnquiryBuyerService enquiryBuyerService;
 
@@ -69,7 +72,7 @@ public class SearchController extends BaseController {
 
     @PostMapping("/query/related")
     @Authentication(sale = true)
-    public Result<List<BomQueryItemVO>>queryRelatedController(@RequestBody SingleQueryDTO singleQueryDTO) {
+    public Result<List<BomQueryItemVO>> queryRelatedController(@RequestBody SingleQueryDTO singleQueryDTO) {
         List<BomQueryItemVO> list = queryService.queryRelated(singleQueryDTO);
         return Result.success(list);
     }
@@ -100,7 +103,7 @@ public class SearchController extends BaseController {
         Object obj = SessionUtil.getSession(request, "User");
         ObjectMapper objectMapper = new ObjectMapper();
         UserEntity user = objectMapper.convertValue(obj, UserEntity.class);
-        Boolean res = queryService.save(bomQuerySaveDTO, user);
+        Boolean res = bomUploadService.save(bomQuerySaveDTO, user);
         return Result.success(res, "Success");
     }
 
