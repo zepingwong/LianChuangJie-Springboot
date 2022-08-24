@@ -26,4 +26,5 @@ public interface QuotationMapper extends BaseMapper<QuotationEntity> {
     IPage<TabEnquiryQuotationVO> selectEnquiryList(Page<TabEnquiryQuotationVO> page, @Param("sc") TabSearchDTO searchCondition);
 
     List<TabEffectiveQuotationVO> selectEffectiveList(@Param("sc") TabSearchDTO searchCondition);
+    Integer countEffectiveList(@Param("sc") TabSearchDTO searchCondition);
 }

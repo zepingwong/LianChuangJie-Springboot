@@ -80,6 +80,7 @@ public class QuotationServiceImpl extends ServiceImpl<QuotationMapper, Quotation
         Page<TabEffectiveQuotationVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
         page.addOrder(OrderItem.desc("T_ICIN1.U_QuoDate"));
         page.setRecords(quotationMapper.selectEffectiveList(searchCondition));
+        page.setTotal(quotationMapper.countEffectiveList(searchCondition));
         return page;
     }
 
