@@ -1,17 +1,20 @@
 package com.lianchuangjie.lianchuangjie.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lianchuangjie.lianchuangjie.config.Authentication;
 import com.lianchuangjie.lianchuangjie.dto.BomQuerySaveDTO;
 import com.lianchuangjie.lianchuangjie.dto.SingleQueryDTO;
-import com.lianchuangjie.lianchuangjie.entity.UserEntity;
-import com.lianchuangjie.lianchuangjie.exception.BaseException;
 import com.lianchuangjie.lianchuangjie.dto.search.EnquiryBuyerSearchDTO;
-import com.lianchuangjie.lianchuangjie.service.*;
+import com.lianchuangjie.lianchuangjie.entity.UserEntity;
+import com.lianchuangjie.lianchuangjie.service.EnquiryBuyerService;
+import com.lianchuangjie.lianchuangjie.service.QueryService;
+import com.lianchuangjie.lianchuangjie.service.SdadaService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
 import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
-import com.lianchuangjie.lianchuangjie.vo.*;
+import com.lianchuangjie.lianchuangjie.vo.BomQueryItemVO;
+import com.lianchuangjie.lianchuangjie.vo.BomQueryResVO;
+import com.lianchuangjie.lianchuangjie.vo.EnquiryBuyerItemVO;
+import com.lianchuangjie.lianchuangjie.vo.SdadaVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -28,34 +31,49 @@ import java.util.List;
 @RequestMapping("/search")
 public class SearchController extends BaseController {
     @Resource
-    BomQueryService bomQueryService;
+    QueryService queryService;
     @Resource
     SdadaService sdadaService;
     @Resource
     EnquiryBuyerService enquiryBuyerService;
-    @Resource
-    SingleQueryService singleQueryService;
-    @Resource
-    UserInfoService userInfoService;
 
     /**
-     * bom单批量询价
-     *
-     * @param docEntry 单据编号
-     * @return bom单查询结果
+     * @param docEntry docEntry
+     * @return Result
+     * @description 根据 BOM 单编号批量询价
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 8/24/2022
      */
-    @GetMapping("bomQuery")
+    @GetMapping("/query/bom")
     @Authentication(sale = true)
-    public Result<BomQueryResVO> bomQueryController(@RequestParam(defaultValue = "#{null}", value = "DocEntry") Long docEntry) {
-        try {
-            BomQueryResVO result = bomQueryService.query(docEntry);
-            return Result.success(result, "Success");
-        } catch (Exception e) {
-            log.error("查询失败");
-            e.printStackTrace();
-            throw new BaseException(500, "查询失败！" + e.getMessage());
-        }
+    public Result<BomQueryResVO> queryBomController(@RequestParam(defaultValue = "#{null}", value = "DocEntry") Long docEntry) {
+        BomQueryResVO result = queryService.queryBom(docEntry);
+        return Result.success(result, "Success");
     }
+
+    /**
+     * @param singleQueryDTO singleQueryDTO
+     * @return Result
+     * @description 单个型号询价
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 8/24/2022
+     */
+    @PostMapping("/query/single")
+    @Authentication(sale = true)
+    public Result<BomQueryItemVO> querySingleController(@RequestBody SingleQueryDTO singleQueryDTO) {
+        BomQueryItemVO bomQueryItem = queryService.querySingle(singleQueryDTO);
+        return Result.success(bomQueryItem);
+    }
+
+    @PostMapping("/query/related")
+    @Authentication(sale = true)
+    public Result<List<BomQueryItemVO>>queryRelatedController(@RequestBody SingleQueryDTO singleQueryDTO) {
+        List<BomQueryItemVO> list = queryService.queryRelated(singleQueryDTO);
+        return Result.success(list);
+    }
+
 
     /**
      * 根据品牌查询采购人员
@@ -82,7 +100,7 @@ public class SearchController extends BaseController {
         Object obj = SessionUtil.getSession(request, "User");
         ObjectMapper objectMapper = new ObjectMapper();
         UserEntity user = objectMapper.convertValue(obj, UserEntity.class);
-        Boolean res = bomQueryService.save(bomQuerySaveDTO, user);
+        Boolean res = queryService.save(bomQuerySaveDTO, user);
         return Result.success(res, "Success");
     }
 
@@ -116,16 +134,5 @@ public class SearchController extends BaseController {
         return Result.success(list, "Success");
     }
 
-    @PostMapping("singleQuery")
-    @Authentication(sale = true)
-    public Result<BomQueryItemVO> getSingleQueryController(@RequestBody SingleQueryDTO singleQueryDTO) {
-        Long userSign = SessionUtil.getUserSign();
-        QueryWrapper<UserInfoVO> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("UserSign", userSign);
-        UserInfoVO user = userInfoService.getOne(queryWrapper);
-        singleQueryDTO.setSlpCode(userSign);
-        singleQueryDTO.setDeptCode(user.getDftDept());
-        BomQueryItemVO bomQueryItem = singleQueryService.query(singleQueryDTO);
-        return Result.success(bomQueryItem);
-    }
+
 }

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lianchuangjie.lianchuangjie.dto.BomQueryMainDTO;
 import com.lianchuangjie.lianchuangjie.dto.BomQuerySaveDTO;
 import com.lianchuangjie.lianchuangjie.dto.BomQuerySubDTO;
+import com.lianchuangjie.lianchuangjie.dto.SingleQueryDTO;
 import com.lianchuangjie.lianchuangjie.entity.ClienteleRegionEntity;
 import com.lianchuangjie.lianchuangjie.entity.EnquiryMainEntity;
 import com.lianchuangjie.lianchuangjie.entity.EnquirySubEntity;
@@ -13,9 +14,9 @@ import com.lianchuangjie.lianchuangjie.mapper.BomQueryMapper;
 import com.lianchuangjie.lianchuangjie.mapper.ClienteleRegionMapper;
 import com.lianchuangjie.lianchuangjie.mapper.EnquiryMainMapper;
 import com.lianchuangjie.lianchuangjie.mapper.UserMapper;
-import com.lianchuangjie.lianchuangjie.service.BomQueryService;
 import com.lianchuangjie.lianchuangjie.service.EnquiryMainService;
 import com.lianchuangjie.lianchuangjie.service.EnquirySubService;
+import com.lianchuangjie.lianchuangjie.service.QueryService;
 import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
 import com.lianchuangjie.lianchuangjie.vo.BomQueryItemVO;
 import com.lianchuangjie.lianchuangjie.vo.BomQueryResVO;
@@ -28,7 +29,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
-public class BomQueryServiceImpl implements BomQueryService {
+public class QueryServiceImpl implements QueryService {
     @Resource
     BomQueryMapper bomQueryMapper;
     @Resource
@@ -42,30 +43,40 @@ public class BomQueryServiceImpl implements BomQueryService {
     @Resource
     ClienteleRegionMapper clienteleRegionMapper;
 
+    private void setUserInfo(SingleQueryDTO singleQueryDTO) {
+        Long userSign = SessionUtil.getUserSign();
+        QueryWrapper<UserEntity> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("UserSign", userSign);
+        UserEntity user = userMapper.getOne(queryWrapper);
+        singleQueryDTO.setSlpCode(userSign);
+        singleQueryDTO.setDeptCode(user.getDftDept());
+    }
+
     @Override
-    public BomQueryResVO query(Long docEntry) {
+    public BomQueryResVO queryBom(Long docEntry) {
         BomQueryResVO bomQueryRes = new BomQueryResVO();
         Long userSign = SessionUtil.getUserSign();
         QueryWrapper<UserEntity> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("UserSign", userSign);
         UserEntity user = userMapper.getOne(queryWrapper);
-        List<BomQueryItemVO> list = bomQueryMapper.selectList(docEntry, user.getDftDept(), userSign);
-        long itemId = Long.parseLong("1");
-        long lineNum = Long.parseLong("1");
-        for (BomQueryItemVO item : list) {
-            item.setLineNum(lineNum); // 行号
-            // 序号，关联型号序号相同
-            if (Objects.equals(item.getMatch(), "关联型号")) {
-                item.setItemId(itemId - 1); // 关联型号Id 与上一行相同
-            } else {
-                item.setItemId(itemId);
-                itemId += 1;
-            }
-            lineNum += 1;
-        }
+        List<BomQueryItemVO> list = bomQueryMapper.queryBom(docEntry, user.getDftDept(), userSign);
         bomQueryRes.setBomQueryItemList(list);
         bomQueryRes.setTotalSize(list.size());
         return bomQueryRes;
+    }
+
+    @Override
+    public BomQueryItemVO querySingle(SingleQueryDTO singleQueryDTO) {
+        // 当前登录用户
+        setUserInfo(singleQueryDTO);
+        return bomQueryMapper.querySingle(singleQueryDTO);
+    }
+
+    @Override
+    public List<BomQueryItemVO> queryRelated(SingleQueryDTO singleQueryDTO) {
+        // 当前登录用户
+        setUserInfo(singleQueryDTO);
+        return bomQueryMapper.queryRelated(singleQueryDTO);
     }
 
     @Override

@@ -26,9 +26,10 @@
         T_ICIN.U_CusLevel, /*客户等级名称*/
         T_ICIN.U_DomainName, /*客户行业名称*/
         T_ICIN.U_DocCur, /*报价货币*/
-        T_ICIN.U_VatGroup, /*报价税率*/
         T_OVTG.Name AS 'U_VatName', /*税率文本*/
-        T_OVTG.Rate AS 'U_VatRate' /*税点*/
+        U_ICIN1.Delivery, /*报价货期*/
+        U_ICIN1.Status, /*价格类型*/
+        U_ICIN1.LineRemark /*销售备注*/
         FROM
         U_ICIN1
         LEFT JOIN T_ICIN ON T_ICIN.DocEntry = U_ICIN1.DocEntry
@@ -52,7 +53,7 @@
     </select>
     <select id="selectEnquiryTabList" resultType="com.lianchuangjie.lianchuangjie.vo.TabEnquiryNeedsVO">
         DECLARE @UserSign BIGINT
-        DECLARE @DataPur NVARCHAR ( 10 ) /*All/Dept/selft*/
+        DECLARE @DataPur NVARCHAR ( 10 ) /*All/Dept/self*/
         DECLARE @BaseFormID BIGINT /*视图编号*/
         DECLARE @PageSize INT
         DECLARE @CurrentPage INT

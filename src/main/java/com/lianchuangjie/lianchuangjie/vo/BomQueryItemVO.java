@@ -1,5 +1,6 @@
 package com.lianchuangjie.lianchuangjie.vo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,16 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @description 一行BOM单解析匹配结果
+ * @description BOM单解析匹配结果
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain = true)
 public class BomQueryItemVO {
-    /**
-     * @description 序号-关联型号序号相同
-     */
+    // 树形数组索引-客户原需求ParentId为0,关联型号ParentId为客户需求的LineNum
     @JsonProperty("ItemId")
     private Long itemId;
     /**
@@ -84,9 +83,10 @@ public class BomQueryItemVO {
 
     @JsonProperty("ItemDescStatus")
     private String itemDescStatus;
+
     public String getItemDescStatus() {
         switch (status) {
-            case "B" : {
+            case "B": {
                 return "采购报价";
             }
             case "C": {
@@ -98,11 +98,12 @@ public class BomQueryItemVO {
             case "E": {
                 return "云汉报价";
             }
-            default:{
+            default: {
                 return null;
             }
         }
     }
+
     /**
      * @description 总价
      */
@@ -123,8 +124,9 @@ public class BomQueryItemVO {
      */
     @JsonProperty("Purchaser")
     private List<EnquiryBuyerItemVO> purchaser;
+
     public List<EnquiryBuyerItemVO> getPurchaser() {
-        if (buyer == null) return null;
+        if (buyer == null) return new ArrayList<>();
         List<EnquiryBuyerItemVO> list = new ArrayList<>();
         String[] buyerStrList = buyer.split(",");
         for (String buyerStr : buyerStrList) {
@@ -134,6 +136,7 @@ public class BomQueryItemVO {
         }
         return list;
     }
+
     /**
      * @description 匹配情况
      */
@@ -146,5 +149,5 @@ public class BomQueryItemVO {
     private String spq;
     // 关联型号折叠
     @JsonProperty("children")
-    List<BomQueryItemVO> children;
+    List<BomQueryItemVO> children = new ArrayList<>();
 }

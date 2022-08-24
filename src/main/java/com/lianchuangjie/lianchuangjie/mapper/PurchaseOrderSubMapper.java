@@ -11,10 +11,12 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Mapper
 @Repository
 public interface PurchaseOrderSubMapper extends BaseMapper<PurchaseOrderSubEntity> {
-    IPage<TabQuotationPurchaseOrderVO> selectQuotationTabList(Page<TabQuotationPurchaseOrderVO> page, @Param("sc") TabSearchDTO tabSearchDTO);
+    List<TabQuotationPurchaseOrderVO> selectQuotationTabList(@Param("sc") TabSearchDTO tabSearchDTO);
 
     IPage<TabEnquiryPurchaseOrderVO> selectEnquiryTabList(Page<TabEnquiryPurchaseOrderVO> page, @Param("sc") TabSearchDTO searchCondition);
 }

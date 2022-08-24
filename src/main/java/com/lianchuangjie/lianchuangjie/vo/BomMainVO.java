@@ -8,6 +8,10 @@ import lombok.experimental.Accessors;
 
 import java.util.Date;
 
+/**
+ * @description 上传BOM单主表信息
+ */
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

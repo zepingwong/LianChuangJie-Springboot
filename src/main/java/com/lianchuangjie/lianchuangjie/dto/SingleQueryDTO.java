@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
+/**
+ * @description 单个型号匹配 DTO
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

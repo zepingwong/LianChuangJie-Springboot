@@ -8,7 +8,6 @@ import com.lianchuangjie.lianchuangjie.entity.PurchaseOrderSubEntity;
 import com.lianchuangjie.lianchuangjie.mapper.PurchaseOrderSubMapper;
 import com.lianchuangjie.lianchuangjie.service.PurchaseOrderSubService;
 import com.lianchuangjie.lianchuangjie.vo.TabEnquiryPurchaseOrderVO;
-import com.lianchuangjie.lianchuangjie.vo.TabEnquirySalesOrderVO;
 import com.lianchuangjie.lianchuangjie.vo.TabQuotationPurchaseOrderVO;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +21,8 @@ public class PurchaseOrderSubServiceImpl extends ServiceImpl<PurchaseOrderSubMap
     @Override
     public Page<TabQuotationPurchaseOrderVO> quotationTabList(TabSearchDTO searchCondition) {
         Page<TabQuotationPurchaseOrderVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
-        purchaseOrderSubMapper.selectQuotationTabList(page, searchCondition);
+        page.setRecords(purchaseOrderSubMapper.selectQuotationTabList(searchCondition));
+        page.addOrder(OrderItem.desc("T_OPOR.DocDate"));
         return page;
     }
 

@@ -113,5 +113,6 @@ public class TabEnquiryNeedsVO {
     @JsonProperty("LineRemark")
     private String lineRemark;
     // 价格类型 U_ICIN1.Status
+    @JsonProperty("Status")
     private String status;
 }
