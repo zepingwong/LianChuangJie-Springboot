@@ -9,6 +9,7 @@ import lombok.experimental.Accessors;
 
 import java.math.BigDecimal;
 import java.util.Date;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -122,4 +123,7 @@ public class TabMyQuotationVO {
      */
     @JsonProperty("U_Status")
     private String uStatus;
+    // VatCur USD-J0-0
+    @JsonProperty("VatCur")
+    private String vatCur;
 }

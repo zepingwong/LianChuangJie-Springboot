@@ -75,11 +75,13 @@
     <select id="selectMyList" resultType="com.lianchuangjie.lianchuangjie.vo.TabMyQuotationVO">
         SELECT
         T_ICIN1.*,
+        (T_ICIN1.U_QuoCurr + '-' + T_ICIN1.U_QuoVatGroup + '-' + T_OVTG.Rate) AS 'VatCur',
         T_OUSI.UserName AS 'U_BuyerName', /*采购员姓名*/
         T_OCDP.Name AS 'DftDeptName' /*采购部门*/
         FROM T_ICIN1
         LEFT JOIN T_OUSI ON T_ICIN1.U_Buyer = T_OUSI.UserSign /*采购员信息*/
         LEFT JOIN T_OCDP ON T_OUSI.DftDept = T_OCDP.DeptCode /*公司部门*/
+        LEFT JOIN T_OVTG ON T_OVTG.Code = T_ICIN1.U_QuoVatGroup /*税率*/
         WHERE
         T_ICIN1.Modle IN (
         SELECT
