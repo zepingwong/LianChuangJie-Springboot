@@ -25,28 +25,10 @@ public class TabQuotationPurchaseOrderVO {
     @JsonProperty("DocDate")
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date docDate;
-    /**
-     * @description 采购员编号 OwnerCode
-     * @resource T_OPOR.OwnerCode
-     */
-    @JsonProperty("OwnerCode")
-    private Long ownerCode;
-    /**
-     * @description 采购员姓名 U_UserName
-     * @resource T_OUSI.UserName
-     */
-    @JsonProperty("U_UserName")
-    private String uUserName;
-    /**
-     * @description 采购部门编号 DeptCode
-     * @resource T_OPOR.DeptCode
-     */
-    @JsonProperty("DeptCode")
-    private String deptCode;
-    /**
-     * @description 采购部门编号 DeptName
-     * @resource T_OCDP.Name
-     */
+    // 采购员姓名 T_OUSI.UserName
+    @JsonProperty("UserName")
+    private String userName;
+    // 采购部门编号 T_OCDP.Name
     @JsonProperty("DeptName")
     private String deptName;
     /**
@@ -91,6 +73,9 @@ public class TabQuotationPurchaseOrderVO {
      */
     @JsonProperty("Quantity")
     private BigDecimal quantity;
+    // 币种 T_OPOR.DocCur
+    @JsonProperty("DocCur")
+    private String docCur;
     /**
      * @description 未清数量 OpenQty
      */
@@ -102,4 +87,16 @@ public class TabQuotationPurchaseOrderVO {
     @JsonProperty("ShipDate")
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date shipDate;
+    // 税率文本
+    @JsonProperty("VatName")
+    private String vatName;
+    // 单价 T_OPOR1.Price
+    @JsonProperty("Price")
+    private BigDecimal price;
+    // 执行情况 T_OPOR1.LineStatus
+    @JsonProperty("LineStatus")
+    private String lineStatus;
+    // 订单类型 T_OPOR1.U_OrderType
+    @JsonProperty("U_OrderType")
+    private String uOrderType;
 }

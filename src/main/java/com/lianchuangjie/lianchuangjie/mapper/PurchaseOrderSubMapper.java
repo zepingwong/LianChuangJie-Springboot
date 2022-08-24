@@ -17,6 +17,7 @@ import java.util.List;
 @Repository
 public interface PurchaseOrderSubMapper extends BaseMapper<PurchaseOrderSubEntity> {
     List<TabQuotationPurchaseOrderVO> selectQuotationTabList(@Param("sc") TabSearchDTO tabSearchDTO);
+    Integer countQuotationTabList(@Param("sc") TabSearchDTO tabSearchDTO);
 
     IPage<TabEnquiryPurchaseOrderVO> selectEnquiryTabList(Page<TabEnquiryPurchaseOrderVO> page, @Param("sc") TabSearchDTO searchCondition);
 }

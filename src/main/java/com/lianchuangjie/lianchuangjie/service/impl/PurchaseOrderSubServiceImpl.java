@@ -22,6 +22,7 @@ public class PurchaseOrderSubServiceImpl extends ServiceImpl<PurchaseOrderSubMap
     public Page<TabQuotationPurchaseOrderVO> quotationTabList(TabSearchDTO searchCondition) {
         Page<TabQuotationPurchaseOrderVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
         page.setRecords(purchaseOrderSubMapper.selectQuotationTabList(searchCondition));
+        page.setTotal(purchaseOrderSubMapper.countQuotationTabList(searchCondition));
         page.addOrder(OrderItem.desc("T_OPOR.DocDate"));
         return page;
     }
