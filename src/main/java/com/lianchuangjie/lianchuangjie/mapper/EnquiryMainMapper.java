@@ -31,15 +31,6 @@ public interface EnquiryMainMapper extends BaseMapper<EnquiryMainEntity> {
      * @description 判断编号为 docEntry 的询价单是否存在
      */
     Boolean existByDocEntry(@Param("DocEntry") Long docEntry);
-
-    /**
-     * 判断客户是否为老客户
-     *
-     * @param cardName 客户名称
-     * @return 判断客户为老客户
-     */
-    Boolean existByCardName(@Param("CardName") String cardName);
-
     /**
      * @param queryWrapper    queryWrapper
      * @param searchCondition searchCondition

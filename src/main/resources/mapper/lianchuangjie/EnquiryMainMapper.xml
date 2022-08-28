@@ -31,7 +31,7 @@
                  U_Buyer, U_ComCode, U_Delivery, U_DocCur, U_DocType, U_ItemCode, U_OrderType, U_PrjCode, U_SlpCode,
                  U_UrgentType, U_VatGroup, U_Industries, PrjCode, U_UserName, U_DeptName, U_CusLevel, U_CusGroupCode,
                  U_CusIndustries, U_SaleLevel, U_UserCode1, U_UserCode2, U_Region, U_DomainName, U_CntctCode,
-                 U_CardStatus, U_ShortCode, State, New, SourceType, T0.Year, U_TransaPlace
+                 U_CardStatus, U_ShortCode, State, New, SourceType, U_TransaPlace
     </select>
     <select id="existByDocEntry" resultType="java.lang.Boolean">
         IF (SELECT COUNT(*)
@@ -78,7 +78,7 @@
             T_ICIN.U_Delivery, U_DocCur, U_DocType, T_ICIN.U_ItemCode, U_OrderType, U_PrjCode, T_ICIN.U_SlpCode,
             U_UrgentType, T_ICIN.U_VatGroup, T_ICIN.U_Industries, PrjCode, U_UserName, U_DeptName, U_CusLevel,
             U_CusGroupCode, U_CusIndustries, T_ICIN.U_SaleLevel, U_UserCode1, U_UserCode2, U_Region, U_DomainName,
-            U_CntctCode, T_ICIN.U_CardStatus, T_ICIN.U_ShortCode, State, New, SourceType, T_ICIN.Year, U_TransaPlace
+            U_CntctCode, T_ICIN.U_CardStatus, T_ICIN.U_ShortCode, State, New, SourceType, U_TransaPlace
         ) T
         WHERE T.ROWNUMBER > (@CurrentPage - 1) * @PageSize
         ORDER BY T.CreateDate DESC
@@ -112,19 +112,11 @@
             T_ICIN.U_Delivery, U_DocCur, U_DocType, T_ICIN.U_ItemCode, U_OrderType, U_PrjCode, T_ICIN.U_SlpCode,
             U_UrgentType, T_ICIN.U_VatGroup, T_ICIN.U_Industries, PrjCode, U_UserName, U_DeptName, U_CusLevel,
             U_CusGroupCode, U_CusIndustries, T_ICIN.U_SaleLevel, U_UserCode1, U_UserCode2, U_Region, U_DomainName,
-            U_CntctCode, T_ICIN.U_CardStatus, T_ICIN.U_ShortCode, State, New, SourceType, T_ICIN.Year, U_TransaPlace
+            U_CntctCode, T_ICIN.U_CardStatus, T_ICIN.U_ShortCode, State, New, SourceType, U_TransaPlace
         ) T
     </select>
     <select id="selectMaxDocEntry" resultType="java.lang.Long">
         SELECT MAX(DocEntry)
         FROM T_ICIN
-    </select>
-    <select id="existByCardName" resultType="java.lang.Boolean" parameterType="java.lang.String">
-        IF (SELECT COUNT(*)
-            FROM T_ICIN
-            WHERE CardName = #{CardName}) > 0
-        SELECT 1
-            ELSE
-        SELECT 0
     </select>
 </mapper>

@@ -9,12 +9,12 @@
         SET @DeptCode = #{DeptCode};
         SET @DocEntry = #{DocEntry};
         SET @SlpCode = #{UserSign};
-        SELECT ROW_NUMBER() OVER ( ORDER BY TT.ParentId ) AS 'LineNum',
+        SELECT ROW_NUMBER() OVER ( ORDER BY TT.ItemId ) AS 'LineNum',
                TT.*
         FROM (SELECT ClientNeeds.Brand, /*客户需求品牌*/
                      ClientNeeds.Modle, /*客户需求型号*/
                      ClientNeeds.DemandQty, /*客户需求数量*/
-                     ClientNeeds.LineNum                            AS 'ParentId', /*客户需求内部行号*/
+                     ClientNeeds.LineNum                            AS 'ItemId', /*客户需求内部行号*/
                      ClientNeeds.DemandTag, /*客户需求型号和品牌对应TAG*/
                      ClientNeeds.CurRemark, /*客户备注*/
                      SDADA_2.QuoBrand, /*匹配品牌*/
@@ -127,7 +127,7 @@
                        SDADA_2.sno,
                        StockQuantity.Quantity,
                        ClientNeeds.CurRemark, SDADA_2.package) TT
-        ORDER BY TT.ParentId,
+        ORDER BY TT.ItemId,
                  TT.Match DESC /*按照客户上传的BOM单内部行号进行排序，关联型号在完全匹配型号下面*/
     </select>
     <select id="querySingle" resultType="com.lianchuangjie.lianchuangjie.vo.BomQueryItemVO"

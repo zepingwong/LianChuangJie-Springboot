@@ -20,7 +20,6 @@
         T_ICIN.U_DocCur AS 'U_Currency', /*需求货币*/
         T_ICIN.U_VatGroup,
         T_ICIN.U_ShortCode,
-        fp.UnableQuote, /*无法报价*/
         fp.U_BaseLine, /*对应询价单内部编号*/
         fp.U_BaseEntry, /*对应询价单主表编号*/
         fp.U_Status, /*报价状态*/
@@ -75,7 +74,7 @@
     <select id="selectMyList" resultType="com.lianchuangjie.lianchuangjie.vo.TabMyQuotationVO">
         SELECT
         T_ICIN1.*,
-        (T_ICIN1.U_QuoCurr + '-' + T_ICIN1.U_QuoVatGroup + '-' + T_OVTG.Rate) AS 'VatCur',
+        (T_ICIN1.U_QuoCurr + '-' + T_ICIN1.U_QuoVatGroup + '-' + CAST(CAST(T_OVTG.Rate AS FLOAT) AS VARCHAR)) AS 'VatCur',
         T_OUSI.UserName AS 'U_BuyerName', /*采购员姓名*/
         T_OCDP.Name AS 'DftDeptName' /*采购部门*/
         FROM T_ICIN1

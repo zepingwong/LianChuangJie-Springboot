@@ -6,12 +6,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -66,11 +64,6 @@ public class BomQuerySubDTO {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date expDate;
     /**
-     * @description 负责采购
-     */
-    @JsonProperty("SelectedPurchasers")
-    private List<String> selectedPurchasers;
-    /**
      * @description 重要程度
      */
     @JsonProperty("KeyPoint")
@@ -106,6 +99,8 @@ public class BomQuerySubDTO {
     // 是否确认报价
     private String checkIN = "0";
     // 选中的采购
-    private String buyers = StringUtils.join(selectedPurchasers, ",");
-    private String vatName = "销项" + vatRate + "%";
+    @JsonProperty("Buyers")
+    private String buyers;
+    @JsonProperty("VatName")
+    private String vatName;
 }

@@ -38,7 +38,7 @@ public class QuotationEntity {
     /**
      * @description ItemId 关联型号ItemId 相同
      */
-    @TableField(exist = false)
+    @TableField(value = "ItemId")
     private Long itemId;
     /**
      * @description 询价日期 DemandDate

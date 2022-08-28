@@ -10,6 +10,7 @@ import com.lianchuangjie.lianchuangjie.exception.ResponseEnum;
 import com.lianchuangjie.lianchuangjie.mapper.BomHeadDicMapper;
 import com.lianchuangjie.lianchuangjie.mapper.ClienteleRegionMapper;
 import com.lianchuangjie.lianchuangjie.mapper.EnquiryMainMapper;
+import com.lianchuangjie.lianchuangjie.mapper.SalesOrderSubMapper;
 import com.lianchuangjie.lianchuangjie.service.*;
 import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
 import com.lianchuangjie.lianchuangjie.vo.BomUploadResVO;
@@ -40,6 +41,8 @@ public class BomUploadServiceImpl implements BomUploadService {
     EnquirySubService enquirySubService;
     @Resource
     ClienteleRegionMapper clienteleRegionMapper;
+    @Resource
+    SalesOrderSubMapper salesOrderSubMapper;
 
     @Override
     public BomUploadResVO uploadService(MultipartFile file) {
@@ -89,8 +92,8 @@ public class BomUploadServiceImpl implements BomUploadService {
         enquiryMainEntity.setUUserName(user.getUserName()); // 销售员名称
         enquiryMainEntity.setDeptCode(user.getDftDept()); // 销售部门代码
         enquiryMainEntity.setUDeptName(user.getDftDeptName()); // 销售部门名称
-        // 判断是否为老客户
-        Boolean oldCus = enquiryMainMapper.existByCardName(enquiryMainEntity.getCardName());
+        // 判断是否为老客户,只有下过单的才是老客户
+        Boolean oldCus = salesOrderSubMapper.existByCardName(enquiryMainEntity.getCardName());
         if (oldCus) {
             // T_ICIN.U_CardStatus = 'Y' 表示该客户第一次询价
             enquiryMainEntity.setUCardStatus("N");
@@ -105,12 +108,21 @@ public class BomUploadServiceImpl implements BomUploadService {
         List<EnquirySubEntity> saveList = new ArrayList<>();
         long lineNum = 1;
         for (BomQuerySubDTO item : list) {
+            EnquirySubEntity enquirySubEntity = new EnquirySubEntity();
+            BeanUtils.copyProperties(item, enquirySubEntity);
             if (!Objects.equals(item.getMatch(), "未匹配到")) {
-                EnquirySubEntity enquirySubEntity = new EnquirySubEntity();
-                BeanUtils.copyProperties(item, enquirySubEntity);
+                // 设置询价单编号与主表相同
                 enquirySubEntity.setDocEntry(docEntry);
+                // LineNum 连续编号
                 enquirySubEntity.setLineNum(lineNum);
-                // 如果是老客户
+                if (Objects.equals(item.getMatch(), "关联型号")) {
+                    // 关联型号 ItemId 相同, 等于该组的第一个LineNum（ItemId 不等于 LineNum）
+                    enquirySubEntity.setItemId(lineNum-1);
+                } else {
+                    // 非关联型号 ItemId 与 LineNum 相同
+                    enquirySubEntity.setItemId(lineNum);
+                }
+                // 如果是老客户,自动标记为重点询价,重点询价说明为 “以前下过单！”,标记重点询价用户为当前销售员
                 if (oldCus) {
                     enquirySubEntity.setKeyPoint("Y");
                     enquirySubEntity.setKeyRemark("以前下过单！");

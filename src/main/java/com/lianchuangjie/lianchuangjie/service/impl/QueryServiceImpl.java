@@ -20,8 +20,7 @@ public class QueryServiceImpl implements QueryService {
     BomQueryMapper bomQueryMapper;
     @Resource
     UserMapper userMapper;
-
-
+    
     private void setUserInfo(SingleQueryDTO singleQueryDTO) {
         Long userSign = SessionUtil.getUserSign();
         QueryWrapper<UserEntity> queryWrapper = new QueryWrapper<>();

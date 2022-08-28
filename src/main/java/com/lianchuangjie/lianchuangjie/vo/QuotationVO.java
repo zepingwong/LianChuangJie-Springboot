@@ -160,7 +160,7 @@ public class QuotationVO {
     // 销售备注 LineRemark
     @JsonProperty("LineRemark")
     private String lineRemark;
-    // 无法报价 UnableQuote
+    // 无法报价 U_NoPrice
     @JsonProperty("U_NoPrice")
     private String uNoPrice;
     // 发送时间/录入时间 T_ICIN.InquiryDate
