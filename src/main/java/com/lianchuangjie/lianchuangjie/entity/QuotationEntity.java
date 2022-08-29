@@ -235,14 +235,10 @@ public class QuotationEntity {
      */
     @TableField(exist = false)
     private String uBuyerName;
-    /**
-     * @description 采购部门代码
-     */
+     // 采购部门代码
     @TableField(exist = false)
     private String uDftDept;
-    /**
-     * @description 采购部门名称 U_DeptCod
-     */
+    // 询价部门名称 U_DeptCod
     @TableField(value = "U_DeptCod")
     private String uDeptCod;
     /**
@@ -255,8 +251,8 @@ public class QuotationEntity {
      * @description 销售员姓名
      * @resource 根据 T_ICIN.OwnerCode 匹配 T_OUSI.UserSign 获取 T_OUSI.UserName
      */
-    @TableField(exist = false)
-    private String UserName;
+    @TableField(value = "UserName",exist = false)
+    private String userName;
     // 销售员等级
     @TableField(value = "U_SaleLevel")
     private String uSaleLevel;
@@ -264,13 +260,13 @@ public class QuotationEntity {
      * @description 销售部门编号
      */
     @TableField(value = "U_DeptCod")
-    private String U_DeptCode;
+    private String uDeptCode;
     /**
      * @description 销售部门名称
      * @resource 根据 T_OUSI.DftDept 匹配 T_OCDP.DeptCode 获取 T_OCDP.Name AS U_DeptName
      */
     @TableField(exist = false)
-    private String U_DeptName;
+    private String uDeptName;
     /**
      * @description 采购报价供应商代码 U_CardCode
      */
