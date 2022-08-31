@@ -4,14 +4,13 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lianchuangjie.lianchuangjie.config.Authentication;
 import com.lianchuangjie.lianchuangjie.dto.EnquirySubItemDTO;
 import com.lianchuangjie.lianchuangjie.dto.search.EnquiryMainSearchDTO;
+import com.lianchuangjie.lianchuangjie.dto.search.RecoPriceSearchDTO;
 import com.lianchuangjie.lianchuangjie.service.EnquiryHotwordsService;
 import com.lianchuangjie.lianchuangjie.service.EnquiryMainService;
+import com.lianchuangjie.lianchuangjie.service.EnquiryRecoPriceService;
 import com.lianchuangjie.lianchuangjie.service.EnquirySubService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
-import com.lianchuangjie.lianchuangjie.vo.EnquiryHotwordsVO;
-import com.lianchuangjie.lianchuangjie.vo.EnquiryMainInfoVO;
-import com.lianchuangjie.lianchuangjie.vo.EnquiryMainItemVO;
-import com.lianchuangjie.lianchuangjie.vo.EnquirySubVO;
+import com.lianchuangjie.lianchuangjie.vo.*;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -27,6 +26,8 @@ public class EnquiryController extends BaseController {
     EnquirySubService enquirySubService;
     @Resource
     EnquiryHotwordsService enquiryHotwordsService;
+    @Resource
+    EnquiryRecoPriceService enquiryRecoPriceService;
 
     @GetMapping("/main")
     @Authentication(sale = true)
@@ -73,6 +74,23 @@ public class EnquiryController extends BaseController {
     @Authentication(sale = true)
     public Result<List<EnquiryHotwordsVO>> getEnquiryHotwords() {
         List<EnquiryHotwordsVO> list = enquiryHotwordsService.getList();
+        return Result.success(list);
+    }
+
+    @GetMapping("/recommend")
+    @Authentication(sale = true)
+    public Result<List<EnquiryRecoPriceVO>> enquiryRecommendController(
+            @RequestParam(defaultValue = "#{null}", value = "Modle") String modle,
+            @RequestParam(defaultValue = "#{null}", value = "Brand") String brand,
+            @RequestParam(defaultValue = "#{null}", value = "CardCode") String cardCode,
+            @RequestParam(defaultValue = "#{null}", value = "U_Region") String uRegion,
+            @RequestParam(defaultValue = "#{null}", value = "U_CusGroupCode") String uCusGroupCode,
+            @RequestParam(defaultValue = "#{null}", value = "U_DomainName") String uDomainName
+    ) {
+        RecoPriceSearchDTO recoPriceSearchDTO = new RecoPriceSearchDTO();
+        recoPriceSearchDTO.setBrand(brand);
+        recoPriceSearchDTO.setModle(modle);
+        List<EnquiryRecoPriceVO> list = enquiryRecoPriceService.list(recoPriceSearchDTO);
         return Result.success(list);
     }
 }

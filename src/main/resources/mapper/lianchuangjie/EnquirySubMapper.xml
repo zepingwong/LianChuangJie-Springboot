@@ -94,7 +94,7 @@
         <where>
             ${ew.getSqlSegment()}
             /*只显示客户原始需求*/
-            AND U_ICIN1.LineNum = U_ICIN1.ItemId
+            AND (U_ICIN1.LineNum = U_ICIN1.ItemId OR U_ICIN1.ItemId IS NULL)
         </where>
         /*释放临表*/
         DROP TABLE #temp;

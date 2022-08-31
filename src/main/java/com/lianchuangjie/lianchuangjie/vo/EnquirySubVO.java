@@ -93,10 +93,10 @@ public class EnquirySubVO {
     // 采购回复 COUNT(T_ICIN1.U_Status = 'Y')
     @JsonProperty("PurchaseReply")
     private Long purchaseReply;
-    // 报价日期 U_ICIN1.CheckINDateT
+    // 报价日期 T_ICIN1.U_QuoDate
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonProperty("CheckINDateT")
-    private Date CheckINDateT;
+    @JsonProperty("U_QuoDate")
+    private Date uQuoDate;
     // 销售备注 U_ICIN1.LineRemark
     @JsonProperty("LineRemark")
     private String lineRemark;
