@@ -194,4 +194,66 @@
         )
         AND T_ICIN1.U_QuoDate IS NOT NULL
     </select>
+    <select id="selectStockList" resultType="com.lianchuangjie.lianchuangjie.vo.TabStockPriceQuoteVO">
+        SELECT
+        T.*,
+        T_OVTG.Rate AS 'U_QuoVatRate', /*税率*/
+        T_OUSI.UserName AS 'U_BuyerName', /*采购员姓名*/
+        T_OCDP.Name AS 'DftDeptName' /*采购部门名称*/
+        FROM (
+        SELECT
+        T_ICIN1.U_QuoDate, /*报价日期*/
+        T_ICIN1.U_QuoModle, /*报价型号*/
+        T_ICIN1.U_QuoBrand, /*报价品牌*/
+        T_ICIN1.U_SuoDelivery, /*供方交期*/
+        T_ICIN1.U_QuoGroupCode, /*供应商类型*/
+        T_ICIN1.U_QuoLevel, /*供应商等级*/
+        T_ICIN1.U_QuoQty, /*报价数量*/
+        T_ICIN1.U_QuoYear, /*报价批次*/
+        T_ICIN1.U_QuoCurr, /*报价货币*/
+        T_ICIN1.U_QuoPrice, /*供方报价*/
+        T_ICIN1.U_QuoDelivery, /*报价交期*/
+        T_ICIN1.U_Buyer, /*采购员*/
+        T_ICIN1.U_QuoVatGroup, /*税率*/
+        T_ICIN1.U_QuoExplain /*采购备注*/
+        FROM T_ICIN1
+        WHERE T_ICIN1.U_QuoPrice IS NOT NULL
+        UNION ALL
+        SELECT
+        U_ICIN11.U_QuoDate, /*报价日期*/
+        U_ICIN11.U_QuoModle, /*报价型号*/
+        U_ICIN11.U_QuoBrand, /*报价品牌*/
+        U_ICIN11.U_SuoDelivery, /*供方交期*/
+        U_ICIN11.U_QuoGroupCode, /*供应商类型*/
+        U_ICIN11.U_QuoLevel, /*供应商等级*/
+        U_ICIN11.U_QuoQty, /*报价数量*/
+        U_ICIN11.U_QuoYear, /*报价批次*/
+        U_ICIN11.U_QuoCurr, /*报价货币*/
+        U_ICIN11.U_QuoPrice, /*供方报价*/
+        U_ICIN11.U_QuoDelivery, /*报价交期*/
+        U_ICIN11.U_Buyer, /*采购员*/
+        U_ICIN11.U_QuoVatGroup, /*税率*/
+        U_ICIN11.U_QuoExplain /*采购备注*/
+        FROM U_ICIN11
+        WHERE U_ICIN11.U_QuoPrice IS NOT NULL
+        ) T
+        LEFT JOIN T_OUSI ON T_OUSI.UserSign = T.U_Buyer
+        LEFT JOIN T_OCDP ON T_OUSI.DftDept = T_OCDP.DeptCode
+        LEFT JOIN T_OVTG ON T_OVTG.Code = T.U_QuoVatGroup
+        WHERE
+        T.U_QuoModle IN (
+        SELECT
+        SDADA_1.sno
+        FROM
+        SDADA SDADA_1
+        WHERE
+        SDADA_1.TAG IN
+        (
+        SELECT SDADA.TAG FROM SDADA WHERE SDADA.sno IN
+        <foreach collection="sc.modleList " item="item" open="(" separator="," close=")" index="index">
+            '${item}'
+        </foreach>
+        )
+        )
+    </select>
 </mapper>

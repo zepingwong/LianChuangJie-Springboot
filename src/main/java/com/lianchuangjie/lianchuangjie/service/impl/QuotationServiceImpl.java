@@ -12,10 +12,7 @@ import com.lianchuangjie.lianchuangjie.entity.QuotationEntity;
 import com.lianchuangjie.lianchuangjie.mapper.QuotationMapper;
 import com.lianchuangjie.lianchuangjie.dto.search.QuotationSearchDTO;
 import com.lianchuangjie.lianchuangjie.service.QuotationService;
-import com.lianchuangjie.lianchuangjie.vo.QuotationVO;
-import com.lianchuangjie.lianchuangjie.vo.TabEffectiveQuotationVO;
-import com.lianchuangjie.lianchuangjie.vo.TabEnquiryQuotationVO;
-import com.lianchuangjie.lianchuangjie.vo.TabMyQuotationVO;
+import com.lianchuangjie.lianchuangjie.vo.*;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -94,6 +91,14 @@ public class QuotationServiceImpl extends ServiceImpl<QuotationMapper, Quotation
         Page<TabEnquiryQuotationVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
         page.addOrder(OrderItem.desc("T_ICIN1.U_QuoDate"));
         quotationMapper.selectEnquiryList(page, searchCondition);
+        return page;
+    }
+
+    @Override
+    public Page<TabStockPriceQuoteVO> stockTabList(TabSearchDTO searchCondition) {
+        Page<TabStockPriceQuoteVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
+        page.addOrder(OrderItem.desc("T_ICIN1.U_QuoDate"));
+        quotationMapper.selectStockList(page, searchCondition);
         return page;
     }
 }

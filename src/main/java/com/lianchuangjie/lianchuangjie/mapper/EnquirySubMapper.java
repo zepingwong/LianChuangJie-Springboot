@@ -8,6 +8,7 @@ import com.lianchuangjie.lianchuangjie.entity.EnquirySubEntity;
 import com.lianchuangjie.lianchuangjie.vo.EnquirySubVO;
 import com.lianchuangjie.lianchuangjie.vo.TabEnquiryNeedsVO;
 import com.lianchuangjie.lianchuangjie.vo.TabQuotationNeedsVO;
+import com.lianchuangjie.lianchuangjie.vo.TabStockPriceEnquiryVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -49,4 +50,15 @@ public interface EnquirySubMapper extends BaseMapper<EnquirySubEntity> {
      * @date 8/21/2022
      */
     Integer countEnquiryTabList(@Param("sc") TabSearchDTO tabSearchDTO);
+
+    /**
+     * @param page            page
+     * @param searchCondition searchCondition
+     * @return IPage
+     * @description 库存定价-销售报价TAB
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 9/4/2022
+     */
+    IPage<TabStockPriceEnquiryVO> selectStockPriceTabList(IPage<TabStockPriceEnquiryVO> page, @Param("sc") TabSearchDTO searchCondition);
 }

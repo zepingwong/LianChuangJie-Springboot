@@ -6,10 +6,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.lianchuangjie.lianchuangjie.dto.search.QuotationSearchDTO;
 import com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.QuotationEntity;
-import com.lianchuangjie.lianchuangjie.vo.QuotationVO;
-import com.lianchuangjie.lianchuangjie.vo.TabEffectiveQuotationVO;
-import com.lianchuangjie.lianchuangjie.vo.TabEnquiryQuotationVO;
-import com.lianchuangjie.lianchuangjie.vo.TabMyQuotationVO;
+import com.lianchuangjie.lianchuangjie.vo.*;
 
 public interface QuotationService extends IService<QuotationEntity> {
     Page<QuotationVO> list(QuotationSearchDTO quotationSearchDTO);
@@ -23,6 +20,7 @@ public interface QuotationService extends IService<QuotationEntity> {
      * @date 8/20/2022
      */
     Page<TabMyQuotationVO> tabMyList(TabSearchDTO searchCondition);
+
     /**
      * @param searchCondition searchCondition
      * @return Page
@@ -43,6 +41,15 @@ public interface QuotationService extends IService<QuotationEntity> {
      * @email zepingwong@gmail.com
      * @date 8/21/2022
      */
-
     Page<TabEnquiryQuotationVO> enquiryTabList(TabSearchDTO tabSearchDTO);
+
+    /**
+     * @param tabSearchDTO tabSearchDTO
+     * @return Page
+     * @description 库存定价-采购报价TAB
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 9/4/2022
+     */
+    Page<TabStockPriceQuoteVO> stockTabList(TabSearchDTO tabSearchDTO);
 }

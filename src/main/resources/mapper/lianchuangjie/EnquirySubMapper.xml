@@ -286,4 +286,33 @@
         )
         )
     </select>
+    <select id="selectStockPriceTabList"
+            resultType="com.lianchuangjie.lianchuangjie.vo.TabStockPriceEnquiryVO">
+        SELECT U_ICIN1.CheckINDateT, /*确认报价时间*/
+        U_ICIN1.QuoModle, /*报价型号*/
+        U_ICIN1.QuoBrand, /*报价品牌*/
+        U_ICIN1.SuoQuantity, /*报价数量*/
+        U_ICIN1.SuoYear, /*报价批次*/
+        U_ICIN1.SuoDelivery, /*报价交期*/
+        U_ICIN1.PriceAfVAT, /*报价单价*/
+        T_OUSI.UserName, /*销售员姓名*/
+        T_OCDP.Name AS 'DeptName', /*销售部门名称*/
+        T_ICIN.U_CusGroupCode, /*客户性质*/
+        T_ICIN.U_DocCur, /*币种*/
+        T_OVTG.Rate AS 'VatRate' /*税率*/
+        FROM U_ICIN1
+        LEFT JOIN T_ICIN ON T_ICIN.DocEntry = U_ICIN1.DocEntry
+        LEFT JOIN T_OUSI ON T_ICIN.OwnerCode = T_OUSI.UserSign
+        LEFT JOIN T_OCDP ON T_OUSI.DftDept = T_OCDP.DeptCode
+        LEFT JOIN T_OVTG ON T_ICIN.U_VatGroup = T_OVTG.Code
+        WHERE U_ICIN1.Modle IN (
+        SELECT SDADA_1.sno FROM SDADA SDADA_1 WHERE SDADA_1.TAG IN (
+        SELECT SDADA.TAG FROM SDADA WHERE SDADA.sno IN
+        <foreach collection="sc.modleList " item="item" open="(" separator="," close=")" index="index">
+            '${item}'
+        </foreach>
+        )
+        )
+        AND U_ICIN1.PriceAfVAT IS NOT NULL
+    </select>
 </mapper>

@@ -14,6 +14,7 @@ import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
 import com.lianchuangjie.lianchuangjie.vo.EnquirySubVO;
 import com.lianchuangjie.lianchuangjie.vo.TabEnquiryNeedsVO;
 import com.lianchuangjie.lianchuangjie.vo.TabQuotationNeedsVO;
+import com.lianchuangjie.lianchuangjie.vo.TabStockPriceEnquiryVO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -67,6 +68,13 @@ public class EnquirySubServiceImpl extends ServiceImpl<EnquirySubMapper, Enquiry
         page.setSearchCount(false);
         page.setRecords(enquirySubMapper.selectEnquiryTabList(searchCondition));
         page.setTotal(enquirySubMapper.countEnquiryTabList(searchCondition));
+        return page;
+    }
+
+    @Override
+    public Page<TabStockPriceEnquiryVO> stockTabList(TabSearchDTO searchCondition) {
+        Page<TabStockPriceEnquiryVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
+        enquirySubMapper.selectStockPriceTabList(page, searchCondition);
         return page;
     }
 }

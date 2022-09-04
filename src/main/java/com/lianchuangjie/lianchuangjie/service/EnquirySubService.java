@@ -7,6 +7,7 @@ import com.lianchuangjie.lianchuangjie.entity.EnquirySubEntity;
 import com.lianchuangjie.lianchuangjie.vo.EnquirySubVO;
 import com.lianchuangjie.lianchuangjie.vo.TabEnquiryNeedsVO;
 import com.lianchuangjie.lianchuangjie.vo.TabQuotationNeedsVO;
+import com.lianchuangjie.lianchuangjie.vo.TabStockPriceEnquiryVO;
 
 import java.util.List;
 
@@ -32,4 +33,14 @@ public interface EnquirySubService extends IService<EnquirySubEntity> {
      * @date 8/20/2022
      */
     Page<TabEnquiryNeedsVO> enquiryTabList(TabSearchDTO tabSearchDTO);
+
+    /**
+     * @param tabSearchDTO tabSearchDTO
+     * @return Page
+     * @description 库存定价页面-销售报价
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 9/4/2022
+     */
+    Page<TabStockPriceEnquiryVO> stockTabList(TabSearchDTO tabSearchDTO);
 }

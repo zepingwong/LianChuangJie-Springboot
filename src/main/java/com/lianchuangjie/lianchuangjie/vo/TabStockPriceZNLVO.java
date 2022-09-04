@@ -1,13 +1,14 @@
 package com.lianchuangjie.lianchuangjie.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
-import org.apache.poi.hpsf.Decimal;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -41,4 +42,8 @@ public class TabStockPriceZNLVO {
     // 现货库存
     @JsonProperty("OnHand")
     private BigDecimal onHand;
+    // 日期
+    @JsonProperty("CreateDate")
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date createDate;
 }

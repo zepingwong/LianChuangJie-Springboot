@@ -85,10 +85,7 @@ public class TabEnquiryQuotationVO {
      */
     @JsonProperty("U_ECCN")
     private String uEccn;
-    /**
-     * @description 采购报价品牌 U_QuoBrand
-     * @resource T_ICIN1.U_QuoBrand
-     */
+    // 采购报价品牌 T_ICIN1.U_QuoBrand
     @JsonProperty("U_QuoBrand")
     private String uQuoBrand;
     /**
@@ -121,22 +118,13 @@ public class TabEnquiryQuotationVO {
      */
     @JsonProperty("U_QuoVatName")
     private String uQuoVatName;
-    /**
-     * @description 税率税点 U_QuoVatRate
-     * @resource T_OVTG.Rate
-     */
+    // 税率税点 T_OVTG.Rate
     @JsonProperty("U_QuoVatRate")
     private BigDecimal uQuoVatRate;
-    /**
-     * @description 供方交期 U_QuoDelivery
-     * @resource T_ICIN1.U_QuoDelivery
-     */
+    // 供方交期 T_ICIN1.U_QuoDelivery
     @JsonProperty("U_QuoDelivery")
     private String uQuoDelivery;
-    /**
-     * @description 采购备注 U_QuoExplain
-     * @resource T_ICIN1.U_QuoExplain
-     */
+    // 采购备注 T_ICIN1.U_QuoExplain
     @JsonProperty("U_QuoExplain")
     private String uQuoExplain;
 }
