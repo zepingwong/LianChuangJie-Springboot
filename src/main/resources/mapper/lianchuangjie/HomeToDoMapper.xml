@@ -6,12 +6,12 @@
         SELECT COUNT(*)
         FROM T_ICIN
         WHERE State IS NULL
-          AND UserSign = ${UserSign}
+        AND UserSign = ${UserSign}
     </select>
     <select id="countQuotation" resultType="java.lang.Long" parameterType="java.lang.Long">
         SELECT COUNT(*)
         FROM U_ICIN1
         WHERE ',' + LTRIM(RTRIM(REPLACE(Buyers, ' ', ''))) + ',' LIKE CONCAT('%', #{UserSign}, '%')
-          AND U_ICIN1.ExpDate &gt; GETDATE()
+        AND U_ICIN1.ExpDate &gt; GETDATE()
     </select>
 </mapper>

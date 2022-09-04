@@ -14,172 +14,187 @@
         SELECT TOP (1) @BaseFormID = TransType
         FROM T_OPOR
         WHERE TransType IS NOT NULL /*单据类型*/
-        SELECT @DataPur = [dbo].[UF_DataPurview](@UserSign, @BaseFormID) /*判断权限*/
-        SELECT TOP(@PageSize) * FROM (
-        SELECT ROW_NUMBER() OVER (ORDER BY T.DocDate DESC) AS ROWNUMBER,
-        T.* FROM (
-        /*权限内-查看所有数据*/
-        SELECT T_OPOR.DocDate, /*订单日期*/
-        T_OUSI.UserName, /*采购员*/
-        T_OCDP.Name AS 'DeptName', /*采购部门*/
-        T_OPOR.CardName, /*供应商名称*/
-        T_OPOR.U_GroupName, /*供应商类型*/
-        T_OPOR.U_CusLevel, /*供应商等级*/
-        T_OPOR.U_OrderType, /*订单类型*/
-        T_OPOR1.Dscription, /*型号*/
-        T_OPOR1.U_ECCN, /*ECC*/
-        T_OPOR1.U_Brand, /*品牌*/
-        T_OPOR1.U_Batch, /*批次*/
-        T_OPOR1.Quantity, /*数量*/
-        T_OPOR1.OpenQty, /*未到数量*/
-        T_OPOR.DocCur, /*货币*/
-        T_OPOR1.Price, /*单价*/
-        T_OVTG.Name AS 'VatName', /*税率文本*/
-        T_OPOR1.ShipDate, /*交期*/
-        T_OPOR1.U_Remark, /*备注*/
-        T_OPOR1.LineStatus /*执行情况*/
-        FROM T_OPOR1
-        LEFT JOIN T_OPOR ON T_OPOR.DocEntry = T_OPOR1.DocEntry
-        LEFT JOIN T_OUSI ON T_OPOR.OwnerCode = T_OUSI.UserSign
-        LEFT JOIN T_OCDP ON T_OPOR.DeptCode = T_OCDP.DeptCode
-        LEFT JOIN T_OVTG ON T_OPOR1.U_VatGroup = T_OVTG.Code
-        LEFT JOIN (SELECT DeptCode FROM T_OUDL WHERE UserSign = @UserSign) T3 ON T_OPOR.DeptCode = T3.DeptCode
-        WHERE (
-        @DataPur = 'ALL' /*可看所有*/
-        OR (@DataPur = 'Dept' AND ISNULL(T3.DeptCode, '') != '') /*判断当前用户可看本部门数据，如部门主任*/
-        OR (@DataPur = 'Self' AND T_OPOR.UserSign = @UserSign) /*采购员本人*/
-        )
-        /*权限外-部门数据*/
-        UNION ALL
-        SELECT T_OPOR.DocDate, /*订单日期*/
-        T_OUSI.UserName, /*采购员*/
-        T_OCDP.Name AS 'DeptName', /*采购部门*/
-        T_OPOR.CardName, /*供应商名称*/
-        T_OPOR.U_GroupName, /*供应商类型*/
-        T_OPOR.U_CusLevel, /*供应商等级*/
-        T_OPOR.U_OrderType, /*订单类型*/
-        T_OPOR1.Dscription, /*型号*/
-        T_OPOR1.U_ECCN, /*ECC*/
-        T_OPOR1.U_Brand, /*品牌*/
-        T_OPOR1.U_Batch, /*批次*/
-        T_OPOR1.Quantity, /*数量*/
-        T_OPOR1.OpenQty, /*未到数量*/
-        T_OPOR.DocCur, /*货币*/
-        T_OPOR1.Price, /*单价*/
-        T_OVTG.Name AS 'VatName', /*税率文本*/
-        T_OPOR1.ShipDate, /*交期*/
-        T_OPOR1.U_Remark, /*备注*/
-        T_OPOR1.LineStatus /*执行情况*/
-        FROM T_OPOR1
-        LEFT JOIN T_OPOR ON T_OPOR.DocEntry = T_OPOR1.DocEntry
-        LEFT JOIN T_OUSI ON T_OPOR.OwnerCode = T_OUSI.UserSign
-        LEFT JOIN T_OCDP ON T_OPOR.DeptCode = T_OCDP.DeptCode
-        LEFT JOIN T_OVTG ON T_OPOR1.U_VatGroup = T_OVTG.Code
-        LEFT JOIN (SELECT DeptCode FROM T_OUDL WHERE UserSign = @UserSign) T3 ON T_OPOR.DeptCode = T3.DeptCode
-        WHERE T_OPOR1.DocEntry NOT IN (SELECT DocEntry
-        FROM T_OPOR
-        WHERE (
-        @DataPur = 'ALL' /*可看所有*/
-        OR
-        (@DataPur = 'Dept' AND ISNULL(T3.DeptCode, '') != '') /*判断当前用户可看本部门数据，如部门主任*/
-        OR (@DataPur = 'Self' AND T_OPOR.UserSign = @UserSign) /*采购员本人*/
-        ))
-        ) T
-        WHERE T.Dscription IN (
-        SELECT SDADA_1.sno FROM SDADA SDADA_1 WHERE SDADA_1.TAG IN (
-        SELECT SDADA.TAG FROM SDADA WHERE SDADA.sno IN
-        <foreach collection="sc.modleList " item="item" open="(" separator="," close=")" index="index">
-            '${item}'
-        </foreach>
-        )
-        )) TT
+        SELECT @DataPur = [dbo].[UF_DataPurview](@UserSign, @BaseFormID); /*判断权限*/
+        SELECT
+            TOP(@PageSize) *
+        FROM (
+            SELECT
+                ROW_NUMBER() OVER (ORDER BY T.DocDate DESC) AS ROWNUMBER,
+                T.*
+            FROM (
+                /*权限内-查看所有数据*/
+                SELECT
+                    T_OPOR.DocDate, /*订单日期*/
+                    T_OUSI.UserName, /*采购员*/
+                    T_OCDP.Name AS 'DeptName', /*采购部门*/
+                    T_OPOR.CardName, /*供应商名称*/
+                    T_OPOR.U_GroupName, /*供应商类型*/
+                    T_OPOR.U_CusLevel, /*供应商等级*/
+                    T_OPOR.U_OrderType, /*订单类型*/
+                    T_OPOR1.Dscription, /*型号*/
+                    T_OPOR1.U_ECCN, /*ECC*/
+                    T_OPOR1.U_Brand, /*品牌*/
+                    T_OPOR1.U_Batch, /*批次*/
+                    T_OPOR1.Quantity, /*数量*/
+                    T_OPOR1.OpenQty, /*未到数量*/
+                    T_OPOR.DocCur, /*货币*/
+                    T_OPOR1.Price, /*单价*/
+                    T_OVTG.Name AS 'VatName', /*税率文本*/
+                    T_OPOR1.ShipDate, /*交期*/
+                    T_OPOR1.U_Remark, /*备注*/
+                    T_OPOR1.LineStatus /*执行情况*/
+                FROM T_OPOR1
+                LEFT JOIN T_OPOR ON T_OPOR.DocEntry = T_OPOR1.DocEntry
+                LEFT JOIN T_OUSI ON T_OPOR.OwnerCode = T_OUSI.UserSign
+                LEFT JOIN T_OCDP ON T_OPOR.DeptCode = T_OCDP.DeptCode
+                LEFT JOIN T_OVTG ON T_OPOR1.U_VatGroup = T_OVTG.Code
+                LEFT JOIN (SELECT DeptCode FROM T_OUDL WHERE UserSign = @UserSign) T3 ON T_OPOR.DeptCode = T3.DeptCode
+                WHERE (
+                    @DataPur = 'ALL' /*可看所有*/
+                    OR (@DataPur = 'Dept' AND ISNULL(T3.DeptCode, '') != '') /*判断当前用户可看本部门数据，如部门主任*/
+                    OR (@DataPur = 'Self' AND T_OPOR.UserSign = @UserSign) /*采购员本人*/
+                )
+                /*权限外-部门数据*/
+                UNION ALL
+                SELECT
+                    T_OPOR.DocDate, /*订单日期*/
+                    T_OUSI.UserName, /*采购员*/
+                    T_OCDP.Name AS 'DeptName', /*采购部门*/
+                    T_OPOR.CardName, /*供应商名称*/
+                    T_OPOR.U_GroupName, /*供应商类型*/
+                    T_OPOR.U_CusLevel, /*供应商等级*/
+                    T_OPOR.U_OrderType, /*订单类型*/
+                    T_OPOR1.Dscription, /*型号*/
+                    T_OPOR1.U_ECCN, /*ECC*/
+                    T_OPOR1.U_Brand, /*品牌*/
+                    T_OPOR1.U_Batch, /*批次*/
+                    T_OPOR1.Quantity, /*数量*/
+                    T_OPOR1.OpenQty, /*未到数量*/
+                    T_OPOR.DocCur, /*货币*/
+                    T_OPOR1.Price, /*单价*/
+                    T_OVTG.Name AS 'VatName', /*税率文本*/
+                    T_OPOR1.ShipDate, /*交期*/
+                    T_OPOR1.U_Remark, /*备注*/
+                    T_OPOR1.LineStatus /*执行情况*/
+                FROM T_OPOR1
+                LEFT JOIN T_OPOR ON T_OPOR.DocEntry = T_OPOR1.DocEntry
+                LEFT JOIN T_OUSI ON T_OPOR.OwnerCode = T_OUSI.UserSign
+                LEFT JOIN T_OCDP ON T_OPOR.DeptCode = T_OCDP.DeptCode
+                LEFT JOIN T_OVTG ON T_OPOR1.U_VatGroup = T_OVTG.Code
+                LEFT JOIN (SELECT DeptCode FROM T_OUDL WHERE UserSign = @UserSign) T3 ON T_OPOR.DeptCode = T3.DeptCode
+                WHERE T_OPOR1.DocEntry NOT IN (
+                    SELECT DocEntry
+                    FROM T_OPOR
+                    WHERE (
+                        @DataPur = 'ALL' /*可看所有*/
+                        OR (@DataPur = 'Dept' AND ISNULL(T3.DeptCode, '') != '') /*判断当前用户可看本部门数据，如部门主任*/
+                        OR (@DataPur = 'Self' AND T_OPOR.UserSign = @UserSign) /*采购员本人*/
+                    ))
+            ) T
+            WHERE T.Dscription IN (
+                SELECT SDADA_1.sno FROM SDADA SDADA_1 WHERE SDADA_1.TAG IN (
+                    SELECT SDADA.TAG FROM SDADA WHERE SDADA.sno IN
+                    <foreach collection="sc.modleList " item="item" open="(" separator="," close=")" index="index">
+                        '${item}'
+                    </foreach>
+                )
+            )
+        ) TT
         WHERE TT.ROWNUMBER > (@CurrentPage - 1) * @PageSize
         ORDER BY TT.DocDate DESC
     </select>
     <select id="selectEnquiryTabList" resultType="com.lianchuangjie.lianchuangjie.vo.TabEnquiryPurchaseOrderVO">
         SELECT
-        T_OPOR.DocDate, /*订单日期*/
-        T_OUSI.UserName, /*采购员*/
-        T_OCDP.Name AS 'DeptName', /*采购部门*/
-        T_OPOR.U_GroupName, /*供应商类型*/
-        T_OPOR.U_CusLevel, /*供应商等级*/
-        T_OPOR.U_OrderType, /*订单类型*/
-        T_OPOR1.Dscription, /*型号*/
-        T_OPOR1.U_ECCN, /*ECC*/
-        T_OPOR1.U_Brand, /*品牌*/
-        T_OPOR1.U_Batch, /*批次*/
-        T_OPOR1.Quantity, /*数量*/
-        T_OPOR1.OpenQty, /*未到数量*/
-        T_OPOR.DocCur, /*货币*/
-        T_OPOR1.Price, /*单价*/
-        T_OVTG.Name AS 'U_VatName', /*税率文本*/
-        T_OPOR1.ShipDate, /*交期*/
-        T_OPOR1.U_Remark, /*备注*/
-        T_OPOR1.LineStatus /*执行情况*/
+            T_OPOR.DocDate, /*订单日期*/
+            T_OUSI.UserName, /*采购员*/
+            T_OCDP.Name AS 'DeptName', /*采购部门*/
+            T_OPOR.U_GroupName, /*供应商类型*/
+            T_OPOR.U_CusLevel, /*供应商等级*/
+            T_OPOR.U_OrderType, /*订单类型*/
+            T_OPOR1.Dscription, /*型号*/
+            T_OPOR1.U_ECCN, /*ECC*/
+            T_OPOR1.U_Brand, /*品牌*/
+            T_OPOR1.U_Batch, /*批次*/
+            T_OPOR1.Quantity, /*数量*/
+            T_OPOR1.OpenQty, /*未到数量*/
+            T_OPOR.DocCur, /*货币*/
+            T_OPOR1.Price, /*单价*/
+            T_OVTG.Name AS 'U_VatName', /*税率文本*/
+            T_OPOR1.ShipDate, /*交期*/
+            T_OPOR1.U_Remark, /*备注*/
+            T_OPOR1.LineStatus /*执行情况*/
         FROM T_OPOR1
         LEFT JOIN T_OPOR ON T_OPOR.DocEntry = T_OPOR1.DocEntry
         LEFT JOIN T_OUSI ON T_OPOR.OwnerCode = T_OUSI.UserSign
         LEFT JOIN T_OCDP ON T_OPOR.DeptCode = T_OCDP.DeptCode
         LEFT JOIN T_OVTG ON T_OPOR1.U_VatGroup = T_OVTG.Code
         WHERE T_OPOR1.Dscription IN (
-        SELECT SDADA_1.sno FROM SDADA SDADA_1 WHERE SDADA_1.TAG IN (
-        SELECT SDADA.TAG FROM SDADA WHERE SDADA.sno IN
-        <foreach collection="sc.modleList " item="item" open="(" separator="," close=")" index="index">
-            '${item}'
-        </foreach>
-        )
+            SELECT SDADA_1.sno FROM SDADA SDADA_1 WHERE SDADA_1.TAG IN (
+                SELECT SDADA.TAG FROM SDADA WHERE SDADA.sno IN
+                <foreach collection="sc.modleList " item="item" open="(" separator="," close=")" index="index">
+                    '${item}'
+                </foreach>
+            )
         )
     </select>
-    <select id="countQuotationTabList" resultType="java.lang.Integer"
-            parameterType="com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO">
+    <select id="countQuotationTabList" resultType="java.lang.Integer" parameterType="com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO">
         DECLARE @UserSign BIGINT
         DECLARE @DataPur NVARCHAR(10) /*All/Dept/self*/
         DECLARE @BaseFormID BIGINT /*视图编号*/
         SET @UserSign = ${sc.getUserSign}
-        SELECT TOP (1) @BaseFormID = TransType
-        FROM T_OPOR
-        WHERE TransType IS NOT NULL /*单据类型*/
-        SELECT @DataPur = [dbo].[UF_DataPurview](@UserSign, @BaseFormID) /*判断权限*/
-        SELECT
-        COUNT(*) FROM (
-        /*权限内-查看所有数据*/
-        SELECT T_OPOR1.*
-        FROM T_OPOR1
-        LEFT JOIN T_OPOR ON T_OPOR.DocEntry = T_OPOR1.DocEntry
-        LEFT JOIN T_OUSI ON T_OPOR.OwnerCode = T_OUSI.UserSign
-        LEFT JOIN T_OCDP ON T_OPOR.DeptCode = T_OCDP.DeptCode
-        LEFT JOIN T_OVTG ON T_OPOR1.U_VatGroup = T_OVTG.Code
-        LEFT JOIN (SELECT DeptCode FROM T_OUDL WHERE UserSign = @UserSign) T3 ON T_OPOR.DeptCode = T3.DeptCode
-        WHERE (
-        @DataPur = 'ALL' /*可看所有*/
-        OR (@DataPur = 'Dept' AND ISNULL(T3.DeptCode, '') != '') /*判断当前用户可看本部门数据，如部门主任*/
-        OR (@DataPur = 'Self' AND T_OPOR.UserSign = @UserSign) /*采购员本人*/
-        )
-        /*权限外-部门数据*/
-        UNION ALL
-        SELECT T_OPOR1.*
-        FROM T_OPOR1
-        LEFT JOIN T_OPOR ON T_OPOR.DocEntry = T_OPOR1.DocEntry
-        LEFT JOIN T_OUSI ON T_OPOR.OwnerCode = T_OUSI.UserSign
-        LEFT JOIN T_OCDP ON T_OPOR.DeptCode = T_OCDP.DeptCode
-        LEFT JOIN T_OVTG ON T_OPOR1.U_VatGroup = T_OVTG.Code
-        LEFT JOIN (SELECT DeptCode FROM T_OUDL WHERE UserSign = @UserSign) T3 ON T_OPOR.DeptCode = T3.DeptCode
-        WHERE T_OPOR1.DocEntry NOT IN (SELECT DocEntry
-        FROM T_OPOR
-        WHERE (
-        @DataPur = 'ALL' /*可看所有*/
-        OR
-        (@DataPur = 'Dept' AND ISNULL(T3.DeptCode, '') != '') /*判断当前用户可看本部门数据，如部门主任*/
-        OR (@DataPur = 'Self' AND T_OPOR.UserSign = @UserSign) /*采购员本人*/
-        ))
+        SELECT TOP (1) @BaseFormID = TransType FROM T_OPOR WHERE TransType IS NOT NULL /*单据类型*/
+        SELECT @DataPur = [dbo].[UF_DataPurview](@UserSign, @BaseFormID); /*判断权限*/
+        SELECT COUNT(*)
+        FROM (
+            /*权限内-查看所有数据*/
+            SELECT T_OPOR1.*
+            FROM T_OPOR1
+            LEFT JOIN T_OPOR ON T_OPOR.DocEntry = T_OPOR1.DocEntry
+            LEFT JOIN T_OUSI ON T_OPOR.OwnerCode = T_OUSI.UserSign
+            LEFT JOIN T_OCDP ON T_OPOR.DeptCode = T_OCDP.DeptCode
+            LEFT JOIN T_OVTG ON T_OPOR1.U_VatGroup = T_OVTG.Code
+            LEFT JOIN (
+                SELECT DeptCode
+                FROM T_OUDL
+                WHERE UserSign = @UserSign
+            ) T3 ON T_OPOR.DeptCode = T3.DeptCode
+            WHERE (
+                @DataPur = 'ALL' /*可看所有*/
+                OR (@DataPur = 'Dept' AND ISNULL(T3.DeptCode, '') != '') /*判断当前用户可看本部门数据，如部门主任*/
+                OR (@DataPur = 'Self' AND T_OPOR.UserSign = @UserSign) /*采购员本人*/
+            )
+            /*权限外-部门数据*/
+            UNION ALL
+            SELECT T_OPOR1.*
+            FROM T_OPOR1
+            LEFT JOIN T_OPOR ON T_OPOR.DocEntry = T_OPOR1.DocEntry
+            LEFT JOIN T_OUSI ON T_OPOR.OwnerCode = T_OUSI.UserSign
+            LEFT JOIN T_OCDP ON T_OPOR.DeptCode = T_OCDP.DeptCode
+            LEFT JOIN T_OVTG ON T_OPOR1.U_VatGroup = T_OVTG.Code
+            LEFT JOIN (
+                SELECT DeptCode
+                FROM T_OUDL
+                WHERE UserSign = @UserSign
+            ) T3 ON T_OPOR.DeptCode = T3.DeptCode
+            WHERE T_OPOR1.DocEntry NOT IN (
+                SELECT DocEntry
+                FROM T_OPOR
+                WHERE (
+                    @DataPur = 'ALL' /*可看所有*/
+                    OR (@DataPur = 'Dept' AND ISNULL(T3.DeptCode, '') != '') /*判断当前用户可看本部门数据，如部门主任*/
+                    OR (@DataPur = 'Self' AND T_OPOR.UserSign = @UserSign) /*采购员本人*/
+                )
+            )
         ) T
         WHERE T.Dscription IN (
-        SELECT SDADA_1.sno FROM SDADA SDADA_1 WHERE SDADA_1.TAG IN (
-        SELECT SDADA.TAG FROM SDADA WHERE SDADA.sno IN
-        <foreach collection="sc.modleList " item="item" open="(" separator="," close=")" index="index">
-            '${item}'
-        </foreach>
-        )
+            SELECT SDADA_1.sno
+            FROM SDADA SDADA_1
+            WHERE SDADA_1.TAG IN (
+                SELECT SDADA.TAG FROM SDADA WHERE SDADA.sno IN
+                <foreach collection="sc.modleList " item="item" open="(" separator="," close=")" index="index">
+                    '${item}'
+                </foreach>
+            )
         )
     </select>
 </mapper>

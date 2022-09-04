@@ -22,22 +22,18 @@
         T_OBTN.U_OriginalBid, /*原标*/
         T_OBTN.U_Secrecy, /*保密*/
         T_OBTN.U_GrindingCode /*磨码说明*/
-        FROM
-        T_OBTN /*库存批次表*/
+        FROM T_OBTN /*库存批次表*/
         LEFT JOIN T_OBTQ ON T_OBTQ.MdAbsEntry = T_OBTN.AbsEntry /*库存数量表，通过批次和型号代码关联*/
         AND T_OBTQ.ItemCode = T_OBTN.ItemCode
-        WHERE
-        T_OBTN.ItemName IN (
-        SELECT
-        SDADA_1.sno
-        FROM
-        SDADA SDADA_1
-        WHERE
-        SDADA_1.TAG IN ( SELECT SDADA.TAG FROM SDADA WHERE SDADA.sno IN
-        <foreach collection="sc.modleList " item="item" open="(" separator="," close=")" index="index">
-            '${item}'
-        </foreach>
-        )
+        WHERE T_OBTN.ItemName IN (
+            SELECT SDADA_1.sno
+            FROM SDADA SDADA_1
+            WHERE SDADA_1.TAG IN (
+                SELECT SDADA.TAG FROM SDADA WHERE SDADA.sno IN
+                <foreach collection="sc.modleList " item="item" open="(" separator="," close=")" index="index">
+                    '${item}'
+                </foreach>
+            )
         )
         <if test="sc.year">
             AND T_OBTN.U_Batch = ${sc.getYear} /*批次条件*/

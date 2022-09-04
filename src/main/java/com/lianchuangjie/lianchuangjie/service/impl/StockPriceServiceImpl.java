@@ -38,4 +38,9 @@ public class StockPriceServiceImpl extends ServiceImpl<StockPriceMapper, StockPr
         return page;
     }
 
+    @Override
+    public Boolean updateALL(StockPriceOKDTO stockPriceOKDTO) {
+        return stockPriceMapper.updateAll(stockPriceOKDTO);
+    }
+
 }

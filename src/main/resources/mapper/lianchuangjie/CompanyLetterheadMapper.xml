@@ -9,8 +9,8 @@
         SELECT *
         FROM U_OBPL
         WHERE charindex(
-                          ',' + CAST(DocEntry AS VARCHAR) + ',',
-                          ',' + REPLACE(LTRIM(RTRIM(@U_ComCode)), ' ', '') + ','
-                  ) > 0
+            ',' + CAST(DocEntry AS VARCHAR) + ',',
+            ',' + REPLACE(LTRIM(RTRIM(@U_ComCode)), ' ', '') + ','
+        ) > 0
     </select>
 </mapper>

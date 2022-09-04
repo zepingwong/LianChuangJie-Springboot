@@ -7,45 +7,42 @@
         DECLARE @BaseFormID BIGINT; /*视图编号*/
         DECLARE @DftDept NVARCHAR(20);
         DECLARE @IsSale VARCHAR(1);
-        SELECT TOP 1 @BaseFormID = TransType
-        FROM T_OCRD
-        WHERE CardType = 'C';
+        SELECT TOP 1 @BaseFormID = TransType FROM T_OCRD WHERE CardType = 'C';
         /*判断权限*/
         SELECT @DataPur = [dbo].[UF_DataPurview](#{UserSign}, @BaseFormID);
         /*获取当前用户默认部门*/
-        SELECT @IsSale = U_IsSale, @DftDept = DftDept
-        FROM T_OUSI
-        WHERE UserSign = #{UserSign};
-
-        SELECT T0.CardCode,
-        T0.CardName
+        SELECT @IsSale = U_IsSale, @DftDept = DftDept FROM T_OUSI WHERE UserSign = #{UserSign};
+        SELECT
+            T0.CardCode,
+            T0.CardName
         FROM T_OCRD T0
         LEFT JOIN T_OUSI T1 ON T1.UserSign = T0.OwnerCode
         /*U_CUR18：该表为设置哪些部门的用户可以看到哪个虚拟用户名下的客户，如需设置新人组 可以看到 综合部门和终端部门的公共客户*/
-        LEFT JOIN U_CUR18 T2
-        ON T0.OwnerCode = T2.OwnerCode AND T2.DeptCode = @DftDept
+        LEFT JOIN U_CUR18 T2 ON T0.OwnerCode = T2.OwnerCode AND T2.DeptCode = @DftDept
         /*T_OUDL: 前登录用户的所属部门，一个用户可同时属于多个部门*/
         LEFT JOIN (SELECT DeptCode FROM T_OUDL WHERE UserSign = #{UserSign}) T3 ON T0.DeptCode = T3.DeptCode
-
         LEFT JOIN (SELECT CardCode FROM T_OCRD2 WHERE OptUser = #{UserSign}) T4 ON T0.CardCode = T4.CardCode
-        WHERE T0.CardType = 'C'
-        AND T0.U_DocStatus != 'C' /*客户为非锁定状态*/
-        /*客户的基本信息不能为空，包括：客户性质、客户区域、行业领域、注册资金、客户公司属性*/
-        AND ISNULL(T0.U_CorNature, '') != '' /*客户公司属性*/
-        AND ISNULL(T0.U_Region, '') != '' /*客户区域*/
-        AND ISNULL(T0.U_Industries, '') != '' /*行业领域*/
-        AND ISNULL(T0.GroupCode, 0) > 0 /*客户性质*/
-        AND ISNULL(T0.U_Capital, 0) > 0 /*注册资金*/
-        AND (@DataPur = 'ALL' /*可看所有*/
-        OR T0.OwnerCode = #{UserSign} /*销售员本人*/
-        OR ISNULL(T0.OwnerCode, 0) = 0 /*客户的所属人为空，表示为公海客户*/
-        OR (T1.U_IsVir = 'Y' AND ISNULL(T2.DeptCode, '') != '') /*判断当前客户是否为组内公共客户，且当前用户是否可看*/
-        OR (@DataPur = 'Dept' AND ISNULL(T3.DeptCode, '') != '')/*判断当前用户可看本部门数据，如部门主任*/
-        OR (@IsSale = 'N' AND ISNULL(T4.CardCode, '') != '') /*判断当前用户为非销售员，一般指销售助理，当前客户共享给了当前用户*/
-        )
-        <if test="CardName != null">
-            AND T0.CardName LIKE CONCAT('%', #{CardName}, '%')
-        </if>
+        <where>
+            <if test="CardName != null">
+                AND T0.CardName LIKE CONCAT('%', #{CardName}, '%')
+            </if>
+            AND T0.CardType = 'C'
+            AND T0.U_DocStatus != 'C' /*客户为非锁定状态*/
+            /*客户的基本信息不能为空，包括：客户性质、客户区域、行业领域、注册资金、客户公司属性*/
+            AND ISNULL(T0.U_CorNature, '') != '' /*客户公司属性*/
+            AND ISNULL(T0.U_Region, '') != '' /*客户区域*/
+            AND ISNULL(T0.U_Industries, '') != '' /*行业领域*/
+            AND ISNULL(T0.GroupCode, 0) > 0 /*客户性质*/
+            AND ISNULL(T0.U_Capital, 0) > 0 /*注册资金*/
+            AND (
+                @DataPur = 'ALL' /*可看所有*/
+                OR T0.OwnerCode = #{UserSign} /*销售员本人*/
+                OR ISNULL(T0.OwnerCode, 0) = 0 /*客户的所属人为空，表示为公海客户*/
+                OR (T1.U_IsVir = 'Y' AND ISNULL(T2.DeptCode, '') != '') /*判断当前客户是否为组内公共客户，且当前用户是否可看*/
+                OR (@DataPur = 'Dept' AND ISNULL(T3.DeptCode, '') != '')/*判断当前用户可看本部门数据，如部门主任*/
+                OR (@IsSale = 'N' AND ISNULL(T4.CardCode, '') != '') /*判断当前用户为非销售员，一般指销售助理，当前客户共享给了当前用户*/
+            )
+        </where>
         ORDER BY T0.CardName
     </select>
     <select id="selectOne" resultType="com.lianchuangjie.lianchuangjie.vo.ClienteleClientInfoVO">
@@ -53,50 +50,47 @@
         DECLARE @BaseFormID BIGINT;
         DECLARE @DftDept NVARCHAR(20);
         DECLARE @IsSale VARCHAR(1);
-        SELECT TOP 1 @BaseFormID = TransType
-        FROM T_OCRD
-        WHERE CardType = 'C';
+        SELECT TOP 1 @BaseFormID = TransType FROM T_OCRD WHERE CardType = 'C';
         /*判断权限*/
         SELECT @DataPur = [dbo].[UF_DataPurview](#{UserSign}, @BaseFormID);
         /*获取当前用户默认部门*/
-        SELECT @IsSale = U_IsSale, @DftDept = DftDept
-        FROM T_OUSI
-        WHERE UserSign = #{UserSign};
+        SELECT @IsSale = U_IsSale, @DftDept = DftDept FROM T_OUSI WHERE UserSign = #{UserSign};
 
-        SELECT T0.*,
-               T5.DoMain,
-               T6.Name                                                                            AS 'U_GroupName',
-               T7.DomainName                                                                      AS 'U_DomainName',
-               T8.Level                                                                           AS 'U_CusLevel',
-               (T0.Currency + '+' + T0.VatGroup + '+' + CONVERT(VARCHAR, CAST(T9.Rate AS FLOAT))) AS 'CurVat',
-               T9.Rate                                                                            AS 'VatRate'
+        SELECT
+            T0.*,
+            T5.DoMain,
+            T6.Name                                                                            AS 'U_GroupName',
+            T7.DomainName                                                                      AS 'U_DomainName',
+            T8.Level                                                                           AS 'U_CusLevel',
+            (T0.Currency + '+' + T0.VatGroup + '+' + CONVERT(VARCHAR, CAST(T9.Rate AS FLOAT))) AS 'CurVat',
+            T9.Rate                                                                            AS 'VatRate'
         FROM T_OCRD T0
-                 LEFT JOIN T_OUSI T1 ON T1.UserSign = T0.OwnerCode
-            /*U_CUR18：该表为设置哪些部门的用户可以看到哪个虚拟用户名下的客户，如需设置新人组 可以看到 综合部门和终端部门的公共客户*/
-                 LEFT JOIN U_CUR18 T2
-                           ON T0.OwnerCode = T2.OwnerCode AND T2.DeptCode = @DftDept
-                 LEFT JOIN (SELECT DeptCode FROM T_OUDL WHERE UserSign = #{UserSign}) T3 ON T0.DeptCode = T3.DeptCode
-                 LEFT JOIN (SELECT CardCode FROM T_OCRD2 WHERE OptUser = #{UserSign}) T4 ON T0.CardCode = T4.CardCode
-                 LEFT JOIN U_OADD T5 ON T0.U_Region = T5.KeyCode /*客户地区*/
-                 LEFT JOIN T_OCRG T6 ON T0.GroupCode = T6.Code /*客户性质*/
-                 LEFT JOIN U_OFIE T7 ON T0.U_Industries = T7.KeyCode /*客户行业领域*/
-                 LEFT JOIN U_OHDJ T8 ON T0.U_Level = T8.Code /*客户等级*/
-                 LEFT JOIN T_OVTG T9 ON T0.VatGroup = T9.Code /*税率*/
+        LEFT JOIN T_OUSI T1 ON T1.UserSign = T0.OwnerCode
+        /*U_CUR18：该表为设置哪些部门的用户可以看到哪个虚拟用户名下的客户，如需设置新人组 可以看到 综合部门和终端部门的公共客户*/
+        LEFT JOIN U_CUR18 T2 ON T0.OwnerCode = T2.OwnerCode AND T2.DeptCode = @DftDept
+        LEFT JOIN (SELECT DeptCode FROM T_OUDL WHERE UserSign = #{UserSign}) T3 ON T0.DeptCode = T3.DeptCode
+        LEFT JOIN (SELECT CardCode FROM T_OCRD2 WHERE OptUser = #{UserSign}) T4 ON T0.CardCode = T4.CardCode
+        LEFT JOIN U_OADD T5 ON T0.U_Region = T5.KeyCode /*客户地区*/
+        LEFT JOIN T_OCRG T6 ON T0.GroupCode = T6.Code /*客户性质*/
+        LEFT JOIN U_OFIE T7 ON T0.U_Industries = T7.KeyCode /*客户行业领域*/
+        LEFT JOIN U_OHDJ T8 ON T0.U_Level = T8.Code /*客户等级*/
+        LEFT JOIN T_OVTG T9 ON T0.VatGroup = T9.Code /*税率*/
         WHERE T0.CardType = 'C'
-          AND T0.U_DocStatus != 'C' /*客户为非锁定状态*/
-            /*客户的基本信息不能为空，包括：客户性质、客户区域、行业领域、注册资金、客户公司属性*/
-          AND ISNULL(T0.U_CorNature, '') != ''
-          AND ISNULL(T0.U_Region, '') != ''
-          AND ISNULL(T0.U_Industries, '') != ''
-          AND ISNULL(T0.GroupCode, 0) > 0
-          AND ISNULL(T0.U_Capital, 0) > 0
-          AND (@DataPur = 'ALL' /*可看所有*/
+        AND T0.U_DocStatus != 'C' /*客户为非锁定状态*/
+        /*客户的基本信息不能为空，包括：客户性质、客户区域、行业领域、注册资金、客户公司属性*/
+        AND ISNULL(T0.U_CorNature, '') != ''
+        AND ISNULL(T0.U_Region, '') != ''
+        AND ISNULL(T0.U_Industries, '') != ''
+        AND ISNULL(T0.GroupCode, 0) > 0
+        AND ISNULL(T0.U_Capital, 0) > 0
+        AND (
+            @DataPur = 'ALL' /*可看所有*/
             OR T0.OwnerCode = #{UserSign} /*销售员本人*/
             OR ISNULL(T0.OwnerCode, 0) = 0 /*客户的所属人为空，表示为公海客户*/
             OR (T1.U_IsVir = 'Y' AND ISNULL(T2.DeptCode, '') != '') /*判断当前客户是否为组内公共客户，且当前用户是否可看*/
             OR (@DataPur = 'Dept' AND ISNULL(T3.DeptCode, '') != '')/*判断当前用户可看本部门数据，如部门主任*/
             OR (@IsSale = 'N' AND ISNULL(T4.CardCode, '') != '') /*判断当前用户为非销售员，一般指销售助理，当前客户共享给了当前用户*/
-            )
-          AND T0.CardCode = #{CardCode}
+        )
+        AND T0.CardCode = #{CardCode}
     </select>
 </mapper>

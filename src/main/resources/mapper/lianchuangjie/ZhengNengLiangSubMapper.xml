@@ -15,20 +15,14 @@
         U_ZNL1.OnHand /*现货库存*/
         FROM U_ZNL1
         LEFT JOIN U_OZNL ON U_OZNL.DocEntry = U_ZNL1.DocEntry
-        WHERE
-        U_ZNL1.ItemName IN (
-        SELECT
-        SDADA_1.sno
-        FROM
-        SDADA SDADA_1
-        WHERE
-        SDADA_1.TAG IN
-        (
-        SELECT SDADA.TAG FROM SDADA WHERE SDADA.sno IN
-        <foreach collection="sc.modleList " item="item" open="(" separator="," close=")" index="index">
-            '${item}'
-        </foreach>
-        )
+        WHERE U_ZNL1.ItemName IN (
+            SELECT SDADA_1.sno
+            FROM SDADA SDADA_1
+            WHERE SDADA_1.TAG IN (
+                SELECT SDADA.TAG
+                FROM SDADA
+                WHERE SDADA.sno IN <foreach collection="sc.modleList " item="item" open="(" separator="," close=")" index="index">'${item}'</foreach>
+            )
         )
     </select>
 </mapper>

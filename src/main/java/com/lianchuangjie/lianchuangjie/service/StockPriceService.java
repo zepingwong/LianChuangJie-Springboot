@@ -23,4 +23,14 @@ public interface StockPriceService extends IService<StockPriceEntity> {
      * @date 9/4/2022
      */
     Page<TabStockPriceBaseVO> tabList(TabSearchDTO tabSearchDTO);
+
+    /**
+     * @param stockPriceOKDTO stockPriceOKDTO
+     * @return Boolean
+     * @description 一键OK
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 9/4/2022
+     */
+    Boolean updateALL(StockPriceOKDTO stockPriceOKDTO);
 }

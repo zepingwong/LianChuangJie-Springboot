@@ -18,5 +18,7 @@ import org.springframework.stereotype.Repository;
 public interface StockPriceMapper extends BaseMapper<StockPriceEntity> {
     IPage<StockPriceVO> selectList(IPage<StockPriceVO> page, @Param("sc") StockPriceSearchDTO stockPriceSearchDTO);
     Boolean update(@Param("da") StockPriceOKDTO stockPriceOKDTO);
-    IPage<TabStockPriceBaseVO> tabList(Page<TabStockPriceBaseVO> page, @Param("sc")  TabSearchDTO searchCondition);
+    IPage<TabStockPriceBaseVO> tabList(Page<TabStockPriceBaseVO> page, @Param("sc") TabSearchDTO searchCondition);
+
+    Boolean updateAll(@Param("sc") StockPriceOKDTO stockPriceOKDTO);
 }

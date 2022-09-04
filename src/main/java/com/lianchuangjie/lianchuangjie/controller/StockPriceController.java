@@ -23,15 +23,7 @@ public class StockPriceController extends BaseController {
 
     @GetMapping("/price")
     @Authentication(buyer = true)
-    public Result<Page<StockPriceVO>> getEnquiryMainListController(
-            @RequestParam(defaultValue = "#{null}", value = "page") Integer page,
-            @RequestParam(defaultValue = "#{null}", value = "size") Integer size,
-            @RequestParam(defaultValue = "#{null}", value = "TypeCode") String typeCode,
-            @RequestParam(defaultValue = "#{null}", value = "Brand") String brand,
-            @RequestParam(defaultValue = "#{null}", value = "Modle") String modle,
-            @RequestParam(defaultValue = "#{null}", value = "StockDays") Integer stockDays,
-            @RequestParam(defaultValue = "#{null}", value = "NeedReplenish") Boolean needReplenish,
-            @RequestParam(defaultValue = "#{null}", value = "PricingType") Integer pricingType
+    public Result<Page<StockPriceVO>> getEnquiryMainListController(@RequestParam(defaultValue = "#{null}", value = "page") Integer page, @RequestParam(defaultValue = "#{null}", value = "size") Integer size, @RequestParam(defaultValue = "#{null}", value = "TypeCode") String typeCode, @RequestParam(defaultValue = "#{null}", value = "Brand") String brand, @RequestParam(defaultValue = "#{null}", value = "Modle") String modle, @RequestParam(defaultValue = "#{null}", value = "StockDays") Integer stockDays, @RequestParam(defaultValue = "#{null}", value = "NeedReplenish") Boolean needReplenish, @RequestParam(defaultValue = "#{null}", value = "PricingType") Integer pricingType
 
     ) {
         StockPriceSearchDTO stockPriceSearchDTO = new StockPriceSearchDTO();
@@ -53,9 +45,10 @@ public class StockPriceController extends BaseController {
         Boolean res = stockPriceService.update(stockPriceOKDTO);
         return Result.success(res, "Success");
     }
+
     @PutMapping("/price")
     public Result<Boolean> okAllController(@RequestBody StockPriceOKDTO stockPriceOKDTO) {
-        Boolean res = stockPriceService.update(stockPriceOKDTO);
+        Boolean res = stockPriceService.updateALL(stockPriceOKDTO);
         return Result.success(res, "Success");
     }
 

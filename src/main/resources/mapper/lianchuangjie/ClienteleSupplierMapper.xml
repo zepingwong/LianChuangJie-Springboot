@@ -6,99 +6,94 @@
         DECLARE @DataPur NVARCHAR(10);
         DECLARE @BaseFormID BIGINT;
         DECLARE @DftDept NVARCHAR(20);
-
-        SELECT TOP 1 @BaseFormID = TransType
-        FROM T_OCRD
-        WHERE CardType = 'S';
-
+        SELECT TOP 1 @BaseFormID = TransType FROM T_OCRD WHERE CardType = 'S';
         SELECT @DataPur = [dbo].[UF_DataPurview](${UserSign}, @BaseFormID);/*判断权限*/
-
-        SELECT @DftDept = DftDept
-        FROM T_OUSI
-        WHERE UserSign = ${UserSign}; /*获取当前用户默认部门*/
-
-        SELECT T0.CardCode,
-        T0.CardName
+        SELECT @DftDept = DftDept FROM T_OUSI WHERE UserSign = ${UserSign}; /*获取当前用户默认部门*/
+        SELECT
+            T0.CardCode,
+            T0.CardName
         FROM T_OCRD T0
-        LEFT JOIN
-        (SELECT DeptCode FROM T_OUDL WHERE UserSign = ${UserSign}) T1 ON T0.DeptCode = T1.DeptCode
-        LEFT JOIN
-        (SELECT COL AS DeptCode FROM UF_SPLIT((SELECT ReadCus FROM U_PUR1 WHERE OwnerCode = ${UserSign}), ',')) T2
-        ON T0.DeptCode = T2.DeptCode
-        LEFT JOIN
-        (SELECT COL AS DeptCode FROM UF_SPLIT((SELECT ReadCus1 FROM U_PUR1 WHERE OwnerCode = ${UserSign}), ',')) T3
-        ON T0.DeptCode = T3.DeptCode
-        LEFT JOIN
-        (SELECT Col AS GroupCode1
-        FROM UF_SPLIT((SELECT ReadGroupCode FROM U_PUR1 WHERE OwnerCode = ${UserSign}), ',')) T4
-        ON T0.GroupCode = T4.GroupCode1
-        WHERE T0.CardType = 'S'
-        AND T0.U_DocStatus != 'C' /*非锁定状态*/
-        AND ISNULL(T0.U_BlackList, 'N') = 'N' /*非黑名单*/
-        AND (@DataPur = 'ALL' /*看所有*/
-        OR T0.OwnerCode = ${UserSign} /*采购员本人*/
-        OR ISNULL(T2.DeptCode, '') != '' /*可看其他部门的所有供应商 如：海外一组的成员，可以看整个海外组+现货组的所有供应商*/
-        OR
-        (ISNULL(T3.DeptCode, '') != '' AND ISNULL(T4.GroupCode1, 0) > 0) /*可看其他部门的部分供应商，如海外一组的成员，仅可以看如大中华组的贸易商、库存分销商*/
-        OR (@DataPur = 'Dept' AND ISNULL(T1.DeptCode, '') != '') /*可看本部分*/
-        )
-        <if test="CardName != null">
-            AND T0.CardName LIKE CONCAT('%', #{CardName}, '%')
-        </if>
+        LEFT JOIN (
+            SELECT DeptCode
+            FROM T_OUDL
+            WHERE UserSign = ${UserSign}
+        ) T1 ON T0.DeptCode = T1.DeptCode
+        LEFT JOIN (
+            SELECT COL AS DeptCode
+            FROM UF_SPLIT((SELECT ReadCus FROM U_PUR1 WHERE OwnerCode = ${UserSign}), ',')
+        ) T2 ON T0.DeptCode = T2.DeptCode
+        LEFT JOIN (
+            SELECT COL AS DeptCode
+            FROM UF_SPLIT((SELECT ReadCus1 FROM U_PUR1 WHERE OwnerCode = ${UserSign}), ',')
+        ) T3 ON T0.DeptCode = T3.DeptCode
+        LEFT JOIN (
+            SELECT Col AS GroupCode1
+            FROM UF_SPLIT((SELECT ReadGroupCode FROM U_PUR1 WHERE OwnerCode = ${UserSign}), ',')
+        ) T4 ON T0.GroupCode = T4.GroupCode1
+        <where>
+            <if test="CardName != null">
+                AND T0.CardName LIKE CONCAT('%', #{CardName}, '%')
+            </if>
+            AND T0.CardType = 'S'
+            AND T0.U_DocStatus != 'C' /*非锁定状态*/
+            AND ISNULL(T0.U_BlackList, 'N') = 'N' /*非黑名单*/
+            AND (
+            @DataPur = 'ALL' /*看所有*/
+            OR T0.OwnerCode = ${UserSign} /*采购员本人*/
+            OR ISNULL(T2.DeptCode, '') != '' /*可看其他部门的所有供应商 如：海外一组的成员，可以看整个海外组+现货组的所有供应商*/
+            OR (ISNULL(T3.DeptCode, '') != '' AND ISNULL(T4.GroupCode1, 0) > 0) /*可看其他部门的部分供应商，如海外一组的成员，仅可以看如大中华组的贸易商、库存分销商*/
+            OR (@DataPur = 'Dept' AND ISNULL(T1.DeptCode, '') != '') /*可看本部分*/
+            )
+        </where>
     </select>
     <select id="selectOne" resultType="com.lianchuangjie.lianchuangjie.vo.ClienteleSupplierInfoVO">
         DECLARE @DataPur NVARCHAR(10);
         DECLARE @BaseFormID BIGINT;
         DECLARE @DftDept NVARCHAR(20);
-
-        SELECT TOP 1 @BaseFormID = TransType
-        FROM T_OCRD
-        WHERE CardType = 'S';
-
+        SELECT TOP 1 @BaseFormID = TransType FROM T_OCRD WHERE CardType = 'S';
         SELECT @DataPur = [dbo].[UF_DataPurview](${UserSign}, @BaseFormID);/*判断权限*/
-
-        SELECT @DftDept = DftDept
-        FROM T_OUSI
-        WHERE UserSign = ${UserSign}; /*获取当前用户默认部门*/
-
-        SELECT T0.*,
-               T5.DoMain,
-               T6.Name                                                                            AS 'U_GroupName',
-               T7.DomainName                                                                      AS 'U_DomainName',
-               T8.Level                                                                           AS 'U_CusLevel',
-               (T0.Currency + '+' + T0.VatGroup + '+' + CONVERT(VARCHAR, CAST(T9.Rate AS FLOAT))) AS 'CurVat',
-               T9.Rate                                                                            AS 'VatRate'
+        SELECT @DftDept = DftDept FROM T_OUSI WHERE UserSign = ${UserSign}; /*获取当前用户默认部门*/
+        SELECT
+            T0.*,
+            T5.DoMain,
+            T6.Name                                                                            AS 'U_GroupName',
+            T7.DomainName                                                                      AS 'U_DomainName',
+            T8.Level                                                                           AS 'U_CusLevel',
+            (T0.Currency + '+' + T0.VatGroup + '+' + CONVERT(VARCHAR, CAST(T9.Rate AS FLOAT))) AS 'CurVat',
+            T9.Rate                                                                            AS 'VatRate'
         FROM T_OCRD T0
-                 LEFT JOIN
-                 (SELECT DeptCode FROM T_OUDL WHERE UserSign = ${UserSign}) T1 ON T0.DeptCode = T1.DeptCode
-                 LEFT JOIN
-             (SELECT COL AS DeptCode FROM UF_SPLIT((SELECT ReadCus FROM U_PUR1 WHERE OwnerCode = ${UserSign}), ',')) T2
-             ON T0.DeptCode = T2.DeptCode
-                 LEFT JOIN
-             (SELECT COL AS DeptCode FROM UF_SPLIT((SELECT ReadCus1 FROM U_PUR1 WHERE OwnerCode = ${UserSign}), ',')) T3
-             ON T0.DeptCode = T3.DeptCode
-                 LEFT JOIN
-             (SELECT Col AS GroupCode1
-              FROM UF_SPLIT((SELECT ReadGroupCode FROM U_PUR1 WHERE OwnerCode = ${UserSign}), ',')) T4
-             ON T0.GroupCode = T4.GroupCode1
-
-                 LEFT JOIN U_OADD T5 ON T0.U_Region = T5.KeyCode /*客户地区*/
-                 LEFT JOIN T_OCRG T6 ON T0.GroupCode = T6.Code /*客户性质*/
-                 LEFT JOIN U_OFIE T7 ON T0.U_Industries = T7.KeyCode /*客户行业领域*/
-                 LEFT JOIN U_OHDJ T8 ON T0.U_Level = T8.Code /*客户等级*/
-                 LEFT JOIN T_OVTG T9 ON T0.VatGroup = T9.Code /*税率*/
-
+        LEFT JOIN (
+            SELECT DeptCode
+            FROM T_OUDL
+            WHERE UserSign = ${UserSign}
+        ) T1 ON T0.DeptCode = T1.DeptCode
+        LEFT JOIN (
+            SELECT COL AS DeptCode
+            FROM UF_SPLIT((SELECT ReadCus FROM U_PUR1 WHERE OwnerCode = ${UserSign}), ',')
+        ) T2 ON T0.DeptCode = T2.DeptCode
+        LEFT JOIN (
+            SELECT COL AS DeptCode
+            FROM UF_SPLIT((SELECT ReadCus1 FROM U_PUR1 WHERE OwnerCode = ${UserSign}), ',')
+        ) T3 ON T0.DeptCode = T3.DeptCode
+        LEFT JOIN (
+            SELECT Col AS GroupCode1
+            FROM UF_SPLIT((SELECT ReadGroupCode FROM U_PUR1 WHERE OwnerCode = ${UserSign}), ',')
+        ) T4 ON T0.GroupCode = T4.GroupCode1
+        LEFT JOIN U_OADD T5 ON T0.U_Region = T5.KeyCode /*客户地区*/
+        LEFT JOIN T_OCRG T6 ON T0.GroupCode = T6.Code /*客户性质*/
+        LEFT JOIN U_OFIE T7 ON T0.U_Industries = T7.KeyCode /*客户行业领域*/
+        LEFT JOIN U_OHDJ T8 ON T0.U_Level = T8.Code /*客户等级*/
+        LEFT JOIN T_OVTG T9 ON T0.VatGroup = T9.Code /*税率*/
         WHERE T0.CardType = 'S'
-          AND T0.U_DocStatus != 'C' /*非锁定状态*/
-          AND ISNULL(T0.U_BlackList, 'N') = 'N' /*非黑名单*/
-          AND (@DataPur = 'ALL' /*看所有*/
+        AND T0.U_DocStatus != 'C' /*非锁定状态*/
+        AND ISNULL(T0.U_BlackList, 'N') = 'N' /*非黑名单*/
+        AND (
+            @DataPur = 'ALL' /*看所有*/
             OR T0.OwnerCode = ${UserSign} /*采购员本人*/
             OR ISNULL(T2.DeptCode, '') != '' /*可看其他部门的所有供应商 如：海外一组的成员，可以看整个海外组+现货组的所有供应商*/
-            OR
-               (ISNULL(T3.DeptCode, '') != '' AND ISNULL(T4.GroupCode1, 0) > 0) /*可看其他部门的部分供应商，如海外一组的成员，仅可以看如大中华组的贸易商、库存分销商*/
+            OR (ISNULL(T3.DeptCode, '') != '' AND ISNULL(T4.GroupCode1, 0) > 0) /*可看其他部门的部分供应商，如海外一组的成员，仅可以看如大中华组的贸易商、库存分销商*/
             OR (@DataPur = 'Dept' AND ISNULL(T1.DeptCode, '') != '') /*可看本部分*/
-            )
-          AND T0.CardCode = #{CardCode}
-
+        )
+        AND T0.CardCode = #{CardCode}
     </select>
 </mapper>

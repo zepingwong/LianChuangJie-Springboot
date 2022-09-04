@@ -3,10 +3,12 @@
 <mapper namespace="com.lianchuangjie.lianchuangjie.mapper.VatCurConfMapper">
 
     <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.VatCurConfVO">
-        SELECT T_VCCG.*, T_OVTG.Rate AS 'VatRate', T_OVTG.Type, (T_VCCG.Currency + '+' + T_VCCG.VatGroup + '+' +
-        LTRIM(RTRIM(CONVERT(VARCHAR, CAST(T_OVTG.Rate AS FLOAT))))
-        ) AS 'Value', (T_VCCG.Currency + N'（' + LTRIM(RTRIM(CONVERT(VARCHAR, CAST(T_OVTG.Rate AS FLOAT)))) + N'%）') AS
-        'Label'
+        SELECT
+            T_VCCG.*,
+            T_OVTG.Rate AS 'VatRate',
+            T_OVTG.Type,
+            (T_VCCG.Currency + '+' + T_VCCG.VatGroup + '+' + LTRIM(RTRIM(CONVERT(VARCHAR, CAST(T_OVTG.Rate AS FLOAT))))) AS 'Value',
+            (T_VCCG.Currency + N'（' + LTRIM(RTRIM(CONVERT(VARCHAR, CAST(T_OVTG.Rate AS FLOAT)))) + N'%）') AS 'Label'
         FROM T_VCCG
         LEFT JOIN T_OVTG ON T_OVTG.Code = T_VCCG.VatGroup
         <where>
@@ -14,10 +16,11 @@
         </where>
     </select>
     <select id="selectOne" resultType="com.lianchuangjie.lianchuangjie.vo.VatCurConfVO">
-        SELECT T_VCCG.*, T_OVTG.Rate AS 'VatRate', T_OVTG.Type, (T_VCCG.Currency + '+' + T_VCCG.VatGroup + '+' +
-        LTRIM(RTRIM(CONVERT(VARCHAR, CAST(T_OVTG.Rate AS FLOAT))))
-        ) AS 'Value', (T_VCCG.Currency + N'（' + LTRIM(RTRIM(CONVERT(VARCHAR, CAST(T_OVTG.Rate AS FLOAT)))) + N'%）') AS
-        'Label'
+        SELECT
+            T_VCCG.*,
+            T_OVTG.Rate AS 'VatRate',
+            T_OVTG.Type, (T_VCCG.Currency + '+' + T_VCCG.VatGroup + '+' + LTRIM(RTRIM(CONVERT(VARCHAR, CAST(T_OVTG.Rate AS FLOAT))))) AS 'Value',
+            (T_VCCG.Currency + N'（' + LTRIM(RTRIM(CONVERT(VARCHAR, CAST(T_OVTG.Rate AS FLOAT)))) + N'%）') AS 'Label'
         FROM T_VCCG
         LEFT JOIN T_OVTG ON T_OVTG.Code = T_VCCG.VatGroup
         <where>
