@@ -1,7 +1,110 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lianchuangjie.lianchuangjie.mapper.StockPriceMapper">
+    <update id="update" parameterType="com.lianchuangjie.lianchuangjie.dto.StockPriceOKDTO">
+        UPDATE kc_now
+        <set>
+            <if test="da.price2w != null">
+                price_2w = #{da.price2w},
+            </if>
+            <if test="da.price2w5w != null">
+                price_2w_5w = #{da.price2w5w},
+            </if>
+            <if test="da.price5w10w != null">
+                price_5w_10w = #{da.price5w10w},
+            </if>
+            <if test="da.price10w != null">
+                price_10w = #{da.price10w},
+            </if>
+        </set>
+        WHERE kc_now.ItemName = #{da.itemName}
+        AND kc_now.Brand = #{da.brand}
+        AND kc_now.DocDate = #{da.docDate}
+
+    </update>
     <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.StockPriceVO">
-        SELECT * FROM kc_now
+        SELECT
+        kc_now.DocDate, /*今日日期*/
+        kc_now.InDate, /*库存日期*/
+        kc_now.FrgnName, /*品名*/
+        kc_now.Brand, /*品牌*/
+        kc_now.ItemName, /*型号*/
+        kc_now.U_Batch, /*原批次*/
+        kc_now.Batch, /*批次*/
+        kc_now.Quantity, /*库存数量*/
+        kc_now.TypeCode, /*库存类型*/
+        kc_now.U_Secrecy, /*是否保密*/
+        kc_now.U_Price, /*库存成本价*/
+        kc_now.LastSalePrice, /*最近一次销售报价*/
+        kc_now.LastSaleDate, /*最近一次销售报价时间*/
+        kc_now.LastPurchasePrice, /*最近一次采购报价*/
+        kc_now.LastPurchaseDate, /*最近一次采购报价时间*/
+        kc_now.unit_price, /*云汉价*/
+        kc_now.unit_price_date, /*云汉价时间*/
+        kc_now.StockDays, /*库存天数*/
+        kc_now.Modify, /*是否人工修改*/
+        kc_now.kc_price7, /*库存定价(7天)*/
+        kc_now.kc_price, /*综合定价*/
+        kc_now.reference, /*参考价格*/
+        kc_now.kc_price_final, /*最终库存定价*/
+        kc_now.reference_final, /*最终参考价格*/
+        kc_now.price_2w, /*2w内单价*/
+        kc_now.price_2w_5w, /*2w-5w内单价*/
+        kc_now.price_5w_10w, /*5w-10w内单价*/
+        kc_now.price_10w, /*10w+单价*/
+        T3.DocDate AS 'LastPricingTime', /*最近一次定价时间*/
+        T3.kc_price_final AS 'LastPrice' /*最近一次定价单价*/
+        FROM kc_now
+        LEFT JOIN (
+        SELECT T2.*
+        FROM
+        (
+        SELECT T0.Brand, T0.ItemName, MAX ( T0.DocDate ) AS DocDate
+        FROM [dbo].[kc_now] T0
+        WHERE T0.DocDate IS NOT NULL AND T0.Modify = 'Y'
+        GROUP BY T0.Brand, T0.ItemName
+        ) T1
+        LEFT JOIN [dbo].[kc_now] T2 ON T2.Brand = T1.Brand AND T2.ItemName = T1.ItemName AND T2.DocDate = T1.DocDate
+        ) T3 ON T3.Brand = kc_now.Brand
+        AND T3.ItemName = kc_now.ItemName
+        <where>
+            <if test="sc.typeCode != null">
+                AND kc_now.TypeCode = #{sc.typeCode}
+            </if>
+            <if test="sc.stockDays != null">
+                AND kc_now.StockDays >= #{sc.stockDays}
+            </if>
+            <if test="sc.needReplenish == true">
+                AND DateDiff(dd,kc_now.LastPurchaseDate,getdate()) > 7
+            </if>
+            <if test="sc.brand != null">
+                AND kc_now.Brand = #{sc.brand}
+            </if>
+            <if test="sc.modle != null">
+                AND kc_now.ItemName = #{sc.modle}
+            </if>
+            <if test="sc.pricingType == 0">
+                AND(
+                (kc_now.TypeCode = N'热门型号' AND DateDiff(dd, kc_now.LastPricingTime, getdate()) = 20)
+                OR (kc_now.TypeCode = N'奇货可居' AND DateDiff(dd, kc_now.LastPricingTime, getdate()) = 3)
+                OR (kc_now.TypeCode = N'特别关注' AND DateDiff(dd, kc_now.LastPricingTime, getdate()) = 10)
+                OR (kc_now.TypeCode = N'普通库存' AND DateDiff(dd, kc_now.LastPricingTime, getdate()) = 30)
+                OR (kc_now.TypeCode = N'呆滞物料' AND DateDiff(dd, kc_now.LastPricingTime, getdate()) = 365)
+                )
+            </if>
+            <if test="sc.pricingType == 1">
+                AND (kc_now.kc_price_final - T3.LastPrice) /T3.LastPrice >= 0.1
+            </if>
+            <if test="sc.pricingType == 2">
+                AND(
+                (kc_now.TypeCode = N'热门型号' AND DateDiff(dd, kc_now.LastPricingTime, getdate()) = 20)
+                OR (kc_now.TypeCode = N'奇货可居' AND DateDiff(dd, kc_now.LastPricingTime, getdate()) = 3)
+                OR (kc_now.TypeCode = N'特别关注' AND DateDiff(dd, kc_now.LastPricingTime, getdate()) = 10)
+                OR (kc_now.TypeCode = N'普通库存' AND DateDiff(dd, kc_now.LastPricingTime, getdate()) = 30)
+                OR (kc_now.TypeCode = N'呆滞物料' AND DateDiff(dd, kc_now.LastPricingTime, getdate()) = 365)
+                ) AND (kc_now.kc_price_final - T3.LastPrice) /T3.LastPrice > 0.1
+            </if>
+        </where>
+
     </select>
 </mapper>

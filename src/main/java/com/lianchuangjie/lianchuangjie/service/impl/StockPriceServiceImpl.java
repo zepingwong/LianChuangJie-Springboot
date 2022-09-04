@@ -2,6 +2,7 @@ package com.lianchuangjie.lianchuangjie.service.impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.lianchuangjie.lianchuangjie.dto.StockPriceOKDTO;
 import com.lianchuangjie.lianchuangjie.dto.search.StockPriceSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.StockPriceEntity;
 import com.lianchuangjie.lianchuangjie.mapper.StockPriceMapper;
@@ -21,4 +22,12 @@ public class StockPriceServiceImpl extends ServiceImpl<StockPriceMapper, StockPr
         stockPriceMapper.selectList(page, searchCondition);
         return page;
     }
+
+    @Override
+    public Boolean update(StockPriceOKDTO stockPriceOKDTO) {
+        System.out.println(stockPriceOKDTO);
+        return stockPriceMapper.update(stockPriceOKDTO);
+//        return null;
+    }
+
 }

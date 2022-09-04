@@ -87,10 +87,10 @@ public class StockPriceEntity {
     @TableField("StockDays")
     private String stockDays;
     // LastPricingTime 最近一次定价时间
-    @TableField("LastPricingTime")
+    @TableField(exist = false)
     private Date lastPricingTime;
     // 最近一次定价 LastPrice
-    @TableField("LastPrice")
+    @TableField(exist = false)
     private Float lastPrice;
     // 是否人工修改 Modify
     @TableField("Modify")
