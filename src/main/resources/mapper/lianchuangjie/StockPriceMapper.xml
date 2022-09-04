@@ -76,8 +76,11 @@
                 GROUP BY T0.Brand, T0.ItemName
             ) T1
             LEFT JOIN [dbo].[kc_now] T2 ON T2.Brand = T1.Brand AND T2.ItemName = T1.ItemName AND T2.DocDate = T1.DocDate
-        ) T3 ON T3.Brand = kc_now.Brand AND T3.ItemName = kc_now.ItemName
+        ) T3 ON T3.Brand = kc_now.Brand AND T3.ItemName = kc_now.ItemName AND T3.DocDate != kc_now.DocDate
         <where>
+            <if test="sc.needToday == true">
+                kc_now.DocDate IS NOT NULL
+            </if>
             <if test="sc.typeCode != null">
                 AND kc_now.TypeCode = #{sc.typeCode}
             </if>
@@ -94,7 +97,7 @@
                 AND kc_now.ItemName = #{sc.modle}
             </if>
             <if test="sc.pricingType == 0">
-                AND(
+                AND (
                     (kc_now.TypeCode = N'奇货可居' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 3)
                     OR (kc_now.TypeCode = N'特别关注' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 10)
                     OR (kc_now.TypeCode = N'热门型号' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 20)
@@ -103,17 +106,23 @@
                 )
             </if>
             <if test="sc.pricingType == 1">
-                AND (kc_now.kc_price_final - T3.kc_price_final) /T3.kc_price_final >= 0.1
+                AND (
+                    T3.kc_price_final IS NULL OR
+                    (kc_now.kc_price_final - T3.kc_price_final) /T3.kc_price_final >= 0.1
+                )
             </if>
             <if test="sc.pricingType == 2">
-                AND(
-                    (kc_now.TypeCode = N'热门型号' AND DateDiff(dd, kc_now.DocDate, getdate()) = 20)
-                    OR (kc_now.TypeCode = N'奇货可居' AND DateDiff(dd, kc_now.DocDate, getdate()) = 3)
-                    OR (kc_now.TypeCode = N'特别关注' AND DateDiff(dd, kc_now.DocDate, getdate()) = 10)
-                    OR (kc_now.TypeCode = N'普通库存' AND DateDiff(dd, kc_now.DocDate, getdate()) = 30)
-                    OR (kc_now.TypeCode = N'呆滞物料' AND DateDiff(dd, kc_now.DocDate, getdate()) = 365)
+                AND (
+                    (kc_now.TypeCode = N'奇货可居' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 3)
+                    OR (kc_now.TypeCode = N'特别关注' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 10)
+                    OR (kc_now.TypeCode = N'热门型号' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 20)
+                    OR (kc_now.TypeCode = N'普通库存' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 60)
+                    OR (kc_now.TypeCode = N'呆滞物料' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 365)
                 )
-                AND (kc_now.kc_price_final - T3.kc_price_final) /T3.kc_price_final > 0.1
+                AND (
+                    T3.kc_price_final IS NULL OR
+                    (kc_now.kc_price_final - T3.kc_price_final) /T3.kc_price_final >= 0.1
+                )
             </if>
         </where>
 

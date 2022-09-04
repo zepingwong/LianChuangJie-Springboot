@@ -28,4 +28,6 @@ public class StockPriceSearchDTO {
     private Boolean needReplenish;
     // 定价类型
     private Integer pricingType;
+    // 今日需定价
+    private Boolean needToday = true;
 }
