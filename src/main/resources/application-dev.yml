@@ -6,6 +6,12 @@ spring:
     password: 25429125Lcj
     hikari:
       connection-test-query: SELECT 1
+  # redis 配置
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password: 1999.331.Wang123
+    timeout: 30000
 server:
   servlet:
     session:
@@ -32,6 +38,8 @@ mybatis-plus:
     call-setters-on-nulls: true
     # 这个配置会将执行的sql打印出来，在开发或测试的时候可以用
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
 
 
 debug: false

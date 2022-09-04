@@ -97,7 +97,6 @@ public class QuotationServiceImpl extends ServiceImpl<QuotationMapper, Quotation
     @Override
     public Page<TabStockPriceQuoteVO> stockTabList(TabSearchDTO searchCondition) {
         Page<TabStockPriceQuoteVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
-        page.addOrder(OrderItem.desc("T_ICIN1.U_QuoDate"));
         quotationMapper.selectStockList(page, searchCondition);
         return page;
     }
