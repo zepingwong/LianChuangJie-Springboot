@@ -4,10 +4,12 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lianchuangjie.lianchuangjie.dto.StockPriceOKDTO;
 import com.lianchuangjie.lianchuangjie.dto.search.StockPriceSearchDTO;
+import com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.StockPriceEntity;
 import com.lianchuangjie.lianchuangjie.mapper.StockPriceMapper;
 import com.lianchuangjie.lianchuangjie.service.StockPriceService;
 import com.lianchuangjie.lianchuangjie.vo.StockPriceVO;
+import com.lianchuangjie.lianchuangjie.vo.TabStockPriceBaseVO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -16,6 +18,7 @@ import javax.annotation.Resource;
 public class StockPriceServiceImpl extends ServiceImpl<StockPriceMapper, StockPriceEntity> implements StockPriceService {
     @Resource
     StockPriceMapper stockPriceMapper;
+
     @Override
     public Page<StockPriceVO> list(StockPriceSearchDTO searchCondition) {
         Page<StockPriceVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
@@ -25,9 +28,14 @@ public class StockPriceServiceImpl extends ServiceImpl<StockPriceMapper, StockPr
 
     @Override
     public Boolean update(StockPriceOKDTO stockPriceOKDTO) {
-        System.out.println(stockPriceOKDTO);
         return stockPriceMapper.update(stockPriceOKDTO);
-//        return null;
+    }
+
+    @Override
+    public Page<TabStockPriceBaseVO> tabList(TabSearchDTO searchCondition) {
+        Page<TabStockPriceBaseVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
+        stockPriceMapper.tabList(page, searchCondition);
+        return page;
     }
 
 }

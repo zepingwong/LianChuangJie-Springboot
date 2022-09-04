@@ -107,4 +107,29 @@
         </where>
 
     </select>
+    <select id="tabList" resultType="com.lianchuangjie.lianchuangjie.vo.TabStockPriceBaseVO">
+        SELECT kc_now.*,
+        SDADA.spq, /*spq*/
+        SDADA.packing,
+        SDADA.package,
+        SDADA.datasheet, /*技术资料url*/
+        SDADA.msl_new /*msl*/
+        FROM kc_now
+        LEFT JOIN SDADA ON SDADA.QuoBrand=kc_now.Brand AND SDADA.sno = kc_now.ItemName
+        WHERE
+        kc_now.ItemName IN (
+        SELECT
+        SDADA_1.sno
+        FROM
+        SDADA SDADA_1
+        WHERE
+        SDADA_1.TAG IN
+        (
+        SELECT SDADA.TAG FROM SDADA WHERE SDADA.sno IN
+        <foreach collection="sc.modleList " item="item" open="(" separator="," close=")" index="index">
+            '${item}'
+        </foreach>
+        )
+        )
+    </select>
 </mapper>
