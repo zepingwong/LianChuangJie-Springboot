@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
@@ -18,13 +20,16 @@ import java.util.Date;
 @Accessors(chain = true)
 public class StockPriceOKDTO {
     // 当前日期 DocDate
+    @NotNull(message = "库存定价日期不能为空")
     @JsonProperty("DocDate")
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date docDate;
     // 品牌 Brand
+    @NotBlank(message = "品牌不能为空")
     @JsonProperty("Brand")
     private String brand;
     // 型号 ItemName
+    @NotBlank(message = "型号不能为空")
     @JsonProperty("ItemName")
     private String itemName;
     // kc_price 库存定价
@@ -51,4 +56,7 @@ public class StockPriceOKDTO {
     // price_10w 10w+单价
     @JsonProperty("price_10w")
     private Float price10w;
+    // 最终定价
+    @JsonProperty("kc_price_final")
+    private Float kcPriceFinal;
 }

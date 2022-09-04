@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lianchuangjie.lianchuangjie.mapper.BrandMapper">
-
     <select id="selectByBuyer" resultType="com.lianchuangjie.lianchuangjie.vo.BrandItemVO" parameterType="java.lang.Long">
-        SELECT * FROM U_PUR2 WHERE OwnerCode = #{UserSign}
+        SELECT *
+        FROM U_PUR2
+        WHERE OwnerCode = #{UserSign}
+    </select>
+    <select id="selectAll" resultType="com.lianchuangjie.lianchuangjie.vo.BrandItemVO">
+        SELECT BrandName AS 'Brand'
+        FROM U_OBRA
     </select>
 </mapper>

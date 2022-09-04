@@ -2,6 +2,7 @@ package com.lianchuangjie.lianchuangjie.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.lianchuangjie.lianchuangjie.dto.StockPriceOKAllDTO;
 import com.lianchuangjie.lianchuangjie.dto.StockPriceOKDTO;
 import com.lianchuangjie.lianchuangjie.dto.search.StockPriceSearchDTO;
 import com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO;
@@ -25,12 +26,12 @@ public interface StockPriceService extends IService<StockPriceEntity> {
     Page<TabStockPriceBaseVO> tabList(TabSearchDTO tabSearchDTO);
 
     /**
-     * @param stockPriceOKDTO stockPriceOKDTO
+     * @param stockPriceOKAllDTO stockPriceOKDTO
      * @return Boolean
      * @description 一键OK
      * @author WANG Zeping
      * @email zepingwong@gmail.com
      * @date 9/4/2022
      */
-    Boolean updateALL(StockPriceOKDTO stockPriceOKDTO);
+    Boolean updateALL(StockPriceOKAllDTO stockPriceOKAllDTO);
 }

@@ -3,6 +3,7 @@ package com.lianchuangjie.lianchuangjie.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.lianchuangjie.lianchuangjie.dto.StockPriceOKAllDTO;
 import com.lianchuangjie.lianchuangjie.dto.StockPriceOKDTO;
 import com.lianchuangjie.lianchuangjie.dto.search.StockPriceSearchDTO;
 import com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO;
@@ -20,5 +21,5 @@ public interface StockPriceMapper extends BaseMapper<StockPriceEntity> {
     Boolean update(@Param("da") StockPriceOKDTO stockPriceOKDTO);
     IPage<TabStockPriceBaseVO> tabList(Page<TabStockPriceBaseVO> page, @Param("sc") TabSearchDTO searchCondition);
 
-    Boolean updateAll(@Param("sc") StockPriceOKDTO stockPriceOKDTO);
+    Boolean updateAll(@Param("sc") StockPriceOKAllDTO stockPriceOKAllDTO);
 }

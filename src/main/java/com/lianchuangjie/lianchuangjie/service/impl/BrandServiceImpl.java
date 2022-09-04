@@ -18,4 +18,9 @@ public class BrandServiceImpl extends ServiceImpl<BrandMapper, BrandEntity> impl
     public List<BrandItemVO> list(Long userSign) {
         return brandMapper.selectByBuyer(userSign);
     }
+
+    @Override
+    public List<BrandItemVO> all() {
+        return brandMapper.selectAll();
+    }
 }

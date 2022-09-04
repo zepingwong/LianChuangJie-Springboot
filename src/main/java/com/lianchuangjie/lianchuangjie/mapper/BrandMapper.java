@@ -13,4 +13,6 @@ import java.util.List;
 @Repository
 public interface BrandMapper extends BaseMapper<BrandEntity> {
     List<BrandItemVO> selectByBuyer(@Param("UserSign") Long userSign);
+
+    List<BrandItemVO> selectAll();
 }
