@@ -95,4 +95,13 @@ public class StockPriceController extends BaseController {
         return Result.success(res, "Success");
     }
 
+    @GetMapping("/price/calculate")
+    @Authentication(buyer = true)
+    public Result<String> recalculateController() {
+//        RedisUtil redisUtil = new RedisUtil();
+//        String status = redisUtil.getHashCache("LianChuangJie", "StockPrice").toString();
+//        return Result.success(status);
+        return null;
+    }
+
 }

@@ -155,6 +155,16 @@ public class TabStockPriceController {
         return Result.success(pages, "Success");
     }
 
+    /**
+     * @param page  page
+     * @param size  size
+     * @param modle modle
+     * @return Result
+     * @description 库存定价-采购报价TAB
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 9/4/2022
+     */
     @GetMapping("/stockprice/quote")
     @Authentication(buyer = true)
     public Result<Page<TabStockPriceQuoteVO>> getQuoteListController(@RequestParam(defaultValue = "#{null}", value = "page") Integer page, @RequestParam(defaultValue = "#{null}", value = "size") Integer size, @RequestParam(defaultValue = "#{null}", value = "Modle") String modle) {
