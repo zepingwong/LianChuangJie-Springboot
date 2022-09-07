@@ -160,8 +160,6 @@
             Round(kc_now.xs_avg7, 2) AS 'xs_avg7', /*xs_avg7*/
             Round(kc_now.xs_avg14, 2) AS 'xs_avg14', /*xs_avg14*/
             Round(kc_now.xs_avg30, 2) AS 'xs_avg30', /*xs_avg30*/
-            Round(kc_now.kc_price14, 2) AS 'kc_price14', /*kc_price14*/
-            Round(kc_now.kc_price30, 2) AS 'kc_price30', /*kc_price30*/
             kc_now.reference14, /*reference14*/
             kc_now.reference30, /*reference30*/
             SDADA.spq, /*spq*/
