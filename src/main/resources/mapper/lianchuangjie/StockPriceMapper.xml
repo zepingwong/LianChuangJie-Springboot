@@ -31,10 +31,10 @@
         WHERE DocDate = #{da.docDate}
     </update>
     <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.StockPriceVO">
-        DECLARE @PageSize INT
-        DECLARE @CurrentPage INT
-        SET @PageSize = ${sc.getSize} /*每页显示数量*/
-        SET @CurrentPage = ${sc.getPage} /*当前页码*/
+        DECLARE @PageSize INT;
+        DECLARE @CurrentPage INT;
+        SET @PageSize = ${sc.getSize}; /*每页显示数量*/
+        SET @CurrentPage = ${sc.getPage}; /*当前页码*/
         SELECT TOP (@PageSize) *
         FROM (
             SELECT
@@ -61,10 +61,10 @@
                     kc_now.unit_price_date, /*云汉价时间*/
                     kc_now.StockDays, /*库存天数*/
                     kc_now.Modify, /*是否人工修改*/
-                    Round(kc_now.kc_price7, 2) AS 'kc_price7' /*库存定价(7天)*/
+                    Round(kc_now.kc_price7, 2) AS 'kc_price7', /*库存定价(7天)*/
                     kc_now.reference7, /*七天定价参考*/
                     Round(kc_now.kc_price, 2) AS 'kc_price' , /*综合定价*/
-                    Round(kc_now.reference, 2) AS 'reference' , /*参考价格*/
+                    kc_now.reference AS 'reference' , /*参考价格*/
                     Round(kc_now.kc_price_final, 2) AS 'kc_price_final' , /*最终库存定价*/
                     kc_now.reference_final, /*最终参考价格*/
                     Round(kc_now.price_2w, 2) AS 'price_2w' , /*2w内单价*/
@@ -92,55 +92,56 @@
                     <if test="sc.needToday == true">
                         kc_now.DocDate IS NOT NULL
                     </if>
-                        <if test="sc.typeCode != null">
-                            AND kc_now.TypeCode = #{sc.typeCode}
-                        </if>
-                        <if test="sc.stockDays != null">
-                            AND kc_now.StockDays >= #{sc.stockDays}
-                        </if>
-                        <if test="sc.needReplenish == true">
-                            AND DateDiff(dd,kc_now.LastPurchaseDate,getdate()) > 7
-                        </if>
-                        <if test="sc.brand != null">
-                            AND kc_now.Brand = #{sc.brand}
-                        </if>
-                        <if test="sc.modle != null">
-                            AND kc_now.ItemName = #{sc.modle}
-                        </if>
-                        <if test="sc.pricingType == 0">
-                            AND (
+                    <if test="sc.typeCode != null">
+                        AND kc_now.TypeCode = #{sc.typeCode}
+                    </if>
+                    <if test="sc.stockDays != null">
+                        AND kc_now.StockDays >= #{sc.stockDays}
+                    </if>
+                    <if test="sc.needReplenish == true">
+                        AND DateDiff(dd,kc_now.LastPurchaseDate,getdate()) > 7
+                    </if>
+                    <if test="sc.brand != null">
+                        AND kc_now.Brand = #{sc.brand}
+                    </if>
+                    <if test="sc.modle != null">
+                        AND kc_now.ItemName = #{sc.modle}
+                    </if>
+                    <if test="sc.pricingType == 0">
+                        AND (
                             (kc_now.TypeCode = N'奇货可居' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 3)
                             OR (kc_now.TypeCode = N'特别关注' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 10)
                             OR (kc_now.TypeCode = N'热门型号' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 20)
                             OR (kc_now.TypeCode = N'普通库存' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 60)
                             OR (kc_now.TypeCode = N'呆滞物料' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 365)
-                            )
-                        </if>
-                        <if test="sc.pricingType == 1">
-                            AND (
+                        )
+                    </if>
+                    <if test="sc.pricingType == 1">
+                        AND (
+                            /*差异大于10%, 缺少最近一次定价也视为差异大于10%*/
                             T3.kc_price_final IS NULL OR
                             (kc_now.kc_price_final - T3.kc_price_final) /T3.kc_price_final >= 0.1
-                            )
-                        </if>
-                        <if test="sc.pricingType == 2">
-                            AND (
-                                (kc_now.TypeCode = N'奇货可居' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 3)
-                                OR (kc_now.TypeCode = N'特别关注' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 10)
-                                OR (kc_now.TypeCode = N'热门型号' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 20)
-                                OR (kc_now.TypeCode = N'普通库存' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 60)
-                                OR (kc_now.TypeCode = N'呆滞物料' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 365)
-                            )
-                            AND (
-                                T3.kc_price_final IS NULL OR
-                                (kc_now.kc_price_final - T3.kc_price_final) /T3.kc_price_final >= 0.1
-                            )
-                        </if>
-                        <if test="sc.modify != null">
-                            AND kc_know.Modify = #{sc.modify}
-                        </if>
-                    </where>
-                ) T
-            )TT
+                        )
+                    </if>
+                    <if test="sc.pricingType == 2">
+                        AND (
+                            (kc_now.TypeCode = N'奇货可居' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 3)
+                            OR (kc_now.TypeCode = N'特别关注' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 10)
+                            OR (kc_now.TypeCode = N'热门型号' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 20)
+                            OR (kc_now.TypeCode = N'普通库存' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 60)
+                            OR (kc_now.TypeCode = N'呆滞物料' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 365)
+                        )
+                        AND (
+                            T3.kc_price_final IS NULL OR
+                            (kc_now.kc_price_final - T3.kc_price_final) /T3.kc_price_final >= 0.1
+                        )
+                    </if>
+                    <if test="sc.modify != null">
+                        AND kc_know.Modify = #{sc.modify}
+                    </if>
+                </where>
+            ) T
+        )TT
     </select>
     <select id="tabList" resultType="com.lianchuangjie.lianchuangjie.vo.TabStockPriceBaseVO">
         SELECT
@@ -213,11 +214,11 @@
             </if>
             <if test="sc.pricingType == 0">
                 AND (
-                (kc_now.TypeCode = N'奇货可居' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 3)
-                OR (kc_now.TypeCode = N'特别关注' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 10)
-                OR (kc_now.TypeCode = N'热门型号' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 20)
-                OR (kc_now.TypeCode = N'普通库存' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 60)
-                OR (kc_now.TypeCode = N'呆滞物料' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 365)
+                    (kc_now.TypeCode = N'奇货可居' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 3)
+                    OR (kc_now.TypeCode = N'特别关注' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 10)
+                    OR (kc_now.TypeCode = N'热门型号' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 20)
+                    OR (kc_now.TypeCode = N'普通库存' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 60)
+                    OR (kc_now.TypeCode = N'呆滞物料' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 365)
                 )
             </if>
             <if test="sc.pricingType == 1">
@@ -228,15 +229,15 @@
             </if>
             <if test="sc.pricingType == 2">
                 AND (
-                (kc_now.TypeCode = N'奇货可居' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 3)
-                OR (kc_now.TypeCode = N'特别关注' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 10)
-                OR (kc_now.TypeCode = N'热门型号' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 20)
-                OR (kc_now.TypeCode = N'普通库存' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 60)
-                OR (kc_now.TypeCode = N'呆滞物料' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 365)
+                    (kc_now.TypeCode = N'奇货可居' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 3)
+                    OR (kc_now.TypeCode = N'特别关注' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 10)
+                    OR (kc_now.TypeCode = N'热门型号' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 20)
+                    OR (kc_now.TypeCode = N'普通库存' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 60)
+                    OR (kc_now.TypeCode = N'呆滞物料' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 365)
                 )
                 AND (
-                T3.kc_price_final IS NULL OR
-                (kc_now.kc_price_final - T3.kc_price_final) /T3.kc_price_final >= 0.1
+                    T3.kc_price_final IS NULL OR
+                    (kc_now.kc_price_final - T3.kc_price_final) /T3.kc_price_final >= 0.1
                 )
             </if>
             <if test="sc.modify != null">

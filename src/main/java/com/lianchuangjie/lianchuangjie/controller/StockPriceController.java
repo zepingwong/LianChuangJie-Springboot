@@ -20,7 +20,7 @@ import java.util.List;
 @RestController
 @Validated
 @RequestMapping("/stock")
-public class StockPriceController extends BaseController{
+public class StockPriceController extends BaseController {
     @Resource
     StockPriceService stockPriceService;
     @Resource
