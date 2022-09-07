@@ -10,6 +10,7 @@ import lombok.experimental.Accessors;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -98,16 +99,47 @@ public class StockPriceVO {
     // reference_final 最终参考价格
     @JsonProperty("reference_final")
     private String referenceFinal;
+    // 2w 区间
+    @JsonProperty("quan_2w")
+    private Integer quan2w;
     // price_2w 2w内单价
     @JsonProperty("price_2w")
     private Float price2w;
+
+    public Float getPrice2w() {
+        return (float) Math.round(price5w10w * 100) / 100;
+    }
+
+    // 2w-5w 区间
+    @JsonProperty("quan_2w_5w")
+    private Integer quan2w5w;
     // price_2w_5w 2w-5w单价
     @JsonProperty("price_2w_5w")
     private Float price2w5w;
+
+    public Float getPrice2w5w() {
+        return (float) Math.round(price5w10w * 100) / 100;
+    }
+
+    // 5w-10w 区间
+    @JsonProperty("quan_5w_10w")
+    private Integer quan5w10w;
     // price_5w_10w 5w_10w单价
     @JsonProperty("price_5w_10w")
     private Float price5w10w;
+
+    public Float getPrice5w10w() {
+        return (float) Math.round(price5w10w * 100) / 100;
+    }
+
+    // 10w 区间
+    @JsonProperty("quan_10w")
+    private Integer quan10w;
     // price_10w 10w+单价
     @JsonProperty("price_10w")
     private Float price10w;
+
+    public Float getPrice10w() {
+        return (float) Math.round(price5w10w * 100) / 100;
+    }
 }
