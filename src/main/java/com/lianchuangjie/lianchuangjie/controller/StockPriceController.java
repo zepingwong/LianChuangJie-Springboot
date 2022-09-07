@@ -67,7 +67,7 @@ public class StockPriceController extends BaseController{
      */
     @PatchMapping("/price")
     @Authentication(buyer = true)
-    public Result<Boolean> okController(@RequestBody StockPriceOKDTO stockPriceOKDTO) {
+    public Result<Boolean> okController(@RequestBody @Valid StockPriceOKDTO stockPriceOKDTO) {
         Boolean res = stockPriceService.update(stockPriceOKDTO);
         return Result.success(res, "Success");
     }
@@ -81,6 +81,7 @@ public class StockPriceController extends BaseController{
      * @date 9/4/2022
      */
     @PutMapping("/price")
+    @Authentication(buyer = true)
     public Result<Boolean> okAllController(@RequestBody @Valid StockPriceOKAllDTO stockPriceOKAllDTO) {
         Boolean res = stockPriceService.updateALL(stockPriceOKAllDTO);
         return Result.success(res, "Success");
