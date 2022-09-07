@@ -8,12 +8,16 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain = true)
 public class StockPriceVO {
+    // LineNum
+    @JsonProperty("LineNum")
+    private BigInteger lineNum;
     // 当前日期 DocDate
     @JsonProperty("DocDate")
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")

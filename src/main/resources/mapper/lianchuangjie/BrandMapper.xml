@@ -9,5 +9,6 @@
     <select id="selectAll" resultType="com.lianchuangjie.lianchuangjie.vo.BrandItemVO">
         SELECT BrandName AS 'Brand'
         FROM U_OBRA
+        WHERE BrandName LIKE CONCAT('%', #{Brand}, '%')
     </select>
 </mapper>

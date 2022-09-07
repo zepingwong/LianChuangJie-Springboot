@@ -24,5 +24,5 @@ public interface BrandService extends IService<BrandEntity> {
      * @email zepingwong@gmail.com
      * @date 9/4/2022
      */
-    List<BrandItemVO> all();
+    List<BrandItemVO> all(String brand);
 }

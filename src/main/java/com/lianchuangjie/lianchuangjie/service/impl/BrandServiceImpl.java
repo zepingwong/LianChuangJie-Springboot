@@ -20,7 +20,7 @@ public class BrandServiceImpl extends ServiceImpl<BrandMapper, BrandEntity> impl
     }
 
     @Override
-    public List<BrandItemVO> all() {
-        return brandMapper.selectAll();
+    public List<BrandItemVO> all(String brand) {
+        return brandMapper.selectAll(brand);
     }
 }

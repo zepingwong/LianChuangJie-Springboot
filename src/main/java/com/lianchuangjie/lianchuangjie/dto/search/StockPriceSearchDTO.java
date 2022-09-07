@@ -22,6 +22,7 @@ public class StockPriceSearchDTO {
     // 库存类型
     private String typeCode;
     // 处理情况
+    private String modify;
     // 库存天数
     private Integer stockDays;
     // 需要补价

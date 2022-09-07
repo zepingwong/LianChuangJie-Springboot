@@ -38,7 +38,9 @@ public class StockPriceController extends BaseController {
             @RequestParam(defaultValue = "#{null}", value = "Modle") String modle,
             @RequestParam(defaultValue = "#{null}", value = "StockDays") Integer stockDays,
             @RequestParam(defaultValue = "#{null}", value = "NeedReplenish") Boolean needReplenish,
-            @RequestParam(defaultValue = "#{null}", value = "PricingType") Integer pricingType) {
+            @RequestParam(defaultValue = "#{null}", value = "Modify") String modify,
+            @RequestParam(defaultValue = "#{null}", value = "PricingType") Integer pricingType
+    ) {
         StockPriceSearchDTO stockPriceSearchDTO = new StockPriceSearchDTO();
         stockPriceSearchDTO.setPage(page);
         stockPriceSearchDTO.setSize(size);
@@ -48,6 +50,7 @@ public class StockPriceController extends BaseController {
         stockPriceSearchDTO.setStockDays(stockDays);
         stockPriceSearchDTO.setNeedReplenish(needReplenish);
         stockPriceSearchDTO.setPricingType(pricingType);
+        stockPriceSearchDTO.setModify(modify);
         Page<StockPriceVO> pages = stockPriceService.list(stockPriceSearchDTO);
         return Result.success(pages, "Success");
     }
@@ -61,8 +64,10 @@ public class StockPriceController extends BaseController {
      */
     @GetMapping("/price/brand")
     @Authentication(buyer = true)
-    public Result<List<BrandItemVO>> getBrandListController() {
-        List<BrandItemVO> list = brandService.all();
+    public Result<List<BrandItemVO>> getBrandListController(
+            @RequestParam(defaultValue = "#{null}", value = "Brand") String brand
+    ) {
+        List<BrandItemVO> list = brandService.all(brand);
         return Result.success(list, "Success");
     }
 
