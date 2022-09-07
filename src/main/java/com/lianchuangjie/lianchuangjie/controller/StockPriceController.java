@@ -80,6 +80,21 @@ public class StockPriceController extends BaseController {
      * @email zepingwong@gmail.com
      * @date 9/4/2022
      */
+    @PostMapping("/price")
+    @Authentication(buyer = true)
+    public Result<Boolean> replenishAllController(@RequestBody @Valid StockPriceOKAllDTO stockPriceOKAllDTO) {
+        Boolean res = stockPriceService.updateALL(stockPriceOKAllDTO);
+        return Result.success(res, "Success");
+    }
+
+    /**
+     * @param stockPriceOKAllDTO stockPriceOKAllDTO
+     * @return Result
+     * @description 一键OK
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 9/4/2022
+     */
     @PutMapping("/price")
     @Authentication(buyer = true)
     public Result<Boolean> okAllController(@RequestBody @Valid StockPriceOKAllDTO stockPriceOKAllDTO) {
@@ -87,6 +102,13 @@ public class StockPriceController extends BaseController {
         return Result.success(res, "Success");
     }
 
+    /**
+     * @return Result
+     * @description 算法调用接口
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 9/7/2022
+     */
     @GetMapping("/price/calculate")
     @Authentication(buyer = true)
     public Result<String> recalculateController() {

@@ -142,17 +142,18 @@
                 </where>
             ) T
         )TT
+        WHERE TT.LineNum > (@CurrentPage - 1) * @PageSize
     </select>
     <select id="tabList" resultType="com.lianchuangjie.lianchuangjie.vo.TabStockPriceBaseVO">
         SELECT
             Round(kc_now.kc_price14, 2) AS 'kc_price14', /*库存定价(14天)*/
             Round(kc_now.kc_price30, 2) AS 'kc_price30', /*库存定价(14天)*/
-            Round(kc_now.LastSalePrice, 2) AS 'LastSaleDate', /*最近一次销售报价时间*/
-            Round(kc_now.LastSaleDate, 2) AS 'LastSalePrice', /*最近一次销售报价*/
+            Round(kc_now.LastSalePrice, 2) AS 'LastSalePrice', /*最近一次销售报价时间*/
+            kc_now.LastSaleDate, /*最近一次销售报价*/
             Round(kc_now.LastPurchasePrice, 2) AS 'LastPurchasePrice', /*最近一次采购报价*/
-            Round(kc_now.LastPurchaseDate, 2) AS 'LastPurchaseDate', /*最近一次采购报价时间*/
+            kc_now.LastPurchaseDate, /*最近一次采购报价时间*/
             Round(kc_now.unit_price, 2) AS 'unit_price', /*云汉价*/
-            Round(kc_now.unit_price_date, 2) AS 'unit_price_date', /*云汉价时间*/
+            kc_now.unit_price_date, /*云汉价时间*/
             Round(kc_now.cg_avg7, 2) AS 'cg_avg7', /*cg_avg7*/
             Round(kc_now.cg_avg14, 2) AS 'cg_avg14', /*cg_avg14*/
             Round(kc_now.cg_avg30, 2) AS 'cg_avg30', /*cg_avg30*/
@@ -160,9 +161,9 @@
             Round(kc_now.xs_avg14, 2) AS 'xs_avg14', /*xs_avg14*/
             Round(kc_now.xs_avg30, 2) AS 'xs_avg30', /*xs_avg30*/
             Round(kc_now.kc_price14, 2) AS 'kc_price14', /*kc_price14*/
-            Round(kc_now.kc_price30, 2) AS 'kc_price30', /*kc_price14*/
-            Round(kc_now.reference7, 2) AS 'reference7', /*reference7*/
-            Round(kc_now.reference30, 2) AS 'reference30', /*reference30*/
+            Round(kc_now.kc_price30, 2) AS 'kc_price30', /*kc_price30*/
+            kc_now.reference14, /*reference14*/
+            kc_now.reference30, /*reference30*/
             SDADA.spq, /*spq*/
             SDADA.packing,
             SDADA.package,

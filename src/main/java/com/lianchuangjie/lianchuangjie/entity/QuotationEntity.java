@@ -65,8 +65,6 @@ public class QuotationEntity {
      */
     @TableField(value = "U_QuoBrand")
     private String uQuoBrand;
-
-
     /**
      * @description 需求交期 U_Delivery
      */
@@ -122,44 +120,28 @@ public class QuotationEntity {
      */
     @TableField(value = "U_QuoModle")
     private String uQuoModle;
-    /**
-     * @description 报价数量 U_QuoQty
-     */
+    // 报价数量 U_QuoQty
     @TableField(value = "U_QuoQty")
     private BigDecimal uQuoQty;
-    /**
-     * @description 采购报价时间 U_QuoDate
-     */
+    // 采购报价时间 U_QuoDate
     @TableField(fill = FieldFill.INSERT, value = "U_QuoDate")
     private Date uQuoDate;
-    /**
-     * @description 供方报价 U_QuoPrice
-     */
+    // 供方报价 U_QuoPrice
     @TableField(value = "U_QuoPrice")
     private BigDecimal uQuoPrice;
-    /**
-     * @description 采购报价货币 U_QuoCurr
-     */
+    // 采购报价货币 U_QuoCurr
     @TableField(value = "U_QuoCurr")
     private String uQuoCurr;
-    /**
-     * @description 供方交期 U_QuoDelivery
-     */
+    // 供方交期 U_QuoDelivery
     @TableField(value = "U_QuoDelivery")
     private String uQuoDelivery;
-    /**
-     * @description 采购报价批次 U_QuoYear
-     */
+    // 采购报价批次 U_QuoYear
     @TableField(value = "U_QuoYear")
     private String uQuoYear;
-    /**
-     * @description 供方备注 U_QuoRemark
-     */
+    // 供方备注 U_QuoRemark
     @TableField(value = "U_QuoRemark")
     private String uQuoRemark;
-    /**
-     * @description 采购备注 U_Remark1
-     */
+    // 采购备注 U_Remark1
     @TableField(value = "U_Remark1")
     private String uRemark1;
     /**
@@ -172,9 +154,7 @@ public class QuotationEntity {
      */
     @TableField(value = "LineRemark")
     private String lineRemark;
-    /**
-     * @description U_KeyRemark 标记为重点询价原因说明
-     */
+    // U_KeyRemark 标记为重点询价原因说明；如果需要采购确认货源的“待确认”；如果是老客户（下过单）“”
     @TableField(value = "U_KeyRemark")
     private String uKeyRemark;
     /**
