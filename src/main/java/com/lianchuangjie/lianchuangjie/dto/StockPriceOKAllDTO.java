@@ -21,6 +21,6 @@ public class StockPriceOKAllDTO {
     // 当前日期 DocDate
     @NotNull(message = "库存定价日期不能为空")
     @JsonProperty("DocDate")
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd 00:00:00")
     private Date docDate;
 }

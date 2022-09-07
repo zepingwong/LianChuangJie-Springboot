@@ -10,7 +10,6 @@ import com.lianchuangjie.lianchuangjie.service.StockPriceService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
 import com.lianchuangjie.lianchuangjie.vo.BrandItemVO;
 import com.lianchuangjie.lianchuangjie.vo.StockPriceVO;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,11 +17,10 @@ import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.util.List;
 
-@Slf4j
-@Validated
 @RestController
+@Validated
 @RequestMapping("/stock")
-public class StockPriceController extends BaseController {
+public class StockPriceController extends BaseController{
     @Resource
     StockPriceService stockPriceService;
     @Resource
@@ -30,17 +28,7 @@ public class StockPriceController extends BaseController {
 
     @GetMapping("/price")
     @Authentication(buyer = true)
-    public Result<Page<StockPriceVO>> getStockPriceListController(
-            @RequestParam(defaultValue = "#{null}", value = "page") Integer page,
-            @RequestParam(defaultValue = "#{null}", value = "size") Integer size,
-            @RequestParam(defaultValue = "#{null}", value = "TypeCode") String typeCode,
-            @RequestParam(defaultValue = "#{null}", value = "Brand") String brand,
-            @RequestParam(defaultValue = "#{null}", value = "Modle") String modle,
-            @RequestParam(defaultValue = "#{null}", value = "StockDays") Integer stockDays,
-            @RequestParam(defaultValue = "#{null}", value = "NeedReplenish") Boolean needReplenish,
-            @RequestParam(defaultValue = "#{null}", value = "Modify") String modify,
-            @RequestParam(defaultValue = "#{null}", value = "PricingType") Integer pricingType
-    ) {
+    public Result<Page<StockPriceVO>> getStockPriceListController(@RequestParam(defaultValue = "#{null}", value = "page") Integer page, @RequestParam(defaultValue = "#{null}", value = "size") Integer size, @RequestParam(defaultValue = "#{null}", value = "TypeCode") String typeCode, @RequestParam(defaultValue = "#{null}", value = "Brand") String brand, @RequestParam(defaultValue = "#{null}", value = "Modle") String modle, @RequestParam(defaultValue = "#{null}", value = "StockDays") Integer stockDays, @RequestParam(defaultValue = "#{null}", value = "NeedReplenish") Boolean needReplenish, @RequestParam(defaultValue = "#{null}", value = "Modify") String modify, @RequestParam(defaultValue = "#{null}", value = "PricingType") Integer pricingType) {
         StockPriceSearchDTO stockPriceSearchDTO = new StockPriceSearchDTO();
         stockPriceSearchDTO.setPage(page);
         stockPriceSearchDTO.setSize(size);
@@ -64,9 +52,7 @@ public class StockPriceController extends BaseController {
      */
     @GetMapping("/price/brand")
     @Authentication(buyer = true)
-    public Result<List<BrandItemVO>> getBrandListController(
-            @RequestParam(defaultValue = "#{null}", value = "Brand") String brand
-    ) {
+    public Result<List<BrandItemVO>> getBrandListController(@RequestParam(defaultValue = "#{null}", value = "Brand") String brand) {
         List<BrandItemVO> list = brandService.all(brand);
         return Result.success(list, "Success");
     }
@@ -81,7 +67,7 @@ public class StockPriceController extends BaseController {
      */
     @PatchMapping("/price")
     @Authentication(buyer = true)
-    public Result<Boolean> okController(@RequestBody @Valid StockPriceOKDTO stockPriceOKDTO) {
+    public Result<Boolean> okController(@RequestBody StockPriceOKDTO stockPriceOKDTO) {
         Boolean res = stockPriceService.update(stockPriceOKDTO);
         return Result.success(res, "Success");
     }

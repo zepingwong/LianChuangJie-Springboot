@@ -1,11 +1,11 @@
 package com.lianchuangjie.lianchuangjie.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -17,12 +17,12 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Accessors(chain = true)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class StockPriceOKDTO {
     // 当前日期 DocDate
     @NotNull(message = "库存定价日期不能为空")
     @JsonProperty("DocDate")
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd 00:00:00")
     private Date docDate;
     // 品牌 Brand
     @NotBlank(message = "品牌不能为空")
@@ -32,18 +32,6 @@ public class StockPriceOKDTO {
     @NotBlank(message = "型号不能为空")
     @JsonProperty("ItemName")
     private String itemName;
-    // kc_price 库存定价
-    @JsonProperty("kc_price")
-    private Float kcPrice;
-    // reference7 参考价格
-    @JsonProperty("reference")
-    private String reference;
-    // kc_price_final 最终库存定价
-    @JsonProperty("kc_price_final")
-    private Float kcPrice_final;
-    // reference_final 最终参考价格
-    @JsonProperty("reference_final")
-    private String referenceFinal;
     // price_2w 2w内单价
     @JsonProperty("price_2w")
     private Float price2w;
