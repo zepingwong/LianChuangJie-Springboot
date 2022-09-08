@@ -27,11 +27,10 @@ public interface StockPriceService extends IService<StockPriceEntity> {
 
     /**
      * @param stockPriceOKAllDTO stockPriceOKDTO
-     * @return Boolean
      * @description 一键OK
      * @author WANG Zeping
      * @email zepingwong@gmail.com
      * @date 9/4/2022
      */
-    Boolean updateALL(StockPriceOKAllDTO stockPriceOKAllDTO);
+    void updateALL(StockPriceOKAllDTO stockPriceOKAllDTO);
 }

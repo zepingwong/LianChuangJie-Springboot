@@ -61,7 +61,6 @@ public class ReplenishDTO {
     }
     // Buyer 采购员
     private Integer uBuyer;
-
     // 报价状态
     private String lineInquiryStatus = String.valueOf('Y');
     /**

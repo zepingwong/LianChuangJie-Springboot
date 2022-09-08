@@ -70,9 +70,7 @@ public class QuotationController extends BaseController {
         // 报价状态，为 ”Y“ 表示已经 reply；”N“ 仅代表 save
         quotationSaveDTO.setUStatus("N");
         QuotationEntity quotationEntity = new QuotationEntity();
-        System.out.println(quotationSaveDTO);
         BeanUtils.copyProperties(quotationSaveDTO, quotationEntity);
-        System.out.println(quotationEntity);
         QueryWrapper<QuotationEntity> queryWrapper = new QueryWrapper<>();
         // T_ICIN1.LineNum表示报价次数
         queryWrapper.eq("DocEntry", quotationSaveDTO.getDocEntry());

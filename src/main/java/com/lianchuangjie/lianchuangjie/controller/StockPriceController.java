@@ -1,16 +1,21 @@
 package com.lianchuangjie.lianchuangjie.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lianchuangjie.lianchuangjie.config.Authentication;
+import com.lianchuangjie.lianchuangjie.dto.ReplenishDTO;
 import com.lianchuangjie.lianchuangjie.dto.StockPriceOKAllDTO;
 import com.lianchuangjie.lianchuangjie.dto.StockPriceOKDTO;
-import com.lianchuangjie.lianchuangjie.dto.StockPriceOKItemDTO;
 import com.lianchuangjie.lianchuangjie.dto.search.StockPriceSearchDTO;
+import com.lianchuangjie.lianchuangjie.entity.QuotationEntity;
 import com.lianchuangjie.lianchuangjie.service.BrandService;
+import com.lianchuangjie.lianchuangjie.service.QuotationService;
 import com.lianchuangjie.lianchuangjie.service.StockPriceService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
+import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
 import com.lianchuangjie.lianchuangjie.vo.BrandItemVO;
 import com.lianchuangjie.lianchuangjie.vo.StockPriceVO;
+import org.springframework.beans.BeanUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +29,8 @@ import java.util.List;
 public class StockPriceController extends BaseController {
     @Resource
     StockPriceService stockPriceService;
+    @Resource
+    QuotationService quotationService;
     @Resource
     BrandService brandService;
 
@@ -74,7 +81,7 @@ public class StockPriceController extends BaseController {
     }
 
     /**
-     * @param stockPriceOKAllDTO stockPriceOKAllDTO
+     * @param replenishDTO replenishDTO
      * @return Result
      * @description 一键OK
      * @author WANG Zeping
@@ -83,8 +90,16 @@ public class StockPriceController extends BaseController {
      */
     @PostMapping("/price")
     @Authentication(buyer = true)
-    public Result<Boolean> replenishAllController(@RequestBody @Valid StockPriceOKAllDTO stockPriceOKAllDTO) {
-        Boolean res = stockPriceService.updateALL(stockPriceOKAllDTO);
+    public Result<Boolean> replenishController(@RequestBody @Valid ReplenishDTO replenishDTO) {
+        QuotationEntity quotationEntity = new QuotationEntity();
+        BeanUtils.copyProperties(replenishDTO, quotationEntity);
+        quotationEntity.setDocEntry(Long.parseLong("0")); // 库存定价来的货源，DocEntry 为 0
+        QueryWrapper<QuotationEntity> queryWrapper = new QueryWrapper<>();
+        // T_ICIN1.LineNum表示报价次数
+        queryWrapper.eq("DocEntry", 0);
+        quotationEntity.setLineNum(quotationService.count(queryWrapper) + 1);
+        quotationEntity.setUBuyer(SessionUtil.getUserSign()); // 采购员编号
+        Boolean res = quotationService.save(quotationEntity);
         return Result.success(res, "Success");
     }
 

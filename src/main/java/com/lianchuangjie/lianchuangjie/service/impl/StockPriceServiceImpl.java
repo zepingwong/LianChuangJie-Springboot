@@ -8,6 +8,7 @@ import com.lianchuangjie.lianchuangjie.dto.StockPriceOKItemDTO;
 import com.lianchuangjie.lianchuangjie.dto.search.StockPriceSearchDTO;
 import com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.StockPriceEntity;
+import com.lianchuangjie.lianchuangjie.mapper.QuotationMapper;
 import com.lianchuangjie.lianchuangjie.mapper.StockPriceMapper;
 import com.lianchuangjie.lianchuangjie.service.StockPriceService;
 import com.lianchuangjie.lianchuangjie.vo.StockPriceVO;
@@ -44,7 +45,7 @@ public class StockPriceServiceImpl extends ServiceImpl<StockPriceMapper, StockPr
     }
 
     @Override
-    public Boolean updateALL(StockPriceOKAllDTO stockPriceOKAllDTO) {
+    public void updateALL(StockPriceOKAllDTO stockPriceOKAllDTO) {
         for (StockPriceOKItemDTO itemDTO : stockPriceOKAllDTO.getItems()) {
             StockPriceOKDTO stockPriceOKDTO = new StockPriceOKDTO();
             stockPriceOKDTO.setBrand(itemDTO.getBrand());
@@ -52,7 +53,5 @@ public class StockPriceServiceImpl extends ServiceImpl<StockPriceMapper, StockPr
             stockPriceOKDTO.setDocDate(stockPriceOKAllDTO.getDocDate());
             stockPriceMapper.updateALL(stockPriceOKDTO);
         }
-        return true;
     }
-
 }
