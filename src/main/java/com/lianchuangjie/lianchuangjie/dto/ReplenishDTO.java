@@ -42,10 +42,12 @@ public class ReplenishDTO {
     @NotNull(message = "报价货币不能为空")
     @JsonProperty("U_QuoCurr")
     private String uQuoCurr;
+
     public String getUQuoCurr() {
         String[] strList = uQuoCurr.split("\\+");
         return strList[0];
     }
+
     // 采购报价批次 T_ICIN1.U_QuoYear
     @JsonProperty("U_QuoYear")
     private String uQuoYear;
@@ -55,10 +57,12 @@ public class ReplenishDTO {
     private String uQuoDelivery;
     // 采购报价税率代码 U_QuoVatGroup
     private String uQuoVatGroup;
+
     public String getUQuoVatGroup() {
         String[] strList = uQuoCurr.split("\\+");
         return strList[1];
     }
+
     // Buyer 采购员
     private Integer uBuyer;
     // 报价状态
@@ -80,4 +84,16 @@ public class ReplenishDTO {
     // 采购报价供应商等级名称 U_QuoLevel
     @JsonProperty("U_QuoLevel")
     private String uQuoLevel;
+    /**
+     * @description 其他
+     */
+    // 采购备注 U_QuoRemark
+    @JsonProperty("U_QuoLevel")
+    private String uQuoRemark;
+    // StandPackage 标准包装
+    @JsonProperty("StanPackage")
+    private String stanPackage;
+    // 起订量
+    @JsonProperty("MinQty")
+    private Integer minQty;
 }

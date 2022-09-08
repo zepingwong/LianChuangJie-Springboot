@@ -1,5 +1,6 @@
 package com.lianchuangjie.lianchuangjie.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lianchuangjie.lianchuangjie.config.Authentication;
@@ -11,17 +12,22 @@ import com.lianchuangjie.lianchuangjie.entity.QuotationEntity;
 import com.lianchuangjie.lianchuangjie.service.BrandService;
 import com.lianchuangjie.lianchuangjie.service.QuotationService;
 import com.lianchuangjie.lianchuangjie.service.StockPriceService;
+import com.lianchuangjie.lianchuangjie.utils.HttpUtil;
 import com.lianchuangjie.lianchuangjie.utils.Result;
 import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
 import com.lianchuangjie.lianchuangjie.vo.BrandItemVO;
 import com.lianchuangjie.lianchuangjie.vo.StockPriceVO;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @Validated
@@ -33,6 +39,8 @@ public class StockPriceController extends BaseController {
     QuotationService quotationService;
     @Resource
     BrandService brandService;
+    @Resource
+    StringRedisTemplate stringRedisTemplate;
 
     @GetMapping("/price")
     @Authentication(buyer = true)
@@ -127,11 +135,25 @@ public class StockPriceController extends BaseController {
      */
     @GetMapping("/price/calculate")
     @Authentication(buyer = true)
-    public Result<String> recalculateController() {
-//        RedisUtil redisUtil = new RedisUtil();
-//        String status = redisUtil.getHashCache("LianChuangJie", "StockPrice").toString();
-//        return Result.success(status);
-        return null;
+    public Result<Boolean> recalculateController() {
+        String state = stringRedisTemplate.opsForValue().get("StockPrice");
+        if (Objects.equals(state, "1")) {
+            return Result.error(1, "算法正在运行，请稍后刷新结果");
+        } else {
+            stringRedisTemplate.opsForValue().set("StockPrice", "1");
+            String res;
+            try {
+                res = HttpUtil.jsonPost("http://192.168.16.174:5582/model_predict_one_day", null, null);
+                System.out.println(res);
+                if (res != null) {
+                    stringRedisTemplate.opsForValue().set("StockPrice", "0");
+                }
+            } catch (IOException e) {
+                stringRedisTemplate.opsForValue().set("StockPrice", "0");
+                throw new RuntimeException(e);
+            }
+            return Result.success(true, "更新成功");
+        }
     }
 
 }
