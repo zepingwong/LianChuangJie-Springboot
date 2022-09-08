@@ -25,10 +25,12 @@
         AND kc_now.Brand = #{da.brand}
         AND kc_now.DocDate = #{da.docDate}
     </update>
-    <update id="updateAll" parameterType="com.lianchuangjie.lianchuangjie.dto.StockPriceOKAllDTO">
+    <update id="updateALL" parameterType="com.lianchuangjie.lianchuangjie.dto.StockPriceOKAllDTO">
         UPDATE kc_now
         SET kc_now.Modify = 'Y'
         WHERE DocDate = #{da.docDate}
+        AND kc_now.Brand = #{da.brand}
+        AND kc_now.DocDate = #{da.docDate}
     </update>
     <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.StockPriceVO">
         DECLARE @PageSize INT;

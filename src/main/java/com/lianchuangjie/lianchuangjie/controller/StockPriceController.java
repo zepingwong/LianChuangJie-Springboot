@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lianchuangjie.lianchuangjie.config.Authentication;
 import com.lianchuangjie.lianchuangjie.dto.StockPriceOKAllDTO;
 import com.lianchuangjie.lianchuangjie.dto.StockPriceOKDTO;
+import com.lianchuangjie.lianchuangjie.dto.StockPriceOKItemDTO;
 import com.lianchuangjie.lianchuangjie.dto.search.StockPriceSearchDTO;
 import com.lianchuangjie.lianchuangjie.service.BrandService;
 import com.lianchuangjie.lianchuangjie.service.StockPriceService;
@@ -98,8 +99,8 @@ public class StockPriceController extends BaseController {
     @PutMapping("/price")
     @Authentication(buyer = true)
     public Result<Boolean> okAllController(@RequestBody @Valid StockPriceOKAllDTO stockPriceOKAllDTO) {
-        Boolean res = stockPriceService.updateALL(stockPriceOKAllDTO);
-        return Result.success(res, "Success");
+        stockPriceService.updateALL(stockPriceOKAllDTO);
+        return Result.success(true, "Success");
     }
 
     /**

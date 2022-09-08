@@ -50,6 +50,9 @@ public class QuotationSaveDTO {
     // U_QuoGroupCode 采购报价供应商性质
     @JsonProperty("U_QuoGroupCode")
     private String uQuoGroupCode;
+    // 采购报价供应商等级名称 U_QuoLevel
+    @JsonProperty("U_QuoLevel")
+    private String uQuoLevel;
     /**
      * @description 报价信息
      */
@@ -115,9 +118,6 @@ public class QuotationSaveDTO {
     // 标准包装 T_ICIN1.StanPackage
     @JsonProperty("StanPackage")
     private String stanPackage;
-    // 采购报价供应商等级名称 U_QuoLevel
-    @JsonProperty("U_QuoLevel")
-    private String uQuoLevel;
     // 供方备注 T_ICIN1.U_QuoRemark
     @JsonProperty("U_QuoRemark")
     private String uQuoRemark;

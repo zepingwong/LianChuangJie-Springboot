@@ -95,7 +95,7 @@ public class StockPriceVO {
     private String reference;
     // kc_price_final 最终库存定价
     @JsonProperty("kc_price_final")
-    private Float kcPrice_final;
+    private Float kcPriceFinal;
     // reference_final 最终参考价格
     @JsonProperty("reference_final")
     private String referenceFinal;
