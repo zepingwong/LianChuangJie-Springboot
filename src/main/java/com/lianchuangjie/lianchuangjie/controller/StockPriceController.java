@@ -143,7 +143,9 @@ public class StockPriceController extends BaseController {
             stringRedisTemplate.opsForValue().set("StockPrice", "1");
             String res;
             try {
-                res = HttpUtil.jsonPost("http://192.168.16.174:5582/model_predict_one_day", null, null);
+                JSONObject json = new JSONObject();
+                json.put("data", "111");
+                res = HttpUtil.jsonPost("http://192.168.16.174:5582/model_predict_one_day", null, json);
                 System.out.println(res);
                 if (res != null) {
                     stringRedisTemplate.opsForValue().set("StockPrice", "0");

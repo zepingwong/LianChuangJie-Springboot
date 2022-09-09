@@ -88,7 +88,7 @@ public class ReplenishDTO {
      * @description 其他
      */
     // 采购备注 U_QuoRemark
-    @JsonProperty("U_QuoLevel")
+    @JsonProperty("U_QuoRemark")
     private String uQuoRemark;
     // StandPackage 标准包装
     @JsonProperty("StanPackage")
