@@ -139,8 +139,9 @@
                         )
                     </if>
                     <if test="sc.modify != null">
-                        AND kc_know.Modify = #{sc.modify}
+                        AND kc_now.Modify = #{sc.modify}
                     </if>
+                AND DateDiff(dd,kc_now.DocDate,getdate())=0
                 </where>
             ) T
         )TT
@@ -215,11 +216,11 @@
             </if>
             <if test="sc.pricingType == 0">
                 AND (
-                    (kc_now.TypeCode = N'奇货可居' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 3)
-                    OR (kc_now.TypeCode = N'特别关注' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 10)
-                    OR (kc_now.TypeCode = N'热门型号' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 20)
-                    OR (kc_now.TypeCode = N'普通库存' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 60)
-                    OR (kc_now.TypeCode = N'呆滞物料' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 365)
+                    (kc_now.TypeCode = N'奇货可居' AND (DateDiff(dd, T3.DocDate, getdate()) >= 3 OR T3.DocDate IS NULL))
+                    OR (kc_now.TypeCode = N'特别关注' AND (DateDiff(dd, T3.DocDate, getdate()) >= 10 OR T3.DocDate IS NULL))
+                    OR (kc_now.TypeCode = N'热门型号' AND (DateDiff(dd, T3.DocDate, getdate()) >= 20 OR T3.DocDate IS NULL))
+                    OR (kc_now.TypeCode = N'普通库存' AND (DateDiff(dd, T3.DocDate, getdate()) >= 60 OR T3.DocDate IS NULL))
+                    OR (kc_now.TypeCode = N'呆滞物料' AND (DateDiff(dd, T3.DocDate, getdate()) >= 365 OR T3.DocDate IS NULL))
                 )
             </if>
             <if test="sc.pricingType == 1">
@@ -230,11 +231,11 @@
             </if>
             <if test="sc.pricingType == 2">
                 AND (
-                    (kc_now.TypeCode = N'奇货可居' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 3)
-                    OR (kc_now.TypeCode = N'特别关注' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 10)
-                    OR (kc_now.TypeCode = N'热门型号' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 20)
-                    OR (kc_now.TypeCode = N'普通库存' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 60)
-                    OR (kc_now.TypeCode = N'呆滞物料' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 365)
+                    (kc_now.TypeCode = N'奇货可居' AND (DateDiff(dd, T3.DocDate, getdate()) >= 3 OR T3.DocDate IS NULL))
+                    OR (kc_now.TypeCode = N'特别关注' AND (DateDiff(dd, T3.DocDate, getdate()) >= 10 OR T3.DocDate IS NULL))
+                    OR (kc_now.TypeCode = N'热门型号' AND (DateDiff(dd, T3.DocDate, getdate()) >= 20 OR T3.DocDate IS NULL))
+                    OR (kc_now.TypeCode = N'普通库存' AND (DateDiff(dd, T3.DocDate, getdate()) >= 60 OR T3.DocDate IS NULL))
+                    OR (kc_now.TypeCode = N'呆滞物料' AND (DateDiff(dd, T3.DocDate, getdate()) >= 365 OR T3.DocDate IS NULL))
                 )
                 AND (
                     T3.kc_price_final IS NULL OR
@@ -242,8 +243,9 @@
                 )
             </if>
             <if test="sc.modify != null">
-                AND kc_know.Modify = #{sc.modify}
+                AND kc_now.Modify = #{sc.modify}
             </if>
+            AND DateDiff(dd,kc_now.DocDate,getdate())=0
         </where>
     </select>
 </mapper>
