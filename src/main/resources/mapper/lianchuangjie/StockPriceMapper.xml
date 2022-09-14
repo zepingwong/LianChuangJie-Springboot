@@ -18,7 +18,8 @@
             </if>
             <if test="da.kcPriceFinal">
                 Modify = 'Y',
-                kc_price_final = #{da.kc_price_final}
+                kc_price_final = #{da.kcPriceFinal},
+                ConfirmDate = getdate()
             </if>
         </set>
         WHERE kc_now.ItemName = #{da.itemName}
@@ -55,41 +56,41 @@
                     kc_now.TypeCode, /*库存类型*/
                     kc_now.U_Secrecy, /*是否保密*/
                     kc_now.U_Price, /*库存成本价*/
-                    kc_now.LastSalePrice, /*最近一次销售报价*/
+                    Round(kc_now.LastSalePrice, 2) AS 'LastSalePrice', /*最近一次销售报价*/
                     kc_now.LastSaleDate, /*最近一次销售报价时间*/
-                    kc_now.LastPurchasePrice, /*最近一次采购报价*/
+                    Round(kc_now.LastPurchasePrice, 2) AS 'LastPurchasePrice', /*最近一次采购报价*/
                     kc_now.LastPurchaseDate, /*最近一次采购报价时间*/
                     kc_now.unit_price, /*云汉价*/
                     kc_now.unit_price_date, /*云汉价时间*/
                     kc_now.StockDays, /*库存天数*/
                     kc_now.Modify, /*是否人工修改*/
-                    Round(kc_now.kc_price7, 2) AS 'kc_price7', /*库存定价(7天)*/
+                    kc_now.kc_price7, /*库存定价(7天)*/
                     kc_now.reference7, /*七天定价参考*/
-                    Round(kc_now.kc_price, 2) AS 'kc_price' , /*综合定价*/
-                    kc_now.reference AS 'reference' , /*参考价格*/
-                    Round(kc_now.kc_price_final, 2) AS 'kc_price_final' , /*最终库存定价*/
+                    kc_now.kc_price , /*综合定价*/
+                    kc_now.reference, /*参考价格*/
+                    kc_now.kc_price_final , /*最终库存定价*/
                     kc_now.reference_final, /*最终参考价格*/
-                    Round(kc_now.price_2w, 2) AS 'price_2w' , /*2w内单价*/
+                    kc_now.price_2w , /*2w内单价*/
                     kc_now.quan_2w, /*2w区间*/
-                    Round(kc_now.price_2w_5w, 2) AS 'price_2w_5w' , /*2w-5w内单价*/
+                    kc_now.price_2w_5w , /*2w-5w内单价*/
                     kc_now.quan_2w_5w, /*2w-5w区间*/
-                    Round(kc_now.price_5w_10w, 2) AS 'price_5w_10w' , /*5w-10w内单价*/
+                    kc_now.price_5w_10w , /*5w-10w内单价*/
                     kc_now.quan_5w_10w, /*5w-10w区间*/
-                    Round(kc_now.price_10w, 2) AS 'price_10w' , /*10w+单价*/
+                    kc_now.price_10w , /*10w+单价*/
                     kc_now.quan_10w, /*10w+区间*/
-                    T3.DocDate AS 'LastPricingTime', /*最近一次定价时间*/
-                    Round(T3.kc_price_final, 2) AS 'LastPrice' /*最近一次定价单价*/
+                    T3.ConfirmDate AS 'LastPricingTime', /*最近一次定价时间*/
+                    T3.kc_price_final AS 'LastPrice' /*最近一次定价单价*/
                 FROM kc_now
                 LEFT JOIN (
                     SELECT T2.*
                     FROM (
-                        SELECT T0.Brand, T0.ItemName, MAX ( T0.DocDate ) AS DocDate
+                        SELECT T0.Brand, T0.ItemName, MAX ( T0.ConfirmDate ) AS ConfirmDate
                         FROM [dbo].[kc_now] T0
-                        WHERE T0.DocDate IS NOT NULL AND T0.Modify = 'Y'
+                        WHERE T0.ConfirmDate IS NOT NULL AND T0.Modify = 'Y'
                         GROUP BY T0.Brand, T0.ItemName
                     ) T1
-                    LEFT JOIN [dbo].[kc_now] T2 ON T2.Brand = T1.Brand AND T2.ItemName = T1.ItemName AND T2.DocDate = T1.DocDate
-                ) T3 ON T3.Brand = kc_now.Brand AND T3.ItemName = kc_now.ItemName AND T3.DocDate != kc_now.DocDate
+                    LEFT JOIN [dbo].[kc_now] T2 ON T2.Brand = T1.Brand AND T2.ItemName = T1.ItemName AND T2.ConfirmDate = T1.ConfirmDate
+                ) T3 ON T3.Brand = kc_now.Brand AND T3.ItemName = kc_now.ItemName
                 <where>
                     <if test="sc.needToday == true">
                         kc_now.DocDate IS NOT NULL
@@ -111,11 +112,11 @@
                     </if>
                     <if test="sc.pricingType == 0">
                         AND (
-                            (kc_now.TypeCode = N'奇货可居' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 3)
-                            OR (kc_now.TypeCode = N'特别关注' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 10)
-                            OR (kc_now.TypeCode = N'热门型号' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 20)
-                            OR (kc_now.TypeCode = N'普通库存' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 60)
-                            OR (kc_now.TypeCode = N'呆滞物料' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 365)
+                        (kc_now.TypeCode = N'奇货可居' AND (DateDiff(dd, T3.ConfirmDate, getdate()) >= 3 OR T3.ConfirmDate IS NULL))
+                        OR (kc_now.TypeCode = N'特别关注' AND (DateDiff(dd, T3.ConfirmDate, getdate()) >= 10 OR T3.ConfirmDate IS NULL))
+                        OR (kc_now.TypeCode = N'热门型号' AND (DateDiff(dd, T3.ConfirmDate, getdate()) >= 20 OR T3.ConfirmDate IS NULL))
+                        OR (kc_now.TypeCode = N'普通库存' AND (DateDiff(dd, T3.ConfirmDate, getdate()) >= 60 OR T3.ConfirmDate IS NULL))
+                        OR (kc_now.TypeCode = N'呆滞物料' AND (DateDiff(dd, T3.ConfirmDate, getdate()) >= 365 OR T3.ConfirmDate IS NULL))
                         )
                     </if>
                     <if test="sc.pricingType == 1">
@@ -127,11 +128,11 @@
                     </if>
                     <if test="sc.pricingType == 2">
                         AND (
-                            (kc_now.TypeCode = N'奇货可居' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 3)
-                            OR (kc_now.TypeCode = N'特别关注' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 10)
-                            OR (kc_now.TypeCode = N'热门型号' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 20)
-                            OR (kc_now.TypeCode = N'普通库存' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 60)
-                            OR (kc_now.TypeCode = N'呆滞物料' AND DateDiff(dd, kc_now.DocDate, getdate()) >= 365)
+                        (kc_now.TypeCode = N'奇货可居' AND (DateDiff(dd, T3.ConfirmDate, getdate()) >= 3 OR T3.ConfirmDate IS NULL))
+                        OR (kc_now.TypeCode = N'特别关注' AND (DateDiff(dd, T3.ConfirmDate, getdate()) >= 10 OR T3.ConfirmDate IS NULL))
+                        OR (kc_now.TypeCode = N'热门型号' AND (DateDiff(dd, T3.ConfirmDate, getdate()) >= 20 OR T3.ConfirmDate IS NULL))
+                        OR (kc_now.TypeCode = N'普通库存' AND (DateDiff(dd, T3.ConfirmDate, getdate()) >= 60 OR T3.ConfirmDate IS NULL))
+                        OR (kc_now.TypeCode = N'呆滞物料' AND (DateDiff(dd, T3.ConfirmDate, getdate()) >= 365 OR T3.ConfirmDate IS NULL))
                         )
                         AND (
                             T3.kc_price_final IS NULL OR
@@ -149,13 +150,13 @@
     </select>
     <select id="tabList" resultType="com.lianchuangjie.lianchuangjie.vo.TabStockPriceBaseVO">
         SELECT
-            Round(kc_now.kc_price14, 2) AS 'kc_price14', /*库存定价(14天)*/
-            Round(kc_now.kc_price30, 2) AS 'kc_price30', /*库存定价(14天)*/
-            Round(kc_now.LastSalePrice, 2) AS 'LastSalePrice', /*最近一次销售报价时间*/
+            kc_now.kc_price14, /*库存定价(14天)*/
+            kc_now.kc_price30, /*库存定价(14天)*/
+            Round(kc_now.LastSalePrice, 2) AS 'LastSalePrice', /*最近一次销售报价*/
             kc_now.LastSaleDate, /*最近一次销售报价*/
             Round(kc_now.LastPurchasePrice, 2) AS 'LastPurchasePrice', /*最近一次采购报价*/
             kc_now.LastPurchaseDate, /*最近一次采购报价时间*/
-            Round(kc_now.unit_price, 2) AS 'unit_price', /*云汉价*/
+            kc_now.unit_price, /*云汉价*/
             kc_now.unit_price_date, /*云汉价时间*/
             Round(kc_now.cg_avg7, 2) AS 'cg_avg7', /*cg_avg7*/
             Round(kc_now.cg_avg14, 2) AS 'cg_avg14', /*cg_avg14*/
@@ -188,13 +189,13 @@
         LEFT JOIN (
             SELECT T2.*
             FROM (
-                SELECT T0.Brand, T0.ItemName, MAX ( T0.DocDate ) AS DocDate
+                SELECT T0.Brand, T0.ItemName, MAX ( T0.ConfirmDate ) AS ConfirmDate
                 FROM [dbo].[kc_now] T0
-                WHERE T0.DocDate IS NOT NULL AND T0.Modify = 'Y'
+                WHERE T0.ConfirmDate IS NOT NULL AND T0.Modify = 'Y'
                 GROUP BY T0.Brand, T0.ItemName
             ) T1
-            LEFT JOIN [dbo].[kc_now] T2 ON T2.Brand = T1.Brand AND T2.ItemName = T1.ItemName AND T2.DocDate = T1.DocDate
-        ) T3 ON T3.Brand = kc_now.Brand AND T3.ItemName = kc_now.ItemName AND T3.DocDate != kc_now.DocDate
+            LEFT JOIN [dbo].[kc_now] T2 ON T2.Brand = T1.Brand AND T2.ItemName = T1.ItemName AND T2.ConfirmDate = T1.ConfirmDate
+        ) T3 ON T3.Brand = kc_now.Brand AND T3.ItemName = kc_now.ItemName
         <where>
             <if test="sc.needToday == true">
                 kc_now.DocDate IS NOT NULL
@@ -216,11 +217,11 @@
             </if>
             <if test="sc.pricingType == 0">
                 AND (
-                    (kc_now.TypeCode = N'奇货可居' AND (DateDiff(dd, T3.DocDate, getdate()) >= 3 OR T3.DocDate IS NULL))
-                    OR (kc_now.TypeCode = N'特别关注' AND (DateDiff(dd, T3.DocDate, getdate()) >= 10 OR T3.DocDate IS NULL))
-                    OR (kc_now.TypeCode = N'热门型号' AND (DateDiff(dd, T3.DocDate, getdate()) >= 20 OR T3.DocDate IS NULL))
-                    OR (kc_now.TypeCode = N'普通库存' AND (DateDiff(dd, T3.DocDate, getdate()) >= 60 OR T3.DocDate IS NULL))
-                    OR (kc_now.TypeCode = N'呆滞物料' AND (DateDiff(dd, T3.DocDate, getdate()) >= 365 OR T3.DocDate IS NULL))
+                (kc_now.TypeCode = N'奇货可居' AND (DateDiff(dd, T3.ConfirmDate, getdate()) >= 3 OR T3.ConfirmDate IS NULL))
+                OR (kc_now.TypeCode = N'特别关注' AND (DateDiff(dd, T3.ConfirmDate, getdate()) >= 10 OR T3.ConfirmDate IS NULL))
+                OR (kc_now.TypeCode = N'热门型号' AND (DateDiff(dd, T3.ConfirmDate, getdate()) >= 20 OR T3.ConfirmDate IS NULL))
+                OR (kc_now.TypeCode = N'普通库存' AND (DateDiff(dd, T3.ConfirmDate, getdate()) >= 60 OR T3.ConfirmDate IS NULL))
+                OR (kc_now.TypeCode = N'呆滞物料' AND (DateDiff(dd, T3.ConfirmDate, getdate()) >= 365 OR T3.ConfirmDate IS NULL))
                 )
             </if>
             <if test="sc.pricingType == 1">
@@ -231,11 +232,11 @@
             </if>
             <if test="sc.pricingType == 2">
                 AND (
-                    (kc_now.TypeCode = N'奇货可居' AND (DateDiff(dd, T3.DocDate, getdate()) >= 3 OR T3.DocDate IS NULL))
-                    OR (kc_now.TypeCode = N'特别关注' AND (DateDiff(dd, T3.DocDate, getdate()) >= 10 OR T3.DocDate IS NULL))
-                    OR (kc_now.TypeCode = N'热门型号' AND (DateDiff(dd, T3.DocDate, getdate()) >= 20 OR T3.DocDate IS NULL))
-                    OR (kc_now.TypeCode = N'普通库存' AND (DateDiff(dd, T3.DocDate, getdate()) >= 60 OR T3.DocDate IS NULL))
-                    OR (kc_now.TypeCode = N'呆滞物料' AND (DateDiff(dd, T3.DocDate, getdate()) >= 365 OR T3.DocDate IS NULL))
+                (kc_now.TypeCode = N'奇货可居' AND (DateDiff(dd, T3.ConfirmDate, getdate()) >= 3 OR T3.ConfirmDate IS NULL))
+                OR (kc_now.TypeCode = N'特别关注' AND (DateDiff(dd, T3.ConfirmDate, getdate()) >= 10 OR T3.ConfirmDate IS NULL))
+                OR (kc_now.TypeCode = N'热门型号' AND (DateDiff(dd, T3.ConfirmDate, getdate()) >= 20 OR T3.ConfirmDate IS NULL))
+                OR (kc_now.TypeCode = N'普通库存' AND (DateDiff(dd, T3.ConfirmDate, getdate()) >= 60 OR T3.ConfirmDate IS NULL))
+                OR (kc_now.TypeCode = N'呆滞物料' AND (DateDiff(dd, T3.ConfirmDate, getdate()) >= 365 OR T3.ConfirmDate IS NULL))
                 )
                 AND (
                     T3.kc_price_final IS NULL OR

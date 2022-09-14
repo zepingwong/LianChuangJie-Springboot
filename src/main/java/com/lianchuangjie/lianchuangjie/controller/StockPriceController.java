@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 
@@ -145,7 +144,7 @@ public class StockPriceController extends BaseController {
             try {
                 JSONObject json = new JSONObject();
                 json.put("data", "111");
-                res = HttpUtil.jsonPost("http://192.168.16.174:5582/model_predict_one_day", null, json);
+                res = HttpUtil.jsonPost("http://192.168.16.174:5582/model_predict_a_day", null, json);
                 System.out.println(res);
                 if (res != null) {
                     stringRedisTemplate.opsForValue().set("StockPrice", "0");

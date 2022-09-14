@@ -53,17 +53,17 @@ public class StockPriceVO {
     private String uSecrecy;
     // 库存成本价 U_Price
     @JsonProperty("U_Price")
-    private Float uPrice;
+    private BigDecimal uPrice;
     // 最近一次销售报价 LastSalePrice
     @JsonProperty("LastSalePrice")
-    private Float lastSalePrice;
+    private BigDecimal lastSalePrice;
     // 最近一次销售报价时间 LastSaleDate
     @JsonProperty("LastSaleDate")
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date lastSaleDate;
     // 最近一次采购报价 LastPurchasePrice
     @JsonProperty("LastPurchasePrice")
-    private Float lastPurchasePrice;
+    private BigDecimal lastPurchasePrice;
     // 最近一次采购报价时间 LastPurchaseDate
     @JsonProperty("LastPurchaseDate")
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
@@ -77,25 +77,25 @@ public class StockPriceVO {
     private Date lastPricingTime;
     // 最近一次定价 LastPrice
     @JsonProperty("LastPrice")
-    private Float lastPrice;
+    private BigDecimal lastPrice;
     // 是否人工修改 Modify
     @JsonProperty("Modify")
     private String modify;
     // kc_price7 库存定价(7天)
     @JsonProperty("kc_price7")
-    private Float kcPrice7;
+    private BigDecimal kcPrice7;
     // reference7 参考价格(7天)
     @JsonProperty("reference7")
     private String reference7;
     // kc_price 库存定价
     @JsonProperty("kc_price")
-    private Float kcPrice;
+    private BigDecimal kcPrice;
     // reference7 参考价格
     @JsonProperty("reference")
     private String reference;
     // kc_price_final 最终库存定价
     @JsonProperty("kc_price_final")
-    private Float kcPriceFinal;
+    private BigDecimal kcPriceFinal;
     // reference_final 最终参考价格
     @JsonProperty("reference_final")
     private String referenceFinal;
@@ -104,23 +104,23 @@ public class StockPriceVO {
     private Integer quan2w;
     // price_2w 2w内单价
     @JsonProperty("price_2w")
-    private Float price2w;
+    private BigDecimal price2w;
     // 2w-5w 区间
     @JsonProperty("quan_2w_5w")
     private Integer quan2w5w;
     // price_2w_5w 2w-5w单价
     @JsonProperty("price_2w_5w")
-    private Float price2w5w;
+    private BigDecimal price2w5w;
     // 5w-10w 区间
     @JsonProperty("quan_5w_10w")
     private Integer quan5w10w;
     // price_5w_10w 5w_10w单价
     @JsonProperty("price_5w_10w")
-    private Float price5w10w;
+    private BigDecimal price5w10w;
     // 10w 区间
     @JsonProperty("quan_10w")
     private Integer quan10w;
     // price_10w 10w+单价
     @JsonProperty("price_10w")
-    private Float price10w;
+    private BigDecimal price10w;
 }
