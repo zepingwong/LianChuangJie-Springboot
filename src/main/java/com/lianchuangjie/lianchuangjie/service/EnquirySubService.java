@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.EnquirySubEntity;
-import com.lianchuangjie.lianchuangjie.vo.EnquirySubVO;
+import com.lianchuangjie.lianchuangjie.vo.EnquirySubItemVO;
 import com.lianchuangjie.lianchuangjie.vo.TabEnquiryNeedsVO;
 import com.lianchuangjie.lianchuangjie.vo.TabQuotationNeedsVO;
 import com.lianchuangjie.lianchuangjie.vo.TabStockPriceEnquiryVO;
@@ -12,7 +12,7 @@ import com.lianchuangjie.lianchuangjie.vo.TabStockPriceEnquiryVO;
 import java.util.List;
 
 public interface EnquirySubService extends IService<EnquirySubEntity> {
-    List<EnquirySubVO> list(Long docEntry);
+    List<EnquirySubItemVO> list(Long docEntry);
 
     /**
      * @param tabSearchDTO tabSearchDTO

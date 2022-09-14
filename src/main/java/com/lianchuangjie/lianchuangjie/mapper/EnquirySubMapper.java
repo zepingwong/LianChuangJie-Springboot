@@ -3,9 +3,10 @@ package com.lianchuangjie.lianchuangjie.mapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.lianchuangjie.lianchuangjie.dto.search.EnquirySubSearchDTO;
 import com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.EnquirySubEntity;
-import com.lianchuangjie.lianchuangjie.vo.EnquirySubVO;
+import com.lianchuangjie.lianchuangjie.vo.EnquirySubItemVO;
 import com.lianchuangjie.lianchuangjie.vo.TabEnquiryNeedsVO;
 import com.lianchuangjie.lianchuangjie.vo.TabQuotationNeedsVO;
 import com.lianchuangjie.lianchuangjie.vo.TabStockPriceEnquiryVO;
@@ -18,7 +19,7 @@ import java.util.List;
 @Mapper
 @Repository
 public interface EnquirySubMapper extends BaseMapper<EnquirySubEntity> {
-    List<EnquirySubVO> selectList(@Param("ew") QueryWrapper<EnquirySubVO> queryWrapper);
+    List<EnquirySubItemVO> selectList(@Param("sc") EnquirySubSearchDTO enquirySubSearchDTO);
 
     /**
      * @param page         page

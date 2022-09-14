@@ -2,102 +2,32 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lianchuangjie.lianchuangjie.mapper.EnquirySubMapper">
 
-    <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.EnquirySubVO">
-        /*创建临表，将有效的最低报价都放到临表里面，可能存在某个型号有多个最低货源的情况，所以这里其实需要一个ORDER BY*/
-        SELECT T2.* INTO #temp
-        FROM
-        (
-        SELECT T0.U_QuoModle, T0.U_QuoBrand, MIN ( T0.U_QuoPrice ) AS U_QuoPrice
-        FROM T_ICIN1 T0
-        WHERE T0.U_QuoPrice IS NOT NULL
-        GROUP BY T0.U_QuoModle, T0.U_QuoBrand
-        ) T1
-        LEFT JOIN T_ICIN1 T2 ON ( T1.U_QuoBrand = T2.U_QuoBrand AND T1.U_QuoModle = T2.U_QuoModle AND T1.U_QuoPrice =
-        T2.U_QuoPrice )
-        LEFT JOIN T_OUSI ON T2.U_Buyer = T_OUSI.UserSign
-        LEFT JOIN T_OCDP ON T_OUSI.DftDept = T_OCDP.DeptCode
-        /*海外组、大中华组2天有效；亚洲组、欧洲组、北美组3天内有效*/
-        WHERE ((
-        T_OCDP.Name IN (N'海外组', N'大中华组') AND DateDiff(dd,T2.U_QuoDate,getdate())&lt;=30
-        ) OR (
-        T_OCDP.Name IN (N'亚洲组', N'欧洲组', N'北美组') AND DateDiff(dd,T2.U_QuoDate,getdate())&lt;=30
-        ))
-        ORDER BY T2.U_QuoDate DESC;
-        SELECT
-        U_ICIN1.LineNum, /*LineNum*/
-        U_ICIN1.ItemId, /*ItemId*/
-        U_ICIN1.Modle, /*需求型号*/
-        U_ICIN1.Brand, /*需求品牌*/
-        U_ICIN1.DemandQty, /*需求数量*/
-        U_ICIN1.ECCN, /*ECCN*/
-        U_ICIN1.Delivery, /*需求交期*/
-        U_ICIN1.Year, /*批次*/
-        U_ICIN1.CurRemark, /*客户备注*/
-        U_ICIN1.ExpectedPrice, /*接受价格*/
-        U_ICIN1.Status, /*询价状态*/
-        U_ICIN1.ItemDescStatus, /*询价状态*/
-        T_ICIN.InquiryDate, /*询价日期*/
-        U_ICIN1.ExpDate, /*失效时间*/
-        U_ICIN1.LineRemark, /*销售备注*/
-        U_ICIN1.PriceAfVAT, /*销售报价*/
-        U_ICIN1.DocEntry, /*采购报价单号*/
-        U_ICIN1.BaseLine, /*采购报价行号*/
-        /*需要采购报价，已选择货源则返回选定货源信息，否则返回推荐货源，若没有有效的推荐货源则为null*/
-        (CASE WHEN U_ICIN1.Status = 'B' AND U_ICIN1.BaseEntry IS NOT NULL THEN T_ICIN1_2.U_QuoModle /*采购报价，且已选择货源*/
-        WHEN U_ICIN1.Status = 'B' AND U_ICIN1.BaseEntry IS NULL THEN T_ICIN1_1.U_QuoModle /*采购报价，未选择货源*/
-        WHEN U_ICIN1.PriceAfVAT IS NOT NULL THEN U_ICIN1.QuoModle /*非采购报价，销售员已报价*/
-        END) AS 'QuoModle', /*报价型号*/
-        (CASE WHEN U_ICIN1.Status = 'B' AND U_ICIN1.BaseEntry IS NOT NULL THEN T_ICIN1_2.U_QuoDelivery /*采购报价，且已选择货源*/
-        WHEN U_ICIN1.Status = 'B' AND U_ICIN1.BaseEntry IS NULL THEN T_ICIN1_1.U_QuoDelivery /*采购报价，未选择货源*/
-        WHEN U_ICIN1.PriceAfVAT IS NOT NULL THEN U_ICIN1.SuoDelivery /*非采购报价，销售员已报价*/
-        END) AS 'SuoDelivery', /*报价交期*/
-        (CASE WHEN U_ICIN1.Status = 'B' AND U_ICIN1.BaseEntry IS NOT NULL THEN T_ICIN1_2.U_QuoYear /*采购报价，且已选择货源*/
-        WHEN U_ICIN1.Status = 'B' AND U_ICIN1.BaseEntry IS NULL THEN T_ICIN1_1.U_QuoYear /*采购报价，未选择货源*/
-        WHEN U_ICIN1.PriceAfVAT IS NOT NULL THEN U_ICIN1.SuoYear /*非采购报价，销售员已报价*/
-        END) AS 'SuoYear', /*报价批次*/
-        (CASE WHEN U_ICIN1.Status = 'B' AND U_ICIN1.BaseEntry IS NOT NULL THEN T_ICIN1_2.U_QuoQty /*采购报价，且已选择货源*/
-        WHEN U_ICIN1.Status = 'B' AND U_ICIN1.BaseEntry IS NULL THEN T_ICIN1_1.U_QuoQty /*采购报价，未选择货源*/
-        WHEN U_ICIN1.PriceAfVAT IS NOT NULL THEN U_ICIN1.SuoQuantity /*非采购报价，销售员已报价*/
-        END) AS 'SuoQuantity', /*报价数量*/
-        IIF(U_ICIN1.Status = 'B' , IIF(U_ICIN1.BaseEntry IS NULL, T_ICIN1_1.U_QuoPrice, T_ICIN1_1.U_QuoPrice), null) AS
-        'QuoPrice', /*供方报价*/
-        IIF(U_ICIN1.Status = 'B' , IIF(U_ICIN1.BaseEntry IS NULL, T_ICIN1_1.U_QuoLevel, T_ICIN1_1.U_QuoLevel), null) AS
-        'U_QuoLevel', /*供方等级*/
-        IIF(U_ICIN1.Status = 'B' , IIF(U_ICIN1.BaseEntry IS NULL, T_ICIN1_1.U_QCDesc, T_ICIN1_1.U_QCDesc), null) AS
-        'U_QCDesc',/*质检标准*/
-        IIF(U_ICIN1.Status = 'B' , IIF(U_ICIN1.BaseEntry IS NULL, T_OCDP_1.Name, T_OCDP_1.Name), null) AS
-        'U_DftDeptName', /*货源*/
-        IIF(U_ICIN1.Status = 'B' , IIF(U_ICIN1.BaseEntry IS NULL, T_ICIN1_1.U_QuoDate, T_ICIN1_2.U_QuoDate), null) AS
-        'U_QuoDate',/*报价日期*/
-        IIF(U_ICIN1.Status = 'B' , IIF(U_ICIN1.BaseEntry IS NULL, T_OUSI_1.UserName, T_OUSI_2.UserName), null) AS
-        'SuoBuyerName',/*采购员姓名*/
-        ( SELECT COUNT ( * ) FROM T_ICIN1 WHERE T_ICIN1.U_BaseEntry = U_ICIN1.DocEntry AND T_ICIN1.U_BaseLine =
-        U_ICIN1.LineNum ) AS 'PurchaseReply' /*采购回复*/
-        FROM U_ICIN1
-        LEFT JOIN T_ICIN1 T_ICIN1_1 ON (T_ICIN1_1.U_QuoModle = U_ICIN1.Modle AND T_ICIN1_1.U_QuoBrand = U_ICIN1.Brand
-        AND T_ICIN1_1.DocEntry = (
-        SELECT TOP ( 1 ) #temp.DocEntry
-        FROM #temp
-        WHERE #temp.U_QuoModle = U_ICIN1.Modle AND #temp.U_QuoBrand = U_ICIN1.Brand
-        )
-        AND T_ICIN1_1.LineNum = (
-        SELECT TOP ( 1 ) #temp.LineNum
-        FROM #temp
-        WHERE #temp.U_QuoModle = U_ICIN1.Modle AND #temp.U_QuoBrand = U_ICIN1.Brand
-        ))
-        LEFT JOIN T_ICIN ON T_ICIN.DocEntry = U_ICIN1.DocEntry
-        LEFT JOIN T_ICIN1 T_ICIN1_2 ON T_ICIN1_2.DocEntry = U_ICIN1.BaseEntry AND T_ICIN1_2.LineNum = U_ICIN1.BaseLine
-        LEFT JOIN T_OUSI T_OUSI_1 ON T_OUSI_1.UserSign = T_ICIN1_1.U_Buyer /*推荐的货源匹配采购员信息*/
-        LEFT JOIN T_OUSI T_OUSI_2 ON T_OUSI_2.UserSign = T_ICIN1_2.U_Buyer /*已选择的货源匹配采购员信息*/
-        LEFT JOIN T_OCDP T_OCDP_1 ON T_OCDP_1.DeptCode = T_OUSI_1.DftDept /*推荐的货源匹配采购部门信息*/
-        LEFT JOIN T_OCDP T_OCDP_2 ON T_OCDP_2.DeptCode = T_OUSI_2.DftDept /*已选择的货源匹配采购部门信息*/
-        <where>
-            ${ew.getSqlSegment()}
-            /*只显示客户原始需求*/
-            AND (U_ICIN1.LineNum = U_ICIN1.ItemId OR U_ICIN1.ItemId IS NULL)
-        </where>
-        /*释放临表*/
-        DROP TABLE #temp;
+    <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.EnquirySubItemVO">
+        DECLARE	@DocEntry INT; /*询价单编号*/
+        SET @DocEntry = 192911;
+        SELECT *
+        FROM (
+            SELECT U_ICIN1.*
+            FROM U_ICIN1
+            LEFT JOIN T_ICIN ON U_ICIN1.DocEntry = T_ICIN.DocEntry
+            WHERE T_ICIN.DocEntry = @DocEntry
+        ) AS ClientNeeds /*客户需求*/
+        LEFT JOIN (
+            SELECT T_ICIN1.*
+            FROM T_ICIN1
+            LEFT JOIN T_OUSI ON T_ICIN1.U_Buyer = T_OUSI.UserSign
+            LEFT JOIN T_OCDP ON T_OUSI.DftDept = T_OCDP.DeptCode
+            WHERE(
+                /*海外组、大中华组2天有效；亚洲组、欧洲组、北美组3天内有效*/
+                ( T_OCDP.Name IN ( N'海外组', N'大中华组' ) AND DateDiff( dd, T_ICIN1.U_QuoDate, getdate( ) ) &lt;= 30 ) OR
+                (T_OCDP.Name IN ( N'亚洲组', N'欧洲组', N'北美组' ) AND DateDiff( dd, T_ICIN1.U_QuoDate, getdate( ) ) &lt;= 30 )
+            )
+            AND T_ICIN1.U_Status = 'Y' /*采购已回复*/
+        ) AvailableSource ON (
+            AvailableSource.U_QuoBrand = ClientNeeds.Brand
+            AND AvailableSource.U_QuoModle = ClientNeeds.Modle
+        )/*有效货源*/
+        ORDER BY ClientNeeds.LineNum
     </select>
     <select id="selectQuotationTabList" resultType="com.lianchuangjie.lianchuangjie.vo.TabQuotationNeedsVO">
         SELECT

@@ -1,24 +1,21 @@
 package com.lianchuangjie.lianchuangjie.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
+import com.lianchuangjie.lianchuangjie.dto.search.EnquirySubSearchDTO;
 import com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO;
-import com.lianchuangjie.lianchuangjie.entity.EnquiryMainEntity;
 import com.lianchuangjie.lianchuangjie.entity.EnquirySubEntity;
 import com.lianchuangjie.lianchuangjie.mapper.EnquirySubMapper;
 import com.lianchuangjie.lianchuangjie.service.EnquirySubService;
 import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
-import com.lianchuangjie.lianchuangjie.vo.EnquirySubVO;
-import com.lianchuangjie.lianchuangjie.vo.TabEnquiryNeedsVO;
-import com.lianchuangjie.lianchuangjie.vo.TabQuotationNeedsVO;
-import com.lianchuangjie.lianchuangjie.vo.TabStockPriceEnquiryVO;
+import com.lianchuangjie.lianchuangjie.vo.*;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class EnquirySubServiceImpl extends ServiceImpl<EnquirySubMapper, EnquirySubEntity> implements EnquirySubService {
@@ -26,14 +23,24 @@ public class EnquirySubServiceImpl extends ServiceImpl<EnquirySubMapper, Enquiry
     EnquirySubMapper enquirySubMapper;
 
     @Override
-    public List<EnquirySubVO> list(Long docEntry) {
+    public List<EnquirySubItemVO> list(Long docEntry) {
         Long userSign = SessionUtil.getUserSign();
-        QueryWrapper<EnquirySubVO> queryWrapper = new QueryWrapper<>();
-        String mainTable = SqlHelper.table(EnquiryMainEntity.class).getTableName();
-        String subTable = SqlHelper.table(EnquirySubEntity.class).getTableName();
-        queryWrapper.eq(subTable + ".DocEntry", docEntry);
-        queryWrapper.eq(mainTable + ".OwnerCode", userSign);
-        return enquirySubMapper.selectList(queryWrapper);
+        EnquirySubSearchDTO enquirySubSearchDTO = new EnquirySubSearchDTO();
+        enquirySubSearchDTO.setDocEntry(docEntry);
+        enquirySubSearchDTO.setOwnerCode(userSign);
+        List<EnquirySubItemVO> list = enquirySubMapper.selectList(enquirySubSearchDTO);
+        List<EnquirySubItemVO> parent = new ArrayList<>();
+        Long lineNum = 0L;
+        // 先构造父级List
+        for (EnquirySubItemVO enquirySubItemVO: list) {
+            if (!Objects.equals(enquirySubItemVO.getLineNum(), lineNum)) {
+                parent.add(enquirySubItemVO);
+                lineNum = enquirySubItemVO.getLineNum();
+            }
+        }
+        List<EnquirySubVO> res = new ArrayList<>();
+
+        return list;
     }
 
     /**

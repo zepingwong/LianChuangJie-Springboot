@@ -54,8 +54,8 @@ public class EnquiryController extends BaseController {
 
     @GetMapping("/sub")
     @Authentication(sale = true)
-    public Result<List<EnquirySubVO>> enquirySubController(@RequestParam(defaultValue = "#{null}", value = "DocEntry") Long docEntry) {
-        List<EnquirySubVO> list = enquirySubService.list(docEntry);
+    public Result<List<EnquirySubItemVO>> enquirySubController(@RequestParam(defaultValue = "#{null}", value = "DocEntry") Long docEntry) {
+        List<EnquirySubItemVO> list = enquirySubService.list(docEntry);
         return Result.success(list, "Success");
     }
 
