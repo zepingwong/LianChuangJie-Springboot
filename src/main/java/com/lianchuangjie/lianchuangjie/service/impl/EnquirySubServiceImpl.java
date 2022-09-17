@@ -9,13 +9,14 @@ import com.lianchuangjie.lianchuangjie.entity.EnquirySubEntity;
 import com.lianchuangjie.lianchuangjie.mapper.EnquirySubMapper;
 import com.lianchuangjie.lianchuangjie.service.EnquirySubService;
 import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
-import com.lianchuangjie.lianchuangjie.vo.*;
+import com.lianchuangjie.lianchuangjie.vo.EnquirySubVO;
+import com.lianchuangjie.lianchuangjie.vo.TabEnquiryNeedsVO;
+import com.lianchuangjie.lianchuangjie.vo.TabQuotationNeedsVO;
+import com.lianchuangjie.lianchuangjie.vo.TabStockPriceEnquiryVO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class EnquirySubServiceImpl extends ServiceImpl<EnquirySubMapper, EnquirySubEntity> implements EnquirySubService {
@@ -23,24 +24,12 @@ public class EnquirySubServiceImpl extends ServiceImpl<EnquirySubMapper, Enquiry
     EnquirySubMapper enquirySubMapper;
 
     @Override
-    public List<EnquirySubItemVO> list(Long docEntry) {
+    public List<EnquirySubVO> list(Long docEntry) {
         Long userSign = SessionUtil.getUserSign();
         EnquirySubSearchDTO enquirySubSearchDTO = new EnquirySubSearchDTO();
         enquirySubSearchDTO.setDocEntry(docEntry);
         enquirySubSearchDTO.setOwnerCode(userSign);
-        List<EnquirySubItemVO> list = enquirySubMapper.selectList(enquirySubSearchDTO);
-        List<EnquirySubItemVO> parent = new ArrayList<>();
-        Long lineNum = 0L;
-        // 先构造父级List
-        for (EnquirySubItemVO enquirySubItemVO: list) {
-            if (!Objects.equals(enquirySubItemVO.getLineNum(), lineNum)) {
-                parent.add(enquirySubItemVO);
-                lineNum = enquirySubItemVO.getLineNum();
-            }
-        }
-        List<EnquirySubVO> res = new ArrayList<>();
-
-        return list;
+        return enquirySubMapper.selectList(enquirySubSearchDTO);
     }
 
     /**
