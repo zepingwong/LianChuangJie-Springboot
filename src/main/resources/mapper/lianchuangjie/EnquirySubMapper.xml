@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lianchuangjie.lianchuangjie.mapper.EnquirySubMapper">
+    <update id="updateOne" parameterType="com.lianchuangjie.lianchuangjie.entity.EnquirySubEntity">
+        UPDATE U_ICIN1
+        SET
+            BaseEntry = #{Entity.baseEntry},
+            BaseLine = #{Entity.baseLine}
+        WHERE DocEntry = #{Entity.docEntry} AND LineNum = #{Entity.lineNum}
+    </update>
+    <delete id="clear">
+        /*删掉之前保存过的货源,但是不能删除原始需求*/
+        DELETE FROM U_ICIN1 WHERE DocEntry = #{DocEntry} AND ItemLine = #{LineNum}
+        /*这条货源本身的这一条也要清空*/
+        UPDATE U_ICIN1
+        SET
+            BaseEntry = NULL,
+            BaseLine = NULL,
+            QuoModle = NULL,
+            QuoBrand = NULL,
+            PriceAfVAT = NULL,
+            QuoCurr = NULL
+        WHERE DocEntry = #{DocEntry} AND LineNum = #{LineNum}
+    </delete>
     <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.EnquirySubVO">
         /*
         1. U_ICIN1.LineNum 是主键不能复制, 也不能为空
@@ -485,5 +506,11 @@
             )
         )
         AND U_ICIN1.PriceAfVAT IS NOT NULL
+    </select>
+    <select id="selectOne" resultType="com.lianchuangjie.lianchuangjie.entity.EnquirySubEntity">
+        SELECT * FROM U_ICIN1 WHERE DocEntry = #{DocEntry} AND LineNum = #{LineNum}
+    </select>
+    <select id="count" resultType="java.lang.Integer" parameterType="java.lang.Long">
+        SELECT COUNT(*) FROM U_ICIN1 WHERE DocEntry = #{DocEntry}
     </select>
 </mapper>

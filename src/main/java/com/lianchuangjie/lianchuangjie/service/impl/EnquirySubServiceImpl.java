@@ -3,6 +3,8 @@ package com.lianchuangjie.lianchuangjie.service.impl;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.lianchuangjie.lianchuangjie.dto.EnquirySaveItemDTO;
+import com.lianchuangjie.lianchuangjie.dto.EnquirySubItemDTO;
 import com.lianchuangjie.lianchuangjie.dto.search.EnquirySubSearchDTO;
 import com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.EnquirySubEntity;
@@ -13,6 +15,7 @@ import com.lianchuangjie.lianchuangjie.vo.EnquirySubVO;
 import com.lianchuangjie.lianchuangjie.vo.TabEnquiryNeedsVO;
 import com.lianchuangjie.lianchuangjie.vo.TabQuotationNeedsVO;
 import com.lianchuangjie.lianchuangjie.vo.TabStockPriceEnquiryVO;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -23,6 +26,14 @@ public class EnquirySubServiceImpl extends ServiceImpl<EnquirySubMapper, Enquiry
     @Resource
     EnquirySubMapper enquirySubMapper;
 
+    /**
+     * @param docEntry docEntry
+     * @return List
+     * @description 获取询价单子表
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 9/19/2022
+     */
     @Override
     public List<EnquirySubVO> list(Long docEntry) {
         Long userSign = SessionUtil.getUserSign();
@@ -30,6 +41,40 @@ public class EnquirySubServiceImpl extends ServiceImpl<EnquirySubMapper, Enquiry
         enquirySubSearchDTO.setDocEntry(docEntry);
         enquirySubSearchDTO.setOwnerCode(userSign);
         return enquirySubMapper.selectList(enquirySubSearchDTO);
+    }
+
+    /**
+     * @return Boolean
+     * @description 保存接口
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 9/19/2022
+     */
+    @Override
+    public Boolean save(List<EnquirySaveItemDTO> enquirySubList) {
+        // 两层循环,第一次时询价表,第二层时货源
+        for (EnquirySaveItemDTO enquirySaveItemDTO : enquirySubList) {
+            EnquirySubEntity enquirySubEntity = enquirySubMapper.selectOne(enquirySaveItemDTO.getDocEntry(), enquirySaveItemDTO.getLineNum());
+            enquirySubMapper.clear(enquirySaveItemDTO.getDocEntry(), enquirySaveItemDTO.getLineNum());
+            int i = 0;
+            for (EnquirySubItemDTO enquirySubItemDTO : enquirySaveItemDTO.getRecommend()) {
+                // BeanUtils.copyProperties(enquirySubItemDTO, enquirySubEntity);
+                enquirySubEntity.setBaseLine(enquirySubItemDTO.getBaseLine());
+                enquirySubEntity.setBaseEntry(enquirySubItemDTO.getBaseEntry());
+                enquirySubEntity.setPriceAfVAT(enquirySubItemDTO.getPriceAfVAT());
+                if (i == 0) {
+                    // 第一条对应的是原始需求的货源,需要 update
+                    enquirySubMapper.updateOne(enquirySubEntity);
+                } else {
+                    // 其他的时选择的多个货源, 需要 insert,行号需要增长
+                    Long lineNum = enquirySubMapper.count(enquirySubItemDTO.getDocEntry()) + 1L;
+                    enquirySubEntity.setLineNum(lineNum);
+                    enquirySubMapper.insert(enquirySubEntity);
+                }
+                i += 1;
+            }
+        }
+        return true;
     }
 
     /**

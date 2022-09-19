@@ -51,6 +51,12 @@ public class EnquirySubVO {
     /**
      * 报价信息
      */
+    // 报价单编号
+    @JsonProperty("BaseEntry")
+    private Long baseEntry;
+    // 报价单内部行号
+    @JsonProperty("BaseLine")
+    private Long baseLine;
     // 报价型号 T_ICIN1.U_QuoModle
     @JsonProperty("U_QuoModle")
     private String uQuoModle;
@@ -110,15 +116,19 @@ public class EnquirySubVO {
     // 最低报价 MinQuoPrice
     @JsonProperty("MinQuoPrice")
     private BigDecimal minQuoPrice;
+
     public BigDecimal getMinQuoPrice() {
         return BigDecimal.valueOf(1);
     }
+
     // SuccRate 成单率
     @JsonProperty("SuccRate")
     private BigDecimal succRate;
+
     public BigDecimal getSuccRate() {
         return BigDecimal.valueOf(80);
     }
+
     // 是否下单
     @JsonProperty("IsOrdered")
     private String isOrdered;

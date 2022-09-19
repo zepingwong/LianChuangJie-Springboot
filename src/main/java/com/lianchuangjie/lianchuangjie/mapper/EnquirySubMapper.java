@@ -18,7 +18,30 @@ import java.util.List;
 @Mapper
 @Repository
 public interface EnquirySubMapper extends BaseMapper<EnquirySubEntity> {
+    Integer count(@Param("DocEntry") Long docEntry);
+    /**
+     * @param enquirySubEntity enquirySubEntity
+     * @return Boolean
+     * @description 更新一条货源，更新的就是原始需求那一条
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 9/19/2022
+     */
+    Boolean updateOne(@Param("Entity") EnquirySubEntity enquirySubEntity);
+
+    EnquirySubEntity selectOne(@Param("DocEntry") Long docEntry, @Param("LineNum") Long lineNum);
+
+    /**
+     * @param enquirySubSearchDTO enquirySubSearchDTO
+     * @return List
+     * @description 获取询价单子表列表
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 9/19/2022
+     */
     List<EnquirySubVO> selectList(@Param("sc") EnquirySubSearchDTO enquirySubSearchDTO);
+
+    Boolean clear(@Param("DocEntry") Long docEntry, @Param("LineNum") Long lineNum);
 
     /**
      * @param page         page

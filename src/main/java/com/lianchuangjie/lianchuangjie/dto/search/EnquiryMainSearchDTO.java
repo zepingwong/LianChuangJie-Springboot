@@ -1,7 +1,6 @@
 package com.lianchuangjie.lianchuangjie.dto.search;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,54 +16,29 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EnquiryMainSearchDTO {
-    /**
-     * @description 页码
-     */
+    // 页码
     @NotNull(message = "页码不能为空")
     private Integer page;
-    /**
-     * @description 每页显示数量
-     * @maxValue 50
-     */
+    // 每页显示数量 最大值为50
     @NotNull(message = "每页显示数量不能为空")
     @Max(value = 50, message = "每页最多显示50条数据")
     private Integer size;
-    /**
-     * @description 销售员编号
-     * @defaultValue 当前登录用户编号
-     */
+    // 销售员编号,当前登录销售编号
     private Long ownerCode;
-
-    public void setOwnerCode(Long ownerCode) {
-        this.ownerCode = ownerCode != null ? ownerCode : SessionUtil.getUserSign();
-    }
-
-    /**
-     * @description 询价单位编号
-     */
+    // 询价单位编号
     private String cardCode;
-    /**
-     * @description 处理情况-销售报价次数
-     */
+    // 处理情况-销售报价次数
     private Integer state;
-    /**
-     * @description 失效时间上限
-     */
+    // 失效时间上限
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date invalidDateStart;
-    /**
-     * @description 失效时间下限
-     */
+    // 失效时间下限
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date invalidDateEnd;
-    /**
-     * @description 发送时间上限
-     */
+    // 发送时间上限
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createDateStart;
-    /**
-     * @description 发送时间下限
-     */
+    // 发送时间下限
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createDateEnd;
 }
