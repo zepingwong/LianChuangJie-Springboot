@@ -58,10 +58,7 @@ public class EnquirySubServiceImpl extends ServiceImpl<EnquirySubMapper, Enquiry
             enquirySubMapper.clear(enquirySaveItemDTO.getDocEntry(), enquirySaveItemDTO.getLineNum());
             int i = 0;
             for (EnquirySubItemDTO enquirySubItemDTO : enquirySaveItemDTO.getRecommend()) {
-                // BeanUtils.copyProperties(enquirySubItemDTO, enquirySubEntity);
-                enquirySubEntity.setBaseLine(enquirySubItemDTO.getBaseLine());
-                enquirySubEntity.setBaseEntry(enquirySubItemDTO.getBaseEntry());
-                enquirySubEntity.setPriceAfVAT(enquirySubItemDTO.getPriceAfVAT());
+                 BeanUtils.copyProperties(enquirySubItemDTO, enquirySubEntity);
                 if (i == 0) {
                     // 第一条对应的是原始需求的货源,需要 update
                     enquirySubMapper.updateOne(enquirySubEntity);
@@ -69,6 +66,8 @@ public class EnquirySubServiceImpl extends ServiceImpl<EnquirySubMapper, Enquiry
                     // 其他的时选择的多个货源, 需要 insert,行号需要增长
                     Long lineNum = enquirySubMapper.count(enquirySubItemDTO.getDocEntry()) + 1L;
                     enquirySubEntity.setLineNum(lineNum);
+                    enquirySubEntity.setItemEntry(enquirySubEntity.getDocEntry()); // ItemEntry 与 DocEntry 相同
+                    enquirySubEntity.setItemLine(enquirySubEntity.getLineNum()); // ItemLine 与 LineNum 相同
                     enquirySubMapper.insert(enquirySubEntity);
                 }
                 i += 1;

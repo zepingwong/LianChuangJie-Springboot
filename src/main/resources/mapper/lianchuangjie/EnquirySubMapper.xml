@@ -5,7 +5,16 @@
         UPDATE U_ICIN1
         SET
             BaseEntry = #{Entity.baseEntry},
-            BaseLine = #{Entity.baseLine}
+            BaseLine = #{Entity.baseLine},
+            QuoCurr = #{Entity.quoCurr},
+            PriceAfVAT = #{Entity.priceAfVAT},
+            SuoQuantity = #{Entity.suoQuantity},
+            QuoVatGroup = #{Entity.quoVatGroup},
+            SuoYear = #{Entity.suoYear},
+            SuoBuyer = #{Entity.suoBuyer},
+            SuoDelivery = #{Entity.suoDelivery},
+            QuoBrand = #{Entity.quoBrand},
+            QuoModle = #{Entity.quoModle}
         WHERE DocEntry = #{Entity.docEntry} AND LineNum = #{Entity.lineNum}
     </update>
     <delete id="clear">
@@ -19,7 +28,12 @@
             QuoModle = NULL,
             QuoBrand = NULL,
             PriceAfVAT = NULL,
-            QuoCurr = NULL
+            QuoCurr = NULL,
+            SuoQuantity = NULL,
+            QuoVatGroup = NULL,
+            SuoYear = NULL,
+            SuoBuyer = NULL,
+            SuoDelivery = NULL
         WHERE DocEntry = #{DocEntry} AND LineNum = #{LineNum}
     </delete>
     <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.EnquirySubVO">
@@ -89,7 +103,8 @@
         AND BaseLine IS NOT NULL
         AND PriceAfVAT IS NOT NULL;
         /*正文开始*/
-        SELECT T.*
+        SELECT
+            T.*
         FROM (
             SELECT
                 ClientNeeds.DocEntry, /*询价单编号*/
@@ -112,15 +127,15 @@
                 ClientNeeds.LineRemark, /*销售备注*/
                 ClientNeeds.ExpDate, /*失效时间*/
                 ClientNeeds.Secrecy, /*是否保密*/
-                Available.PriceAfVAT, /*销售报价单价*/
+                ISNULL(Available.PriceAfVAT, ClientNeeds.PriceAfVAT) AS 'PriceAfVAT', /*销售报价单价*/
                 Available.DocEntry AS 'BaseEntry', /*采购报价单编号*/
                 Available.LineNum  AS 'BaseLine', /*采购报价单行号*/
                 Available.U_QuoBrand, /*报价品牌*/
                 Available.U_QuoModle, /*报价型号*/
                 Available.BuyerName, /*采购员姓名*/
                 Available.U_Buyer, /*采购员编号*/
-                Available.U_QuoQty, /*报价数量*/
-                Available.U_QuoPrice, /*报价价格*/
+                ISNULL(Available.U_QuoQty, ClientNeeds.SuoQuantity) AS 'U_QuoQty', /*报价数量*/
+                ROUND(Available.U_QuoPrice * ExchangeRate.Rate, 2) AS 'U_QuoPrice', /*报价价格,人民币不含税*/
                 Available.U_QCDesc, /*采购报价质检标准*/
                 Available.U_QuoDelivery, /*采购报价交期*/
                 Available.U_QuoYear, /*采购报价批次*/
@@ -128,9 +143,11 @@
                 Available.DeptName, /*采购部门名称,货源*/
                 Available.U_QuoCurr, /*采购报价货币*/
                 Available.U_QuoDate, /*采购报价日期*/
-                T_OVTG.Rate, /*采购报价税率*/
+                Available.U_QuoVatGroup, /*采购报价税率代码*/
+                T_OVTG.Rate AS 'U_QuoVatRate', /*采购报价税率*/
                 Available.Checked, /*货源是否已选择*/
                 Available.IsSpare, /*货源属性,是否为备用货源*/
+                ExchangeRate.Rate AS 'ExchangeRate', /*汇率*/
                 (
                     CASE
                         WHEN ClientNeeds.DocEntry != Available.DocEntry THEN N'未询价'
@@ -293,8 +310,25 @@
             )
             /*报价货源税率*/
             LEFT JOIN T_OVTG ON T_OVTG.Code = Available.U_QuoVatGroup
+            /*货币汇率*/
+            LEFT JOIN (
+                SELECT
+                    T_ORTT.Currency,
+                    T_ORTT.Rate
+                FROM (
+                         SELECT
+                             Currency,
+                             MAX(RateDate) AS RateDate
+                         FROM T_ORTT
+                         GROUP BY Currency
+                     ) T
+                         LEFT JOIN T_ORTT ON T_ORTT.Currency = T.Currency AND T_ORTT.RateDate = T.RateDate
+                UNION ALL
+                SELECT
+                    'RMB' AS 'Currency',
+                    1.000000 AS 'Rate'
+            ) ExchangeRate ON ExchangeRate.Currency = Available.U_QuoCurr
         ) T
-        /*WHERE T.U_QuoModle IS NOT NULL*/
         /*根据行号排序、最优货源在最上面*/
         ORDER BY T.LineNum, T.type DESC, T.U_Buyer, T.U_QuoDate DESC
         DROP TABLE #best

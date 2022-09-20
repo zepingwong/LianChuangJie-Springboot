@@ -161,4 +161,16 @@ public class EnquirySubEntity {
     // 标记为重点报价用户
     @TableField(value = "KeyUser")
     private Long keyUser;
+    // 新复制的一行需求,与LineNum相同
+    @TableField(value = "ItemLine")
+    private Long itemLine;
+    // 新复制的一行需求,与DocEntry相同
+    @TableField(value = "ItemEntry")
+    private Long itemEntry;
+    // 是否是备用货源
+    @TableField(value = "IsSpare")
+    private String isSpare;
+    // 是否下单了
+    @TableField(value = "IsOrdered")
+    private String isOrdered;
 }

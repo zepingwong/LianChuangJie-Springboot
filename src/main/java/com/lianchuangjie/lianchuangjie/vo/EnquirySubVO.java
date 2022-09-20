@@ -15,6 +15,9 @@ import java.util.Date;
 @NoArgsConstructor
 @Accessors(chain = true)
 public class EnquirySubVO {
+    /**
+     * 需求信息
+     */
     // 询价单编号-主键 U_ICIN1.DocEntry
     @JsonProperty("DocEntry")
     private Long docEntry;
@@ -45,9 +48,16 @@ public class EnquirySubVO {
     // 接受价格 U_ICIN1.ExpectedPrice
     @JsonProperty("ExpectedPrice")
     private BigDecimal expectedPrice;
-    // 推荐报价 RecoPrice
-    @JsonProperty("RecoPrice")
-    private BigDecimal recoPrice;
+    // 询价状态名称 U_ICIN1.ItemDescStatus
+    @JsonProperty("ItemDescStatus")
+    private String itemDescStatus;
+    // 失效时间 U_ICIN1.ExpDate
+    @JsonProperty("ExpDate")
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date expDate;
+    // 是否保密标记 Secrecy
+    @JsonProperty("Secrecy")
+    private String secrecy;
     /**
      * 报价信息
      */
@@ -57,6 +67,9 @@ public class EnquirySubVO {
     // 报价单内部行号
     @JsonProperty("BaseLine")
     private Long baseLine;
+    // 报价品牌
+    @JsonProperty("U_QuoBrand")
+    private String uQuoBrand;
     // 报价型号 T_ICIN1.U_QuoModle
     @JsonProperty("U_QuoModle")
     private String uQuoModle;
@@ -69,10 +82,7 @@ public class EnquirySubVO {
     // 报价数量 T_ICIN1.U_QuoQty
     @JsonProperty("U_QuoQty")
     private BigDecimal uQuoQty = BigDecimal.valueOf(0);
-    // 销售报价单价 U_ICIN1.PriceAfVAT
-    @JsonProperty("PriceAfVAT")
-    private BigDecimal priceAfVAT;
-    // 供方单价 T_ICIN1.U_QuoPrice
+    // 供方单价报价价格,人民币不含税 T_ICIN1.U_QuoPrice
     @JsonProperty("U_QuoPrice")
     private BigDecimal uQuoPrice;
     // 供应商等级 T_ICIN1.U_QuoLevel
@@ -93,42 +103,22 @@ public class EnquirySubVO {
     // 询价状态代码，B表示采购报价、C表示直接定价、D表示暂不处理、E表示24H报价 U_ICIN1.Status
     @JsonProperty("Status")
     private String status;
-    // 询价状态名称 U_ICIN1.ItemDescStatus
-    @JsonProperty("ItemDescStatus")
-    private String itemDescStatus;
-    // 采购回复 COUNT(T_ICIN1.U_Status = 'Y')
-    @JsonProperty("PurchaseReply")
-    private Long purchaseReply;
     // 报价日期 T_ICIN1.U_QuoDate
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonProperty("U_QuoDate")
     private Date uQuoDate;
+    // 采购报价税率代码
+    @JsonProperty("U_QuoVatGroup")
+    private String uQuoVatRate;
+    /**
+     * 销售报价
+     */
+    // 销售报价单价 U_ICIN1.PriceAfVAT
+    @JsonProperty("PriceAfVAT")
+    private BigDecimal priceAfVAT;
     // 销售备注 U_ICIN1.LineRemark
     @JsonProperty("LineRemark")
     private String lineRemark;
-    // 失效时间 U_ICIN1.ExpDate
-    @JsonProperty("ExpDate")
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date expDate;
-    // 是否保密标记 Secrecy
-    @JsonProperty("Secrecy")
-    private String secrecy;
-    // 最低报价 MinQuoPrice
-    @JsonProperty("MinQuoPrice")
-    private BigDecimal minQuoPrice;
-
-    public BigDecimal getMinQuoPrice() {
-        return BigDecimal.valueOf(1);
-    }
-
-    // SuccRate 成单率
-    @JsonProperty("SuccRate")
-    private BigDecimal succRate;
-
-    public BigDecimal getSuccRate() {
-        return BigDecimal.valueOf(80);
-    }
-
     // 是否下单
     @JsonProperty("IsOrdered")
     private String isOrdered;
@@ -138,4 +128,25 @@ public class EnquirySubVO {
     // QuoState 是否询价
     @JsonProperty("QuoState")
     private String quoState;
+    // ExchangeRate
+    @JsonProperty("ExchangeRate")
+    private BigDecimal exchangeRate;
+    /**
+     * 报价算法
+     */
+    // 推荐报价 RecoPrice
+    @JsonProperty("RecoPrice")
+    private BigDecimal recoPrice;
+    // 最低报价 MinQuoPrice
+    @JsonProperty("MinQuoPrice")
+    private BigDecimal minQuoPrice;
+    public BigDecimal getMinQuoPrice() {
+        return BigDecimal.valueOf(1);
+    }
+    // SuccRate 成单率
+    @JsonProperty("SuccRate")
+    private BigDecimal succRate;
+    public BigDecimal getSuccRate() {
+        return BigDecimal.valueOf(80);
+    }
 }
