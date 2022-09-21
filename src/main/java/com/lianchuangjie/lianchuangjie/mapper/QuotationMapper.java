@@ -17,6 +17,16 @@ import java.util.List;
 @Mapper
 @Repository
 public interface QuotationMapper extends BaseMapper<QuotationEntity> {
+    /**
+     * @param page         page
+     * @param queryWrapper queryWrapper
+     * @param userSign     userSign
+     * @return IPage
+     * @description 报价信息列表
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 9/21/2022
+     */
     IPage<QuotationVO> selectList(IPage<QuotationVO> page, @Param("ew") QueryWrapper<QuotationVO> queryWrapper, @Param("UserSign") Long userSign);
 
     /**
@@ -29,6 +39,15 @@ public interface QuotationMapper extends BaseMapper<QuotationEntity> {
      * @date 8/28/2022
      */
     IPage<TabMyQuotationVO> selectMyList(IPage<TabMyQuotationVO> page, @Param("sc") TabSearchDTO searchCondition);
+
+    /**
+     * @param queryWrapper queryWrapper
+     * @return QuotationEntity
+     * @description 获取一条报价信息
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 9/21/2022
+     */
 
     QuotationEntity selectOne(@Param("ew") QueryWrapper<QuotationEntity> queryWrapper);
 
@@ -65,4 +84,6 @@ public interface QuotationMapper extends BaseMapper<QuotationEntity> {
      * @date 9/4/2022
      */
     IPage<TabStockPriceQuoteVO> selectStockList(Page<TabStockPriceQuoteVO> page, @Param("sc") TabSearchDTO searchCondition);
+
+    Long count(@Param("DocEntry") Long docEntry);
 }

@@ -3,38 +3,44 @@
 <mapper namespace="com.lianchuangjie.lianchuangjie.mapper.EnquirySubMapper">
     <update id="updateOne" parameterType="com.lianchuangjie.lianchuangjie.entity.EnquirySubEntity">
         UPDATE U_ICIN1
-        SET
-            BaseEntry = #{Entity.baseEntry},
-            BaseLine = #{Entity.baseLine},
-            QuoCurr = #{Entity.quoCurr},
-            PriceAfVAT = #{Entity.priceAfVAT},
+        SET BaseEntry   = #{Entity.baseEntry},
+            BaseLine    = #{Entity.baseLine},
+            QuoCurr     = #{Entity.quoCurr},
+            PriceAfVAT  = #{Entity.priceAfVAT},
             SuoQuantity = #{Entity.suoQuantity},
             QuoVatGroup = #{Entity.quoVatGroup},
-            SuoYear = #{Entity.suoYear},
-            SuoBuyer = #{Entity.suoBuyer},
+            SuoYear     = #{Entity.suoYear},
+            SuoBuyer    = #{Entity.suoBuyer},
             SuoDelivery = #{Entity.suoDelivery},
-            QuoBrand = #{Entity.quoBrand},
-            QuoModle = #{Entity.quoModle}
+            QuoBrand    = #{Entity.quoBrand},
+            QuoModle    = #{Entity.quoModle}
+        WHERE DocEntry = #{Entity.docEntry} AND LineNum = #{Entity.lineNum}
+    </update>
+    <update id="updateBuyers" parameterType="com.lianchuangjie.lianchuangjie.entity.EnquirySubEntity">
+        UPDATE U_ICIN1
+        SET Buyers = #{Entity.buyers}
         WHERE DocEntry = #{Entity.docEntry} AND LineNum = #{Entity.lineNum}
     </update>
     <delete id="clear">
         /*删掉之前保存过的货源,但是不能删除原始需求*/
-        DELETE FROM U_ICIN1 WHERE DocEntry = #{DocEntry} AND ItemLine = #{LineNum}
-        /*这条货源本身的这一条也要清空*/
+        DELETE
+        FROM U_ICIN1
+        WHERE DocEntry = #{DocEntry}
+        AND ItemLine = #{LineNum};
+        /*这条需求本身的这一条也要清空*/
         UPDATE U_ICIN1
-        SET
-            BaseEntry = NULL,
-            BaseLine = NULL,
-            QuoModle = NULL,
-            QuoBrand = NULL,
-            PriceAfVAT = NULL,
-            QuoCurr = NULL,
+        SET BaseEntry   = NULL,
+            BaseLine    = NULL,
+            QuoModle    = NULL,
+            QuoBrand    = NULL,
+            PriceAfVAT  = NULL,
+            QuoCurr     = NULL,
             SuoQuantity = NULL,
             QuoVatGroup = NULL,
-            SuoYear = NULL,
-            SuoBuyer = NULL,
+            SuoYear     = NULL,
+            SuoBuyer    = NULL,
             SuoDelivery = NULL
-        WHERE DocEntry = #{DocEntry} AND LineNum = #{LineNum}
+        WHERE DocEntry = #{DocEntry} AND LineNum = #{LineNum};
     </delete>
     <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.EnquirySubVO">
         /*
@@ -69,7 +75,7 @@
                 T0.U_QuoPrice
         ) T1
         LEFT JOIN T_ICIN1 T2 ON (
-            T1.U_QuoBrand = T2.U_QuoBrand
+                T1.U_QuoBrand = T2.U_QuoBrand
             AND T1.U_QuoModle = T2.U_QuoModle
             AND T1.U_QuoPrice = T2.U_QuoPrice
             AND T1.U_QuoQty = T2.U_QuoQty

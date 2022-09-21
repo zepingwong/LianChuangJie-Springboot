@@ -2,6 +2,7 @@ package com.lianchuangjie.lianchuangjie.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lianchuangjie.lianchuangjie.config.Authentication;
+import com.lianchuangjie.lianchuangjie.dto.EnquiryReQuoteDTO;
 import com.lianchuangjie.lianchuangjie.dto.EnquirySaveItemDTO;
 import com.lianchuangjie.lianchuangjie.dto.search.EnquiryMainSearchDTO;
 import com.lianchuangjie.lianchuangjie.service.EnquiryHotwordsService;
@@ -122,5 +123,21 @@ public class EnquiryController extends BaseController {
     public Result<List<EnquiryHotwordsVO>> getEnquiryHotwords() {
         List<EnquiryHotwordsVO> list = enquiryHotwordsService.getList();
         return Result.success(list);
+    }
+
+    /**
+     * @return Result
+     * @description 确认报价
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 9/20/2022
+     */
+    @PostMapping("requote")
+    @Authentication(sale = true)
+    public Result<Boolean> requote(
+            @RequestBody EnquiryReQuoteDTO enquiryReQuoteDTO
+    ) {
+
+        return null;
     }
 }

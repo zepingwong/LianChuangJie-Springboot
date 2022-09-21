@@ -19,6 +19,7 @@ import java.util.List;
 @Repository
 public interface EnquirySubMapper extends BaseMapper<EnquirySubEntity> {
     Integer count(@Param("DocEntry") Long docEntry);
+
     /**
      * @param enquirySubEntity enquirySubEntity
      * @return Boolean
@@ -28,6 +29,16 @@ public interface EnquirySubMapper extends BaseMapper<EnquirySubEntity> {
      * @date 9/19/2022
      */
     Boolean updateOne(@Param("Entity") EnquirySubEntity enquirySubEntity);
+
+    /**
+     * @param enquirySubEntity enquirySubEntity
+     * @return Boolean
+     * @description 更采购员发一个确认
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 9/20/2022
+     */
+    Boolean updateBuyers(@Param("Entity") EnquirySubEntity enquirySubEntity);
 
     EnquirySubEntity selectOne(@Param("DocEntry") Long docEntry, @Param("LineNum") Long lineNum);
 

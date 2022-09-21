@@ -227,4 +227,12 @@
             )
         )
     </select>
+    <select id="count" resultType="java.lang.Long" parameterType="java.lang.Long">
+        SELECT COUNT(*) FROM (
+            SELECT DocEntry FROM T_ICIN1
+            UNION ALL
+            SELECT DocEntry FROM U_ICIN11
+        ) T
+        WHERE T.DocEntry = #{DocEntry}
+    </select>
 </mapper>
