@@ -2,13 +2,11 @@ package com.lianchuangjie.lianchuangjie.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lianchuangjie.lianchuangjie.config.Authentication;
+import com.lianchuangjie.lianchuangjie.dto.EnquiryIsOrderedDTO;
 import com.lianchuangjie.lianchuangjie.dto.EnquiryReQuoteDTO;
 import com.lianchuangjie.lianchuangjie.dto.EnquirySaveItemDTO;
 import com.lianchuangjie.lianchuangjie.dto.search.EnquiryMainSearchDTO;
-import com.lianchuangjie.lianchuangjie.service.EnquiryHotwordsService;
-import com.lianchuangjie.lianchuangjie.service.EnquiryMainService;
-import com.lianchuangjie.lianchuangjie.service.EnquiryReQuoteService;
-import com.lianchuangjie.lianchuangjie.service.EnquirySubService;
+import com.lianchuangjie.lianchuangjie.service.*;
 import com.lianchuangjie.lianchuangjie.utils.Result;
 import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
 import com.lianchuangjie.lianchuangjie.vo.*;
@@ -29,6 +27,8 @@ public class EnquiryController extends BaseController {
     EnquiryReQuoteService enquiryReQuoteService;
     @Resource
     EnquiryHotwordsService enquiryHotwordsService;
+    @Resource
+    EnquiryIsOrderedService enquiryIsOrderedService;
 
     /**
      * @param page             page 页码
@@ -137,10 +137,19 @@ public class EnquiryController extends BaseController {
      */
     @PostMapping("requote")
     @Authentication(sale = true)
-    public Result<Boolean> requote(
+    public Result<Boolean> requoteController(
             @RequestBody EnquiryReQuoteDTO enquiryReQuoteDTO
     ) {
         Boolean res = enquiryReQuoteService.requoteService(enquiryReQuoteDTO);
+        return Result.success(res);
+    }
+
+    @PatchMapping("isOrdered")
+    @Authentication(sale = true)
+    public Result<Boolean> isOrderedController(
+            @RequestBody EnquiryIsOrderedDTO enquiryIsOrderedDTO
+    ) {
+        Boolean res = enquiryIsOrderedService.isOrderedService(enquiryIsOrderedDTO);
         return Result.success(res);
     }
 }

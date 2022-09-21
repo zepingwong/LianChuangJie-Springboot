@@ -21,6 +21,14 @@
         SET Buyers = #{Entity.buyers}
         WHERE DocEntry = #{Entity.docEntry} AND LineNum = #{Entity.lineNum}
     </update>
+    <update id="order" parameterType="com.lianchuangjie.lianchuangjie.entity.EnquirySubEntity">
+        UPDATE U_ICIN1
+        SET IsOrdered = 'Y'
+        WHERE DocEntry = #{Entity.docEntry}
+        AND LineNum = #{Entity.lineNum}
+        AND BaseEntry = #{Entity.baseEntry}
+        AND BaseLine = #{Entity.baseLine}
+    </update>
     <delete id="clear">
         /*删掉之前保存过的货源,但是不能删除原始需求*/
         DELETE
@@ -133,14 +141,14 @@
                 ClientNeeds.LineRemark, /*销售备注*/
                 ClientNeeds.ExpDate, /*失效时间*/
                 ClientNeeds.Secrecy, /*是否保密*/
-                ISNULL(Available.PriceAfVAT, ClientNeeds.PriceAfVAT) AS 'PriceAfVAT', /*销售报价单价*/
+                IIF(ClientNeeds.BaseLine IS NULL, ClientNeeds.PriceAfVAT, Available.PriceAFVAT) AS 'PriceAfVAT', /*销售报价单价*/
                 Available.DocEntry AS 'BaseEntry', /*采购报价单编号*/
                 Available.LineNum  AS 'BaseLine', /*采购报价单行号*/
                 Available.U_QuoBrand, /*报价品牌*/
                 Available.U_QuoModle, /*报价型号*/
                 Available.BuyerName, /*采购员姓名*/
                 Available.U_Buyer, /*采购员编号*/
-                ISNULL(Available.U_QuoQty, ClientNeeds.SuoQuantity) AS 'U_QuoQty', /*报价数量*/
+                IIF(ClientNeeds.BaseLine IS NULL, ClientNeeds.SuoQuantity, Available.U_QuoQty) AS 'U_QuoQty', /*采购和销售报价数量*/
                 ROUND(Available.U_QuoPrice * ExchangeRate.Rate, 2) AS 'U_QuoPrice', /*报价价格,人民币不含税*/
                 Available.U_QCDesc, /*采购报价质检标准*/
                 Available.U_QuoDelivery, /*采购报价交期*/
@@ -234,8 +242,8 @@
             LEFT JOIN (
                 SELECT
                     AllQuote.*,
-                    IIF(#selected.PriceAFVAT IS NOT NULL, 'Y', 'N') AS 'Checked',
-                    IIF(#selected.PriceAFVAT IS NOT NULL, #selected.PriceAFVAT, NULL) AS 'PriceAFVAT',
+                    IIF(#selected.PriceAFVAT IS NOT NULL, 'Y', 'N') AS 'Checked', /*销售填写了价格表示选中该货源*/
+                    #selected.PriceAFVAT AS 'PriceAFVAT', /*该货源的销售报价价格,已选择的货源销售报价价格要和货源绑定在一起*/
                     T_OUSI.UserName AS 'BuyerName', /*采购员姓名*/
                     BuyerDept.Name AS 'DeptName', /*采购部门名称,货源*/
                     #selected.IsSpare AS 'IsSpare' /*是否为备用货源*/
@@ -552,5 +560,11 @@
     </select>
     <select id="count" resultType="java.lang.Integer" parameterType="java.lang.Long">
         SELECT COUNT(*) FROM U_ICIN1 WHERE DocEntry = #{DocEntry}
+    </select>
+    <select id="getOne" resultType="com.lianchuangjie.lianchuangjie.entity.EnquirySubEntity">
+        SELECT * FROM U_ICIN1
+        <where>
+            ${ew.getSqlSegment()}
+        </where>
     </select>
 </mapper>

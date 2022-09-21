@@ -1,5 +1,6 @@
 package com.lianchuangjie.lianchuangjie.mapper;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.lianchuangjie.lianchuangjie.dto.search.EnquirySubSearchDTO;
@@ -41,6 +42,7 @@ public interface EnquirySubMapper extends BaseMapper<EnquirySubEntity> {
     Boolean updateBuyers(@Param("Entity") EnquirySubEntity enquirySubEntity);
 
     EnquirySubEntity selectOne(@Param("DocEntry") Long docEntry, @Param("LineNum") Long lineNum);
+    EnquirySubEntity getOne(@Param("ew") QueryWrapper<EnquirySubEntity> queryWrapper);
 
     /**
      * @param enquirySubSearchDTO enquirySubSearchDTO
@@ -95,4 +97,6 @@ public interface EnquirySubMapper extends BaseMapper<EnquirySubEntity> {
      * @date 9/4/2022
      */
     IPage<TabStockPriceEnquiryVO> selectStockPriceTabList(IPage<TabStockPriceEnquiryVO> page, @Param("sc") TabSearchDTO searchCondition);
+
+    Boolean order(@Param("Entity") EnquirySubEntity enquirySubEntity);
 }
