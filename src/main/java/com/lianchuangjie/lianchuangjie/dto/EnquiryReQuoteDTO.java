@@ -1,5 +1,6 @@
 package com.lianchuangjie.lianchuangjie.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,6 +11,7 @@ import javax.validation.constraints.NotBlank;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class EnquiryReQuoteDTO {
     // 询价单编号
     @NotBlank(message = "询价单编号不能为空")

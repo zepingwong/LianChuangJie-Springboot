@@ -95,7 +95,7 @@ public class QuotationController extends BaseController {
         QuotationEntity quotationEntity = quotationService.getOne(queryWrapper);
         quotationEntity.setUStatus("Y");
         Boolean res = quotationService.update(quotationEntity, queryWrapper);
-        EnquiryMainEntity enquiryMainEntity = enquiryMainMapper.selectByDocEntry(quotationReplyDTO.getDocEntry(), SessionUtil.getUserSign());
+        EnquiryMainEntity enquiryMainEntity = enquiryMainMapper.selectByDocEntry(quotationReplyDTO.getDocEntry());
         enquiryMainEntity.setNew("Y");
         enquiryMainService.updateById(enquiryMainEntity);
         return Result.success(res, "Success");

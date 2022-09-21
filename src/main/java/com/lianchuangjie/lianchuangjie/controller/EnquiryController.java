@@ -7,6 +7,7 @@ import com.lianchuangjie.lianchuangjie.dto.EnquirySaveItemDTO;
 import com.lianchuangjie.lianchuangjie.dto.search.EnquiryMainSearchDTO;
 import com.lianchuangjie.lianchuangjie.service.EnquiryHotwordsService;
 import com.lianchuangjie.lianchuangjie.service.EnquiryMainService;
+import com.lianchuangjie.lianchuangjie.service.EnquiryReQuoteService;
 import com.lianchuangjie.lianchuangjie.service.EnquirySubService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
 import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
@@ -24,6 +25,8 @@ public class EnquiryController extends BaseController {
     EnquiryMainService enquiryMainService;
     @Resource
     EnquirySubService enquirySubService;
+    @Resource
+    EnquiryReQuoteService enquiryReQuoteService;
     @Resource
     EnquiryHotwordsService enquiryHotwordsService;
 
@@ -137,7 +140,7 @@ public class EnquiryController extends BaseController {
     public Result<Boolean> requote(
             @RequestBody EnquiryReQuoteDTO enquiryReQuoteDTO
     ) {
-
-        return null;
+        Boolean res = enquiryReQuoteService.requoteService(enquiryReQuoteDTO);
+        return Result.success(res);
     }
 }

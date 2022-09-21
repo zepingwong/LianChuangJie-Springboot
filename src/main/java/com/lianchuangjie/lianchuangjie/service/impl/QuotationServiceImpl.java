@@ -25,29 +25,9 @@ public class QuotationServiceImpl extends ServiceImpl<QuotationMapper, Quotation
     @Override
     public Page<QuotationVO> list(QuotationSearchDTO searchCondition) {
         Page<QuotationVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
-        QueryWrapper<QuotationVO> queryWrapper = new QueryWrapper<>();
-        String enquirySubTable = SqlHelper.table(EnquirySubEntity.class).getTableName();
         String enquiryMainTable = SqlHelper.table(EnquiryMainEntity.class).getTableName();
-        if (searchCondition.getModle() != null) {
-            queryWrapper.like(enquirySubTable + ".Modle", searchCondition.getModle());
-        }
-        if (searchCondition.getBrand() != null) {
-            queryWrapper.eq(enquirySubTable + ".Brand", searchCondition.getBrand());
-        }
-        if (searchCondition.getUStatus() != null) {
-            queryWrapper.eq("fp.U_Status", searchCondition.getUStatus());
-        }
-        if (searchCondition.getOwnerCode() != null) {
-            queryWrapper.eq(enquiryMainTable + ".OwnerCode", searchCondition.getOwnerCode());
-        }
-        if (searchCondition.getInquiryDateStart() != null) {
-            queryWrapper.ge("T_ICIN.CreateDate", searchCondition.getInquiryDateStart());
-        }
-        if (searchCondition.getInquiryDateEnd() != null) {
-            queryWrapper.le("T_ICIN.CreateDate", searchCondition.getInquiryDateEnd());
-        }
         page.addOrder(OrderItem.desc(enquiryMainTable + ".CreateDate"));
-        quotationMapper.selectList(page, queryWrapper, searchCondition.getUBuyer());
+        quotationMapper.selectList(page, searchCondition);
         return page;
     }
 

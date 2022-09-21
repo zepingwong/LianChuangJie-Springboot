@@ -20,10 +20,17 @@ public interface EnquiryMainMapper extends BaseMapper<EnquiryMainEntity> {
      * @return 询价单主表信息
      * @description 获取询价单主表信息
      */
-    EnquiryMainEntity selectByDocEntry(
-            @Param("DocEntry") Long docEntry,
-            @Param("UserSign") Long userSign
-    );
+    EnquiryMainEntity selectByDocEntry(@Param("DocEntry") Long docEntry, @Param("UserSign") Long userSign);
+
+    /**
+     * @param docEntry docEntry
+     * @return EnquiryMainEntity
+     * @description
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 9/21/2022
+     */
+    EnquiryMainEntity selectByDocEntry(@Param("DocEntry") Long docEntry);
 
     /**
      * @param docEntry 文档编号
@@ -31,6 +38,7 @@ public interface EnquiryMainMapper extends BaseMapper<EnquiryMainEntity> {
      * @description 判断编号为 docEntry 的询价单是否存在
      */
     Boolean existByDocEntry(@Param("DocEntry") Long docEntry);
+
     /**
      * @param queryWrapper    queryWrapper
      * @param searchCondition searchCondition
@@ -40,10 +48,7 @@ public interface EnquiryMainMapper extends BaseMapper<EnquiryMainEntity> {
      * @email zepingwong@gmail.com
      * @date 8/21/2022
      */
-    List<EnquiryMainItemVO> selectList(
-            @Param("ew") QueryWrapper<EnquiryMainItemVO> queryWrapper,
-            @Param("sc") EnquiryMainSearchDTO searchCondition
-    );
+    List<EnquiryMainItemVO> selectList(@Param("ew") QueryWrapper<EnquiryMainItemVO> queryWrapper, @Param("sc") EnquiryMainSearchDTO searchCondition);
 
     /**
      * @param queryWrapper    queryWrapper
@@ -54,10 +59,7 @@ public interface EnquiryMainMapper extends BaseMapper<EnquiryMainEntity> {
      * @email zepingwong@gmail.com
      * @date 8/21/2022
      */
-    Integer countList(
-            @Param("ew") QueryWrapper<EnquiryMainItemVO> queryWrapper,
-            @Param("sc") EnquiryMainSearchDTO searchCondition
-    );
+    Integer countList(@Param("ew") QueryWrapper<EnquiryMainItemVO> queryWrapper, @Param("sc") EnquiryMainSearchDTO searchCondition);
 
     /**
      * 查询最大的文档编号

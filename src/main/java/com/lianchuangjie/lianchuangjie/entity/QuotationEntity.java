@@ -159,9 +159,6 @@ public class QuotationEntity {
     // 销售员等级
     @TableField(value = "U_SaleLevel")
     private String uSaleLevel;
-    // 销售部门编号
-    @TableField(value = "U_DeptCod")
-    private String uDeptCode;
     // 销售部门名称
     @TableField(exist = false)
     private String uDeptName;
@@ -218,4 +215,10 @@ public class QuotationEntity {
     // 需求货币
     @TableField(value = "U_Currency")
     private String uCurrency;
+
+    @TableField(value = "LineInquiryStatus")
+    private Integer lineInquiryStatus;
+    // 谁标记的重要报价
+    @TableField(value = "U_KeyUser")
+    private Long uKeyUser;
 }

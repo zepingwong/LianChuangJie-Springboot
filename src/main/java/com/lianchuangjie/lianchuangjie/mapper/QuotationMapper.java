@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.lianchuangjie.lianchuangjie.dto.ReplenishDTO;
+import com.lianchuangjie.lianchuangjie.dto.search.QuotationSearchDTO;
 import com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.QuotationEntity;
 import com.lianchuangjie.lianchuangjie.vo.*;
@@ -19,15 +19,14 @@ import java.util.List;
 public interface QuotationMapper extends BaseMapper<QuotationEntity> {
     /**
      * @param page         page
-     * @param queryWrapper queryWrapper
-     * @param userSign     userSign
+     * @param quotationSearchDTO     quotationSearchDTO
      * @return IPage
      * @description 报价信息列表
      * @author WANG Zeping
      * @email zepingwong@gmail.com
      * @date 9/21/2022
      */
-    IPage<QuotationVO> selectList(IPage<QuotationVO> page, @Param("ew") QueryWrapper<QuotationVO> queryWrapper, @Param("UserSign") Long userSign);
+    IPage<QuotationVO> selectList(IPage<QuotationVO> page, @Param("sc") QuotationSearchDTO quotationSearchDTO);
 
     /**
      * @param page            page
