@@ -31,14 +31,6 @@ public interface EnquiryMainMapper extends BaseMapper<EnquiryMainEntity> {
      * @date 9/21/2022
      */
     EnquiryMainEntity selectByDocEntry(@Param("DocEntry") Long docEntry);
-
-    /**
-     * @param docEntry 文档编号
-     * @return true/false
-     * @description 判断编号为 docEntry 的询价单是否存在
-     */
-    Boolean existByDocEntry(@Param("DocEntry") Long docEntry);
-
     /**
      * @param searchCondition searchCondition
      * @return List

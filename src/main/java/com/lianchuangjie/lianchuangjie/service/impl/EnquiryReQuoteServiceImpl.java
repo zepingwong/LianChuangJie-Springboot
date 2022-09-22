@@ -29,7 +29,7 @@ public class EnquiryReQuoteServiceImpl extends ServiceImpl<EnquirySubMapper, Enq
     UserMapper userMapper;
 
     @Override
-    public Boolean requoteService(EnquiryReQuoteDTO enquiryReQuoteDTO) {
+    public Boolean handle(EnquiryReQuoteDTO enquiryReQuoteDTO) {
         // 该条客户需求
         EnquirySubEntity enquirySubEntity = enquirySubMapper.selectOne(enquiryReQuoteDTO.getDocEntry(), enquiryReQuoteDTO.getLineNum());
         // 该需求主表

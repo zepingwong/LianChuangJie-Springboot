@@ -13,7 +13,7 @@ import java.util.Objects;
 
 @Configuration      //1.主要用于标记配置类，兼备Component的效果。
 @EnableScheduling   // 2.开启定时任务
-public class ScheduleTask {
+public class ScheduleTaskConfiguration {
     @Resource
     StringRedisTemplate stringRedisTemplate;
 

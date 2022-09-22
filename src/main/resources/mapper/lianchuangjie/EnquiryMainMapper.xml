@@ -30,14 +30,6 @@
                  U_CusIndustries, U_SaleLevel, U_UserCode1, U_UserCode2, U_Region, U_DomainName, U_CntctCode,
                  U_CardStatus, U_ShortCode, State, New, SourceType, U_TransaPlace
     </select>
-    <select id="existByDocEntry" resultType="java.lang.Boolean">
-        IF (SELECT COUNT(*)
-            FROM T_ICIN
-            WHERE DocEntry = #{DocEntry}) > 0
-            SELECT 1
-        ELSE
-            SELECT 0
-    </select>
     <select id="selectMaxDocEntry" resultType="java.lang.Long">
         SELECT MAX(DocEntry)
         FROM T_ICIN

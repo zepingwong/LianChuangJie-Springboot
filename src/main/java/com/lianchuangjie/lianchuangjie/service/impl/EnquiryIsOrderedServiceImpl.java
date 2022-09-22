@@ -16,7 +16,7 @@ public class EnquiryIsOrderedServiceImpl extends ServiceImpl<EnquirySubMapper, E
     EnquirySubMapper enquirySubMapper;
 
     @Override
-    public Boolean isOrderedService(EnquiryIsOrderedDTO enquiryIsOrderedDTO) {
+    public Boolean handle(EnquiryIsOrderedDTO enquiryIsOrderedDTO) {
         QueryWrapper<EnquirySubEntity> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("DocEntry", enquiryIsOrderedDTO.getDocEntry());
         queryWrapper.eq("LineNum", enquiryIsOrderedDTO.getLineNum());
