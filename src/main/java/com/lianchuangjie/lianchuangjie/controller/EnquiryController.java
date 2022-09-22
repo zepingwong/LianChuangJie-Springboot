@@ -67,7 +67,7 @@ public class EnquiryController extends BaseController {
         searchCondition.setCreateDateStart(createDateStart);
         searchCondition.setCreateDateEnd(createDateEnd);
         searchCondition.setOwnerCode(SessionUtil.getUserSign());
-        Page<EnquiryMainItemVO> pages = enquiryMainService.list(searchCondition);
+        Page<EnquiryMainItemVO> pages = enquiryMainService.getList(searchCondition);
         return Result.success(pages);
     }
 

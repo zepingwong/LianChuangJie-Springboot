@@ -38,17 +38,21 @@
         ELSE
             SELECT 0
     </select>
+    <select id="selectMaxDocEntry" resultType="java.lang.Long">
+        SELECT MAX(DocEntry)
+        FROM T_ICIN
+    </select>
     <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.EnquiryMainItemVO">
-        DECLARE @UserSign BIGINT
-        DECLARE @DataPur NVARCHAR ( 10 ) /*All/Dept/selft*/
-        DECLARE @BaseFormID BIGINT /*视图编号*/
-        DECLARE @PageSize INT
-        DECLARE @CurrentPage INT
-        SET @PageSize = ${sc.getSize} /*每页显示数量*/
-        SET @CurrentPage = ${sc.getPage} /*当前页码*/
-        SET @UserSign = ${sc.getOwnerCode}
-        SELECT TOP (1) @BaseFormID = TransType FROM T_ICIN WHERE TransType IS NOT NULL /*单据类型*/
-        SELECT @DataPur = [dbo].[UF_DataPurview] ( @UserSign, @BaseFormID ) /*判断权限*/
+        DECLARE @UserSign BIGINT;
+        DECLARE @DataPur NVARCHAR ( 10 ); /*All/Dept/selft*/
+        DECLARE @BaseFormID BIGINT; /*视图编号*/
+        DECLARE @PageSize INT;
+        DECLARE @CurrentPage INT;
+        SET @PageSize = ${sc.getSize}; /*每页显示数量*/
+        SET @CurrentPage = ${sc.getPage}; /*当前页码*/
+        SET @UserSign = ${sc.getOwnerCode};
+        SELECT TOP (1) @BaseFormID = TransType FROM T_ICIN WHERE TransType IS NOT NULL; /*单据类型*/
+        SELECT @DataPur = [dbo].[UF_DataPurview] ( @UserSign, @BaseFormID ); /*判断权限*/
         SELECT TOP (@PageSize) *
         FROM (
             SELECT
@@ -68,11 +72,35 @@
                     (SELECT COUNT(*) FROM U_ICIN11 WHERE U_ICIN11.U_Status = 'Y' AND U_ICIN11.DocEntry = T_ICIN.DocEntry)
                 ) AS 'PurchaseReply' /*采购回复次数来自两张表*/
             FROM T_ICIN
-                LEFT JOIN U_ICIN1 ON T_ICIN.DocEntry = U_ICIN1.DocEntry
-                LEFT JOIN (SELECT DeptCode FROM T_OUDL WHERE UserSign = @UserSign) T3 ON T_ICIN.DeptCode = T3.DeptCode
+            LEFT JOIN U_ICIN1 ON T_ICIN.DocEntry = U_ICIN1.DocEntry
+            LEFT JOIN (
+                SELECT DeptCode
+                FROM T_OUDL
+                WHERE UserSign = @UserSign
+            ) T3 ON T_ICIN.DeptCode = T3.DeptCode
             <where>
-                ${ew.getSqlSegment()}
-                AND T_ICIN.DocStatus = 'O' /*O表示有效、Q表示无效*/
+                T_ICIN.DocStatus = 'O' /*O表示有效、Q表示无效*/
+                <if test="sc.cardCode!=null">
+                    AND T_ICIN.CardCode = #{sc.cardCode}
+                </if>
+                <if test="sc.state!=null">
+                    AND T_ICIN.CardCode = #{sc.state}
+                </if>
+                <if test="sc.createDateStart!=null">
+                    AND T_ICIN.CreateDate &gt;= #{sc.createDateStart}
+                </if>
+                <if test="sc.createDateEnd!=null">
+                    AND T_ICIN.CreateDate &lt; #{sc.createDateEnd}
+                </if>
+                <if test="sc.invalidDateStart!=null">
+                    AND T_ICIN.CreateDate &gt;= #{sc.invalidDateStart}
+                </if>
+                <if test="sc.invalidDateEnd!=null">
+                    AND T_ICIN.CreateDate &lt; #{sc.invalidDateEnd}
+                </if>
+                <if test="sc.ownerCode!=null">
+                    AND T_ICIN.OwnerCode = #{sc.ownerCode}
+                </if>
                 AND (
                     @DataPur = 'ALL' /*可看所有*/
                     OR (@DataPur = 'Dept' AND ISNULL(T3.DeptCode, '') != '') /*判断当前用户可看本部门数据，如部门主任*/
@@ -90,25 +118,49 @@
         ORDER BY T.CreateDate DESC
     </select>
     <select id="countList" resultType="java.lang.Integer">
-        DECLARE @UserSign BIGINT
-        DECLARE @DataPur NVARCHAR ( 10 ) /*All/Dept/selft*/
-        DECLARE @BaseFormID BIGINT /*视图编号*/
-        SET @UserSign = ${sc.getOwnerCode}
-        SELECT TOP (1) @BaseFormID = TransType FROM T_ICIN WHERE TransType IS NOT NULL /*单据类型*/
-        SELECT @DataPur = [dbo].[UF_DataPurview] ( @UserSign, @BaseFormID ) /*判断权限*/
+        DECLARE @UserSign BIGINT;
+        DECLARE @DataPur NVARCHAR ( 10 ); /*All/Dept/selft*/
+        DECLARE @BaseFormID BIGINT; /*视图编号*/
+        SET @UserSign = ${sc.getOwnerCode};
+        SELECT TOP (1) @BaseFormID = TransType FROM T_ICIN WHERE TransType IS NOT NULL; /*单据类型*/
+        SELECT @DataPur = [dbo].[UF_DataPurview] ( @UserSign, @BaseFormID ); /*判断权限*/
         SELECT COUNT(*)
         FROM (
             SELECT T_ICIN.DocEntry
             FROM T_ICIN
             LEFT JOIN U_ICIN1 ON T_ICIN.DocEntry = U_ICIN1.DocEntry
-            LEFT JOIN (SELECT DeptCode FROM T_OUDL WHERE UserSign = @UserSign) T3 ON T_ICIN.DeptCode = T3.DeptCode
+            LEFT JOIN (
+                SELECT DeptCode
+                FROM T_OUDL
+                WHERE UserSign = @UserSign
+            ) T3 ON T_ICIN.DeptCode = T3.DeptCode
             <where>
-                ${ew.getSqlSegment()}
-                AND T_ICIN.DocStatus = 'O' /*O表示有效、Q表示无效*/
+                T_ICIN.DocStatus = 'O' /*O表示有效、Q表示无效*/
+                <if test="sc.cardCode!=null">
+                    AND T_ICIN.CardCode = #{sc.cardCode}
+                </if>
+                <if test="sc.state!=null">
+                    AND T_ICIN.CardCode = #{sc.state}
+                </if>
+                <if test="sc.createDateStart!=null">
+                    AND T_ICIN.CreateDate &gt;= #{sc.createDateStart}
+                </if>
+                <if test="sc.createDateEnd!=null">
+                    AND T_ICIN.CreateDate &lt; #{sc.createDateEnd}
+                </if>
+                <if test="sc.invalidDateStart!=null">
+                    AND T_ICIN.CreateDate &gt;= #{sc.invalidDateStart}
+                </if>
+                <if test="sc.invalidDateEnd!=null">
+                    AND T_ICIN.CreateDate &lt; #{sc.invalidDateEnd}
+                </if>
+                <if test="sc.ownerCode!=null">
+                    AND T_ICIN.OwnerCode = #{sc.ownerCode}
+                </if>
                 AND (
-                @DataPur = 'ALL' /*可看所有*/
-                OR (@DataPur = 'Dept' AND ISNULL(T3.DeptCode, '') != '') /*判断当前用户可看本部门数据，如部门主任*/
-                OR (@DataPur = 'Self' AND T_ICIN.UserSign = @UserSign) /*销售员本人*/
+                    @DataPur = 'ALL' /*可看所有*/
+                    OR (@DataPur = 'Dept' AND ISNULL(T3.DeptCode, '') != '') /*判断当前用户可看本部门数据，如部门主任*/
+                    OR (@DataPur = 'Self' AND (T_ICIN.UserSign = @UserSign OR T_ICIN.OwnerCode = @UserSign)) /*销售员本人*/
                 )
             </where>
             GROUP BY T_ICIN.DocEntry, UserSign, OwnerCode, DocStatus, CreateDate, UpdateTime, T_ICIN.ExpDate, InquiryDate,
@@ -118,9 +170,5 @@
             U_CusGroupCode, U_CusIndustries, T_ICIN.U_SaleLevel, U_UserCode1, U_UserCode2, U_Region, U_DomainName,
             U_CntctCode, T_ICIN.U_CardStatus, T_ICIN.U_ShortCode, State, New, SourceType, U_TransaPlace
         ) T
-    </select>
-    <select id="selectMaxDocEntry" resultType="java.lang.Long">
-        SELECT MAX(DocEntry)
-        FROM T_ICIN
     </select>
 </mapper>

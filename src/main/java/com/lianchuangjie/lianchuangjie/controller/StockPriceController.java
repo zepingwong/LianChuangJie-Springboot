@@ -156,5 +156,4 @@ public class StockPriceController extends BaseController {
             return Result.success(true, "更新成功");
         }
     }
-
 }

@@ -40,7 +40,6 @@ public interface EnquiryMainMapper extends BaseMapper<EnquiryMainEntity> {
     Boolean existByDocEntry(@Param("DocEntry") Long docEntry);
 
     /**
-     * @param queryWrapper    queryWrapper
      * @param searchCondition searchCondition
      * @return List
      * @description 获取询价单主表列表
@@ -48,10 +47,9 @@ public interface EnquiryMainMapper extends BaseMapper<EnquiryMainEntity> {
      * @email zepingwong@gmail.com
      * @date 8/21/2022
      */
-    List<EnquiryMainItemVO> selectList(@Param("ew") QueryWrapper<EnquiryMainItemVO> queryWrapper, @Param("sc") EnquiryMainSearchDTO searchCondition);
+    List<EnquiryMainItemVO> selectList(@Param("sc") EnquiryMainSearchDTO searchCondition);
 
     /**
-     * @param queryWrapper    queryWrapper
      * @param searchCondition searchCondition
      * @return Integer
      * @description 获取询价单主表条数
@@ -59,7 +57,7 @@ public interface EnquiryMainMapper extends BaseMapper<EnquiryMainEntity> {
      * @email zepingwong@gmail.com
      * @date 8/21/2022
      */
-    Integer countList(@Param("ew") QueryWrapper<EnquiryMainItemVO> queryWrapper, @Param("sc") EnquiryMainSearchDTO searchCondition);
+    Integer countList(@Param("sc") EnquiryMainSearchDTO searchCondition);
 
     /**
      * 查询最大的文档编号

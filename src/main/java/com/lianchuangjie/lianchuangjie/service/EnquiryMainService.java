@@ -9,6 +9,5 @@ import com.lianchuangjie.lianchuangjie.vo.EnquiryMainItemVO;
 
 public interface EnquiryMainService extends IService<EnquiryMainEntity> {
     EnquiryMainInfoVO getOne(Long docEntry);
-    Page<EnquiryMainItemVO> list(EnquiryMainSearchDTO enquiryMainSearchDTO);
-
+    Page<EnquiryMainItemVO> getList(EnquiryMainSearchDTO enquiryMainSearchDTO);
 }

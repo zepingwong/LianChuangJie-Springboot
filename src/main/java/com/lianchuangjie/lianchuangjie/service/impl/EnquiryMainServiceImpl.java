@@ -36,33 +36,12 @@ public class EnquiryMainServiceImpl extends ServiceImpl<EnquiryMainMapper, Enqui
     }
 
     @Override
-    public Page<EnquiryMainItemVO> list(EnquiryMainSearchDTO searchCondition) {
+    public Page<EnquiryMainItemVO> getList(EnquiryMainSearchDTO searchCondition) {
         Page<EnquiryMainItemVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
-        QueryWrapper<EnquiryMainItemVO> queryWrapper = new QueryWrapper<>();
         String mainTable = SqlHelper.table(EnquiryMainEntity.class).getTableName();
-        String subTable = SqlHelper.table(EnquirySubEntity.class).getTableName();
         page.addOrder(OrderItem.desc(mainTable + ".CreateDate"));
-        if (searchCondition.getCardCode() != null) {
-            queryWrapper.eq(mainTable + ".CardCode", searchCondition.getCardCode());
-        }
-        if (searchCondition.getState() != null) {
-            queryWrapper.eq(mainTable + ".State", searchCondition.getState());
-        }
-        if (searchCondition.getCreateDateStart() != null) {
-            queryWrapper.ge(mainTable + ".CreateDate", searchCondition.getCreateDateStart());
-        }
-        if (searchCondition.getCreateDateEnd() != null) {
-            queryWrapper.le(mainTable + ".CreateDate", searchCondition.getCreateDateEnd());
-        }
-        if (searchCondition.getInvalidDateStart() != null) {
-            queryWrapper.ge(subTable + ".ExpDate", searchCondition.getInvalidDateStart());
-        }
-        if (searchCondition.getInvalidDateEnd() != null) {
-            queryWrapper.le(subTable + ".ExpDate", searchCondition.getInvalidDateEnd());
-        }
-        queryWrapper.eq(mainTable + ".OwnerCode", searchCondition.getOwnerCode());
-        page.setRecords(enquiryMainMapper.selectList(queryWrapper, searchCondition));
-        page.setTotal(enquiryMainMapper.countList(queryWrapper, searchCondition));
+        page.setRecords(enquiryMainMapper.selectList(searchCondition));
+        page.setTotal(enquiryMainMapper.countList(searchCondition));
         return page;
     }
 }
