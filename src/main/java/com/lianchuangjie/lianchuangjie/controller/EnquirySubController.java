@@ -11,6 +11,7 @@ import com.lianchuangjie.lianchuangjie.service.EnquiryExportService;
 import com.lianchuangjie.lianchuangjie.service.EnquirySubService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
 import com.lianchuangjie.lianchuangjie.vo.EnquiryExportDataVO;
+import com.lianchuangjie.lianchuangjie.vo.EnquiryExportItemVO;
 import com.lianchuangjie.lianchuangjie.vo.EnquirySubVO;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.web.bind.annotation.*;
@@ -92,5 +93,13 @@ public class EnquirySubController extends BaseController {
             e.printStackTrace();
             throw ResponseEnum.DOWNLOAD_ERROR.newException(e.getMessage());
         }
+    }
+
+    @GetMapping("/quote/{docEntry}")
+    @Authentication(sale = true)
+    public Result<List<EnquiryExportItemVO>> exportController(@PathVariable Long docEntry) {
+        EnquiryExportDataVO enquiryExportDataVO = enquiryExportService.export(docEntry);
+        List<EnquiryExportItemVO> enquiryExportItemVOList = enquiryExportDataVO.getEnquiryExportList();
+        return Result.success(enquiryExportItemVOList, "success");
     }
 }

@@ -568,10 +568,20 @@
         </where>
     </select>
     <select id="export" resultType="com.lianchuangjie.lianchuangjie.vo.EnquiryExportItemVO">
-        SELECT U_ICIN1.*
+        SELECT
+            U_ICIN1.LineNum,
+            U_ICIN1.SuoQuantity,
+            U_ICIN1.PriceAfVAT,
+            U_ICIN1.SuoYear,
+            U_ICIN1.SuoDelivery,
+            U_ICIN1.LineRemark,
+            U_ICIN1.PriceAfVAT *  U_ICIN1.SuoQuantity AS 'Amount',
+            ISNULL(U_ICIN1.QuoModle, U_ICIN1.Modle) AS 'QuoModle',
+            ISNULL(U_ICIN1.QuoBrand, U_ICIN1.Brand) AS 'QuoBrand'
         FROM U_ICIN1
         LEFT JOIN T_ICIN ON U_ICIN1.DocEntry = T_ICIN.DocEntry
         WHERE U_ICIN1.DocEntry = #{sc.docEntry}
         AND T_ICIN.OwnerCode = #{sc.ownerCode}
+        ORDER BY U_ICIN1.QuoModle DESC, U_ICIN1.LineNum
     </select>
 </mapper>
