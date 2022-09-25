@@ -52,12 +52,12 @@
     </delete>
     <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.EnquirySubVO">
         /*
-        1. U_ICIN1.LineNum 是主键不能复制, 也不能为空
-        2. 增加 U_ICIN1.ItemEntry、U_ICIN1.ItemLine 两个字段, U_ICIN1.ItemEntry = U_ICIN1.DocEntry; U_ICIN1.ItemLine = U_ICIN1.LineNum
-        3. 增加 U_ICIN1.IsSpare 该货源是否为备用货源
-        4. 是否选中一个货源的判断依据为 U_ICIN1.BaseEntry、U_ICIN1.BaseLine、U_ICIN1.PriceAFVAT 不为空
-        5. 超过一个月的货源在表 U_ICIN11 中
-        */
+         * 1. U_ICIN1.LineNum 是主键不能复制, 也不能为空
+         * 2. 增加 U_ICIN1.ItemEntry、U_ICIN1.ItemLine 两个字段, U_ICIN1.ItemEntry = U_ICIN1.DocEntry; U_ICIN1.ItemLine = U_ICIN1.LineNum
+         * 3. 增加 U_ICIN1.IsSpare 该货源是否为备用货源
+         * 4. 是否选中一个货源的判断依据为 U_ICIN1.BaseEntry、U_ICIN1.BaseLine、U_ICIN1.PriceAFVAT 不为空
+         * 5. 超过一个月的货源在表 U_ICIN11 中
+         */
         DECLARE @DocEntry INT; /*询价单编号*/
         DECLARE @TwoDays INT; /*2天有效期*/
         DECLARE @ThreeDays INT; /*3天有效期*/
@@ -108,6 +108,7 @@
             (BuyerDept.Code = 1 AND DateDiff(dd, T2.U_QuoDate, getdate()) &lt;= @TwoDays) OR
             (BuyerDept.Code = 2 AND DateDiff(dd, T2.U_QuoDate, getdate()) &lt;= @ThreeDays)
         );
+
         /*将已选择的货源(销售必须把报价填了、客户需求与货源的关系BaseEntry和BaseLine不能为空)存入临表*/
         SELECT U_ICIN1.*
         INTO #selected
@@ -116,6 +117,7 @@
         AND BaseEntry IS NOT NULL
         AND BaseLine IS NOT NULL
         AND PriceAfVAT IS NOT NULL;
+
         /*正文开始*/
         SELECT
             T.*
@@ -148,7 +150,7 @@
                 Available.U_QuoModle, /*报价型号*/
                 Available.BuyerName, /*采购员姓名*/
                 Available.U_Buyer, /*采购员编号*/
-                IIF(ClientNeeds.BaseLine IS NULL, ClientNeeds.SuoQuantity, Available.U_QuoQty) AS 'U_QuoQty', /*采购和销售报价数量*/
+                IIF(Available.SuoQuantity IS NULL, Available.U_QuoQty, Available.SuoQuantity) AS 'U_QuoQty', /*采购和销售报价数量*/
                 ROUND(Available.U_QuoPrice * ExchangeRate.Rate, 2) AS 'U_QuoPrice', /*报价价格,人民币不含税*/
                 Available.U_QCDesc, /*采购报价质检标准*/
                 Available.U_QuoDelivery, /*采购报价交期*/
@@ -165,7 +167,9 @@
                 (
                     CASE
                         WHEN ClientNeeds.DocEntry != Available.DocEntry THEN N'未询价'
-                        WHEN Available.DocEntry IS NOT NULL THEN N'已询价'
+                        WHEN Available.U_Status = 'Y' THEN N'已询价'
+                        WHEN Available.U_Status = 'U' THEN N'已更新'
+                        WHEN Available.U_Status = 'C' THEN N'已确认'
                     END
                 )              AS 'QuoState',
                 (
@@ -241,12 +245,26 @@
             /*所有可选货源，包括有效期内的货源（包括最优货源）和已选择的货源*/
             LEFT JOIN (
                 SELECT
-                    AllQuote.*,
+                    AllQuote.U_QuoDate, /*报价日期*/
+                    AllQuote.DocEntry, /*报价单编号*/
+                    AllQuote.LineNum, /*报价单内部行号*/
+                    AllQuote.U_Buyer, /*采购员编号*/
+                    AllQuote.U_QuoBrand, /*报价品牌*/
+                    AllQuote.U_QuoModle, /*报价型号*/
+                    AllQuote.U_QuoQty, /*报价数量*/
+                    AllQuote.U_QuoDelivery, /*采购报价交期*/
+                    AllQuote.U_QuoYear, /*采购报价批次*/
+                    AllQuote.U_QCDesc, /*采购报价质检标准*/
+                    AllQuote.U_QuoPrice, /*报价价格*/
+                    AllQuote.U_QuoLevel, /*供应商等级*/
+                    AllQuote.U_QuoVatGroup, /*报价税率代码*/
+                    AllQuote.U_QuoCurr, /*采购报价货币*/
                     IIF(#selected.PriceAFVAT IS NOT NULL, 'Y', 'N') AS 'Checked', /*销售填写了价格表示选中该货源*/
                     #selected.PriceAFVAT AS 'PriceAFVAT', /*该货源的销售报价价格,已选择的货源销售报价价格要和货源绑定在一起*/
                     T_OUSI.UserName AS 'BuyerName', /*采购员姓名*/
                     BuyerDept.Name AS 'DeptName', /*采购部门名称,货源*/
-                    #selected.IsSpare AS 'IsSpare' /*是否为备用货源*/
+                    #selected.IsSpare AS 'IsSpare', /*是否为备用货源*/
+                    #selected.SuoQuantity AS 'SuoQuantity' /*选中货源销售报价数量*/
                 FROM (
                     SELECT
                         U_QuoDate, /*报价日期*/
@@ -313,7 +331,7 @@
                     /*或者是销售已选择的货源,填写报价价格并保存了客户需求与货源的对应关系*/
                     OR #selected.PriceAFVAT IS NOT NULL
                 )
-                AND AllQuote.U_Status = 'Y' /*采购报价状态为已回复*/
+                AND (AllQuote.U_Status = 'Y' OR AllQuote.U_Status = 'C') /*采购报价状态为已回复或已确认*/
                 AND AllQuote.U_QuoModle IS NOT NULL  /*采购报价信息完整*/
                 AND AllQuote.U_QuoPrice IS NOT NULL
             ) Available ON (
@@ -555,13 +573,10 @@
         )
         AND U_ICIN1.PriceAfVAT IS NOT NULL
     </select>
-    <select id="selectOne" resultType="com.lianchuangjie.lianchuangjie.entity.EnquirySubEntity">
-        SELECT * FROM U_ICIN1 WHERE DocEntry = #{DocEntry} AND LineNum = #{LineNum}
-    </select>
     <select id="count" resultType="java.lang.Integer" parameterType="java.lang.Long">
         SELECT COUNT(*) FROM U_ICIN1 WHERE DocEntry = #{DocEntry}
     </select>
-    <select id="getOne" resultType="com.lianchuangjie.lianchuangjie.entity.EnquirySubEntity">
+    <select id="selectOne" resultType="com.lianchuangjie.lianchuangjie.entity.EnquirySubEntity">
         SELECT * FROM U_ICIN1
         <where>
             ${ew.getSqlSegment()}
@@ -576,8 +591,11 @@
             U_ICIN1.SuoDelivery,
             U_ICIN1.LineRemark,
             U_ICIN1.PriceAfVAT *  U_ICIN1.SuoQuantity AS 'Amount',
-            ISNULL(U_ICIN1.QuoModle, U_ICIN1.Modle) AS 'QuoModle',
-            ISNULL(U_ICIN1.QuoBrand, U_ICIN1.Brand) AS 'QuoBrand'
+            U_ICIN1.QuoModle,
+            U_ICIN1.QuoBrand,
+            U_ICIN1.Modle,
+            U_ICIN1.Brand,
+            U_ICIN1.ItemLine
         FROM U_ICIN1
         LEFT JOIN T_ICIN ON U_ICIN1.DocEntry = T_ICIN.DocEntry
         WHERE U_ICIN1.DocEntry = #{sc.docEntry}
