@@ -15,7 +15,22 @@ public class UserInfoServiceImpl extends ServiceImpl<UserMapper, UserEntity> imp
     UserMapper userMapper;
 
     @Override
-    public UserInfoVO getOne(QueryWrapper<UserInfoVO> queryWrapper) {
-        return userMapper.getInfo(queryWrapper);
+    public UserEntity getOne(String id) {
+        QueryWrapper<UserEntity> queryWrapper = new QueryWrapper<>();
+        if (id.matches("\\d+")) {
+            // 如果id为数字，则查询用户编号 UserSign
+            queryWrapper.eq("UserSign", id);
+        } else {
+            // 否则查询 UserCode
+            queryWrapper.eq("UserCode", id);
+        }
+        return userMapper.selectOne(queryWrapper);
+    }
+
+    @Override
+    public UserEntity getOne(Long userSign) {
+        QueryWrapper<UserEntity> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("UserSign", userSign);
+        return userMapper.selectOne(queryWrapper);
     }
 }

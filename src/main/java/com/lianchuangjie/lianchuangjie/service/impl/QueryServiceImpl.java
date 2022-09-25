@@ -25,7 +25,7 @@ public class QueryServiceImpl implements QueryService {
         Long userSign = SessionUtil.getUserSign();
         QueryWrapper<UserEntity> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("UserSign", userSign);
-        UserEntity user = userMapper.getOne(queryWrapper);
+        UserEntity user = userMapper.selectOne(queryWrapper);
         singleQueryDTO.setSlpCode(userSign);
         singleQueryDTO.setDeptCode(user.getDftDept());
     }
@@ -36,7 +36,7 @@ public class QueryServiceImpl implements QueryService {
         Long userSign = SessionUtil.getUserSign();
         QueryWrapper<UserEntity> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("UserSign", userSign);
-        UserEntity user = userMapper.getOne(queryWrapper);
+        UserEntity user = userMapper.selectOne(queryWrapper);
         List<BomQueryItemVO> list = bomQueryMapper.queryBom(docEntry, user.getDftDept(), userSign);
         bomQueryRes.setBomQueryItemList(list);
         bomQueryRes.setTotalSize(list.size());

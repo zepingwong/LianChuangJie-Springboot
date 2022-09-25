@@ -163,4 +163,27 @@
             U_CntctCode, T_ICIN.U_CardStatus, T_ICIN.U_ShortCode, State, New, SourceType, U_TransaPlace
         ) T
     </select>
+    <select id="selectOne" resultType="com.lianchuangjie.lianchuangjie.entity.EnquiryMainEntity">
+        SELECT
+            T_ICIN.CardName, /*客户名称*/
+            T_ICIN.DocEntry, /*询价单编号*/
+            COUNT ( U_ICIN1.LineNum ) AS 'EnquireSum', /*询价单总行数*/
+            SUM(IIF(U_ICIN1.PriceAfVAT IS NOT NULL, 1, 0)) AS 'EnquireComplete', /*报价完成行数*/
+            T_ICIN.State, /*处理情况*/
+            T_ICIN.New, /*更新情况*/
+            T_ICIN.SourceType, /*询价来源*/
+            T_ICIN.CreateDate, /*发送时间*/
+            MIN(U_ICIN1.ExpDate) AS 'InvalidDateMin', /*最早失效时间*/
+            MAX(U_ICIN1.ExpDate) AS 'InvalidDateMax', /*最晚失效时间*/
+            (
+                (SELECT COUNT(*) FROM T_ICIN1 WHERE T_ICIN1.U_Status = 'Y' AND T_ICIN1.DocEntry = T_ICIN.DocEntry) +
+                (SELECT COUNT(*) FROM U_ICIN11 WHERE U_ICIN11.U_Status = 'Y' AND U_ICIN11.DocEntry = T_ICIN.DocEntry)
+            ) AS 'PurchaseReply' /*采购回复次数来自两张表*/
+        FROM T_ICIN
+        LEFT JOIN U_ICIN1 ON T_ICIN.DocEntry = U_ICIN1.DocEntry
+        GROUP BY T_ICIN.DocEntry, T_ICIN.State, T_ICIN.SourceType, T_ICIN.CreateDate, T_ICIN.CardName, T_ICIN.New
+        <where>
+            ${ew.getSqlSegment()}
+        </where>
+    </select>
 </mapper>

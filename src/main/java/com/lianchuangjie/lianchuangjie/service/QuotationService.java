@@ -3,13 +3,34 @@ package com.lianchuangjie.lianchuangjie.service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.lianchuangjie.lianchuangjie.dto.QuotationReplyDTO;
 import com.lianchuangjie.lianchuangjie.dto.search.QuotationSearchDTO;
 import com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.QuotationEntity;
 import com.lianchuangjie.lianchuangjie.vo.*;
 
 public interface QuotationService extends IService<QuotationEntity> {
-    Page<QuotationVO> list(QuotationSearchDTO quotationSearchDTO);
+    /**
+     * @param quotationReplyDTO quotationReplyDTO
+     * @return Boolean
+     * @description 采购回复
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 9/25/2022
+     */
+    Boolean reply(QuotationReplyDTO quotationReplyDTO);
+
+    /**
+     * @param queryWrapper queryWrapper
+     * @return QuotationEntity
+     * @description 查询一条采购报价信息
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 9/25/2022
+     */
+    QuotationEntity getOne(QueryWrapper<QuotationEntity> queryWrapper);
+
+    Page<QuotationVO> getList(QuotationSearchDTO quotationSearchDTO);
 
     /**
      * @param searchCondition searchCondition
@@ -31,7 +52,6 @@ public interface QuotationService extends IService<QuotationEntity> {
      */
     Page<TabEffectiveQuotationVO> tabEffectiveList(TabSearchDTO searchCondition);
 
-    QuotationEntity getOne(QueryWrapper<QuotationEntity> queryWrapper);
 
     /**
      * @param tabSearchDTO tabSearchDTO

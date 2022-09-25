@@ -1,10 +1,9 @@
 package com.lianchuangjie.lianchuangjie.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lianchuangjie.lianchuangjie.dto.EmployeeLoginDTO;
 import com.lianchuangjie.lianchuangjie.entity.UserEntity;
-import com.lianchuangjie.lianchuangjie.service.UserLoginService;
 import com.lianchuangjie.lianchuangjie.service.UserInfoService;
+import com.lianchuangjie.lianchuangjie.service.UserLoginService;
 import com.lianchuangjie.lianchuangjie.service.UserLogoutService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
 import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
@@ -74,15 +73,9 @@ public class UserController {
      */
     @GetMapping("/{id}")
     public Result<UserInfoVO> getUserInfoController(@PathVariable String id) {
-        QueryWrapper<UserInfoVO> queryWrapper = new QueryWrapper<>();
-        if (id.matches("\\d+")) {
-            // 如果id为数字，则查询用户编号 UserSign
-            queryWrapper.eq("UserSign", id);
-        } else {
-            // 否则查询 UserCode
-            queryWrapper.eq("UserCode", id);
-        }
-        UserInfoVO userInfoVO = userInfoService.getOne(queryWrapper);
+        UserEntity userEntity = userInfoService.getOne(id);
+        UserInfoVO userInfoVO = new UserInfoVO();
+        BeanUtils.copyProperties(userEntity, userInfoVO);
         return Result.success(userInfoVO);
     }
 }

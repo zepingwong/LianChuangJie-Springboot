@@ -37,9 +37,7 @@ public interface EnquirySubMapper extends BaseMapper<EnquirySubEntity> {
      * @date 9/20/2022
      */
     Boolean updateBuyers(@Param("Entity") EnquirySubEntity enquirySubEntity);
-
-    EnquirySubEntity selectOne(@Param("DocEntry") Long docEntry, @Param("LineNum") Long lineNum);
-    EnquirySubEntity getOne(@Param("ew") QueryWrapper<EnquirySubEntity> queryWrapper);
+    EnquirySubEntity selectOne(@Param("ew") QueryWrapper<EnquirySubEntity> queryWrapper);
 
     /**
      * @param enquirySubSearchDTO enquirySubSearchDTO

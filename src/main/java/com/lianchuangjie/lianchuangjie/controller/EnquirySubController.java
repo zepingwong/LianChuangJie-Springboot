@@ -97,9 +97,8 @@ public class EnquirySubController extends BaseController {
 
     @GetMapping("/quote/{docEntry}")
     @Authentication(sale = true)
-    public Result<List<EnquiryExportItemVO>> exportController(@PathVariable Long docEntry) {
+    public Result<EnquiryExportDataVO> exportController(@PathVariable Long docEntry) {
         EnquiryExportDataVO enquiryExportDataVO = enquiryExportService.export(docEntry);
-        List<EnquiryExportItemVO> enquiryExportItemVOList = enquiryExportDataVO.getEnquiryExportList();
-        return Result.success(enquiryExportItemVOList, "success");
+        return Result.success(enquiryExportDataVO, "success");
     }
 }

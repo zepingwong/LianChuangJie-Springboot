@@ -30,34 +30,43 @@ public class EnquiryReQuoteServiceImpl extends ServiceImpl<EnquirySubMapper, Enq
 
     @Override
     public Boolean handle(EnquiryReQuoteDTO enquiryReQuoteDTO) {
-        // 该条客户需求
-        EnquirySubEntity enquirySubEntity = enquirySubMapper.selectOne(enquiryReQuoteDTO.getDocEntry(), enquiryReQuoteDTO.getLineNum());
-        // 该需求主表
+        // 查询客户需求
+        QueryWrapper<EnquirySubEntity> selectEnquirySubEntity = new QueryWrapper<>();
+        selectEnquirySubEntity.eq("DocEntry", enquiryReQuoteDTO.getDocEntry());
+        selectEnquirySubEntity.eq("LineNum", enquiryReQuoteDTO.getLineNum());
+        EnquirySubEntity enquirySubEntity = enquirySubMapper.selectOne(selectEnquirySubEntity);
+        // 需求主表
         EnquiryMainEntity enquiryMainEntity = enquiryMainMapper.selectByDocEntry(enquiryReQuoteDTO.getDocEntry(), SessionUtil.getUserSign());
-        // 销售员
-        QueryWrapper<UserEntity> queryWrapper1 = new QueryWrapper<>();
-        queryWrapper1.eq("UserSign", SessionUtil.getUserSign());
-        UserEntity userEntity = userMapper.getOne(queryWrapper1);
-        // 将采购的编号加进去
+        // 该货源的采购员
+        QueryWrapper<UserEntity> selectUserEntity = new QueryWrapper<>();
+        selectUserEntity.eq("UserSign", SessionUtil.getUserSign());
+        UserEntity userEntity = userMapper.selectOne(selectUserEntity);
+        /*
+         * 1. 判断当前询价单是否已经发送给该货源对应的采购
+         * 2. 更新 U_ICIN1.Buyers
+         */
         String buyers = enquirySubEntity.getBuyers();
         if (!buyers.contains(String.valueOf(enquiryReQuoteDTO.getUBuyer()))) {
             buyers = buyers + "," + enquiryReQuoteDTO.getUBuyer();
         }
         enquirySubEntity.setBuyers(buyers);
         enquirySubMapper.updateBuyers(enquirySubEntity);
-        // 采购报价表直接保存此条报价信息
+        /*
+         * 1. 采购报价表 T_ICIN1 直接保存这条待确认的报价信息
+         * 2. T_ICIN1.Status = 'W'
+         * 3. 更新货源的需求信息为当前客户需求
+         */
+        Long docEntry = enquiryReQuoteDTO.getDocEntry(); // 询价单单据编号
+        Long lineNum = quotationMapper.count(docEntry) + 1; // 采购报价单行号
         QueryWrapper<QuotationEntity> queryWrapper2 = new QueryWrapper<>();
-        queryWrapper2.eq("DocEntry", enquiryReQuoteDTO.getBaseEntry());
-        queryWrapper2.eq("LineNum", enquiryReQuoteDTO.getBaseLine());
-        QuotationEntity quotationEntity = quotationMapper.selectOne(queryWrapper2);
-        quotationEntity.setDocEntry(enquiryReQuoteDTO.getDocEntry());
-        Long lineNum = quotationMapper.count(enquiryReQuoteDTO.getDocEntry()) + 1;
-        quotationEntity.setLineNum(lineNum);
-        quotationEntity.setDocEntry(enquiryReQuoteDTO.getDocEntry());
-        quotationEntity.setUBaseEntry(enquiryReQuoteDTO.getDocEntry()); // T_ICIN1.U_BaseEntry
-        quotationEntity.setUBaseLine(enquiryReQuoteDTO.getLineNum()); // T_ICIN1.U_BaseLine
-        quotationEntity.setUStatus("U");
-        // 需求信息
+        queryWrapper2.eq("DocEntry", enquiryReQuoteDTO.getBaseEntry()); // 采购报价单单据编号
+        queryWrapper2.eq("LineNum", enquiryReQuoteDTO.getBaseLine()); // 采购报价单单据行号
+        QuotationEntity quotationEntity = quotationMapper.selectOne(queryWrapper2); // 货源
+        quotationEntity.setDocEntry(docEntry); // 更新货源询价单单据编号
+        quotationEntity.setLineNum(lineNum); // 更新货源询价单单据行号
+        quotationEntity.setUBaseEntry(enquirySubEntity.getDocEntry()); // T_ICIN1.U_BaseEntry = U_ICIN1.DocEntry
+        quotationEntity.setUBaseLine(enquirySubEntity.getLineNum()); // T_ICIN1.U_BaseLine = U_ICIN1.LineNum
+        quotationEntity.setUStatus("W");
         quotationEntity.setBrand(enquirySubEntity.getBrand()); // 需求品牌
         quotationEntity.setModle(enquirySubEntity.getModle()); // 需求型号
         quotationEntity.setYear(enquirySubEntity.getYear()); // 批次
@@ -80,7 +89,6 @@ public class EnquiryReQuoteServiceImpl extends ServiceImpl<EnquirySubMapper, Enq
         quotationEntity.setUCardCode(enquiryMainEntity.getCardCode()); // 客户代码
         quotationEntity.setCardName(enquiryMainEntity.getCardName()); // 客户名称
         quotationEntity.setUKeyUser(userEntity.getUserSign()); // 谁标记的重要询价
-        quotationMapper.insert(quotationEntity);
-        return true;
+        return quotationMapper.insert(quotationEntity) == 1;
     }
 }

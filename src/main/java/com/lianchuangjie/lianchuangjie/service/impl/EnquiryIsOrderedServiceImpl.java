@@ -22,7 +22,7 @@ public class EnquiryIsOrderedServiceImpl extends ServiceImpl<EnquirySubMapper, E
         queryWrapper.eq("LineNum", enquiryIsOrderedDTO.getLineNum());
         queryWrapper.eq("BaseEntry", enquiryIsOrderedDTO.getBaseEntry());
         queryWrapper.eq("BaseLine", enquiryIsOrderedDTO.getBaseLine());
-        EnquirySubEntity enquirySubEntity = enquirySubMapper.getOne(queryWrapper);
+        EnquirySubEntity enquirySubEntity = enquirySubMapper.selectOne(queryWrapper);
         if (enquirySubEntity != null) {
             enquirySubEntity.setIsOrdered("Y");
             int res = enquirySubMapper.update(enquirySubEntity, queryWrapper);

@@ -19,7 +19,7 @@ public class UserLoginServiceImpl implements UserLoginService {
         QueryWrapper<UserEntity> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("UserCode", employee.getUserCode());
         // 根据 UserCode 查询用户
-        UserEntity user = userMapper.getOne(queryWrapper);
+        UserEntity user = userMapper.selectOne(queryWrapper);
         // 断言用户不为空
         ResponseEnum.ISNULL.assertNotNull(user, "员工账号不存在");
         // 密码错误

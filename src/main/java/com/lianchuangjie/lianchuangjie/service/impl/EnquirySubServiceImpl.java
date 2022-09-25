@@ -1,5 +1,6 @@
 package com.lianchuangjie.lianchuangjie.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -54,7 +55,10 @@ public class EnquirySubServiceImpl extends ServiceImpl<EnquirySubMapper, Enquiry
     public Boolean save(List<EnquirySaveItemDTO> enquirySubList) {
         // 两层循环,第一次时询价表,第二层时货源
         for (EnquirySaveItemDTO enquirySaveItemDTO : enquirySubList) {
-            EnquirySubEntity enquirySubEntity = enquirySubMapper.selectOne(enquirySaveItemDTO.getDocEntry(), enquirySaveItemDTO.getLineNum());
+            QueryWrapper<EnquirySubEntity> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("DocEntry", enquirySaveItemDTO.getDocEntry());
+            queryWrapper.eq("LineNum", enquirySaveItemDTO.getLineNum());
+            EnquirySubEntity enquirySubEntity = enquirySubMapper.selectOne(queryWrapper);
             enquirySubMapper.clear(enquirySaveItemDTO.getDocEntry(), enquirySaveItemDTO.getLineNum());
             int i = 0;
             for (EnquirySubItemDTO enquirySubItemDTO : enquirySaveItemDTO.getRecommend()) {

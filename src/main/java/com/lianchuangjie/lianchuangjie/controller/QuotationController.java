@@ -5,17 +5,17 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lianchuangjie.lianchuangjie.config.Authentication;
 import com.lianchuangjie.lianchuangjie.dto.QuotationReplyDTO;
 import com.lianchuangjie.lianchuangjie.dto.QuotationSaveDTO;
+import com.lianchuangjie.lianchuangjie.dto.search.QuotationSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.EnquiryMainEntity;
 import com.lianchuangjie.lianchuangjie.entity.QuotationEntity;
+import com.lianchuangjie.lianchuangjie.entity.UserEntity;
 import com.lianchuangjie.lianchuangjie.mapper.EnquiryMainMapper;
-import com.lianchuangjie.lianchuangjie.dto.search.QuotationSearchDTO;
 import com.lianchuangjie.lianchuangjie.service.EnquiryMainService;
 import com.lianchuangjie.lianchuangjie.service.QuotationService;
 import com.lianchuangjie.lianchuangjie.service.UserInfoService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
 import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
 import com.lianchuangjie.lianchuangjie.vo.QuotationVO;
-import com.lianchuangjie.lianchuangjie.vo.UserInfoVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -37,6 +37,22 @@ public class QuotationController extends BaseController {
     @Resource
     EnquiryMainMapper enquiryMainMapper;
 
+    /**
+     * @param page             page
+     * @param size             size
+     * @param modle            modle
+     * @param brand            brand
+     * @param uStatus          uStatus
+     * @param inquiryDateStart inquiryDateStart
+     * @param inquiryDateEnd   inquiryDateEnd
+     * @param uBuyer           uBuyer
+     * @param ownerCode        ownerCode
+     * @return Result
+     * @description 获取采购报价列表
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 9/25/2022
+     */
     @GetMapping("quote")
     @Authentication(buyer = true)
     public Result<Page<QuotationVO>> getQuotationListController(
@@ -60,10 +76,18 @@ public class QuotationController extends BaseController {
         quotationSearchDTO.setOwnerCode(ownerCode);
         quotationSearchDTO.setInquiryDateStart(inquiryDateStart);
         quotationSearchDTO.setInquiryDateEnd(inquiryDateEnd);
-        Page<QuotationVO> pages = quotationService.list(quotationSearchDTO);
+        Page<QuotationVO> pages = quotationService.getList(quotationSearchDTO);
         return Result.success(pages, "Success");
     }
 
+    /**
+     * @param quotationSaveDTO quotationSaveDTO
+     * @return Result
+     * @description 采购保存一条报价信息
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 9/25/2022
+     */
     @PostMapping("quote")
     @Authentication(buyer = true)
     public Result<Boolean> saveQuotationController(@RequestBody @Valid QuotationSaveDTO quotationSaveDTO) {
@@ -78,26 +102,24 @@ public class QuotationController extends BaseController {
         // 采购员和采购部门信息
         Long userSign = SessionUtil.getUserSign();
         quotationEntity.setUBuyer(userSign);
-        QueryWrapper<UserInfoVO> userInfoVOQueryWrapper = new QueryWrapper<>();
-        userInfoVOQueryWrapper.eq("UserSign", userSign); // 采购员编号
-        UserInfoVO user = userInfoService.getOne(userInfoVOQueryWrapper);
+        UserEntity user = userInfoService.getOne(userSign);
         quotationEntity.setUserName(user.getUserName()); // 采购员姓名
         quotationEntity.setUDeptCod(user.getDftDeptName()); // 采购部门名称
         return Result.success(quotationService.save(quotationEntity));
     }
 
+    /**
+     * @param quotationReplyDTO quotationReplyDTO
+     * @return Result
+     * @description 采购回复一条报价
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 9/25/2022
+     */
     @PatchMapping("quote")
     @Authentication(buyer = true)
     public Result<Boolean> replyQuotationController(@RequestBody @Valid QuotationReplyDTO quotationReplyDTO) {
-        QueryWrapper<QuotationEntity> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("DocEntry", quotationReplyDTO.getDocEntry());
-        queryWrapper.eq("U_BaseLine", quotationReplyDTO.getLineNum());
-        QuotationEntity quotationEntity = quotationService.getOne(queryWrapper);
-        quotationEntity.setUStatus("Y");
-        Boolean res = quotationService.update(quotationEntity, queryWrapper);
-        EnquiryMainEntity enquiryMainEntity = enquiryMainMapper.selectByDocEntry(quotationReplyDTO.getDocEntry());
-        enquiryMainEntity.setNew("Y");
-        enquiryMainService.updateById(enquiryMainEntity);
+        Boolean res = quotationService.reply(quotationReplyDTO);
         return Result.success(res, "Success");
     }
 }
