@@ -6,10 +6,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.lianchuangjie.lianchuangjie.dto.search.EnquirySubSearchDTO;
 import com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.EnquirySubEntity;
-import com.lianchuangjie.lianchuangjie.vo.EnquirySubVO;
-import com.lianchuangjie.lianchuangjie.vo.TabEnquiryNeedsVO;
-import com.lianchuangjie.lianchuangjie.vo.TabQuotationNeedsVO;
-import com.lianchuangjie.lianchuangjie.vo.TabStockPriceEnquiryVO;
+import com.lianchuangjie.lianchuangjie.vo.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -99,4 +96,6 @@ public interface EnquirySubMapper extends BaseMapper<EnquirySubEntity> {
     IPage<TabStockPriceEnquiryVO> selectStockPriceTabList(IPage<TabStockPriceEnquiryVO> page, @Param("sc") TabSearchDTO searchCondition);
 
     Boolean order(@Param("Entity") EnquirySubEntity enquirySubEntity);
+
+    List<EnquiryExportItemVO> export(@Param("sc") EnquirySubSearchDTO enquirySubSearchDTO);
 }

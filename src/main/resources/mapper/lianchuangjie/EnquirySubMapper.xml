@@ -567,4 +567,11 @@
             ${ew.getSqlSegment()}
         </where>
     </select>
+    <select id="export" resultType="com.lianchuangjie.lianchuangjie.vo.EnquiryExportItemVO">
+        SELECT U_ICIN1.*
+        FROM U_ICIN1
+        LEFT JOIN T_ICIN ON U_ICIN1.DocEntry = T_ICIN.DocEntry
+        WHERE U_ICIN1.DocEntry = #{sc.docEntry}
+        AND T_ICIN.OwnerCode = #{sc.ownerCode}
+    </select>
 </mapper>

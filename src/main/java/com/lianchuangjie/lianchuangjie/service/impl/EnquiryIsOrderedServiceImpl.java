@@ -25,7 +25,8 @@ public class EnquiryIsOrderedServiceImpl extends ServiceImpl<EnquirySubMapper, E
         EnquirySubEntity enquirySubEntity = enquirySubMapper.getOne(queryWrapper);
         if (enquirySubEntity != null) {
             enquirySubEntity.setIsOrdered("Y");
-            return enquirySubMapper.order(enquirySubEntity);
+            int res = enquirySubMapper.update(enquirySubEntity, queryWrapper);
+            return res > 1;
         } else {
             return false;
         }

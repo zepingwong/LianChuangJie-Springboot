@@ -15,7 +15,7 @@ import java.util.Date;
 
 @RestController
 @RequestMapping("/enquiry")
-public class EnquiryMainController {
+public class EnquiryMainController extends BaseController {
     @Resource
     EnquiryMainService enquiryMainService;
 

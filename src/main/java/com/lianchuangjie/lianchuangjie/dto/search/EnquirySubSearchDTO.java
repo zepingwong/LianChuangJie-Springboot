@@ -5,8 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigInteger;
-
 /**
  * 询价单子表查询条件
  */
@@ -19,5 +17,5 @@ public class EnquirySubSearchDTO {
     private Long docEntry;
     // 销售员编号
     @JsonProperty("OwnerCode")
-    private Long OwnerCode;
+    private Long ownerCode;
 }
