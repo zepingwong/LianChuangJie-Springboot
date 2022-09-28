@@ -1,5 +1,6 @@
 package com.lianchuangjie.lianchuangjie.service;
 
+import com.lianchuangjie.lianchuangjie.dto.EnquiryExportSaveDTO;
 import com.lianchuangjie.lianchuangjie.vo.EnquiryExportDataVO;
 
 public interface EnquiryExportService {
@@ -9,4 +10,6 @@ public interface EnquiryExportService {
      * @description 标准报价单
      */
     EnquiryExportDataVO export(Long docEntry);
+
+    Boolean save(EnquiryExportSaveDTO enquiryExportSaveDTO);
 }

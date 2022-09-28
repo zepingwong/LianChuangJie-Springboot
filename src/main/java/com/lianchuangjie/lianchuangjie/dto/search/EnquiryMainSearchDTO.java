@@ -1,6 +1,7 @@
 package com.lianchuangjie.lianchuangjie.dto.search;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,7 +29,8 @@ public class EnquiryMainSearchDTO {
     // 询价单位编号
     private String cardCode;
     // 处理情况-销售报价次数
-    private Integer state;
+    @JsonProperty("U_State")
+    private Integer uState;
     // 失效时间上限
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date invalidDateStart;

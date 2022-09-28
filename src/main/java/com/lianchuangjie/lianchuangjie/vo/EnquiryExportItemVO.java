@@ -30,10 +30,10 @@ public class EnquiryExportItemVO {
     @JsonProperty("ItemCode")
     private String itemCode;
     /**
-     * @description 报价品牌
+     * @description 需求品牌
      */
-    @JsonProperty("QuoBrand")
-    private String quoBrand;
+    @JsonProperty("Brand")
+    private String brand;
     /**
      * @description 报价批次 SuoYear
      */
@@ -62,4 +62,9 @@ public class EnquiryExportItemVO {
     // 金额 amount
     @JsonProperty("Amount")
     private BigDecimal amount;
+    @JsonProperty("ItemLine")
+    private Long itemLine;
+    // 需求型号
+    @JsonProperty("Modle")
+    private String modle;
 }

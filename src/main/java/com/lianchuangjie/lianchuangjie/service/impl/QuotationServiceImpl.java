@@ -88,7 +88,7 @@ public class QuotationServiceImpl extends ServiceImpl<QuotationMapper, Quotation
         QueryWrapper<EnquiryMainEntity> selectEnquiryMainEntity = new QueryWrapper<>();
         selectEnquiryMainEntity.eq("DocEntry", quotationReplyDTO.getDocEntry());
         EnquiryMainEntity enquiryMainEntity = enquiryMainMapper.selectOne(selectEnquiryMainEntity);
-        enquiryMainEntity.setNew("Y");
+        enquiryMainEntity.setUNew("Y");
         return enquiryMainMapper.update(enquiryMainEntity, selectEnquiryMainEntity) == 1;
     }
 

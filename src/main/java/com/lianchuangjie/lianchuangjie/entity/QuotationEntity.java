@@ -22,7 +22,7 @@ public class QuotationEntity {
     @TableField(value = "LineNum")
     private Long lineNum;
     // ItemId 关联型号ItemId 相同
-    @TableField(value = "ItemId")
+    @TableField(value = "U_ItemId")
     private Long itemId;
     /**
      * 需求信息
@@ -121,23 +121,23 @@ public class QuotationEntity {
     @TableField(value = "UnableQuote")
     private String unableQuote;
     // 标准包装
-    @TableField(value = "StanPackage")
-    private String stanPackage;
+    @TableField(value = "U_StanPackage")
+    private String uStanPackage;
     // 起订量
-    @TableField(value = "MinQty")
-    private Integer minQty;
+    @TableField(value = "U_MinQty")
+    private Integer uMinQty;
     // 联系人
-    @TableField(value = "ContPerson")
-    private String contPerson;
+    @TableField(value = "U_ContPerson")
+    private String uContPerson;
     // 电话
-    @TableField(value = "ContPhone")
-    private String contPhone;
+    @TableField(value = "U_ContPhone")
+    private String uContPhone;
     // 地址
-    @TableField(value = "ContAddress")
+    @TableField(value = "U_ContAddress")
     private String contAddress;
     // 邮箱
-    @TableField(value = "ContEmail")
-    private String contEmail;
+    @TableField(value = "U_ContEmail")
+    private String uContEmail;
     // 负责采购员编号
     @TableField(value = "U_Buyer")
     private Long uBuyer;

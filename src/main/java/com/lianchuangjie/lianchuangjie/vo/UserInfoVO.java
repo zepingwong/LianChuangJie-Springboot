@@ -30,8 +30,8 @@ public class UserInfoVO {
     @JsonProperty("DftDeptName")
     private String dftDeptName;
     // 头像URL T_OUSI.Avatar
-    @JsonProperty("Avatar")
-    private String avatar;
+    @JsonProperty("U_Avatar")
+    private String uAvatar;
     // 是否为采购员 T_OUSI.U_IsBuyer
     @JsonProperty("U_IsBuyer")
     private String uIsBuyer;

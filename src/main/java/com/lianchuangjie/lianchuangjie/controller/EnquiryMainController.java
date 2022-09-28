@@ -50,7 +50,7 @@ public class EnquiryMainController extends BaseController {
         searchCondition.setPage(page);
         searchCondition.setSize(size);
         searchCondition.setCardCode(cardCode);
-        searchCondition.setState(state);
+        searchCondition.setUState(state);
         searchCondition.setInvalidDateStart(invalidDateStart);
         searchCondition.setInvalidDateEnd(invalidDateEnd);
         searchCondition.setCreateDateStart(createDateStart);

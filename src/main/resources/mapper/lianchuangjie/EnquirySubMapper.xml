@@ -119,8 +119,7 @@
         AND PriceAfVAT IS NOT NULL;
 
         /*正文开始*/
-        SELECT
-            T.*
+        SELECT T.*
         FROM (
             SELECT
                 ClientNeeds.DocEntry, /*询价单编号*/
@@ -160,6 +159,8 @@
                 Available.U_QuoCurr, /*采购报价货币*/
                 Available.U_QuoDate, /*采购报价日期*/
                 Available.U_QuoVatGroup, /*采购报价税率代码*/
+                Available.U_OriginEntry,
+                Available.U_OriginLine,
                 T_OVTG.Rate AS 'U_QuoVatRate', /*采购报价税率*/
                 Available.Checked, /*货源是否已选择*/
                 Available.IsSpare, /*货源属性,是否为备用货源*/
@@ -167,9 +168,9 @@
                 (
                     CASE
                         WHEN ClientNeeds.DocEntry != Available.DocEntry THEN N'未询价'
-                        WHEN Available.U_Status = 'Y' THEN N'已询价'
+                        WHEN Available.U_Status = 'Y' AND Available.U_OriginEntry IS NULL THEN N'已询价'
+                        WHEN Available.U_Status = 'Y' AND Available.U_OriginEntry IS NOT NULL THEN N'新确认'
                         WHEN Available.U_Status = 'U' THEN N'已更新'
-                        WHEN Available.U_Status = 'C' THEN N'已确认'
                     END
                 )              AS 'QuoState',
                 (
@@ -259,6 +260,9 @@
                     AllQuote.U_QuoLevel, /*供应商等级*/
                     AllQuote.U_QuoVatGroup, /*报价税率代码*/
                     AllQuote.U_QuoCurr, /*采购报价货币*/
+                    AllQuote.U_Status, /*采购报价状态*/
+                    AllQuote.U_OriginLine,
+                    AllQuote.U_OriginEntry,
                     IIF(#selected.PriceAFVAT IS NOT NULL, 'Y', 'N') AS 'Checked', /*销售填写了价格表示选中该货源*/
                     #selected.PriceAFVAT AS 'PriceAFVAT', /*该货源的销售报价价格,已选择的货源销售报价价格要和货源绑定在一起*/
                     T_OUSI.UserName AS 'BuyerName', /*采购员姓名*/
@@ -281,7 +285,9 @@
                         U_QuoLevel, /*供应商等级*/
                         U_QuoVatGroup, /*报价税率代码*/
                         U_Status, /*采购报价状态*/
-                        U_QuoCurr /*采购报价货币*/
+                        U_QuoCurr, /*采购报价货币*/
+                        U_OriginLine,
+                        U_OriginEntry
                     FROM T_ICIN1
                     UNION ALL
                     SELECT
@@ -299,7 +305,9 @@
                         U_QuoLevel, /*供应商等级*/
                         U_QuoVatGroup, /*报价税率代码*/
                         U_Status, /*采购报价状态*/
-                        U_QuoCurr /*采购报价货币*/
+                        U_QuoCurr, /*采购报价货币*/
+                        OriginLine,
+                        OriginEntry
                     FROM U_ICIN11
                 ) AllQuote
                 LEFT JOIN T_OUSI ON AllQuote.U_Buyer = T_OUSI.UserSign
@@ -331,7 +339,7 @@
                     /*或者是销售已选择的货源,填写报价价格并保存了客户需求与货源的对应关系*/
                     OR #selected.PriceAFVAT IS NOT NULL
                 )
-                AND (AllQuote.U_Status = 'Y' OR AllQuote.U_Status = 'C') /*采购报价状态为已回复或已确认*/
+                AND (AllQuote.U_Status = 'Y') /*采购报价状态为已回复或已确认*/
                 AND AllQuote.U_QuoModle IS NOT NULL  /*采购报价信息完整*/
                 AND AllQuote.U_QuoPrice IS NOT NULL
             ) Available ON (
@@ -362,9 +370,10 @@
             ) ExchangeRate ON ExchangeRate.Currency = Available.U_QuoCurr
         ) T
         /*根据行号排序、最优货源在最上面*/
-        ORDER BY T.LineNum, T.type DESC, T.U_Buyer, T.U_QuoDate DESC
-        DROP TABLE #best
-        DROP TABLE #selected
+        ORDER BY T.LineNum, T.type DESC, T.U_Buyer, T.U_QuoDate DESC;
+
+        DROP TABLE #best;
+        DROP TABLE #selected;
     </select>
     <select id="selectQuotationTabList" resultType="com.lianchuangjie.lianchuangjie.vo.TabQuotationNeedsVO">
         SELECT
@@ -583,23 +592,45 @@
         </where>
     </select>
     <select id="export" resultType="com.lianchuangjie.lianchuangjie.vo.EnquiryExportItemVO">
+        SELECT *
+        FROM (
+            SELECT
+                IIF(U_ICIN1.ItemLine IS NOT NULL, U_ICIN1.ItemLine, U_ICIN1.LineNum) AS 'LineNum',
+                U_ICIN1.ItemLine,
+                U_ICIN1.SuoQuantity,
+                U_ICIN1.PriceAfVAT,
+                U_ICIN1.SuoYear,
+                U_ICIN1.SuoDelivery,
+                U_ICIN1.LineRemark,
+                U_ICIN1.PriceAfVAT *  U_ICIN1.SuoQuantity AS 'Amount',
+                U_ICIN1.Modle, /*需求型号*/
+                U_ICIN1.QuoModle, /*报价型号*/
+                U_ICIN1.QuoBrand, /*报价品牌*/
+                U_ICIN1.Brand /*需求品牌*/
+            FROM U_ICIN1
+            LEFT JOIN T_ICIN ON U_ICIN1.DocEntry = T_ICIN.DocEntry
+            WHERE U_ICIN1.DocEntry = #{sc.docEntry}
+            AND T_ICIN.OwnerCode = #{sc.ownerCode}
+        ) T
+        ORDER BY T.LineNum
+    </select>
+    <select id="head" resultType="com.lianchuangjie.lianchuangjie.vo.EnquiryExportHeadVO" >
         SELECT
-            U_ICIN1.LineNum,
-            U_ICIN1.SuoQuantity,
-            U_ICIN1.PriceAfVAT,
-            U_ICIN1.SuoYear,
-            U_ICIN1.SuoDelivery,
-            U_ICIN1.LineRemark,
-            U_ICIN1.PriceAfVAT *  U_ICIN1.SuoQuantity AS 'Amount',
-            U_ICIN1.QuoModle,
-            U_ICIN1.QuoBrand,
-            U_ICIN1.Modle,
-            U_ICIN1.Brand,
-            U_ICIN1.ItemLine
-        FROM U_ICIN1
-        LEFT JOIN T_ICIN ON U_ICIN1.DocEntry = T_ICIN.DocEntry
-        WHERE U_ICIN1.DocEntry = #{sc.docEntry}
-        AND T_ICIN.OwnerCode = #{sc.ownerCode}
-        ORDER BY U_ICIN1.QuoModle DESC, U_ICIN1.LineNum
+            DocEntry, /*编号*/
+            U_SenderName, /*发件人姓名*/
+            U_SenderTel, /*发件人电话*/
+            U_RecipientName, /*收件人姓名*/
+            U_RecipientTel, /*收件人电话*/
+            U_FromCompany, /*报价公司抬头*/
+            U_TransaPlace, /*交易地点*/
+            U_FreightPayment, /*运费支付*/
+            T_OVTG.Rate AS 'VatRate', /*税率*/
+            U_PaymentMethod, /*付款方式*/
+            T_ICIN.CardName AS 'U_ToClient', /*致客户*/
+            ExpDate, /*有效期*/
+            U_DocCur /*需求货币*/
+        FROM T_ICIN
+        LEFT JOIN T_OVTG ON T_ICIN.U_VatGroup = T_OVTG.Code
+        WHERE T_ICIN.DocEntry = #{sc.docEntry}
     </select>
 </mapper>

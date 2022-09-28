@@ -13,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @Accessors(chain = true)
 public class EnquiryExportDataVO {
-    @JsonProperty("HeadList")
+    @JsonProperty("HeadData")
     EnquiryExportHeadVO enquiryExportHead;
     @JsonProperty("DataList")
     List<EnquiryExportItemVO> enquiryExportList;

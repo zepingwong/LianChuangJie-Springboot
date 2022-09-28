@@ -43,14 +43,14 @@ public class EnquiryMainEntity {
     @TableField(value = "U_Delivery")
     private String uDelivery;
     // 处理情况-报价次数 State
-    @TableField(value = "State")
-    private Integer state;
+    @TableField(value = "U_State")
+    private Integer uState;
     // New
-    @TableField(value = "New")
-    private String New;
+    @TableField(value = "U_New")
+    private String uNew;
     // 询价来源 SourceType
-    @TableField(value = "SourceType")
-    private String sourceType;
+    @TableField(value = "U_SourceType")
+    private String uSourceType;
     // U_DocType
     @TableField(value = "U_DocType")
     private Integer uDocType;
@@ -120,4 +120,29 @@ public class EnquiryMainEntity {
     // 是否为新客户
     @TableField(value = "U_CardStatus")
     private String uCardStatus;
+
+    // 报价公司抬头
+    @TableField(value = "U_FromCompany")
+    private String uFromCompany;
+    // 致
+    @TableField(value = "U_ToClient")
+    private String uToClient;
+    // 发件人姓名
+    @TableField(value = "U_SenderName")
+    private String uSenderName;
+    // 发件人电话
+    @TableField(value = "U_SenderTel")
+    private String uSenderTel;
+    // 收件人姓名
+    @TableField(value = "U_RecipientName")
+    private String uRecipientName;
+    // 收件人电话
+    @TableField(value = "U_RecipientTel")
+    private String uRecipientTel;
+    // 运费付款
+    @TableField(value = "U_FreightPayment")
+    private String uFreightPayment;
+    // 付款方式
+    @TableField(value = "U_PaymentMethod")
+    private String uPaymentMethod;
 }

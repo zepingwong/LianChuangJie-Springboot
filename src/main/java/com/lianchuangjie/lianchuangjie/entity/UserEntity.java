@@ -36,8 +36,8 @@ public class UserEntity {
     @TableField(exist = false)
     private String DftDeptName;
     // 头像URL
-    @TableField(value = "Avatar")
-    private String avatar;
+    @TableField(value = "U_Avatar")
+    private String uAvatar;
     // 是否为采购员
     @TableField(value = "U_IsBuyer")
     private String uIsBuyer;

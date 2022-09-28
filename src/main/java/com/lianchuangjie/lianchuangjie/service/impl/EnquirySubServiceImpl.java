@@ -69,9 +69,9 @@ public class EnquirySubServiceImpl extends ServiceImpl<EnquirySubMapper, Enquiry
                 } else {
                     // 其他的时选择的多个货源, 需要 insert,行号需要增长
                     Long lineNum = enquirySubMapper.count(enquirySubItemDTO.getDocEntry()) + 1L;
-                    enquirySubEntity.setLineNum(lineNum);
                     enquirySubEntity.setItemEntry(enquirySubEntity.getDocEntry()); // ItemEntry 与 DocEntry 相同
                     enquirySubEntity.setItemLine(enquirySubEntity.getLineNum()); // ItemLine 与 LineNum 相同
+                    enquirySubEntity.setLineNum(lineNum); // 先设置ItemLine 再更新 LineNum
                     enquirySubMapper.insert(enquirySubEntity);
                 }
                 i += 1;

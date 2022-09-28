@@ -5,13 +5,13 @@ import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.write.metadata.WriteSheet;
 import com.alibaba.excel.write.metadata.fill.FillConfig;
 import com.lianchuangjie.lianchuangjie.config.Authentication;
+import com.lianchuangjie.lianchuangjie.dto.EnquiryExportSaveDTO;
 import com.lianchuangjie.lianchuangjie.dto.EnquirySaveItemDTO;
 import com.lianchuangjie.lianchuangjie.exception.ResponseEnum;
 import com.lianchuangjie.lianchuangjie.service.EnquiryExportService;
 import com.lianchuangjie.lianchuangjie.service.EnquirySubService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
 import com.lianchuangjie.lianchuangjie.vo.EnquiryExportDataVO;
-import com.lianchuangjie.lianchuangjie.vo.EnquiryExportItemVO;
 import com.lianchuangjie.lianchuangjie.vo.EnquirySubVO;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.web.bind.annotation.*;
@@ -100,5 +100,13 @@ public class EnquirySubController extends BaseController {
     public Result<EnquiryExportDataVO> exportController(@PathVariable Long docEntry) {
         EnquiryExportDataVO enquiryExportDataVO = enquiryExportService.export(docEntry);
         return Result.success(enquiryExportDataVO, "success");
+    }
+    @PatchMapping("/quote")
+    @Authentication(sale = true)
+    public Result<Boolean> saveExportController(
+            @RequestBody EnquiryExportSaveDTO enquiryExportSaveDTO
+    ) {
+        Boolean res = enquiryExportService.save(enquiryExportSaveDTO);
+        return Result.success(res);
     }
 }

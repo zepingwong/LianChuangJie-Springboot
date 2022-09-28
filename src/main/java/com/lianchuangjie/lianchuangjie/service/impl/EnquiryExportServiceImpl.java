@@ -1,5 +1,7 @@
 package com.lianchuangjie.lianchuangjie.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.lianchuangjie.lianchuangjie.dto.EnquiryExportSaveDTO;
 import com.lianchuangjie.lianchuangjie.dto.search.EnquirySubSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.EnquiryMainEntity;
 import com.lianchuangjie.lianchuangjie.mapper.EnquiryMainMapper;
@@ -23,18 +25,39 @@ public class EnquiryExportServiceImpl implements EnquiryExportService {
     @Override
     public EnquiryExportDataVO export(Long docEntry) {
         EnquiryMainEntity enquiryMainEntity = enquiryMainMapper.selectByDocEntry(docEntry, SessionUtil.getUserSign());
-        Integer state = enquiryMainEntity.getState();
-        enquiryMainEntity.setState(state + 1);
+        Integer state = enquiryMainEntity.getUState();
+        enquiryMainEntity.setUState(state + 1);
+        // 导出数据
         EnquiryExportDataVO enquiryExportDataVO = new EnquiryExportDataVO();
-        EnquiryExportHeadVO enquiryExportHeadVO = new EnquiryExportHeadVO();
-        enquiryExportHeadVO.setSubject("报价");
-        enquiryExportDataVO.setEnquiryExportHead(enquiryExportHeadVO);
-        // 导出单据
+        // 查询条件
         EnquirySubSearchDTO enquirySubSearchDTO = new EnquirySubSearchDTO();
         enquirySubSearchDTO.setDocEntry(docEntry);
         enquirySubSearchDTO.setOwnerCode(SessionUtil.getUserSign());
+        // 表头
+        EnquiryExportHeadVO enquiryExportHeadVO = enquirySubMapper.head(enquirySubSearchDTO);
+        enquiryExportHeadVO.setSubject("报价");
+        enquiryExportDataVO.setEnquiryExportHead(enquiryExportHeadVO);
+        // 导出单据数据表
         List<EnquiryExportItemVO> enquiryExportItemVOList = enquirySubMapper.export(enquirySubSearchDTO);
         enquiryExportDataVO.setEnquiryExportList(enquiryExportItemVOList);
         return enquiryExportDataVO;
+    }
+
+    @Override
+    public Boolean save(EnquiryExportSaveDTO enquiryExportSaveDTO) {
+        QueryWrapper<EnquiryMainEntity> queryWrapper = new QueryWrapper<>();
+        System.out.println(enquiryExportSaveDTO);
+        queryWrapper.eq("T_ICIN.DocEntry", enquiryExportSaveDTO.getDocEntry());
+        EnquiryMainEntity enquiryMainEntity = enquiryMainMapper.selectByDocEntry(enquiryExportSaveDTO.getDocEntry(), SessionUtil.getUserSign());
+        // 更新
+        enquiryMainEntity.setUFromCompany(enquiryExportSaveDTO.getUFromCompany()); // 报价公司抬头
+        enquiryMainEntity.setUToClient(enquiryExportSaveDTO.getUToClient()); // 致客户
+        enquiryMainEntity.setUSenderName(enquiryExportSaveDTO.getUSenderName()); // 发件人姓名
+        enquiryMainEntity.setUSenderTel(enquiryExportSaveDTO.getUSenderTel()); // 发件人电话
+        enquiryMainEntity.setURecipientName(enquiryExportSaveDTO.getURecipientName()); // 收件人姓名
+        enquiryMainEntity.setURecipientTel(enquiryExportSaveDTO.getURecipientTel()); // 收件人电话
+        enquiryMainEntity.setUFreightPayment(enquiryExportSaveDTO.getUFreightPayment()); // 运费
+        enquiryMainEntity.setUPaymentMethod(enquiryExportSaveDTO.getUPaymentMethod()); // 支付方式
+        return enquiryMainMapper.update(enquiryMainEntity, queryWrapper) == 1;
     }
 }
