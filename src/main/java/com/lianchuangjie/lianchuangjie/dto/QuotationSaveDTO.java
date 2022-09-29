@@ -101,22 +101,22 @@ public class QuotationSaveDTO {
     @JsonProperty("U_Status")
     private String uStatus;
     // 起订量 T_ICIN1.MinQty
-    @JsonProperty("MinQty")
+    @JsonProperty("U_MinQty")
     private Integer minQty;
     // 联系人 T_ICIN1.ContPerson
-    @JsonProperty("ContPerson")
+    @JsonProperty("U_ContPerson")
     private String contPerson;
     // 电话 T_ICIN1.ContPhone
-    @JsonProperty("ContPhone")
+    @JsonProperty("U_ContPhone")
     private String contPhone;
     // 地址 T_ICIN1.ContAddress
-    @JsonProperty("ContAddress")
+    @JsonProperty("U_ContAddress")
     private String contAddress;
     // 邮箱 T_ICIN1.ContEmail
-    @JsonProperty("ContEmail")
+    @JsonProperty("U_ContEmail")
     private String contEmail;
     // 标准包装 T_ICIN1.StanPackage
-    @JsonProperty("StanPackage")
+    @JsonProperty("U_StanPackage")
     private String stanPackage;
     // 供方备注 T_ICIN1.U_QuoRemark
     @JsonProperty("U_QuoRemark")

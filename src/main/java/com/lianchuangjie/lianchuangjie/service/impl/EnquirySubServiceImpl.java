@@ -41,7 +41,9 @@ public class EnquirySubServiceImpl extends ServiceImpl<EnquirySubMapper, Enquiry
         EnquirySubSearchDTO enquirySubSearchDTO = new EnquirySubSearchDTO();
         enquirySubSearchDTO.setDocEntry(docEntry);
         enquirySubSearchDTO.setOwnerCode(userSign);
-        return enquirySubMapper.selectList(enquirySubSearchDTO);
+        List<EnquirySubVO> list = enquirySubMapper.selectList(enquirySubSearchDTO);
+
+        return list;
     }
 
     /**

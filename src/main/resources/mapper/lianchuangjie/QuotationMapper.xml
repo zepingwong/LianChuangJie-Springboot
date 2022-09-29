@@ -31,12 +31,12 @@
             fp.U_QuoYear, /*供方批次*/
             fp.U_QuoRemark, /*供方备注*/
             fp.U_Remark1, /*采购备注*/
-            fp.StanPackage, /*标准包装*/
-            fp.MinQty, /*起订量*/
-            fp.ContPerson, /*联系人*/
-            fp.ContEmail, /*邮箱*/
-            fp.ContPhone, /*电话*/
-            fp.ContAddress, /*地址*/
+            fp.U_StanPackage, /*标准包装*/
+            fp.U_MinQty, /*起订量*/
+            fp.U_ContPerson, /*联系人*/
+            fp.U_ContEmail, /*邮箱*/
+            fp.U_ContPhone, /*电话*/
+            fp.U_ContAddress, /*地址*/
             fp.U_QuoLevel, /*供方评级*/
             fp.U_QuoVatGroup,
             fp.U_QuoCurr,

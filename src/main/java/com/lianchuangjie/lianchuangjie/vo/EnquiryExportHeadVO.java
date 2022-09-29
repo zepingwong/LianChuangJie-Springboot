@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.math.BigDecimal;
+import java.time.LocalTime;
 import java.util.Date;
 
 @Data
@@ -72,4 +73,8 @@ public class EnquiryExportHeadVO {
     // 需求货币
     @JsonProperty("U_DocCur")
     private String udocCur;
+
+    @JsonProperty("DateNow")
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date dateNow = new Date();
 }

@@ -1,15 +1,15 @@
 package com.lianchuangjie.lianchuangjie.service;
 
-import com.lianchuangjie.lianchuangjie.dto.EnquiryExportSaveDTO;
 import com.lianchuangjie.lianchuangjie.vo.EnquiryExportDataVO;
 
 public interface EnquiryExportService {
     /**
-     * @param docEntry 文档编号
-     * @return Boolean
-     * @description 标准报价单
+     * @param docEntry docEntry
+     * @return EnquiryExportDataVO
+     * @description 输出标准报价单
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 9/25/2022
      */
-    EnquiryExportDataVO export(Long docEntry);
-
-    Boolean save(EnquiryExportSaveDTO enquiryExportSaveDTO);
+    EnquiryExportDataVO list(Long docEntry);
 }

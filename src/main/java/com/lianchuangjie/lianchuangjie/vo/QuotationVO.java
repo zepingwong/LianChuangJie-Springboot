@@ -174,23 +174,23 @@ public class QuotationVO {
     @JsonProperty("U_QuoRemark")
     private String uQuoRemark;
     // 起订量 T_ICIN1.MinQty
-    @JsonProperty("MinQty")
-    private Integer minQty;
-    // 联系人 T_ICIN1.ContPerson
-    @JsonProperty("ContPerson")
-    private String contPerson;
-    // 电话 T_ICIN1.ContPhone
-    @JsonProperty("ContPhone")
-    private String contPhone;
+    @JsonProperty("U_MinQty")
+    private Integer uMinQty;
+    // 联系人 T_ICIN1.U_ContPerson
+    @JsonProperty("U_ContPerson")
+    private String uContPerson;
+    // 电话 T_ICIN1.U_ContPhone
+    @JsonProperty("U_ContPhone")
+    private String uContPhone;
     // 地址 T_ICIN1.ContAddress
-    @JsonProperty("ContAddress")
+    @JsonProperty("U_ContAddress")
     private String contAddress;
-    // 邮箱 T_ICIN1.ContEmail
-    @JsonProperty("ContEmail")
-    private String contEmail;
-    // 标准包装 T_ICIN1.StanPackage
-    @JsonProperty("StanPackage")
-    private String stanPackage;
+    // 邮箱 T_ICIN1.U_ContEmail
+    @JsonProperty("U_ContEmail")
+    private String uContEmail;
+    // 标准包装 T_ICIN1.U_StanPackage
+    @JsonProperty("U_StanPackage")
+    private String uStanPackage;
     // 参考价格
     @JsonProperty("U_PrePrice")
     private BigDecimal uPrePrice;
