@@ -22,6 +22,7 @@ public class EnquiryQuoteServiceImpl implements EnquiryQuoteService {
     EnquiryMainMapper enquiryMainMapper;
     @Resource
     EnquirySubMapper enquirySubMapper;
+
     @Override
     public EnquiryExportDataVO list(Long docEntry) {
         // 查询数据：表头+数据表
@@ -35,18 +36,18 @@ public class EnquiryQuoteServiceImpl implements EnquiryQuoteService {
         enquiryExportHeadVO.setSubject("报价");
         enquiryExportDataVO.setEnquiryExportHead(enquiryExportHeadVO);
         // 导出单据数据表
-        List<EnquiryExportItemVO> enquiryExportItemVOList = enquirySubMapper.export(enquirySubSearchDTO);
+        List<EnquiryExportItemVO> enquiryExportItemVOList = enquirySubMapper.selectQuoteList(enquirySubSearchDTO);
         enquiryExportDataVO.setEnquiryExportList(enquiryExportItemVOList);
         return enquiryExportDataVO;
     }
+
     @Override
     public Boolean save(EnquiryExportSaveDTO enquiryExportSaveDTO) {
         QueryWrapper<EnquiryMainEntity> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("T_ICIN.DocEntry", enquiryExportSaveDTO.getDocEntry());
         EnquiryMainEntity enquiryMainEntity = enquiryMainMapper.selectByDocEntry(enquiryExportSaveDTO.getDocEntry(), SessionUtil.getUserSign());
-        // 更新
+        // 更新表头信息
         enquiryMainEntity.setUFromCompany(enquiryExportSaveDTO.getUFromCompany()); // 报价公司抬头
-        enquiryMainEntity.setUToClient(enquiryExportSaveDTO.getUToClient()); // 致客户
         enquiryMainEntity.setUSenderName(enquiryExportSaveDTO.getUSenderName()); // 发件人姓名
         enquiryMainEntity.setUSenderTel(enquiryExportSaveDTO.getUSenderTel()); // 发件人电话
         enquiryMainEntity.setURecipientName(enquiryExportSaveDTO.getURecipientName()); // 收件人姓名

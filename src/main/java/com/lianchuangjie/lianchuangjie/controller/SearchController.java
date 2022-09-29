@@ -6,14 +6,13 @@ import com.lianchuangjie.lianchuangjie.dto.BomQuerySaveDTO;
 import com.lianchuangjie.lianchuangjie.dto.SingleQueryDTO;
 import com.lianchuangjie.lianchuangjie.dto.search.EnquiryBuyerSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.UserEntity;
-import com.lianchuangjie.lianchuangjie.service.BomUploadService;
+import com.lianchuangjie.lianchuangjie.service.BomService;
 import com.lianchuangjie.lianchuangjie.service.EnquiryBuyerService;
 import com.lianchuangjie.lianchuangjie.service.QueryService;
 import com.lianchuangjie.lianchuangjie.service.SdadaService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
 import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
 import com.lianchuangjie.lianchuangjie.vo.BomQueryItemVO;
-import com.lianchuangjie.lianchuangjie.vo.BomQueryResVO;
 import com.lianchuangjie.lianchuangjie.vo.EnquiryBuyerItemVO;
 import com.lianchuangjie.lianchuangjie.vo.SdadaVO;
 import lombok.extern.slf4j.Slf4j;
@@ -36,24 +35,9 @@ public class SearchController extends BaseController {
     @Resource
     SdadaService sdadaService;
     @Resource
-    BomUploadService bomUploadService;
+    BomService bomService;
     @Resource
     EnquiryBuyerService enquiryBuyerService;
-
-    /**
-     * @param docEntry docEntry
-     * @return Result
-     * @description 根据 BOM 单编号批量询价
-     * @author WANG Zeping
-     * @email zepingwong@gmail.com
-     * @date 8/24/2022
-     */
-    @GetMapping("/query/bom")
-    @Authentication(sale = true)
-    public Result<BomQueryResVO> queryBomController(@RequestParam(defaultValue = "#{null}", value = "DocEntry") Long docEntry) {
-        BomQueryResVO result = queryService.queryBom(docEntry);
-        return Result.success(result, "Success");
-    }
 
     /**
      * @param singleQueryDTO singleQueryDTO
@@ -103,7 +87,7 @@ public class SearchController extends BaseController {
         Object obj = SessionUtil.getSession(request, "User");
         ObjectMapper objectMapper = new ObjectMapper();
         UserEntity user = objectMapper.convertValue(obj, UserEntity.class);
-        Boolean res = bomUploadService.save(bomQuerySaveDTO, user);
+        Boolean res = bomService.save(bomQuerySaveDTO, user);
         return Result.success(res, "Success");
     }
 

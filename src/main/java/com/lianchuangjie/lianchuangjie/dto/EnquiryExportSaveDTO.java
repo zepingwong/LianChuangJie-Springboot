@@ -23,11 +23,6 @@ public class EnquiryExportSaveDTO {
     @JsonProperty("U_FromCompany")
     private String uFromCompany;
     /**
-     * @description 致
-     */
-    @JsonProperty("U_ToClient")
-    private String uToClient;
-    /**
      * @description 发件人姓名
      */
     @JsonProperty("U_SenderName")

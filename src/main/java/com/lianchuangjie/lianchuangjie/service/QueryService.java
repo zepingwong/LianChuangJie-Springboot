@@ -7,15 +7,6 @@ import com.lianchuangjie.lianchuangjie.vo.BomQueryResVO;
 import java.util.List;
 
 public interface QueryService {
-    /**
-     * @param docEntry docEntry
-     * @return BomQueryResVO
-     * @description BOM单匹配匹配
-     * @author WANG Zeping
-     * @email zepingwong@gmail.com
-     * @date 8/28/2022
-     */
-    BomQueryResVO queryBom(Long docEntry);
 
     /**
      * @param singleQueryDTO singleQueryDTO

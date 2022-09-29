@@ -120,13 +120,9 @@ public class EnquiryMainEntity {
     // 是否为新客户
     @TableField(value = "U_CardStatus")
     private String uCardStatus;
-
     // 报价公司抬头
     @TableField(value = "U_FromCompany")
     private String uFromCompany;
-    // 致
-    @TableField(value = "U_ToClient")
-    private String uToClient;
     // 发件人姓名
     @TableField(value = "U_SenderName")
     private String uSenderName;

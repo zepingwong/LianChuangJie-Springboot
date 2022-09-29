@@ -1,18 +1,18 @@
 package com.lianchuangjie.lianchuangjie.service.impl;
 
 import com.alibaba.excel.EasyExcel;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lianchuangjie.lianchuangjie.dto.BomQueryMainDTO;
 import com.lianchuangjie.lianchuangjie.dto.BomQuerySaveDTO;
 import com.lianchuangjie.lianchuangjie.dto.BomQuerySubDTO;
 import com.lianchuangjie.lianchuangjie.entity.*;
 import com.lianchuangjie.lianchuangjie.excel.BomListener;
 import com.lianchuangjie.lianchuangjie.exception.ResponseEnum;
-import com.lianchuangjie.lianchuangjie.mapper.BomHeadDicMapper;
-import com.lianchuangjie.lianchuangjie.mapper.ClienteleRegionMapper;
-import com.lianchuangjie.lianchuangjie.mapper.EnquiryMainMapper;
-import com.lianchuangjie.lianchuangjie.mapper.SalesOrderSubMapper;
+import com.lianchuangjie.lianchuangjie.mapper.*;
 import com.lianchuangjie.lianchuangjie.service.*;
 import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
+import com.lianchuangjie.lianchuangjie.vo.BomQueryItemVO;
+import com.lianchuangjie.lianchuangjie.vo.BomQueryResVO;
 import com.lianchuangjie.lianchuangjie.vo.BomUploadResVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,11 @@ import java.util.Map;
 import java.util.Objects;
 
 @Service
-public class BomUploadServiceImpl implements BomUploadService {
+public class BomServiceImpl implements BomService {
+    @Resource
+    BomQueryMapper bomQueryMapper;
+    @Resource
+    UserMapper userMapper;
     @Resource
     BomHeadDicMapper bomHeadDicMapper;
     @Resource
@@ -45,7 +49,20 @@ public class BomUploadServiceImpl implements BomUploadService {
     SalesOrderSubMapper salesOrderSubMapper;
 
     @Override
-    public BomUploadResVO uploadService(MultipartFile file) {
+    public BomQueryResVO list(Long docEntry) {
+        BomQueryResVO bomQueryRes = new BomQueryResVO();
+        Long userSign = SessionUtil.getUserSign();
+        QueryWrapper<UserEntity> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("UserSign", userSign);
+        UserEntity user = userMapper.selectOne(queryWrapper);
+        List<BomQueryItemVO> list = bomQueryMapper.queryBom(docEntry, user.getDftDept(), userSign);
+        bomQueryRes.setBomQueryItemList(list);
+        bomQueryRes.setTotalSize(list.size());
+        return bomQueryRes;
+    }
+
+    @Override
+    public BomUploadResVO upload(MultipartFile file) {
         // 返回数据类型
         BomUploadResVO bomUploadResVO = new BomUploadResVO();
         // 上传BOM单文件名
@@ -79,6 +96,7 @@ public class BomUploadServiceImpl implements BomUploadService {
         }
         return bomUploadResVO;
     }
+
     @Override
     public Boolean save(BomQuerySaveDTO bomQuerySaveData, UserEntity user) {
         BomQueryMainDTO bomQueryConsInfo = bomQuerySaveData.getBomQueryMain();

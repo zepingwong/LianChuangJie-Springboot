@@ -3,10 +3,8 @@ package com.lianchuangjie.lianchuangjie.mapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.lianchuangjie.lianchuangjie.dto.EnquiryExportSaveDTO;
 import com.lianchuangjie.lianchuangjie.dto.search.EnquirySubSearchDTO;
 import com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO;
-import com.lianchuangjie.lianchuangjie.entity.EnquiryMainEntity;
 import com.lianchuangjie.lianchuangjie.entity.EnquirySubEntity;
 import com.lianchuangjie.lianchuangjie.vo.*;
 import org.apache.ibatis.annotations.Mapper;
@@ -39,6 +37,7 @@ public interface EnquirySubMapper extends BaseMapper<EnquirySubEntity> {
      * @date 9/20/2022
      */
     Boolean updateBuyers(@Param("Entity") EnquirySubEntity enquirySubEntity);
+
     EnquirySubEntity selectOne(@Param("ew") QueryWrapper<EnquirySubEntity> queryWrapper);
 
     /**
@@ -97,7 +96,25 @@ public interface EnquirySubMapper extends BaseMapper<EnquirySubEntity> {
 
     Boolean order(@Param("Entity") EnquirySubEntity enquirySubEntity);
 
-    List<EnquiryExportItemVO> export(@Param("sc") EnquirySubSearchDTO enquirySubSearchDTO);
+    /**
+     * @param enquirySubSearchDTO enquirySubSearchDTO
+     * @return List
+     * @description 查询报价单导出列表
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 9/25/2022
+     */
+    List<EnquiryExportItemVO> selectExportList(@Param("sc") EnquirySubSearchDTO enquirySubSearchDTO);
+
+    /**
+     * @param enquirySubSearchDTO enquirySubSearchDTO
+     * @return List
+     * @description 查询报价单列表
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 9/29/2022
+     */
+    List<EnquiryExportItemVO> selectQuoteList(@Param("sc") EnquirySubSearchDTO enquirySubSearchDTO);
 
     EnquiryExportHeadVO head(@Param("sc") EnquirySubSearchDTO enquirySubSearchDTO);
 }

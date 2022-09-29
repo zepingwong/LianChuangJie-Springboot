@@ -591,7 +591,30 @@
             ${ew.getSqlSegment()}
         </where>
     </select>
-    <select id="export" resultType="com.lianchuangjie.lianchuangjie.vo.EnquiryExportItemVO">
+    <select id="head" resultType="com.lianchuangjie.lianchuangjie.vo.EnquiryExportHeadVO" >
+        SELECT
+            DocEntry, /*编号*/
+            U_SenderName, /*发件人姓名*/
+            U_SenderTel, /*发件人电话*/
+            U_RecipientName, /*收件人姓名*/
+            U_RecipientTel, /*收件人电话*/
+            U_FromCompany, /*报价公司抬头*/
+            U_TransaPlace, /*交易地点*/
+            U_FreightPayment, /*运费支付*/
+            T_OVTG.Rate AS 'VatRate', /*税率*/
+            U_PaymentMethod, /*付款方式*/
+            T_ICIN.CardName, /*致客户名称*/
+            ExpDate, /*有效期*/
+            U_DocCur /*需求货币*/
+        FROM T_ICIN
+        LEFT JOIN T_OVTG ON T_ICIN.U_VatGroup = T_OVTG.Code
+        WHERE T_ICIN.DocEntry = #{sc.docEntry}
+    </select>
+    <select id="selectQuoteList" resultType="com.lianchuangjie.lianchuangjie.vo.EnquiryExportItemVO">
+        /*
+         * 1. 查询标准报价单列表
+         * 2. 选择多个货源时, 多个货源行号相同
+         */
         SELECT *
         FROM (
             SELECT
@@ -611,26 +634,51 @@
             LEFT JOIN T_ICIN ON U_ICIN1.DocEntry = T_ICIN.DocEntry
             WHERE U_ICIN1.DocEntry = #{sc.docEntry}
             AND T_ICIN.OwnerCode = #{sc.ownerCode}
+            AND U_ICIN1.ItemId = U_ICIN1.LineNum /*不是关联型号*/
         ) T
         ORDER BY T.LineNum
     </select>
-    <select id="head" resultType="com.lianchuangjie.lianchuangjie.vo.EnquiryExportHeadVO" >
+    <select id="selectExportList" resultType="com.lianchuangjie.lianchuangjie.vo.EnquiryExportItemVO">
+        /*
+         * 1. 销售报价单导出列表
+         * 2. 对同一条需求的多个货源, 只显示第一条需求的行号
+         * 3. 不导出备用货源
+         * 4. 不导出关联型号
+         * 5. 重新生成行号
+         */
         SELECT
-            DocEntry, /*编号*/
-            U_SenderName, /*发件人姓名*/
-            U_SenderTel, /*发件人电话*/
-            U_RecipientName, /*收件人姓名*/
-            U_RecipientTel, /*收件人电话*/
-            U_FromCompany, /*报价公司抬头*/
-            U_TransaPlace, /*交易地点*/
-            U_FreightPayment, /*运费支付*/
-            T_OVTG.Rate AS 'VatRate', /*税率*/
-            U_PaymentMethod, /*付款方式*/
-            T_ICIN.CardName AS 'U_ToClient', /*致客户*/
-            ExpDate, /*有效期*/
-            U_DocCur /*需求货币*/
-        FROM T_ICIN
-        LEFT JOIN T_OVTG ON T_ICIN.U_VatGroup = T_OVTG.Code
-        WHERE T_ICIN.DocEntry = #{sc.docEntry}
+            IIF(T.ItemLine IS NOT NULL, NULL, ROW_NUMBER() OVER ( ORDER BY T.LineNum )) AS 'LineNum', /*重新生成行号*/
+            T.Modle,
+            T.Brand,
+            T.QuoModle,
+            T.QuoBrand,
+            T.SuoQuantity,
+            T.SuoDelivery,
+            T.SuoYear,
+            T.LineRemark,
+            T.PriceAfVAT,
+            T.Amount
+        FROM (
+            SELECT
+                IIF(U_ICIN1.ItemLine IS NOT NULL, U_ICIN1.ItemLine, U_ICIN1.LineNum) AS 'LineNum', /*行号*/
+                U_ICIN1.ItemLine, /*原始需求行号*/
+                U_ICIN1.SuoQuantity, /*报价数量*/
+                U_ICIN1.PriceAfVAT, /*销售报价价格*/
+                U_ICIN1.SuoYear, /*报价批次*/
+                U_ICIN1.SuoDelivery, /*报价交期*/
+                U_ICIN1.LineRemark, /*销售备注*/
+                U_ICIN1.PriceAfVAT *  U_ICIN1.SuoQuantity AS 'Amount', /*金额*/
+                U_ICIN1.Modle, /*需求型号*/
+                U_ICIN1.QuoModle, /*报价型号*/
+                U_ICIN1.QuoBrand, /*报价品牌*/
+                U_ICIN1.Brand /*需求品牌*/
+            FROM U_ICIN1
+            LEFT JOIN T_ICIN ON U_ICIN1.DocEntry = T_ICIN.DocEntry
+            WHERE U_ICIN1.DocEntry = #{sc.docEntry}
+            AND T_ICIN.OwnerCode = #{sc.ownerCode}
+            AND U_ICIN1.IsSpare != 'Y' /*不是备用货源*/
+            AND U_ICIN1.ItemId = U_ICIN1.LineNum /*不是关联型号*/
+        ) T
+        ORDER BY T.LineNum
     </select>
 </mapper>

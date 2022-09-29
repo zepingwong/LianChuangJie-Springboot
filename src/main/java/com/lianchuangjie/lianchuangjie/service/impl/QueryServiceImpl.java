@@ -31,19 +31,6 @@ public class QueryServiceImpl implements QueryService {
     }
 
     @Override
-    public BomQueryResVO queryBom(Long docEntry) {
-        BomQueryResVO bomQueryRes = new BomQueryResVO();
-        Long userSign = SessionUtil.getUserSign();
-        QueryWrapper<UserEntity> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("UserSign", userSign);
-        UserEntity user = userMapper.selectOne(queryWrapper);
-        List<BomQueryItemVO> list = bomQueryMapper.queryBom(docEntry, user.getDftDept(), userSign);
-        bomQueryRes.setBomQueryItemList(list);
-        bomQueryRes.setTotalSize(list.size());
-        return bomQueryRes;
-    }
-
-    @Override
     public BomQueryItemVO querySingle(SingleQueryDTO singleQueryDTO) {
         // 当前登录用户
         setUserInfo(singleQueryDTO);

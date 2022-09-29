@@ -1,7 +1,5 @@
 package com.lianchuangjie.lianchuangjie.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.lianchuangjie.lianchuangjie.dto.EnquiryExportSaveDTO;
 import com.lianchuangjie.lianchuangjie.dto.search.EnquirySubSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.EnquiryMainEntity;
 import com.lianchuangjie.lianchuangjie.mapper.EnquiryMainMapper;
@@ -12,6 +10,7 @@ import com.lianchuangjie.lianchuangjie.vo.EnquiryExportDataVO;
 import com.lianchuangjie.lianchuangjie.vo.EnquiryExportHeadVO;
 import com.lianchuangjie.lianchuangjie.vo.EnquiryExportItemVO;
 import org.springframework.stereotype.Service;
+
 import javax.annotation.Resource;
 import java.util.List;
 
@@ -25,7 +24,16 @@ public class EnquiryExportServiceImpl implements EnquiryExportService {
     @Override
     public EnquiryExportDataVO list(Long docEntry) {
         EnquiryMainEntity enquiryMainEntity = enquiryMainMapper.selectByDocEntry(docEntry, SessionUtil.getUserSign());
-        Integer state = enquiryMainEntity.getUState();
+        /*
+         * 1. 报价单导出次数 +1
+         * 2. 要判断报价单导出次数是否为 null
+         */
+        Integer state;
+        if (enquiryMainEntity.getUState() == null) {
+            state = 0;
+        } else {
+            state = enquiryMainEntity.getUState();
+        }
         enquiryMainEntity.setUState(state + 1);
         // 导出数据
         EnquiryExportDataVO enquiryExportDataVO = new EnquiryExportDataVO();
@@ -38,7 +46,7 @@ public class EnquiryExportServiceImpl implements EnquiryExportService {
         enquiryExportHeadVO.setSubject("报价");
         enquiryExportDataVO.setEnquiryExportHead(enquiryExportHeadVO);
         // 导出单据数据表
-        List<EnquiryExportItemVO> enquiryExportItemVOList = enquirySubMapper.export(enquirySubSearchDTO);
+        List<EnquiryExportItemVO> enquiryExportItemVOList = enquirySubMapper.selectExportList(enquirySubSearchDTO);
         enquiryExportDataVO.setEnquiryExportList(enquiryExportItemVOList);
         return enquiryExportDataVO;
     }

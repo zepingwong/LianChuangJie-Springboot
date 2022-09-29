@@ -30,10 +30,10 @@ public class EnquiryExportHeadVO {
     @JsonProperty("U_FromCompany")
     private String ufromCompany;
     /**
-     * @description 致
+     * @description 致客户名称
      */
-    @JsonProperty("U_ToClient")
-    private String utoClient;
+    @JsonProperty("CardName")
+    private String cardName;
     /**
      * @description 发件人姓名
      */

@@ -50,6 +50,14 @@ public class EnquiryController extends BaseController {
         return Result.success(res);
     }
 
+    /**
+     * @param enquiryIsOrderedDTO enquiryIsOrderedDTO
+     * @return Result
+     * @description 是否下单
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 9/29/2022
+     */
     @PatchMapping("isOrdered")
     @Authentication(sale = true)
     public Result<Boolean> isOrderedController(@RequestBody EnquiryIsOrderedDTO enquiryIsOrderedDTO) {
