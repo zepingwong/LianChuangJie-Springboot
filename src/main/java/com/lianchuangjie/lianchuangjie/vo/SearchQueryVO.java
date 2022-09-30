@@ -10,11 +10,7 @@ import lombok.experimental.Accessors;
 @AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain = true)
-public class EnquiryRecoPriceVO {
-    // 引用采购报价的采购员姓名 T_OUSI.UserName
-    @JsonProperty("SuoBuyerName")
-    private String suoBuyerName;
-    // 采购部门名称/货源 T_OCDP.Name
-    @JsonProperty("U_DftDeptName")
-    private String uDftDeptName;
+public class SearchQueryVO {
+    @JsonProperty("Modle")
+    private String sno;
 }
