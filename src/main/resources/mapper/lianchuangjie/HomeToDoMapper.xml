@@ -5,7 +5,7 @@
     <select id="countEnquiry" resultType="java.lang.Long" parameterType="java.lang.Long">
         SELECT COUNT(*)
         FROM T_ICIN
-        WHERE State IS NULL
+        WHERE U_State IS NULL
         AND UserSign = ${UserSign}
     </select>
     <select id="countQuotation" resultType="java.lang.Long" parameterType="java.lang.Long">

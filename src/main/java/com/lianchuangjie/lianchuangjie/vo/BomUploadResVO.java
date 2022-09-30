@@ -9,6 +9,9 @@ import lombok.experimental.Accessors;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 上传Bom单返回数据类型
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
