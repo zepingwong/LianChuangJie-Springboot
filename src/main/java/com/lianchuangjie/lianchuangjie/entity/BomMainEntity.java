@@ -10,7 +10,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("T_BOM")
+@TableName("U_BOM")
 public class BomMainEntity {
     // 文件编号-主键 DocEntry
     @TableId(type = IdType.AUTO, value = "DocEntry")

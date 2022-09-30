@@ -150,7 +150,7 @@
                 Available.BuyerName, /*采购员姓名*/
                 Available.U_Buyer, /*采购员编号*/
                 IIF(Available.SuoQuantity IS NULL, Available.U_QuoQty, Available.SuoQuantity) AS 'U_QuoQty', /*采购和销售报价数量*/
-                ROUND(Available.U_QuoPrice * ExchangeRate.Rate, 2) AS 'U_QuoPrice', /*报价价格,人民币不含税*/
+                Available.U_QuoPrice, /*报价价格,人民币不含税*/
                 Available.U_QCDesc, /*采购报价质检标准*/
                 Available.U_QuoDelivery, /*采购报价交期*/
                 Available.U_QuoYear, /*采购报价批次*/

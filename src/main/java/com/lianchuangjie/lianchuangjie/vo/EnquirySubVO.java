@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Date;
 
 @Data
@@ -41,7 +42,7 @@ public class EnquirySubVO {
     private String delivery;
     // 需求批次 Year
     @JsonProperty("Year")
-    private String Year;
+    private String year;
     // 客户备注 U_ICIN1.CurRemark
     @JsonProperty("CurRemark")
     private String curRemark;
@@ -131,22 +132,47 @@ public class EnquirySubVO {
     // ExchangeRate
     @JsonProperty("ExchangeRate")
     private BigDecimal exchangeRate;
+
     /**
-     * 报价算法
+     * 智能报价算法
      */
+    // 客户代码
+    @JsonProperty("CardCode")
+    private String cardCode;
+    // U_CusGroupCode
+    @JsonProperty("U_CusGroupCode")
+    private String uCusGroupCode;
+    @JsonProperty("U_DomainName")
+    private String uDomainName;
+    @JsonProperty("U_Region")
+    private String uRegion;
+    // 成单率
+    @JsonProperty("TransactionRate")
+    private BigDecimal transactionRate;
+    // 最低利润率
+    @JsonProperty("MinProfitMargin")
+    private BigDecimal minProfitMargin;
+    // 利润率
+    @JsonProperty("ProfitMargin")
+    private BigDecimal profitMargin;
     // 推荐报价 RecoPrice
     @JsonProperty("RecoPrice")
     private BigDecimal recoPrice;
+    public BigDecimal getRecoPrice() {
+        if (profitMargin != null & uQuoPrice != null & exchangeRate != null) {
+            return uQuoPrice.multiply(profitMargin).multiply(exchangeRate).setScale(2, RoundingMode.HALF_UP); // 汇率转换
+        } else {
+            return null;
+        }
+    }
     // 最低报价 MinQuoPrice
     @JsonProperty("MinQuoPrice")
     private BigDecimal minQuoPrice;
     public BigDecimal getMinQuoPrice() {
-        return BigDecimal.valueOf(1);
-    }
-    // SuccRate 成单率
-    @JsonProperty("SuccRate")
-    private BigDecimal succRate;
-    public BigDecimal getSuccRate() {
-        return BigDecimal.valueOf(80);
+        if (minProfitMargin != null & uQuoPrice != null) {
+            return uQuoPrice.multiply(minProfitMargin).multiply(exchangeRate).setScale(2, RoundingMode.HALF_UP); // 汇率转换
+        } else {
+            return null;
+        }
     }
 }

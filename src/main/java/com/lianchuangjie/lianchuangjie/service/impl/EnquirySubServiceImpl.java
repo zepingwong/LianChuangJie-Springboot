@@ -1,5 +1,7 @@
 package com.lianchuangjie.lianchuangjie.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -11,6 +13,7 @@ import com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.EnquirySubEntity;
 import com.lianchuangjie.lianchuangjie.mapper.EnquirySubMapper;
 import com.lianchuangjie.lianchuangjie.service.EnquirySubService;
+import com.lianchuangjie.lianchuangjie.utils.HttpUtil;
 import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
 import com.lianchuangjie.lianchuangjie.vo.EnquirySubVO;
 import com.lianchuangjie.lianchuangjie.vo.TabEnquiryNeedsVO;
@@ -20,6 +23,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -42,8 +46,22 @@ public class EnquirySubServiceImpl extends ServiceImpl<EnquirySubMapper, Enquiry
         enquirySubSearchDTO.setDocEntry(docEntry);
         enquirySubSearchDTO.setOwnerCode(userSign);
         List<EnquirySubVO> list = enquirySubMapper.selectList(enquirySubSearchDTO);
+        JSONObject json = new JSONObject();
+        json.put("data", list);
+        String res;
+        try {
+            res = HttpUtil.jsonPost("http://192.168.16.174:5582/main", null, json);
+            JSONObject object = JSONObject.parseObject(res);
+            System.out.println(object.get("data"));
+//            for (Object obj : (List<?>) object.get("data")) {
+//                result.add((EnquirySubVO) obj);
+//            }
 
-        return list;
+            return JSON.parseArray(object.getString("data"), EnquirySubVO.class);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     /**

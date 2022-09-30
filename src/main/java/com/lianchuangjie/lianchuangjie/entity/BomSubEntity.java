@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("T_BOM1")
+@TableName("U_BOM11")
 public class BomSubEntity {
     // 文件编号-主键 DocEntry
     @TableField(value = "DocEntry")

@@ -99,9 +99,9 @@
             /*根据客户上传BOM单编号获取客户需求*/
             FROM (
                 SELECT
-                    T_BOM1.*,
+                    U_BOM11.*,
                     SDADA.TAG AS 'DemandTag' /*客户需求型号和品牌确定的Tag*/
-                FROM T_BOM1
+                FROM U_BOM11
                 LEFT JOIN SDADA ON Brand = QuoBrand AND Modle = SDADA.sno /*根据客户需求和品牌关联标准型号库，获取Tag*/
                 WHERE DocEntry = @DocEntry
             ) ClientNeeds
