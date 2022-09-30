@@ -52,16 +52,10 @@ public class EnquirySubServiceImpl extends ServiceImpl<EnquirySubMapper, Enquiry
         try {
             res = HttpUtil.jsonPost("http://192.168.16.174:5582/main", null, json);
             JSONObject object = JSONObject.parseObject(res);
-            System.out.println(object.get("data"));
-//            for (Object obj : (List<?>) object.get("data")) {
-//                result.add((EnquirySubVO) obj);
-//            }
-
             return JSON.parseArray(object.getString("data"), EnquirySubVO.class);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     /**

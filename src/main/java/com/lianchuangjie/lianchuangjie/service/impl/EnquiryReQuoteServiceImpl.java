@@ -66,7 +66,6 @@ public class EnquiryReQuoteServiceImpl extends ServiceImpl<EnquirySubMapper, Enq
         quotationEntity.setLineNum(lineNum); // 更新货源询价单单据行号
         quotationEntity.setUBaseEntry(enquirySubEntity.getDocEntry()); // T_ICIN1.U_BaseEntry = U_ICIN1.DocEntry
         quotationEntity.setUBaseLine(enquirySubEntity.getLineNum()); // T_ICIN1.U_BaseLine = U_ICIN1.LineNum
-        quotationEntity.setUStatus("W");
         quotationEntity.setBrand(enquirySubEntity.getBrand()); // 需求品牌
         quotationEntity.setModle(enquirySubEntity.getModle()); // 需求型号
         quotationEntity.setYear(enquirySubEntity.getYear()); // 批次
@@ -89,6 +88,7 @@ public class EnquiryReQuoteServiceImpl extends ServiceImpl<EnquirySubMapper, Enq
         quotationEntity.setUCardCode(enquiryMainEntity.getCardCode()); // 客户代码
         quotationEntity.setCardName(enquiryMainEntity.getCardName()); // 客户名称
         quotationEntity.setUKeyUser(userEntity.getUserSign()); // 谁标记的重要询价
+        quotationEntity.setUStatus("W");
         return quotationMapper.insert(quotationEntity) == 1;
     }
 }
