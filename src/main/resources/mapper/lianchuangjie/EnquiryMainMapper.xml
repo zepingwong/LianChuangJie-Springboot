@@ -28,7 +28,7 @@
                  U_Buyer, U_ComCode, U_Delivery, U_DocCur, U_DocType, U_ItemCode, U_OrderType, U_PrjCode, U_SlpCode,
                  U_UrgentType, U_VatGroup, U_Industries, PrjCode, U_UserName, U_DeptName, U_CusLevel, U_CusGroupCode,
                  U_CusIndustries, U_SaleLevel, U_UserCode1, U_UserCode2, U_Region, U_DomainName, U_CntctCode,
-                 U_CardStatus, U_ShortCode, U_State, U_New, U_SourceType, U_TransaPlace, U_FromCompany, U_ToClient, U_RecipientName, U_RecipientTel, U_SenderTel, U_SenderName, U_FreightPayment, U_PaymentMethod
+                 U_CardStatus, U_ShortCode, U_State, U_New, U_SourceType, U_TransaPlace, U_FromCompany, U_RecipientName, U_RecipientTel, U_SenderTel, U_SenderName, U_FreightPayment, U_PaymentMethod
     </select>
     <select id="selectMaxDocEntry" resultType="java.lang.Long">
         SELECT MAX(DocEntry)

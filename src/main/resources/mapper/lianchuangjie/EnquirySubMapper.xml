@@ -239,7 +239,7 @@
                 WHERE U_ICIN1.DocEntry = @DocEntry
                 AND U_ICIN1.ItemEntry IS NULL
                 AND U_ICIN1.ItemLine IS NULL
-                AND U_ICIN1.LineNum = U_ICIN1.ItemId /*原始需求, LineNum 不等于 ItemId 的为关联型号 */
+                AND (U_ICIN1.LineNum = U_ICIN1.ItemId OR U_ICIN1.ItemId IS NULL) /*原始需求, LineNum 不等于 ItemId 的为关联型号 */
             ) ClientNeeds
             /*根据打标情况匹配出关联型号*/
             LEFT JOIN SDADA RelatedNeeds ON RelatedNeeds.TAG = ClientNeeds.DemandTag
@@ -306,8 +306,8 @@
                         U_QuoVatGroup, /*报价税率代码*/
                         U_Status, /*采购报价状态*/
                         U_QuoCurr, /*采购报价货币*/
-                        OriginLine,
-                        OriginEntry
+                        U_OriginLine,
+                        U_OriginLine
                     FROM U_ICIN11
                 ) AllQuote
                 LEFT JOIN T_OUSI ON AllQuote.U_Buyer = T_OUSI.UserSign

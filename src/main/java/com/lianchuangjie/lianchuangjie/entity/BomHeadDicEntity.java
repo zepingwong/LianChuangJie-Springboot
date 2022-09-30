@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("T_BOHD")
+@TableName("U_BOHD")
 @Component
 public class BomHeadDicEntity {
     @TableField(value = "Id")
