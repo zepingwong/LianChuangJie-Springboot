@@ -149,9 +149,9 @@ public class EnquirySubVO {
     // 成单率
     @JsonProperty("TransactionRate")
     private BigDecimal transactionRate;
-    private BigDecimal getTransactionRate() {
+    public BigDecimal getTransactionRate() {
         if (transactionRate != null) {
-            return transactionRate.multiply(BigDecimal.valueOf(100)).setScale(2, RoundingMode.HALF_UP);
+            return transactionRate.setScale(2, RoundingMode.HALF_UP).multiply(BigDecimal.valueOf(100));
         } else {
             return null;
         }

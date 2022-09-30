@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lianchuangjie.lianchuangjie.mapper.UInquiryMapper">
+    <update id="daily">
+        /*T_ICIN_test 存放从T_ICIN提取出来的报价组要的字段*/
+        DROP TABLE U_Inquiry;
+        SELECT
+            InquiryDate,
+            DocEntry as DocEntry_T,
+            CardCode,
+            CardName,
+            U_CusLevel,
+            U_CusGroupCode,
+            U_Region,
+            U_DomainName,
+            OwnerCode
+        INTO #T_ICIN_test
+        FROM T_ICIN
+        WHERE InquiryDate >= '2020-11-01'
+
+        /*T_ICIN1_test存放从T_ICIN1提取出来的报价组要的字段*/
+        SELECT
+            U_BaseEntry,
+            U_BaseLine,
+            DocEntry AS DocEntry_T1,
+            LineNum  AS LineNum_T1,
+            U_Buyer,
+            U_QuoDate,
+            U_QuoBrand,
+            U_QuoModle,
+            U_QuoPackage,
+            U_QuoQty,
+            U_QuoPrice,
+            U_QuoCurr,
+            U_QuoVatGroup,
+            U_QuoTotal,
+            U_QuoDelivery,
+            U_QuoYear,
+            U_QCDesc,
+            U_CardCode,
+            U_CardName,
+            U_QuoGroupCode,
+            U_QuoLevel
+        INTO #T_ICIN1_test
+        FROM U_ICIN10
+
+        /*U_ICIN1_test存放从U_ICIN1提取出来的报价组要的字段*/
+        SELECT
+            DocEntry AS DocEntry_U1,
+            LineNum  AS LineNum_U1,
+            Brand,
+            Modle,
+            DemandQty,
+            Package,
+            KeyPoint,
+            Currency,
+            Delivery,
+            Year,
+            VatGroup,
+            ExpectedPrice,
+            PrePrice,
+            ECCN,
+            BaseEntry,
+            BaseLine,
+            QuoBrand,
+            QuoModle,
+            SuoQuantity,
+            SuoDelivery,
+            SuoYear,
+            Secrecy,
+            Status,
+            UrgentType,
+            SuoBuyer,
+            SuoBuyerName,
+            CheckIN,
+            QuoCurr,
+            QuoVatGroup,
+            QuoPrice,
+            QuoTotal,
+            DSODay,
+            PriceAfVAT,
+            TrgetEntry
+        INTO #U_ICIN1_test
+        FROM U_ICIN1
+
+
+        /*U_Inquiry存放报价组要的字段*/
+        SELECT
+            new.*,
+            IIF(afterQuoPrice != 0, (afterAfVAT - afterQuoPrice) / afterQuoPrice, NULL) AS ProfitRate,
+            IIF(InquiryDate > firstday, 'N', 'Y') AS newclient
+        INTO U_Inquiry
+        FROM (
+            SELECT
+                InquiryDate,
+                DocEntry_T,
+                t.CardCode,
+                CardName,
+                U_CusLevel,
+                U_CusGroupCode,
+                IIF(U_Region IS NOT NULL, U_Region, N'其他')         AS U_Region,
+                IIF(U_DomainName is not null, U_DomainName, N'其他') AS U_DomainName,
+                DocEntry_U1,
+                LineNum_U1,
+                Brand,
+                Modle,
+                DemandQty,
+                Package,
+                KeyPoint,
+                u.Currency,
+                Delivery,
+                Year,
+                VatGroup,
+                RateVat.Rate                                       AS U_VatGroupnum,
+                ExpectedPrice,
+                PrePrice,
+                ECCN,
+                t.U_BaseEntry,
+                t.U_BaseLine,
+                DocEntry_T1,
+                LineNum_T1,
+                t.U_Buyer,
+                Tbuyer.UserName                                    AS BuyerName,
+                T_OCDP.Name                                        AS Deptname,
+                OwnerCode,
+                TOwner.UserName                                    AS SalerName,
+                U_QuoDate,
+                U_QuoBrand,
+                U_QuoModle,
+                U_QuoPackage,
+                U_QuoQty,
+                U_QuoPrice,
+                U_QuoCurr,
+                U_QuoVatGroup,
+                RateQuo.Rate                                       AS U_QuoVatGroupnum,
+                U_QuoTotal,
+                U_QuoDelivery,
+                U_QuoYear,
+                t.U_QCDesc,
+                t.U_CardCode,
+                t.U_CardName,
+                U_QuoGroupCode,
+                U_QuoLevel,
+                u.BaseEntry,
+                u.BaseLine,
+                QuoBrand,
+                QuoModle,
+                SuoQuantity,
+                SuoDelivery,
+                SuoYear,
+                Secrecy,
+                Status,
+                (
+                    CASE
+                        WHEN UrgentType = 'N' THEN N'紧急'
+                        WHEN UrgentType = 'O' THEN N'正常'
+                        WHEN UrgentType IS NOT NULL THEN N'正常'
+                    END
+                )                                            AS UrgentType,
+                SuoBuyer,
+                SuoBuyerName,
+                CheckIN,
+                QuoCurr,
+                QuoVatGroup,
+                QuoPrice,
+                QuoTotal,
+                DSODay,
+                PriceAfVAT,
+                IIF(u.TrgetEntry IS NOT NULL, '1', '0')            AS TrgetEntry,
+                IIF(QuoCurr != 'RMB', QuoORTT.Rate, 1)             AS QuoRate,
+                IIF(u.Currency != 'RMB', T_ORTT.Rate, 1)           AS Rate,
+                U_QuoPrice * IIF(QuoCurr != 'RMB', QuoORTT.Rate, 1) /
+                (1 + RateQuo.Rate / 100)                           AS afterQuoPrice,
+                PriceAfVAT * IIF(u.Currency != 'RMB', T_ORTT.Rate, 1) /
+                (1 + RateVat.Rate / 100)                           AS afterAfVAT,
+                T_ORDR1.U_PriceBefDi - T_ORDR1.U_CommPrice         AS price_done,
+                firstday
+            FROM (
+                SELECT
+                    a.*,
+                    b.*
+                FROM #T_ICIN_test a
+                INNER JOIN  #T_ICIN1_test b ON a.DocEntry_T = b.DocEntry_T1
+            ) t
+            INNER JOIN #U_ICIN1_test u ON
+                t.U_BaseEntry = u.DocEntry_U1 and t.U_BaseLine = u.LineNum_U1 AND
+                U.BaseEntry = t.DocEntry_T1 and u.BaseLine = t.LineNum_T1
+            LEFT JOIN (
+                /*FIRSTDAY首次成单的日期*/
+                SELECT DISTINCT
+                    cardcode,
+                    isso,
+                    firstday
+                FROM (
+                    SELECT
+                        Cardcode,
+                        (IIF(TrgetEntry is not null, 'Y', 'N'))                            AS ISSO,
+                        Inquirydate,
+                        MIN(Inquirydate) OVER (PARTITION BY CARDCODE ORDER BY Inquirydate) AS FIRSTDAY
+                    FROM #U_ICIN1_test a
+                    INNER JOIN #T_ICIN_test b ON a.DocEntry_U1 = b.DocEntry_T
+                    WHERE Inquirydate is not null
+                    AND (IIF(TrgetEntry is not null, 'Y', 'N')) = 'Y'
+                ) Q
+            ) f ON t.CardCode = f.CardCode
+            LEFT JOIN (
+                SELECT
+                    UserName,
+                    UserSign,
+                    DftDept
+                FROM T_OUSI
+            ) Tbuyer ON t.U_Buyer = Tbuyer.UserSign /*采购名字*/
+            LEFT JOIN (
+                SELECT
+                    UserName,
+                    UserSign
+                from T_OUSI
+            ) TOwner ON t.OwnerCode = TOwner.UserSign /*销售名字*/
+            /*最终成交价*/
+            LEFT JOIN T_ORDR1
+                ON t.U_BaseEntry = T_ORDR1.U_BaseEntry
+                AND t.U_BaseLine = T_ORDR1.U_BaseLine
+            /*报价税率*/
+            LEFT JOIN T_OVTG RateQuo ON t.U_QuoVatGroup = RateQuo.code
+            /*询价税率*/
+            LEFT JOIN T_OVTG RateVat ON u.VatGroup = RateVat.code
+            /*报价汇率*/
+            LEFT JOIN T_ORTT QuoORTT
+                ON t.U_QuoCurr = QuoORTT.Currency
+                AND CONVERT(NVARCHAR(12), QuoORTT.RateDate, 102) = CONVERT(NVARCHAR(12), t.InquiryDate, 102)
+            /*询价汇率*/
+            LEFT JOIN T_ORTT
+                ON u.Currency = T_ORTT.Currency
+                AND  CONVERT(NVARCHAR(12), T_ORTT.RateDate, 102) = CONVERT(NVARCHAR(12), t.InquiryDate, 102)
+            LEFT JOIN T_OCDP ON Tbuyer.DftDept = T_OCDP.DeptCode
+        ) new
+        WHERE Inquirydate IS NOT NULL
+        AND MODLE IS NOT NULL
+        AND BRAND IS NOT NULL
+        AND VatGroup IS NOT NULL
+        AND U_QuoVatGroup IS NOT NULL
+        AND Rate IS NOT NULL
+        AND QuoRate IS NOT NULL
+        AND U_QuoPrice IS NOT NULL
+        AND PriceAfVAT IS NOT NULL
+        AND U_QCDesc IS NOT NULL
+        AND U_QuoGroupCode IS NOT NULL
+        GROUP BY
+            InquiryDate, DocEntry_T, CardCode, CardName, U_CusLevel, U_CusGroupCode, U_Region, U_DomainName,
+            DocEntry_U1, LineNum_U1, Brand, Modle, DemandQty, Package, KeyPoint, Currency, Delivery, Year,
+            VatGroup, U_VatGroupnum, ExpectedPrice, PrePrice, ECCN, U_BaseEntry, U_BaseLine, DocEntry_T1,
+            LineNum_T1, U_Buyer, BuyerName, Deptname, OwnerCode, SalerName, U_QuoDate, U_QuoBrand, U_QuoModle,
+            U_QuoPackage, U_QuoQty, U_QuoPrice, U_QuoCurr, U_QuoVatGroup, U_QuoVatGroupnum, U_QuoTotal,
+            U_QuoDelivery, U_QuoYear, U_QCDesc, U_CardCode, U_CardName, U_QuoGroupCode, U_QuoLevel, BaseEntry,
+            BaseLine, QuoBrand, QuoModle, SuoQuantity, SuoDelivery, SuoYear, Secrecy, Status, UrgentType,
+            SuoBuyer, SuoBuyerName, CheckIN, QuoCurr, QuoVatGroup, QuoPrice, QuoTotal, DSODay, PriceAfVAT,
+            TrgetEntry, QuoRate, Rate, afterQuoPrice, afterAfVAT, price_done, firstday,
+            CASE WHEN afterQuoPrice != 0 THEN (afterAfVAT - afterQuoPrice) / afterQuoPrice END,
+            IIF(InquiryDate > firstday, 'N', 'Y')
+        ORDER BY U_BaseEntry, U_BaseLine, Inquirydate
+        /*加入上一次成交价*/
+        ALTER TABLE  U_Inquiry
+        ADD
+            latestPrice decimal(19, 6) NULL,
+            latestCurr nvarchar(50) NULL,
+            latestVat decimal(19, 6) NULL,
+            latestRate decimal(19, 6) NULL,
+            InquiryDate2 datetime NULL,
+            dateinterval int NULL,
+            afterlastestAfVAT decimal(19, 6) NULL
+        update U_Inquiry
+        set U_Inquiry.latestPrice=latest.P2,
+            U_Inquiry.latestCurr=latest.Curr2,
+            U_Inquiry.latestVat=latest.Vat2,
+            U_Inquiry.latestRate=latest.Rate2,
+            U_Inquiry.InquiryDate2=latest.InquiryDate2,
+            dateinterval =DATEDIFF(day, latest.InquiryDate2, latest.InquiryDate),
+            afterlastestAfVAT=latest.P2 * latest.Rate2 / (1 + latest.Vat2 / 100)
+        from (
+            select
+                d.DocEntry_U1,
+                d.Linenum_U1,
+                d.Curr2,
+                d.Vat2,
+                d.Rate2,
+                d.P2,
+                d.InquiryDate2,
+                d.InquiryDate
+            from (
+                select
+                    InquiryDate,
+                    DocEntry_U1,
+                    Linenum_U1,
+                    b.*,
+                    row_number() over (partition by CardCode2,Brand2,Modle2,InquiryDate order by InquiryDate2 desc ) as rk
+                from (
+                    select
+                        InquiryDate,
+                        Brand,
+                        Modle,
+                        DocEntry_U1,
+                        Linenum_U1,
+                        CardCode,
+                        Currency,
+                        U_VatGroupnum,
+                        Rate,
+                        PriceAfVAT,
+                        TrgetEntry
+                    from U_Inquiry
+                ) a
+                left join (
+                    select
+                        InquiryDate   as InquiryDate2,
+                        Brand         as Brand2,
+                        Modle         as Modle2,
+                        DocEntry_U1   as D2,
+                        Linenum_U1    as l2,
+                        CardCode      as CardCode2,
+                        Currency      as Curr2,
+                        U_VatGroupnum as Vat2,
+                        Rate          as Rate2,
+                        PriceAfVAT    as P2,
+                        TrgetEntry    as Trget2
+                    from U_Inquiry
+                    where TrgetEntry is not null
+                ) b on a.CardCode = CardCode2 and a.Brand = Brand2 and a.Modle = Modle2
+                where InquiryDate > InquiryDate2
+            ) d
+            where rk = 1
+        ) latest
+        where U_Inquiry.DocEntry_U1 = latest.DocEntry_U1
+        and U_Inquiry.Linenum_U1 = latest.Linenum_U1
+    </update>
+</mapper>

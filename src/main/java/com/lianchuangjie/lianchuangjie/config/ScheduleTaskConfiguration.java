@@ -1,6 +1,7 @@
 package com.lianchuangjie.lianchuangjie.config;
 
 import com.alibaba.fastjson.JSONObject;
+import com.lianchuangjie.lianchuangjie.mapper.UInquiryMapper;
 import com.lianchuangjie.lianchuangjie.utils.HttpUtil;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -11,12 +12,16 @@ import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * 定时任务配置
+ */
 @Configuration      //1.主要用于标记配置类，兼备Component的效果。
 @EnableScheduling   // 2.开启定时任务
 public class ScheduleTaskConfiguration {
     @Resource
     StringRedisTemplate stringRedisTemplate;
-
+    @Resource
+    UInquiryMapper uInquiryMapper;
     // 3.添加定时任务
     @Scheduled(cron = "0 0 2 * * ?")
     private void stockPrice() {
@@ -37,5 +42,10 @@ public class ScheduleTaskConfiguration {
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    @Scheduled(cron = "0 0 2 * * ?")
+    private void updateUInquiry() {
+        uInquiryMapper.daily();
     }
 }
