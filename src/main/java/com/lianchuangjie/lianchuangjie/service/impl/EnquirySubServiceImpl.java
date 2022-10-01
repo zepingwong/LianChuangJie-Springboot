@@ -20,6 +20,7 @@ import com.lianchuangjie.lianchuangjie.vo.TabEnquiryNeedsVO;
 import com.lianchuangjie.lianchuangjie.vo.TabQuotationNeedsVO;
 import com.lianchuangjie.lianchuangjie.vo.TabStockPriceEnquiryVO;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -30,6 +31,8 @@ import java.util.List;
 public class EnquirySubServiceImpl extends ServiceImpl<EnquirySubMapper, EnquirySubEntity> implements EnquirySubService {
     @Resource
     EnquirySubMapper enquirySubMapper;
+    @Value("${algorithm_address}")
+    private String address;
 
     /**
      * @param docEntry docEntry
@@ -50,7 +53,7 @@ public class EnquirySubServiceImpl extends ServiceImpl<EnquirySubMapper, Enquiry
         json.put("data", list);
         String res;
         try {
-            res = HttpUtil.jsonPost("http://192.168.16.174:5582/main", null, json);
+            res = HttpUtil.jsonPost(address + "main", null, json);
             JSONObject object = JSONObject.parseObject(res);
             return JSON.parseArray(object.getString("data"), EnquirySubVO.class);
         } catch (IOException e) {

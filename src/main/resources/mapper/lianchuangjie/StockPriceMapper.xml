@@ -55,7 +55,7 @@
                     kc_now.Quantity, /*库存数量*/
                     kc_now.TypeCode, /*库存类型*/
                     kc_now.U_Secrecy, /*是否保密*/
-                    kc_now.U_Price, /*库存成本价*/
+                    Round(kc_now.U_Price, 2) AS 'U_Price', /*库存成本价*/
                     Round(kc_now.LastSalePrice, 2) AS 'LastSalePrice', /*最近一次销售报价*/
                     kc_now.LastSaleDate, /*最近一次销售报价时间*/
                     Round(kc_now.LastPurchasePrice, 2) AS 'LastPurchasePrice', /*最近一次采购报价*/

@@ -38,24 +38,36 @@
             fp.U_ContPhone, /*电话*/
             fp.U_ContAddress, /*地址*/
             fp.U_QuoLevel, /*供方评级*/
-            fp.U_QuoVatGroup,
-            fp.U_QuoCurr,
+            fp.U_QuoVatGroup, /*税率代码*/
+            fp.U_QuoCurr, /*币种*/
             fp.U_NoPrice, /*无法报价*/
             U_CUR4.Level AS 'U_SaleLevel', /*销售员等级*/
-            T_OVTG.Rate AS 'U_QuoVatRate'
+            T_OVTG.Rate AS 'U_QuoVatRate' /*采购报价税率*/
         FROM U_ICIN1
         /*采购最近已保存或已回复一条*/
         LEFT JOIN (
             SELECT BC.*
-            FROM(
+            FROM (
                 SELECT DocEntry, U_BaseLine, MAX ( LineNum ) AS LineNum
-                FROM T_ICIN1
+                FROM (
+                    SELECT
+                        DocEntry,
+                        LineNum,
+                        U_BaseLine
+                    FROM T_ICIN1
+                    UNION ALL
+                    SELECT
+                        DocEntry,
+                        LineNum,
+                        U_BaseLine
+                    FROM U_ICIN11
+                ) AllQuote
                 GROUP BY U_BaseLine, DocEntry
             ) AC
             LEFT JOIN T_ICIN1 BC ON AC.DocEntry = BC.DocEntry AND AC.LineNum = BC.LineNum
             WHERE U_Buyer = #{sc.uBuyer}
         ) fp ON U_ICIN1.DocEntry = fp.DocEntry AND U_ICIN1.LineNum = fp.U_BaseLine
-        LEFT JOIN T_ICIN ON T_ICIN.DocEntry = U_ICIN1.DocEntry
+        LEFT JOIN T_ICIN ON T_ICIN.DocEntry = U_ICIN1.DocEntry /*需求主表*/
         LEFT JOIN T_OVTG ON fp.U_QuoVatGroup = T_OVTG.Code /*税率表*/
         LEFT JOIN U_CUR4 ON T_ICIN.UserSign = U_CUR4.OwnerCode /*销售员等级表*/
         <where>

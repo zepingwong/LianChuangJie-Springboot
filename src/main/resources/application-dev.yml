@@ -57,7 +57,7 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 
-
+algorithm_address: 'http://192.168.16.174:5585/'
 
 debug: false
 

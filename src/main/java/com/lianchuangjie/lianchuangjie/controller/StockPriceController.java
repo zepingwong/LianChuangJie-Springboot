@@ -18,6 +18,7 @@ import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
 import com.lianchuangjie.lianchuangjie.vo.BrandItemVO;
 import com.lianchuangjie.lianchuangjie.vo.StockPriceVO;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -40,10 +41,22 @@ public class StockPriceController extends BaseController {
     BrandService brandService;
     @Resource
     StringRedisTemplate stringRedisTemplate;
+    @Value("${algorithm_address}")
+    private String address;
 
     @GetMapping("/price")
     @Authentication(buyer = true)
-    public Result<Page<StockPriceVO>> getStockPriceListController(@RequestParam(defaultValue = "#{null}", value = "page") Integer page, @RequestParam(defaultValue = "#{null}", value = "size") Integer size, @RequestParam(defaultValue = "#{null}", value = "TypeCode") String typeCode, @RequestParam(defaultValue = "#{null}", value = "Brand") String brand, @RequestParam(defaultValue = "#{null}", value = "Modle") String modle, @RequestParam(defaultValue = "#{null}", value = "StockDays") Integer stockDays, @RequestParam(defaultValue = "#{null}", value = "NeedReplenish") Boolean needReplenish, @RequestParam(defaultValue = "#{null}", value = "Modify") String modify, @RequestParam(defaultValue = "#{null}", value = "PricingType") Integer pricingType) {
+    public Result<Page<StockPriceVO>> getStockPriceListController(
+            @RequestParam(defaultValue = "#{null}", value = "page") Integer page,
+            @RequestParam(defaultValue = "#{null}", value = "size") Integer size,
+            @RequestParam(defaultValue = "#{null}", value = "TypeCode") String typeCode,
+            @RequestParam(defaultValue = "#{null}", value = "Brand") String brand,
+            @RequestParam(defaultValue = "#{null}", value = "Modle") String modle,
+            @RequestParam(defaultValue = "#{null}", value = "StockDays") Integer stockDays,
+            @RequestParam(defaultValue = "#{null}", value = "NeedReplenish") Boolean needReplenish,
+            @RequestParam(defaultValue = "#{null}", value = "Modify") String modify,
+            @RequestParam(defaultValue = "#{null}", value = "PricingType") Integer pricingType
+    ) {
         StockPriceSearchDTO stockPriceSearchDTO = new StockPriceSearchDTO();
         stockPriceSearchDTO.setPage(page);
         stockPriceSearchDTO.setSize(size);
@@ -144,7 +157,7 @@ public class StockPriceController extends BaseController {
             try {
                 JSONObject json = new JSONObject();
                 json.put("data", "111");
-                res = HttpUtil.jsonPost("http://192.168.16.174:5582/model_predict_a_day", null, json);
+                res = HttpUtil.jsonPost(address + "model_predict_a_day", null, json);
                 System.out.println(res);
                 if (res != null) {
                     stringRedisTemplate.opsForValue().set("StockPrice", "0");
