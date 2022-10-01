@@ -45,11 +45,11 @@ public class EnquiryReQuoteServiceImpl extends ServiceImpl<EnquirySubMapper, Enq
          * 1. 判断当前询价单是否已经发送给该货源对应的采购
          * 2. 更新 U_ICIN1.Buyers
          */
-        String buyers = enquirySubEntity.getBuyers();
-        if (!buyers.contains(String.valueOf(enquiryReQuoteDTO.getUBuyer()))) {
-            buyers = buyers + "," + enquiryReQuoteDTO.getUBuyer();
+        String buyer = enquirySubEntity.getBuyer();
+        if (!buyer.contains(String.valueOf(enquiryReQuoteDTO.getUBuyer()))) {
+            buyer = buyer + "," + enquiryReQuoteDTO.getUBuyer();
         }
-        enquirySubEntity.setBuyers(buyers);
+        enquirySubEntity.setBuyer(buyer);
         enquirySubMapper.updateBuyers(enquirySubEntity);
         /*
          * 1. 采购报价表 T_ICIN1 直接保存这条待确认的报价信息

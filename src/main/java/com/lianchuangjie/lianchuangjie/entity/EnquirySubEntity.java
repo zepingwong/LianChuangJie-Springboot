@@ -80,9 +80,9 @@ public class EnquirySubEntity {
     /**
      * 采购
      */
-    // 报价的采购员 Buyers
-    @TableField(value = "Buyers")
-    private String buyers;
+    // 报价的采购员 Buyer
+    @TableField(value = "Buyer")
+    private String buyer;
     // 是否保密标记 Secrecy
     @TableField(value = "Secrecy")
     private String secrecy;

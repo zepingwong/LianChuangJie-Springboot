@@ -93,7 +93,7 @@
             <if test="sc.inquiryDateEnd">
                 AND T_ICIN.InquiryDate &lt;= #{sc.inquiryDateEnd}
             </if>
-            AND ',' + U_ICIN1.Buyers + ',' LIKE CONCAT('%,', #{sc.uBuyer} ,',%')
+            AND ',' + U_ICIN1.Buyer + ',' LIKE CONCAT('%,', #{sc.uBuyer} ,',%')
         </where>
         ORDER BY
             U_ICIN1.DocEntry DESC,
