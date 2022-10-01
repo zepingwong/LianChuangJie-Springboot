@@ -1,15 +1,19 @@
 package com.lianchuangjie.lianchuangjie.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lianchuangjie.lianchuangjie.config.Authentication;
 import com.lianchuangjie.lianchuangjie.dto.SingleQueryDTO;
 import com.lianchuangjie.lianchuangjie.dto.search.EnquiryBuyerSearchDTO;
+import com.lianchuangjie.lianchuangjie.dto.search.EnquirySearchDTO;
 import com.lianchuangjie.lianchuangjie.service.EnquiryBuyerService;
+import com.lianchuangjie.lianchuangjie.service.SearchService;
 import com.lianchuangjie.lianchuangjie.service.QueryService;
 import com.lianchuangjie.lianchuangjie.service.SdadaService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
 import com.lianchuangjie.lianchuangjie.vo.BomQueryItemVO;
 import com.lianchuangjie.lianchuangjie.vo.EnquiryBuyerItemVO;
 import com.lianchuangjie.lianchuangjie.vo.SdadaVO;
+import com.lianchuangjie.lianchuangjie.vo.SearchQueryVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +33,22 @@ public class SearchController extends BaseController {
     SdadaService sdadaService;
     @Resource
     EnquiryBuyerService enquiryBuyerService;
+    @Resource
+    SearchService searchService;
+    @GetMapping("/query")
+    @Authentication(sale = true)
+    public Result<Page<SearchQueryVO>> enquirySubController(
+            @RequestParam(defaultValue = "#{null}", value = "page") Integer page, // 页码
+            @RequestParam(defaultValue = "#{null}", value = "size") Integer size, // 每页显示条数
+            @RequestParam(defaultValue = "#{null}", value = "Modle") String modle
+    ) {
+        EnquirySearchDTO enquirySearchDTO = new EnquirySearchDTO();
+        enquirySearchDTO.setModle(modle);
+        enquirySearchDTO.setPage(page);
+        enquirySearchDTO.setSize(size);
+        Page<SearchQueryVO> res = searchService.list(enquirySearchDTO);
+        return Result.success(res, "success");
+    }
 
     /**
      * @param singleQueryDTO singleQueryDTO
