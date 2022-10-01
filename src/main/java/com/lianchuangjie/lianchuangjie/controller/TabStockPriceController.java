@@ -41,7 +41,11 @@ public class TabStockPriceController {
      */
     @GetMapping("/stockprice/base")
     @Authentication(sale = true, buyer = true)
-    public Result<Page<TabStockPriceBaseVO>> getStockPriceBase(@RequestParam(defaultValue = "1", value = "page") Integer page, @RequestParam(defaultValue = "10", value = "size") Integer size, @RequestParam(defaultValue = "#{null}", value = "Modle") String modle) {
+    public Result<Page<TabStockPriceBaseVO>> getStockPriceBase(
+            @RequestParam(defaultValue = "1", value = "page") Integer page,
+            @RequestParam(defaultValue = "10", value = "size") Integer size,
+            @RequestParam(defaultValue = "#{null}", value = "Modle") String modle
+    ) {
         TabSearchDTO tabSearchDTO = new TabSearchDTO();
         tabSearchDTO.setPage(page);
         tabSearchDTO.setSize(size);
