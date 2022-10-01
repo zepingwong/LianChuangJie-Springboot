@@ -28,10 +28,10 @@
     </update>
     <update id="updateALL" parameterType="com.lianchuangjie.lianchuangjie.dto.StockPriceOKAllDTO">
         UPDATE kc_now
-        SET kc_now.Modify = 'Y'
+        SET
+            kc_now.Modify = 'Y',
+            kc_now.ConfirmDate = getdate()
         WHERE DocDate = #{da.docDate}
-        AND kc_now.Brand = #{da.brand}
-        AND kc_now.ConfirmDate = getdate()
     </update>
     <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.StockPriceVO">
         DECLARE @PageSize INT;
