@@ -1,5 +1,7 @@
 package com.lianchuangjie.lianchuangjie.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,11 +15,15 @@ import java.math.BigDecimal;
 @TableName("T_OVTG")
 public class VatGroupEntity {
     // 税率代码
-    private String Code;
+    @TableId(value = "Code")
+    private String code;
     // 名称
-    private String Name;
+    @TableField(value = "Name")
+    private String name;
+    @TableField(value = "Type")
     // 类型
-    private String Type;
+    private String type;
     // 税率
-    private BigDecimal Rate;
+    @TableField(value = "Rate")
+    private BigDecimal rate;
 }

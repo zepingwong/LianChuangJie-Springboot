@@ -31,7 +31,7 @@
         SET kc_now.Modify = 'Y'
         WHERE DocDate = #{da.docDate}
         AND kc_now.Brand = #{da.brand}
-        AND kc_now.DocDate = #{da.docDate}
+        AND kc_now.ConfirmDate = getdate()
     </update>
     <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.StockPriceVO">
         DECLARE @PageSize INT;
@@ -68,18 +68,18 @@
                     kc_now.reference7, /*七天定价参考*/
                     kc_now.kc_price , /*综合定价*/
                     kc_now.reference, /*参考价格*/
-                    kc_now.kc_price_final , /*最终库存定价*/
+                    Round(kc_now.kc_price_final, 2) AS 'kc_price_final',  /*最终库存定价*/
                     kc_now.reference_final, /*最终参考价格*/
-                    kc_now.price_2w , /*2w内单价*/
+                    Round(kc_now.price_2w, 2) AS 'price_2w' , /*2w内单价*/
                     kc_now.quan_2w, /*2w区间*/
-                    kc_now.price_2w_5w , /*2w-5w内单价*/
+                    Round(kc_now.price_2w_5w, 2) AS 'price_2w_5w', /*2w-5w内单价*/
                     kc_now.quan_2w_5w, /*2w-5w区间*/
-                    kc_now.price_5w_10w , /*5w-10w内单价*/
+                    Round(kc_now.price_5w_10w, 2) AS 'price_5w_10w', /*5w-10w内单价*/
                     kc_now.quan_5w_10w, /*5w-10w区间*/
-                    kc_now.price_10w , /*10w+单价*/
+                    Round(kc_now.price_10w, 2) AS 'price_10w', /*10w+单价*/
                     kc_now.quan_10w, /*10w+区间*/
                     T3.ConfirmDate AS 'LastPricingTime', /*最近一次定价时间*/
-                    T3.kc_price_final AS 'LastPrice' /*最近一次定价单价*/
+                    Round(T3.kc_price_final, 2) AS 'LastPrice' /*最近一次定价单价*/
                 FROM kc_now
                 LEFT JOIN (
                     SELECT T2.*

@@ -1,6 +1,6 @@
 package com.lianchuangjie.lianchuangjie.entity;
 
-import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,6 +13,6 @@ import java.math.BigInteger;
 @NoArgsConstructor
 @TableName("T_ZNL1")
 public class ZhengNengLiangSubEntity {
-    @TableField(value = "DocEntry")
+    @TableId(value = "DocEntry")
     private BigInteger docEntry;
 }

@@ -1,6 +1,7 @@
 package com.lianchuangjie.lianchuangjie.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,7 +20,7 @@ public class StockRankEntity {
     /**
      * @description 编号-主键
      */
-    @TableField(value = "DocEntry")
+    @TableId(value = "DocEntry")
     private Long docEntry;
     /**
      * @description LineNum 行号

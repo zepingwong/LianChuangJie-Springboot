@@ -1,7 +1,8 @@
 package com.lianchuangjie.lianchuangjie.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,12 +16,12 @@ import lombok.NoArgsConstructor;
 @TableName("U_OFIE")
 public class ClienteleIndustryEntity {
     // 业务合作伙伴行业领域代码
-    @JsonProperty("KeyCode")
+    @TableId(value = "KeyCode")
     private String KeyCode;
     // 业务合作伙伴行业领域名称
-    @JsonProperty("DomainName")
+    @TableField(value = "DomainName")
     private String DomainName;
     // 父级代码
-    @JsonProperty("ParentCode")
+    @TableField(value = "ParentCode")
     private String ParentCode;
 }
