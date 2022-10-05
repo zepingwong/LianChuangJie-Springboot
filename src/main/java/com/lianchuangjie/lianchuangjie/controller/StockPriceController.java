@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lianchuangjie.lianchuangjie.config.Authentication;
 import com.lianchuangjie.lianchuangjie.dto.ReplenishDTO;
+import com.lianchuangjie.lianchuangjie.dto.ReplenishDaDTO;
 import com.lianchuangjie.lianchuangjie.dto.StockPriceOKAllDTO;
 import com.lianchuangjie.lianchuangjie.dto.StockPriceOKDTO;
 import com.lianchuangjie.lianchuangjie.dto.search.StockPriceSearchDTO;
@@ -103,7 +104,7 @@ public class StockPriceController extends BaseController {
     /**
      * @param replenishDTO replenishDTO
      * @return Result
-     * @description 一键OK
+     * @description 补价
      * @author WANG Zeping
      * @email zepingwong@gmail.com
      * @date 9/4/2022
@@ -120,6 +121,20 @@ public class StockPriceController extends BaseController {
         quotationEntity.setLineNum(quotationService.count(queryWrapper) + 1);
         quotationEntity.setUBuyer(SessionUtil.getUserSign()); // 采购员编号
         Boolean res = quotationService.save(quotationEntity);
+        if (res) {
+            String response;
+            try {
+                JSONObject json = new JSONObject();
+                ReplenishDaDTO replenishDaDTO = new ReplenishDaDTO();
+                BeanUtils.copyProperties(replenishDTO, replenishDaDTO);
+                json.put("data", replenishDaDTO);
+                response = HttpUtil.jsonPost(address + "model_predict_one_time", null, json);
+                System.out.println(response);
+            }catch (IOException e) {
+                stringRedisTemplate.opsForValue().set("StockPrice", "0");
+                throw new RuntimeException(e);
+            }
+        }
         return Result.success(res, "Success");
     }
 

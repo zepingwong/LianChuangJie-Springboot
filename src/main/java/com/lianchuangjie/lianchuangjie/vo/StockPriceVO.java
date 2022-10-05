@@ -36,9 +36,6 @@ public class StockPriceVO {
     // 型号 ItemName
     @JsonProperty("ItemName")
     private String itemName;
-    // 原批次 U_Batch
-    @JsonProperty("U_Batch")
-    private String uBatch;
     // 批次 Batch
     @JsonProperty("Batch")
     private String batch;

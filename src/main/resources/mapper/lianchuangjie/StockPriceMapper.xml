@@ -50,7 +50,6 @@
                     kc_now.FrgnName, /*品名*/
                     kc_now.Brand, /*品牌*/
                     kc_now.ItemName, /*型号*/
-                    kc_now.U_Batch, /*原批次*/
                     kc_now.Batch, /*批次*/
                     kc_now.Quantity, /*库存数量*/
                     kc_now.TypeCode, /*库存类型*/

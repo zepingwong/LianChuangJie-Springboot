@@ -6,11 +6,8 @@ import com.lianchuangjie.lianchuangjie.config.Authentication;
 import com.lianchuangjie.lianchuangjie.dto.QuotationReplyDTO;
 import com.lianchuangjie.lianchuangjie.dto.QuotationSaveDTO;
 import com.lianchuangjie.lianchuangjie.dto.search.QuotationSearchDTO;
-import com.lianchuangjie.lianchuangjie.entity.EnquiryMainEntity;
 import com.lianchuangjie.lianchuangjie.entity.QuotationEntity;
 import com.lianchuangjie.lianchuangjie.entity.UserEntity;
-import com.lianchuangjie.lianchuangjie.mapper.EnquiryMainMapper;
-import com.lianchuangjie.lianchuangjie.service.EnquiryMainService;
 import com.lianchuangjie.lianchuangjie.service.QuotationService;
 import com.lianchuangjie.lianchuangjie.service.UserInfoService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
@@ -32,10 +29,6 @@ public class QuotationController extends BaseController {
     QuotationService quotationService;
     @Resource
     UserInfoService userInfoService;
-    @Resource
-    EnquiryMainService enquiryMainService;
-    @Resource
-    EnquiryMainMapper enquiryMainMapper;
 
     /**
      * @param page             page
