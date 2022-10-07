@@ -84,9 +84,10 @@ public class QuotationSaveDTO {
     @JsonProperty("U_QuoDelivery")
     private String uQuoDelivery;
     // 采购报价税率代码 U_QuoVatGroup
+    @JsonProperty("U_QuoVatGroup")
     private String uQuoVatGroup;
 
-    public String getUQuoVatGroup() {
+    public String getuQuoVatGroup() {
         String[] strList = uQuoCurr.split("\\+");
         return strList[1];
     }

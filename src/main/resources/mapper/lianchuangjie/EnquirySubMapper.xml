@@ -18,7 +18,7 @@
     </update>
     <update id="updateBuyers" parameterType="com.lianchuangjie.lianchuangjie.entity.EnquirySubEntity">
         UPDATE U_ICIN1
-        SET Buyers = #{Entity.buyers}
+        SET Buyer = #{Entity.buyer}
         WHERE DocEntry = #{Entity.docEntry} AND LineNum = #{Entity.lineNum}
     </update>
     <update id="order" parameterType="com.lianchuangjie.lianchuangjie.entity.EnquirySubEntity">
