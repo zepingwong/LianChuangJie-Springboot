@@ -167,7 +167,7 @@ public class EnquirySubVO {
     private BigDecimal recoPrice;
     public BigDecimal getRecoPrice() {
         if (profitMargin != null & uQuoPrice != null & exchangeRate != null) {
-            return uQuoPrice.multiply(profitMargin).multiply(exchangeRate).setScale(2, RoundingMode.HALF_UP); // 汇率转换
+            return uQuoPrice.multiply(profitMargin).add(uQuoPrice).multiply(exchangeRate).setScale(2, RoundingMode.HALF_UP); // 汇率转换
         } else {
             return null;
         }
@@ -177,7 +177,7 @@ public class EnquirySubVO {
     private BigDecimal minQuoPrice;
     public BigDecimal getMinQuoPrice() {
         if (minProfitMargin != null & uQuoPrice != null) {
-            return uQuoPrice.multiply(minProfitMargin).multiply(exchangeRate).setScale(2, RoundingMode.HALF_UP); // 汇率转换
+            return uQuoPrice.multiply(minProfitMargin).add(uQuoPrice).multiply(exchangeRate).setScale(2, RoundingMode.HALF_UP); // 汇率转换
         } else {
             return null;
         }
