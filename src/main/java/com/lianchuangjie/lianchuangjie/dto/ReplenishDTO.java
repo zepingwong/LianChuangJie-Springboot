@@ -96,4 +96,13 @@ public class ReplenishDTO {
     // 起订量
     @JsonProperty("MinQty")
     private Integer minQty;
+    // 原批次
+    @JsonProperty("U_Batch")
+    private String uBatch;
+    // 现批次
+    @JsonProperty("Batch")
+    private String batch;
+    // 库存成本价
+    @JsonProperty("U_Price")
+    private BigDecimal uPrice;
 }

@@ -28,7 +28,23 @@ public class TabStockPriceController {
     PurchaseOrderSubService purchaseOrderSubService;
     @Resource
     QuotationService quotationService;
+    @Resource
+    StockService stockService;
 
+    @GetMapping("/stockprice/origin")
+    @Authentication(sale = true, buyer = true)
+    public Result<Page<TabStockPriceOriginVO>> getStockPriceOrigin(
+            @RequestParam(defaultValue = "1", value = "page") Integer page,
+            @RequestParam(defaultValue = "10", value = "size") Integer size,
+            @RequestParam(defaultValue = "#{null}", value = "Modle") String modle
+    ) {
+        TabSearchDTO tabSearchDTO = new TabSearchDTO();
+        tabSearchDTO.setPage(page);
+        tabSearchDTO.setSize(size);
+        tabSearchDTO.setModle(modle);
+        Page<TabStockPriceOriginVO> res = stockService.stockPriceTabList(tabSearchDTO);
+        return Result.success(res);
+    }
     /**
      * @param page  page
      * @param size  size

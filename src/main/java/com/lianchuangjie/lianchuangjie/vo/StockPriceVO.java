@@ -120,4 +120,7 @@ public class StockPriceVO {
     // price_10w 10w+单价
     @JsonProperty("price_10w")
     private BigDecimal price10w;
+    // 原批次
+    @JsonProperty("U_Batch")
+    private String uBatch;
 }

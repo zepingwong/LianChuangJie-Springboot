@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -32,19 +33,21 @@ public class StockPriceOKDTO {
     @NotBlank(message = "型号不能为空")
     @JsonProperty("ItemName")
     private String itemName;
+    @JsonProperty("Batch")
+    private String batch;
     // price_2w 2w内单价
     @JsonProperty("price_2w")
-    private Float price2w;
+    private BigDecimal price2w;
     // price_2w_5w 2w-5w单价
     @JsonProperty("price_2w_5w")
-    private Float price2w5w;
+    private BigDecimal price2w5w;
     // price_5w_10w 5w_10w单价
     @JsonProperty("price_5w_10w")
-    private Float price5w10w;
+    private BigDecimal price5w10w;
     // price_10w 10w+单价
     @JsonProperty("price_10w")
-    private Float price10w;
+    private BigDecimal price10w;
     // 最终定价
     @JsonProperty("kc_price_final")
-    private Float kcPriceFinal;
+    private BigDecimal kcPriceFinal;
 }

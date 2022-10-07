@@ -55,4 +55,9 @@ public class TabSearchDTO {
      */
     @JsonProperty("Year")
     private String year;
+    /**
+     * 库存定价页面会用到的现批次
+     */
+    @JsonProperty("Batch")
+    private String batch;
 }
