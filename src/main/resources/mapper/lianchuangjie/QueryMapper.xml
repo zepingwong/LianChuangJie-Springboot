@@ -166,46 +166,7 @@
                 END
             )                        AS Status,
             /*采购员*/
-            (
-                CASE
-                    /*采购报价 B*/
-                    WHEN U_OPRI.PrePrice * @DemandQty > 1000 OR U_OPRI.PrePrice * @DemandQty IS NULL THEN (
-                        SELECT
-                            CAST(CAST(T_OUSI.UserSign AS VARCHAR) + ':' + T_OUSI.UserName AS VARCHAR) + ','
-                            FROM T_OUSI T_OUSI
-                            LEFT JOIN U_PUR1 U_PUR1 ON U_PUR1.OwnerCode = T_OUSI.UserSign
-                            LEFT JOIN U_PUR2 U_PUR2 ON U_PUR2.OwnerCode = T_OUSI.UserSign
-                            LEFT JOIN U_PUR9 U_PUR9 ON U_PUR9.OwnerCode = T_OUSI.UserSign
-                            WHERE T_OUSI.U_IsBuyer = 'Y'
-                            AND U_PUR2.Brand LIKE CONCAT('%', SDADA.QuoBrand, '%')
-                            /*
-                                1. 如果U_PUR1.IsSale为Y值，那么需要关联表U_PUR9确认负责的销售列表；
-                                2. 如果U_PUR1.IsSale为N值，那么只需参考字段 DeptCode-负责报价的销售部门；
-                            */
-                            AND (
-                                (U_PUR9.SlpCode = @SlpCode AND U_PUR1.IsSale = 'Y') OR (
-                                    U_PUR1.IsSale = 'N' AND ',' + LTRIM(RTRIM(REPLACE(U_PUR1.DeptCode, ' ', ''))) + ',' LIKE CONCAT('%,', @DeptCode, ',%')
-                                )
-                             )
-                            /*
-                                1. 采购权限内是否包含该品牌该型号的ECCN码
-                                2. 采购ECCN码为空或为null时表示该采购不受ECCN码限制
-                            */
-                            AND (
-                                ',' + LTRIM(RTRIM(REPLACE(U_PUR1.ECCN, ' ', ''))) + ',' LIKE CONCAT('%', SDADA.ECCN, '%')
-                                OR U_PUR1.ECCN = ''
-                                OR U_PUR1.ECCN IS NULL
-                            )
-                            /*
-                                1. 预估总价高于采购询价起点时转发给该采购
-                                2. 采购询价起点为0或null表示该采购不受价格限制
-                            */
-                            AND (U_PUR1.StartTotal IS NULL OR U_PUR1.StartTotal &lt; (U_OPRI.PrePrice * @DemandQty))
-                            GROUP BY T_OUSI.UserSign, T_OUSI.UserName
-                        FOR xml path ( '' ))
-                    ELSE ''
-                END
-            )                        AS Buyer
+
         FROM SDADA
         LEFT JOIN (
             SELECT
@@ -222,8 +183,12 @@
             GROUP BY ItemName
         ) stock ON stock.ItemName = SDADA.sno
         LEFT JOIN U_OPRI ON U_OPRI.ItemName = SDADA.sno
-        WHERE SDADA.sno = #{sc.modle}
-        AND SDADA.QuoBrand = #{sc.brand}
+        <where>
+            SDADA.sno = #{sc.modle}
+            <if test="sc.brand != null">
+                AND SDADA.QuoBrand = #{sc.brand}
+            </if>
+        </where>
     </select>
     <select id="queryRelated" resultType="com.lianchuangjie.lianchuangjie.vo.BomQueryItemVO"
             parameterType="com.lianchuangjie.lianchuangjie.dto.SingleQueryDTO">

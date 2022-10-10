@@ -24,7 +24,14 @@ public class SingleQueryDTO {
     private String brand;
     // 需求数量 DemandQty
     @JsonProperty("DemandQty")
-    private BigDecimal DemandQty;
+    private BigDecimal demandQty;
+    public BigDecimal getDemandQty() {
+        if (demandQty != null) {
+            return demandQty;
+        }else {
+            return BigDecimal.valueOf(0);
+        }
+    }
     // 销售员
     @JsonProperty("SlpCode")
     private Long slpCode;

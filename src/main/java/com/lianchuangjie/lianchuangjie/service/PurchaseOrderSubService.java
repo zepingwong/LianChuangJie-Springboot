@@ -5,9 +5,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.PurchaseOrderSubEntity;
 import com.lianchuangjie.lianchuangjie.vo.TabEnquiryPurchaseOrderVO;
-import com.lianchuangjie.lianchuangjie.vo.TabEnquirySalesOrderVO;
 import com.lianchuangjie.lianchuangjie.vo.TabQuotationPurchaseOrderVO;
-import com.lianchuangjie.lianchuangjie.vo.TabQuotationSalesOrderVO;
+import com.lianchuangjie.lianchuangjie.vo.TabSearchPurchaseOrderVO;
 
 public interface PurchaseOrderSubService extends IService<PurchaseOrderSubEntity> {
     /**
@@ -29,4 +28,13 @@ public interface PurchaseOrderSubService extends IService<PurchaseOrderSubEntity
      * @date 8/21/2022
      */
     Page<TabEnquiryPurchaseOrderVO> enquiryTabList(TabSearchDTO tabSearchDTO);
+    /**
+     * @param tabSearchDTO tabSearchDTO
+     * @return Page
+     * @description 模糊搜索页面-采购订单Tab
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 8/21/2022
+     */
+    Page<TabSearchPurchaseOrderVO> searchTabList(TabSearchDTO tabSearchDTO);
 }

@@ -62,6 +62,15 @@ public interface QuotationService extends IService<QuotationEntity> {
      * @date 8/21/2022
      */
     Page<TabEnquiryQuotationVO> enquiryTabList(TabSearchDTO tabSearchDTO);
+    /**
+     * @param tabSearchDTO tabSearchDTO
+     * @return Page
+     * @description 模糊搜索-采购报价TAB
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 8/21/2022
+     */
+    Page<TabSearchQuotationVO> searchTabList(TabSearchDTO tabSearchDTO);
 
     /**
      * @param tabSearchDTO tabSearchDTO

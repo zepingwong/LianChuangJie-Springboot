@@ -15,10 +15,7 @@ import com.lianchuangjie.lianchuangjie.mapper.EnquirySubMapper;
 import com.lianchuangjie.lianchuangjie.service.EnquirySubService;
 import com.lianchuangjie.lianchuangjie.utils.HttpUtil;
 import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
-import com.lianchuangjie.lianchuangjie.vo.EnquirySubVO;
-import com.lianchuangjie.lianchuangjie.vo.TabEnquiryNeedsVO;
-import com.lianchuangjie.lianchuangjie.vo.TabQuotationNeedsVO;
-import com.lianchuangjie.lianchuangjie.vo.TabStockPriceEnquiryVO;
+import com.lianchuangjie.lianchuangjie.vo.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -128,6 +125,17 @@ public class EnquirySubServiceImpl extends ServiceImpl<EnquirySubMapper, Enquiry
         page.setOptimizeCountSql(false);
         page.setSearchCount(false);
         page.setRecords(enquirySubMapper.selectEnquiryTabList(searchCondition));
+        page.setTotal(enquirySubMapper.countEnquiryTabList(searchCondition));
+        return page;
+    }
+
+    @Override
+    public Page<TabSearchNeedsVO> searchTabList(TabSearchDTO searchCondition) {
+        Page<TabSearchNeedsVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
+        page.addOrder(OrderItem.desc("T_ICIN.InquiryDate"));
+        page.setOptimizeCountSql(false);
+        page.setSearchCount(false);
+        page.setRecords(enquirySubMapper.selectSearchTabList(searchCondition));
         page.setTotal(enquirySubMapper.countEnquiryTabList(searchCondition));
         return page;
     }

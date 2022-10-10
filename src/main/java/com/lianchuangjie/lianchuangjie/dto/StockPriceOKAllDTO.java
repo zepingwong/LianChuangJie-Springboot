@@ -25,5 +25,5 @@ public class StockPriceOKAllDTO {
     @JsonFormat(locale = "zh", timezone = "GMT+8", pattern = "yyyy-MM-dd 00:00:00")
     private Date docDate;
     @JsonProperty("Items")
-    private List<StockPriceOKItemDTO> items;
+    private List<StockPriceOKDTO> items;
 }

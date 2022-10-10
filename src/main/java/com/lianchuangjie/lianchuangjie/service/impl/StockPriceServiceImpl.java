@@ -2,13 +2,10 @@ package com.lianchuangjie.lianchuangjie.service.impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.lianchuangjie.lianchuangjie.dto.StockPriceOKAllDTO;
 import com.lianchuangjie.lianchuangjie.dto.StockPriceOKDTO;
-import com.lianchuangjie.lianchuangjie.dto.StockPriceOKItemDTO;
 import com.lianchuangjie.lianchuangjie.dto.search.StockPriceSearchDTO;
 import com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.StockPriceEntity;
-import com.lianchuangjie.lianchuangjie.mapper.QuotationMapper;
 import com.lianchuangjie.lianchuangjie.mapper.StockPriceMapper;
 import com.lianchuangjie.lianchuangjie.service.StockPriceService;
 import com.lianchuangjie.lianchuangjie.vo.StockPriceVO;
@@ -16,6 +13,7 @@ import com.lianchuangjie.lianchuangjie.vo.TabStockPriceBaseVO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class StockPriceServiceImpl extends ServiceImpl<StockPriceMapper, StockPriceEntity> implements StockPriceService {
@@ -45,13 +43,9 @@ public class StockPriceServiceImpl extends ServiceImpl<StockPriceMapper, StockPr
     }
 
     @Override
-    public void updateALL(StockPriceOKAllDTO stockPriceOKAllDTO) {
-        for (StockPriceOKItemDTO itemDTO : stockPriceOKAllDTO.getItems()) {
-            StockPriceOKDTO stockPriceOKDTO = new StockPriceOKDTO();
-            stockPriceOKDTO.setBrand(itemDTO.getBrand());
-            stockPriceOKDTO.setItemName(itemDTO.getItemName());
-            stockPriceOKDTO.setDocDate(stockPriceOKAllDTO.getDocDate());
-            stockPriceMapper.updateALL(stockPriceOKDTO);
+    public void updateALL(List<StockPriceOKDTO> list) {
+        for (StockPriceOKDTO itemDTO : list) {
+            stockPriceMapper.update(itemDTO);
         }
     }
 }

@@ -72,6 +72,15 @@ public interface EnquirySubMapper extends BaseMapper<EnquirySubEntity> {
      * @date 8/20/2022
      */
     List<TabEnquiryNeedsVO> selectEnquiryTabList(@Param("sc") TabSearchDTO tabSearchDTO);
+    /**
+     * @param tabSearchDTO tabSearchDTO
+     * @return IPage
+     * @description 模糊搜索-客户需求TAB
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 8/20/2022
+     */
+    List<TabSearchNeedsVO> selectSearchTabList(@Param("sc") TabSearchDTO tabSearchDTO);
 
     /**
      * @param tabSearchDTO tabSearchDTO

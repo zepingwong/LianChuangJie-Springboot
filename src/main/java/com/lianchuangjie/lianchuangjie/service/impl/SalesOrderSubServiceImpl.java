@@ -9,6 +9,7 @@ import com.lianchuangjie.lianchuangjie.mapper.SalesOrderSubMapper;
 import com.lianchuangjie.lianchuangjie.service.SalesOrderSubService;
 import com.lianchuangjie.lianchuangjie.vo.TabEnquirySalesOrderVO;
 import com.lianchuangjie.lianchuangjie.vo.TabQuotationSalesOrderVO;
+import com.lianchuangjie.lianchuangjie.vo.TabSearchSalesOrderVO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -29,6 +30,15 @@ public class SalesOrderSubServiceImpl extends ServiceImpl<SalesOrderSubMapper, S
         Page<TabEnquirySalesOrderVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
         page.addOrder(OrderItem.desc("T_ORDR.DocDate"));
         page.setRecords(salesOrderSubMapper.selectEnquiryTabList(searchCondition));
+        page.setTotal(salesOrderSubMapper.countEnquiryTabList(searchCondition));
+        return page;
+    }
+
+    @Override
+    public Page<TabSearchSalesOrderVO> searchTabList(TabSearchDTO searchCondition) {
+        Page<TabSearchSalesOrderVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
+        page.addOrder(OrderItem.desc("T_ORDR.DocDate"));
+        page.setRecords(salesOrderSubMapper.selectSearchTabList(searchCondition));
         page.setTotal(salesOrderSubMapper.countEnquiryTabList(searchCondition));
         return page;
     }

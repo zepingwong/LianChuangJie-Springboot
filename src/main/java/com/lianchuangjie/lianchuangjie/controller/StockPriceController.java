@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lianchuangjie.lianchuangjie.config.Authentication;
 import com.lianchuangjie.lianchuangjie.dto.ReplenishDTO;
-import com.lianchuangjie.lianchuangjie.dto.StockPriceOKAllDTO;
 import com.lianchuangjie.lianchuangjie.dto.StockPriceOKDTO;
 import com.lianchuangjie.lianchuangjie.dto.search.StockPriceSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.QuotationEntity;
@@ -137,7 +136,6 @@ public class StockPriceController extends BaseController {
     }
 
     /**
-     * @param stockPriceOKAllDTO stockPriceOKAllDTO
      * @return Result
      * @description 一键OK
      * @author WANG Zeping
@@ -146,8 +144,8 @@ public class StockPriceController extends BaseController {
      */
     @PutMapping("/price")
     @Authentication(buyer = true)
-    public Result<Boolean> okAllController(@RequestBody @Valid StockPriceOKAllDTO stockPriceOKAllDTO) {
-        stockPriceService.updateALL(stockPriceOKAllDTO);
+    public Result<Boolean> okAllController(@RequestBody @Valid List<StockPriceOKDTO> list ) {
+        stockPriceService.updateALL(list);
         return Result.success(true, "Success");
     }
 
@@ -170,7 +168,7 @@ public class StockPriceController extends BaseController {
             try {
                 JSONObject json = new JSONObject();
                 json.put("data", "111");
-                res = HttpUtil.jsonPost(address + "model_predict_one_day", null, json);
+                res = HttpUtil.jsonPost(address + "model_predict_a_day", null, json);
                 System.out.println(res);
                 if (res != null) {
                     stringRedisTemplate.opsForValue().set("StockPrice", "0");

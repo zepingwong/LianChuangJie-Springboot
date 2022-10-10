@@ -60,6 +60,16 @@ public interface QuotationMapper extends BaseMapper<QuotationEntity> {
      * @date 8/28/2022
      */
     IPage<TabEnquiryQuotationVO> selectEnquiryList(Page<TabEnquiryQuotationVO> page, @Param("sc") TabSearchDTO searchCondition);
+    /**
+     * @param page            page
+     * @param searchCondition searchCondition
+     * @return IPage
+     * @description 销售页面-采购报价TAB
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 8/28/2022
+     */
+    IPage<TabSearchQuotationVO> selectSearchList(Page<TabSearchQuotationVO> page, @Param("sc") TabSearchDTO searchCondition);
 
     /**
      * @param searchCondition searchCondition

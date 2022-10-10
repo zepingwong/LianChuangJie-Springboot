@@ -26,7 +26,6 @@ public class StockPriceOKDTO {
     @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd 00:00:00")
     private Date docDate;
     // 品牌 Brand
-    @NotBlank(message = "品牌不能为空")
     @JsonProperty("Brand")
     private String brand;
     // 型号 ItemName
@@ -50,4 +49,10 @@ public class StockPriceOKDTO {
     // 最终定价
     @JsonProperty("kc_price_final")
     private BigDecimal kcPriceFinal;
+    // 确认日期
+    @JsonProperty("ConfirmDate")
+    @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd 00:00:00")
+    private Date confirmDate;
+    @JsonProperty("Modify")
+    private String modify;
 }

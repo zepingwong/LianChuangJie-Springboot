@@ -6,6 +6,7 @@ import com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.SalesOrderSubEntity;
 import com.lianchuangjie.lianchuangjie.vo.TabEnquirySalesOrderVO;
 import com.lianchuangjie.lianchuangjie.vo.TabQuotationSalesOrderVO;
+import com.lianchuangjie.lianchuangjie.vo.TabSearchSalesOrderVO;
 
 public interface SalesOrderSubService extends IService<SalesOrderSubEntity> {
     /**
@@ -27,4 +28,13 @@ public interface SalesOrderSubService extends IService<SalesOrderSubEntity> {
      * @date 8/21/2022
      */
     Page<TabEnquirySalesOrderVO> enquiryTabList(TabSearchDTO tabSearchDTO);
+    /**
+     * @param tabSearchDTO tabSearchDTO
+     * @return Page
+     * @description 模糊搜搜-销售订单TAB
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 8/21/2022
+     */
+    Page<TabSearchSalesOrderVO> searchTabList(TabSearchDTO tabSearchDTO);
 }

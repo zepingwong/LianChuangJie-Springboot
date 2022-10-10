@@ -27,13 +27,6 @@
         AND kc_now.DocDate = #{da.docDate}
         AND kc_now.Batch = #{da.batch}
     </update>
-    <update id="updateALL" parameterType="com.lianchuangjie.lianchuangjie.dto.StockPriceOKAllDTO">
-        UPDATE kc_now
-        SET
-            kc_now.Modify = 'Y',
-            kc_now.ConfirmDate = getdate()
-        WHERE DocDate = #{da.docDate}
-    </update>
     <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.StockPriceVO">
         DECLARE @PageSize INT;
         DECLARE @CurrentPage INT;
@@ -43,7 +36,7 @@
         FROM (
             SELECT
                 T.*,
-                ROW_NUMBER() over (ORDER BY T.DocDate) AS 'LineNum'
+                ROW_NUMBER() over (ORDER BY T.ItemName , T.Batch) AS 'LineNum'
             FROM (
                 SELECT
                     kc_now.DocDate, /*今日日期*/

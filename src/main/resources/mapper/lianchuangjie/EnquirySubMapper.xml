@@ -681,4 +681,101 @@
         ) T
         ORDER BY T.LineNum
     </select>
+    <select id="selectSearchTabList" resultType="com.lianchuangjie.lianchuangjie.vo.TabSearchNeedsVO">
+        DECLARE @UserSign BIGINT
+        DECLARE @DataPur NVARCHAR ( 10 ) /*All/Dept/self*/
+        DECLARE @BaseFormID BIGINT /*视图编号*/
+        DECLARE @PageSize INT
+        DECLARE @CurrentPage INT
+        SET @PageSize = ${sc.getSize} /*每页显示数量*/
+        SET @CurrentPage = ${sc.getPage} /*当前页码*/
+        SET @UserSign = ${sc.getUserSign}
+        SELECT TOP (1) @BaseFormID = TransType FROM T_ICIN WHERE TransType IS NOT NULL /*单据类型*/
+        SELECT @DataPur = [dbo].[UF_DataPurview] ( @UserSign, @BaseFormID ) /*判断权限*/
+        SELECT TOP (@PageSize) *
+        FROM (
+        SELECT
+        ROW_NUMBER()OVER(ORDER BY T.InquiryDate DESC) AS ROWNUMBER,
+        T.*
+        FROM (
+        /*权限内所有订单*/
+        SELECT
+        U_ICIN1.Secrecy, /*是否保密*/
+        U_ICIN1.Modle, /*需求型号*/
+        U_ICIN1.Brand, /*需求品牌*/
+        U_ICIN1.DemandQty, /*需求数量*/
+        U_ICIN1.ECCN, /*ECCN*/
+        T_ICIN.CardName, /*客户名称*/
+        U_ICIN1.Currency, /*货币*/
+        T_ICIN.InquiryDate, /*询价日期*/
+        T_ICIN.U_UserName, /*销售员姓名*/
+        T_ICIN.U_DeptName, /*销售部门*/
+        T_ICIN.U_CusGroupCode, /*客户性质名称*/
+        T_ICIN.U_CusLevel, /*客户等级名称*/
+        T_ICIN.U_DomainName, /*客户行业名称*/
+        T_ICIN.U_DocCur, /*报价货币*/
+        T_OVTG.Name AS 'U_VatName', /*税率文本*/
+        U_ICIN1.PriceAfVAT, /*销售报价*/
+        U_ICIN1.Delivery, /*报价货期*/
+        U_ICIN1.LineRemark, /*销售备注*/
+        U_ICIN1.Status /*价格类型*/
+        FROM U_ICIN1
+        LEFT JOIN T_ICIN ON T_ICIN.DocEntry = U_ICIN1.DocEntry
+        LEFT JOIN T_OVTG ON T_ICIN.U_VatGroup = T_OVTG.Code
+        LEFT JOIN (SELECT DeptCode FROM T_OUDL WHERE UserSign = @UserSign) T3 ON T_ICIN.DeptCode = T3.DeptCode
+        WHERE (
+        @DataPur = 'ALL' /*可看所有*/
+        OR (@DataPur = 'Dept' AND ISNULL(T3.DeptCode, '') != '') /*判断当前用户可看本部门数据，如部门主任*/
+        OR (@DataPur = 'Self' AND T_ICIN.UserSign = @UserSign) /*销售员本人*/
+        )
+        /*权限外-非保密订单*/
+        UNION ALL
+        SELECT
+        U_ICIN1.Secrecy, /*是否保密*/
+        U_ICIN1.Modle, /*需求型号*/
+        U_ICIN1.Brand, /*需求品牌*/
+        U_ICIN1.DemandQty, /*需求数量*/
+        U_ICIN1.ECCN, /*ECCN*/
+        '******' AS 'CardName', /*权限外客户名称不可见*/
+        U_ICIN1.Currency, /*货币*/
+        T_ICIN.InquiryDate, /*询价日期*/
+        T_ICIN.U_UserName, /*销售员姓名*/
+        T_ICIN.U_DeptName, /*销售部门*/
+        T_ICIN.U_CusGroupCode, /*客户性质名称*/
+        T_ICIN.U_CusLevel, /*客户等级名称*/
+        T_ICIN.U_DomainName, /*客户行业名称*/
+        T_ICIN.U_DocCur, /*报价货币*/
+        T_OVTG.Name AS 'U_VatName', /*税率文本*/
+        U_ICIN1.PriceAfVAT, /*销售报价*/
+        U_ICIN1.Delivery, /*报价货期*/
+        U_ICIN1.LineRemark, /*销售备注*/
+        U_ICIN1.Status /*价格类型*/
+        FROM U_ICIN1
+        LEFT JOIN T_ICIN ON T_ICIN.DocEntry = U_ICIN1.DocEntry
+        LEFT JOIN T_OVTG ON T_ICIN.U_VatGroup = T_OVTG.Code
+        LEFT JOIN (SELECT DeptCode FROM T_OUDL WHERE UserSign = @UserSign) T3 ON T_ICIN.DeptCode = T3.DeptCode
+        WHERE U_ICIN1.Secrecy = 'N'
+        AND U_ICIN1.DocEntry NOT IN (
+        SELECT T_ICIN.DocEntry
+        FROM T_ICIN
+        WHERE (
+        @DataPur = 'ALL' /*可看所有*/
+        OR (@DataPur = 'Dept' AND ISNULL(T3.DeptCode, '') != '') /*判断当前用户可看本部门数据，如部门主任*/
+        OR (@DataPur = 'Self' AND T_ICIN.UserSign = @UserSign) /*销售员本人*/
+        )
+        )
+        ) T
+        WHERE T.Modle IN (
+        SELECT SDADA_1.sno
+        FROM SDADA SDADA_1
+        WHERE SDADA_1.TAG IN (
+        SELECT SDADA.TAG
+        FROM SDADA
+        WHERE SDADA.sno IN<foreach collection="sc.modleList " item="item" open="(" separator="," close=")" index="index">'${item}'</foreach>
+        )
+        )
+        ) TT
+        WHERE TT.ROWNUMBER > (@CurrentPage - 1) * @PageSize
+        ORDER BY TT.InquiryDate DESC
+    </select>
 </mapper>

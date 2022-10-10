@@ -46,21 +46,6 @@ public class TabQuotationController {
     }
 
     /**
-     * @param tabSearchDTO tabSearchDTO
-     * @return Result
-     * @description 我的报价-多个型号
-     * @author WANG Zeping
-     * @email zepingwong@gmail.com
-     * @date 8/20/2022
-     */
-    @PostMapping("/quote/my")
-    @Authentication(buyer = true)
-    public Result<Page<TabMyQuotationVO>> getMyQuotationListController(@RequestBody TabSearchDTO tabSearchDTO) {
-        Page<TabMyQuotationVO> pages = quotationService.tabMyList(tabSearchDTO);
-        return Result.success(pages, "Success");
-    }
-
-    /**
      * @param page  page 页码
      * @param size  size 每页显示数量
      * @param modle modle 型号
@@ -77,21 +62,6 @@ public class TabQuotationController {
         tabSearchDTO.setPage(page);
         tabSearchDTO.setSize(size);
         tabSearchDTO.setModle(modle);
-        Page<TabEffectiveQuotationVO> pages = quotationService.tabEffectiveList(tabSearchDTO);
-        return Result.success(pages, "Success");
-    }
-
-    /**
-     * @param tabSearchDTO tabSearchDTO
-     * @return Result
-     * @description 有效报价-单个型号
-     * @author WANG Zeping
-     * @email zepingwong@gmail.com
-     * @date 8/20/2022
-     */
-    @PostMapping("/quote/effective")
-    @Authentication(buyer = true)
-    public Result<Page<TabEffectiveQuotationVO>> getEffectiveQuotationListController(@RequestBody TabSearchDTO tabSearchDTO) {
         Page<TabEffectiveQuotationVO> pages = quotationService.tabEffectiveList(tabSearchDTO);
         return Result.success(pages, "Success");
     }
