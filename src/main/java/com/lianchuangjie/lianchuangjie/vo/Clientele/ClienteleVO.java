@@ -1,4 +1,4 @@
-package com.lianchuangjie.lianchuangjie.vo;
+package com.lianchuangjie.lianchuangjie.vo.Clientele;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -11,13 +11,13 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * 客户信息
+ * 业务合作伙伴信息
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain = true)
-public class ClienteleClientInfoVO {
+public class ClienteleVO {
     // 业务合作伙伴代码-主键 CardCode
     @JsonProperty("CardCode")
     private String cardCode;
@@ -48,12 +48,6 @@ public class ClienteleClientInfoVO {
     // 业务合作伙伴性质名称 T_OCRG.Name
     @JsonProperty("U_GroupName")
     private String uGroupName;
-    // 业务合作伙伴行业领域代码 U_Industries
-    @JsonProperty("U_Industries")
-    private String uIndustries;
-    // 业务合作伙伴行业领域名称 U_DomainName
-    @JsonProperty("U_DomainName")
-    private String uDomainName;
     // 业务合作伙伴可交易货币 Currency
     @JsonProperty("Currency")
     private String currency;

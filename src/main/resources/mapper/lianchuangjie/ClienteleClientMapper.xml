@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lianchuangjie.lianchuangjie.mapper.ClienteleClientMapper">
-
-    <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.ClienteleItemVO">
+    <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.Clientele.ClienteleVO">
+        /*
+         * 获取客户列表（带权限）
+         */
         DECLARE @DataPur NVARCHAR(10);
         DECLARE @BaseFormID BIGINT; /*视图编号*/
         DECLARE @DftDept NVARCHAR(20);
@@ -45,7 +47,10 @@
         </where>
         ORDER BY T0.CardName
     </select>
-    <select id="selectOne" resultType="com.lianchuangjie.lianchuangjie.vo.ClienteleClientInfoVO">
+    <select id="selectOne" resultType="com.lianchuangjie.lianchuangjie.vo.Clientele.ClienteleVO">
+        /*
+         * 查询单个客户信息
+         */
         DECLARE @DataPur NVARCHAR(10);
         DECLARE @BaseFormID BIGINT;
         DECLARE @DftDept NVARCHAR(20);

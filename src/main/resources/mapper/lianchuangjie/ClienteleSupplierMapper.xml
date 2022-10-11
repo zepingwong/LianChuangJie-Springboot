@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lianchuangjie.lianchuangjie.mapper.ClienteleSupplierMapper">
 
-    <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.ClienteleItemVO">
+    <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.Clientele.ClienteleVO">
         DECLARE @DataPur NVARCHAR(10);
         DECLARE @BaseFormID BIGINT;
         DECLARE @DftDept NVARCHAR(20);
@@ -46,7 +46,7 @@
             )
         </where>
     </select>
-    <select id="selectOne" resultType="com.lianchuangjie.lianchuangjie.vo.ClienteleSupplierInfoVO">
+    <select id="selectOne" resultType="com.lianchuangjie.lianchuangjie.vo.Clientele.ClienteleVO">
         DECLARE @DataPur NVARCHAR(10);
         DECLARE @BaseFormID BIGINT;
         DECLARE @DftDept NVARCHAR(20);
