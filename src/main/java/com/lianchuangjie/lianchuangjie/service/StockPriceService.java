@@ -27,7 +27,6 @@ public interface StockPriceService extends IService<StockPriceEntity> {
     Page<TabStockPriceBaseVO> tabList(TabSearchDTO tabSearchDTO);
 
     /**
-     * @param stockPriceOKAllDTO stockPriceOKDTO
      * @description 一键OK
      * @author WANG Zeping
      * @email zepingwong@gmail.com

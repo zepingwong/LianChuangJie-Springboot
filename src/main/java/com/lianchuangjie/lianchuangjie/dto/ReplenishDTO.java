@@ -71,7 +71,6 @@ public class ReplenishDTO {
      * @description 供应商
      */
     // 供应商代码 U_CardCode
-    @NotBlank(message = "供应商代码不能为空")
     @JsonProperty("U_CardCode")
     private String uCardCode;
     // 供应商名称 T_ICIN1.U_CardName
