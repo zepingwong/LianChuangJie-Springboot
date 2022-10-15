@@ -2,7 +2,7 @@ package com.lianchuangjie.lianchuangjie.mapper;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.lianchuangjie.lianchuangjie.entity.ClienteleClientLevelEntity;
+import com.lianchuangjie.lianchuangjie.entity.Clientele.ClienteleClientLevelEntity;
 import com.lianchuangjie.lianchuangjie.vo.ClienteleLevelItemVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
