@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.SalesOrderSubEntity;
 import com.lianchuangjie.lianchuangjie.vo.TabEnquirySalesOrderVO;
-import com.lianchuangjie.lianchuangjie.vo.TabQuotationSalesOrderVO;
+import com.lianchuangjie.lianchuangjie.vo.Quotation.TabQuotationSalesOrderVO;
 import com.lianchuangjie.lianchuangjie.vo.TabSearchSalesOrderVO;
 
 public interface SalesOrderSubService extends IService<SalesOrderSubEntity> {

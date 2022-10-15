@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lianchuangjie.lianchuangjie.mapper.PurchaseOrderSubMapper">
 
-    <select id="selectQuotationTabList" resultType="com.lianchuangjie.lianchuangjie.vo.TabQuotationPurchaseOrderVO">
+    <select id="selectQuotationTabList" resultType="com.lianchuangjie.lianchuangjie.vo.Quotation.TabQuotationPurchaseOrderVO">
         DECLARE @UserSign BIGINT
         DECLARE @DataPur NVARCHAR(10) /*All/Dept/self*/
         DECLARE @BaseFormID BIGINT /*视图编号*/

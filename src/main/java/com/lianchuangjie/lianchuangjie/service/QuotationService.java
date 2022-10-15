@@ -8,6 +8,8 @@ import com.lianchuangjie.lianchuangjie.dto.search.QuotationSearchDTO;
 import com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.QuotationEntity;
 import com.lianchuangjie.lianchuangjie.vo.*;
+import com.lianchuangjie.lianchuangjie.vo.Quotation.QuotationVO;
+import com.lianchuangjie.lianchuangjie.vo.Quotation.TabMyQuotationVO;
 
 public interface QuotationService extends IService<QuotationEntity> {
     /**

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lianchuangjie.lianchuangjie.mapper.SalesOrderSubMapper">
 
-    <select id="selectQuotationTabList" resultType="com.lianchuangjie.lianchuangjie.vo.TabQuotationSalesOrderVO">
+    <select id="selectQuotationTabList" resultType="com.lianchuangjie.lianchuangjie.vo.Quotation.TabQuotationSalesOrderVO">
         SELECT
             T_ORDR.DocDate, /*订单日期*/
             T_ICIN.U_UserName, /*销售员*/

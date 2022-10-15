@@ -375,7 +375,7 @@
         DROP TABLE #best;
         DROP TABLE #selected;
     </select>
-    <select id="selectQuotationTabList" resultType="com.lianchuangjie.lianchuangjie.vo.TabQuotationNeedsVO">
+    <select id="selectQuotationTabList" resultType="com.lianchuangjie.lianchuangjie.vo.Quotation.TabQuotationNeedsVO">
         SELECT
             U_ICIN1.Secrecy, /*是否保密*/
             U_ICIN1.Modle, /*需求型号*/

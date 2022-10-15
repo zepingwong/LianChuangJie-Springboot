@@ -127,4 +127,47 @@
         WHERE
             T_OBTN.ItemName = #{sc.modle}
     </select>
+    <select id="selectQuotationTabList" resultType="com.lianchuangjie.lianchuangjie.vo.Quotation.TabQuotationStockVO">
+        SELECT
+            T_OBTQ.WhsCode, /*仓库*/
+            T_OBTN.U_AreaType, /*库存性质*/
+            T_OBTN.InDate, /*入库时间*/
+            T_OBTN.ItemName, /*型号*/
+            T_OBTN.U_ECCN, /*ECCN*/
+            Brand.Brand AS 'QuoBrand', /*品牌*/
+            T_OBTN.U_Batch, /*批次*/
+            T_OBTQ.Quantity, /*库存数量*/
+            T_OBTN.U_LockQty, /*锁货数量*/
+            T_OBTN.U_Remark, /*备注*/
+            T_OBTN.U_msl, /*MSL*/
+            T_OBTN.U_COO, /*产地*/
+            T_OBTN.U_MPQ, /*MPQ*/
+            T_OBTN.U_BuyerName, /*采购员*/
+            T_OBTN.U_Package, /*包装*/
+            T_OBTN.U_OriginalBid, /*原标*/
+            T_OBTN.U_Secrecy, /*保密*/
+            T_OBTN.U_GrindingCode /*磨码说明*/
+        FROM T_OBTN /*库存批次表*/
+        LEFT JOIN T_OBTQ
+            ON T_OBTQ.MdAbsEntry = T_OBTN.AbsEntry /*库存数量表，通过批次和型号代码关联*/
+            AND T_OBTQ.ItemCode = T_OBTN.ItemCode
+        LEFT JOIN (
+            /*通过物料编码字段 匹配 T_OITM（物料主数据表）的品牌*/
+            SELECT
+                T0.ItemName,
+                IIF(ISNULL(T1.U_QuoBrand,'') = '', T1.U_Brand, T1.U_QuoBrand) AS Brand
+            FROM T_OBTN T0
+            INNER JOIN T_OITM T1 ON T0.ItemCode = T1.ItemCode
+        ) Brand ON Brand.ItemName = T_OBTN.ItemName
+        WHERE T_OBTN.ItemName IN (
+            SELECT SDADA_1.sno
+            FROM SDADA SDADA_1
+            WHERE SDADA_1.TAG IN (
+                SELECT SDADA.TAG FROM SDADA WHERE SDADA.sno = #{sc.modle}
+            )
+        )
+        <if test="sc.year">
+            AND T_OBTN.U_Batch = #{sc.year} /*批次条件*/
+        </if>
+    </select>
 </mapper>

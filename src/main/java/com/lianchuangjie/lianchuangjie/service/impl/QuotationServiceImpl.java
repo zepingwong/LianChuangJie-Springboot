@@ -14,6 +14,8 @@ import com.lianchuangjie.lianchuangjie.mapper.EnquiryMainMapper;
 import com.lianchuangjie.lianchuangjie.mapper.QuotationMapper;
 import com.lianchuangjie.lianchuangjie.service.QuotationService;
 import com.lianchuangjie.lianchuangjie.vo.*;
+import com.lianchuangjie.lianchuangjie.vo.Quotation.QuotationVO;
+import com.lianchuangjie.lianchuangjie.vo.Quotation.TabMyQuotationVO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

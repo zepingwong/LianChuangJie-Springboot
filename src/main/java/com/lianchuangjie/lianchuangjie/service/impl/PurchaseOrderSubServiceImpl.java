@@ -8,7 +8,7 @@ import com.lianchuangjie.lianchuangjie.entity.PurchaseOrderSubEntity;
 import com.lianchuangjie.lianchuangjie.mapper.PurchaseOrderSubMapper;
 import com.lianchuangjie.lianchuangjie.service.PurchaseOrderSubService;
 import com.lianchuangjie.lianchuangjie.vo.TabEnquiryPurchaseOrderVO;
-import com.lianchuangjie.lianchuangjie.vo.TabQuotationPurchaseOrderVO;
+import com.lianchuangjie.lianchuangjie.vo.Quotation.TabQuotationPurchaseOrderVO;
 import com.lianchuangjie.lianchuangjie.vo.TabSearchPurchaseOrderVO;
 import org.springframework.stereotype.Service;
 

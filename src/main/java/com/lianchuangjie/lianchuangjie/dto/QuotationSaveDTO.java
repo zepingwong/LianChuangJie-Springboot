@@ -1,6 +1,7 @@
 package com.lianchuangjie.lianchuangjie.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,6 +16,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class QuotationSaveDTO {
     /**
      * @description 编号
@@ -27,12 +29,6 @@ public class QuotationSaveDTO {
     @NotNull(message = "询价单行号不能为空")
     @JsonProperty("LineNum")
     private Long lineNum;
-    // 关联询价单编号
-    @JsonProperty(value = "U_BaseEntry")
-    private Long uBaseEntry;
-    // 关联询价单行号
-    @JsonProperty(value = "U_BaseLine")
-    private Long uBaseLine;
     // 无法报价 T_ICIN1.UnableQuote
     @JsonProperty("UnableQuote")
     private String unableQuote;
@@ -72,10 +68,6 @@ public class QuotationSaveDTO {
     @NotNull(message = "报价货币不能为空")
     @JsonProperty("U_QuoCurr")
     private String uQuoCurr;
-    public String getUQuoCurr() {
-        String[] strList = uQuoCurr.split("\\+");
-        return strList[0];
-    }
     // 采购报价批次 T_ICIN1.U_QuoYear
     @JsonProperty("U_QuoYear")
     private String uQuoYear;
@@ -86,12 +78,6 @@ public class QuotationSaveDTO {
     // 采购报价税率代码 U_QuoVatGroup
     @JsonProperty("U_QuoVatGroup")
     private String uQuoVatGroup;
-
-    public String getuQuoVatGroup() {
-        String[] strList = uQuoCurr.split("\\+");
-        return strList[1];
-    }
-
     // 采购报价品牌 U_QuoBrand
     @JsonProperty(value = "U_QuoBrand")
     private String uQuoBrand;

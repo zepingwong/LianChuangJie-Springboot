@@ -12,7 +12,7 @@ import com.lianchuangjie.lianchuangjie.service.QuotationService;
 import com.lianchuangjie.lianchuangjie.service.UserInfoService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
 import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
-import com.lianchuangjie.lianchuangjie.vo.QuotationVO;
+import com.lianchuangjie.lianchuangjie.vo.Quotation.QuotationVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -88,6 +88,8 @@ public class QuotationController extends BaseController {
         quotationSaveDTO.setUStatus("N");
         QuotationEntity quotationEntity = new QuotationEntity();
         BeanUtils.copyProperties(quotationSaveDTO, quotationEntity);
+        quotationEntity.setUBaseEntry(quotationSaveDTO.getDocEntry()); // T_ICIN1 关联询价单编号
+        quotationEntity.setUBaseLine(quotationSaveDTO.getLineNum()); // T_ICIN1 关联询价单行号
         QueryWrapper<QuotationEntity> queryWrapper = new QueryWrapper<>();
         // T_ICIN1.LineNum表示报价次数
         queryWrapper.eq("DocEntry", quotationSaveDTO.getDocEntry());

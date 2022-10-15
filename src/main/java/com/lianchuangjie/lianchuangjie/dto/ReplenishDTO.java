@@ -43,11 +43,6 @@ public class ReplenishDTO {
     @JsonProperty("U_QuoCurr")
     private String uQuoCurr;
 
-    public String getUQuoCurr() {
-        String[] strList = uQuoCurr.split("\\+");
-        return strList[0];
-    }
-
     // 采购报价批次 T_ICIN1.U_QuoYear
     @JsonProperty("U_QuoYear")
     private String uQuoYear;
@@ -56,13 +51,8 @@ public class ReplenishDTO {
     @JsonProperty("U_QuoDelivery")
     private String uQuoDelivery;
     // 采购报价税率代码 U_QuoVatGroup
+    @JsonProperty("U_QuoVatGroup")
     private String uQuoVatGroup;
-
-    public String getUQuoVatGroup() {
-        String[] strList = uQuoCurr.split("\\+");
-        return strList[1];
-    }
-
     // Buyer 采购员
     private Integer uBuyer;
     // 报价状态

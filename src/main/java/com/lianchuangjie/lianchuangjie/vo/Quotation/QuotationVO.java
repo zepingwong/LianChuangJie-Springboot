@@ -1,4 +1,4 @@
-package com.lianchuangjie.lianchuangjie.vo;
+package com.lianchuangjie.lianchuangjie.vo.Quotation;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -123,11 +123,6 @@ public class QuotationVO {
     // 采购报价货币 T_ICIN1.U_QuoCurr
     @JsonProperty("U_QuoCurr")
     private String uQuoCurr;
-
-    public String getUQuoCurr() {
-        return (uQuoCurr != null ? uQuoCurr : "") + (uQuoVatRate != null ? "（" + uQuoVatRate.stripTrailingZeros() + "%）" : "");
-    }
-
     // 采购报价税率代码
     @JsonProperty("U_QuoVatGroup")
     private String uQuoVatGroup;
@@ -144,7 +139,11 @@ public class QuotationVO {
         } else {
             if (uDelivery != null) {
                 String[] strList = uDelivery.replace("周", "").split("-");
-                return (Integer.parseInt(strList[0]) + 2) + "-" + (Integer.parseInt(strList[1]) + 2) + "周";
+                if (strList.length == 2) {
+                    return (Integer.parseInt(strList[0]) + 2) + "-" + (Integer.parseInt(strList[1]) + 2) + "周";
+                }else {
+                    return "";
+                }
             } else {
                 return null;
             }
@@ -266,4 +265,7 @@ public class QuotationVO {
     // 标记为重点报价用户
     @JsonProperty("U_KeyUser")
     private Long uKeyUser;
+    // 税率+币种
+    @JsonProperty("CurVat")
+    private String curVat;
 }
