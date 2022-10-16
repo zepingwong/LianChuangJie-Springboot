@@ -2,6 +2,7 @@ package com.lianchuangjie.lianchuangjie.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lianchuangjie.lianchuangjie.config.Authentication;
+import com.lianchuangjie.lianchuangjie.dto.search.EnquiryAvailableSearchDTO;
 import com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO;
 import com.lianchuangjie.lianchuangjie.service.*;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquiryAvailableService;
@@ -142,12 +143,14 @@ public class TabEnquiryController {
     public Result<Page<TabEnquiryAvailableVO>> getAvailableListController(
             @RequestParam(defaultValue = "#{null}", value = "page") Integer page,
             @RequestParam(defaultValue = "#{null}", value = "size") Integer size,
-            @RequestParam(defaultValue = "#{null}", value = "Modle") String modle
+            @RequestParam(defaultValue = "#{null}", value = "Modle") String modle,
+            @RequestParam(defaultValue = "#{null}", value = "DocEntry") Long docEntry
     ) {
-        TabSearchDTO tabSearchDTO = new TabSearchDTO();
+        EnquiryAvailableSearchDTO tabSearchDTO = new EnquiryAvailableSearchDTO();
         tabSearchDTO.setPage(page);
         tabSearchDTO.setSize(size);
         tabSearchDTO.setModle(modle);
+        tabSearchDTO.setDocEntry(docEntry);
         Page<TabEnquiryAvailableVO> pages = enquiryAvailableService.list(tabSearchDTO);
         return Result.success(pages, "成功");
     }

@@ -88,6 +88,9 @@ public class EnquiryReQuoteServiceImpl extends ServiceImpl<EnquirySubMapper, Enq
         quotationEntity.setUCardCode(enquiryMainEntity.getCardCode()); // 客户代码
         quotationEntity.setCardName(enquiryMainEntity.getCardName()); // 客户名称
         quotationEntity.setUKeyUser(userEntity.getUserSign()); // 谁标记的重要询价
+        // 销售向采购发送确认货源请求时的原货源索引
+        quotationEntity.setUOriginEntry(enquiryReQuoteDTO.getBaseEntry());
+        quotationEntity.setUOriginLine(enquiryReQuoteDTO.getBaseLine());
         quotationEntity.setUStatus("W");
         return quotationMapper.insert(quotationEntity) == 1;
     }

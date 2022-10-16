@@ -3,14 +3,64 @@
 <mapper namespace="com.lianchuangjie.lianchuangjie.mapper.EnquiryAvailableMapper">
 
     <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.Enquiry.TabEnquiryAvailableVO">
-        SELECT *
+        SELECT
+            T_ICIN1.DocEntry AS 'BaseEntry', /*货源编号*/
+            T_ICIN1.LineNum AS 'BaseLine', /*货源行号*/
+            T_ICIN1.U_QuoModle, /*报价型号*/
+            T_ICIN1.U_QuoBrand, /*报价品牌*/
+            T_ICIN1.U_QuoDelivery, /*报价交期*/
+            T_ICIN1.U_QuoYear, /*报价批次*/
+            T_ICIN1.U_QuoQty, /*报价数量*/
+            T_ICIN1.U_Buyer, /*采购员编号*/
+            T_ICIN1.U_QuoDate, /*报价日期*/
+            T_OUSI.UserName AS 'BuyerName', /*采购员姓名*/
+            BuyerDept.Name AS 'DeptName', /*采购部门名称*/
+            T_ICIN1.U_QCDesc, /*质检标准*/
+            (
+                CASE
+                    WHEN #{sc.docEntry} != T_ICIN1.DocEntry THEN N'未询价'
+                    WHEN T_ICIN1.U_Status = 'Y' AND T_ICIN1.U_OriginEntry IS NULL THEN N'已询价'
+                    WHEN T_ICIN1.U_Status = 'C' AND T_ICIN1.U_OriginEntry IS NOT NULL THEN N'已确认'
+                    WHEN T_ICIN1.U_Status = 'W' AND T_ICIN1.U_OriginEntry IS NOT NULL THEN N'待确认'
+                    WHEN T_ICIN1.U_Status = 'U' THEN N'已更新'
+                    END
+            )              AS 'QuoState', /*询价状态：是否已询价*/
+            N'采购报价' AS 'Resource' /*货源类型*/
         FROM T_ICIN1
-        WHERE U_QuoModle
-                  IN (SELECT SDADA_1.sno
-                      FROM SDADA SDADA_1
-                      WHERE SDADA_1.TAG IN
-                            (SELECT SDADA.TAG
-                             FROM SDADA
-                             WHERE SDADA.sno = #{sc.modle}))
+        LEFT JOIN T_OUSI ON T_ICIN1.U_Buyer = T_OUSI.UserSign
+        LEFT JOIN (
+            SELECT
+                DeptCode,
+                Name,
+                (
+                    CASE
+                        WHEN T_OCDP.Name = N'海外组' THEN 1
+                        WHEN T_OCDP.Name = N'大中华组' THEN 1
+                        WHEN T_OCDP.Name = N'亚洲组' THEN 2
+                        WHEN T_OCDP.Name = N'欧洲组' THEN 2
+                        WHEN T_OCDP.Name = N'北美组' THEN 2
+                    END
+                ) AS 'Code'
+            FROM T_OCDP
+        ) BuyerDept ON T_OUSI.DftDept = BuyerDept.DeptCode /*采购部门*/
+        WHERE U_QuoModle IN (
+            SELECT SDADA_1.sno
+            FROM SDADA SDADA_1
+            WHERE SDADA_1.TAG IN (
+                SELECT SDADA.TAG
+                FROM SDADA
+                WHERE SDADA.sno = #{sc.modle}
+            )
+        )
+        AND (
+            /*有效货源*/
+            /*海外组、大中华组2天有效；亚洲组、欧洲组、北美组3天内有效*/
+            (BuyerDept.Code = 1 AND DateDiff(dd, T_ICIN1.U_QuoDate, getdate()) &lt;= 30) OR
+            (BuyerDept.Code = 2 AND DateDiff(dd, T_ICIN1.U_QuoDate, getdate()) &lt;= 30)
+        )
+        /*去掉正在确认和已确认的货源*/
+        AND T_ICIN1.LineNum NOT IN (
+            SELECT U_OriginLine FROM T_ICIN1 WHERE U_OriginLine IS NOT NULL AND DocEntry = #{sc.docEntry}
+        )
     </select>
 </mapper>

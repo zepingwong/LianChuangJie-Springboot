@@ -47,7 +47,7 @@ public class EnquiryController extends BaseController {
      */
     @PostMapping("requote")
     @Authentication(sale = true)
-    public Result<Boolean> requoteController(@RequestBody EnquiryReQuoteDTO enquiryReQuoteDTO) {
+    public Result<Boolean> reQuoteController(@RequestBody EnquiryReQuoteDTO enquiryReQuoteDTO) {
         Boolean res = enquiryReQuoteService.handle(enquiryReQuoteDTO);
         return Result.success(res);
     }

@@ -221,4 +221,9 @@ public class QuotationEntity {
     // 谁标记的重要报价
     @TableField(value = "U_KeyUser")
     private Long uKeyUser;
+    // 销售向采购确认货源的原货源索引
+    @TableField(value = "U_OriginEntry")
+    private Long uOriginEntry;
+    @TableField(value = "U_OriginLine")
+    private Long uOriginLine;
 }

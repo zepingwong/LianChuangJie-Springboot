@@ -49,9 +49,7 @@ public class EnquirySubVO {
     // 接受价格 U_ICIN1.ExpectedPrice
     @JsonProperty("ExpectedPrice")
     private BigDecimal expectedPrice;
-    // 询价状态名称 U_ICIN1.ItemDescStatus
-    @JsonProperty("ItemDescStatus")
-    private String itemDescStatus;
+
     // 失效时间 U_ICIN1.ExpDate
     @JsonProperty("ExpDate")
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
@@ -101,6 +99,9 @@ public class EnquirySubVO {
     // 用采购报价的采购员编号 T_ICIN1.U_Buyer
     @JsonProperty("U_Buyer")
     private Long uBuyer;
+    // 询价状态名称 U_ICIN1.ItemDescStatus
+    @JsonProperty("ItemDescStatus")
+    private String itemDescStatus;
     // 询价状态代码，B表示采购报价、C表示直接定价、D表示暂不处理、E表示24H报价 U_ICIN1.Status
     @JsonProperty("Status")
     private String status;
