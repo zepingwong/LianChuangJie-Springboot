@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.PurchaseOrderSubEntity;
-import com.lianchuangjie.lianchuangjie.vo.TabEnquiryPurchaseOrderVO;
+import com.lianchuangjie.lianchuangjie.vo.Enquiry.TabEnquiryPurchaseOrderVO;
 import com.lianchuangjie.lianchuangjie.vo.Quotation.TabQuotationPurchaseOrderVO;
 import com.lianchuangjie.lianchuangjie.vo.TabSearchPurchaseOrderVO;
 import org.apache.ibatis.annotations.Mapper;

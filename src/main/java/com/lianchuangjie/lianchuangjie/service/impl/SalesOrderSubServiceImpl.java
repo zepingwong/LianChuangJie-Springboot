@@ -7,7 +7,7 @@ import com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.SalesOrderSubEntity;
 import com.lianchuangjie.lianchuangjie.mapper.SalesOrderSubMapper;
 import com.lianchuangjie.lianchuangjie.service.SalesOrderSubService;
-import com.lianchuangjie.lianchuangjie.vo.TabEnquirySalesOrderVO;
+import com.lianchuangjie.lianchuangjie.vo.Enquiry.TabEnquirySalesOrderVO;
 import com.lianchuangjie.lianchuangjie.vo.Quotation.TabQuotationSalesOrderVO;
 import com.lianchuangjie.lianchuangjie.vo.TabSearchSalesOrderVO;
 import org.springframework.stereotype.Service;

@@ -103,7 +103,7 @@
         WHERE TT.ROWNUMBER > (@CurrentPage - 1) * @PageSize
         ORDER BY TT.DocDate DESC
     </select>
-    <select id="selectEnquiryTabList" resultType="com.lianchuangjie.lianchuangjie.vo.TabEnquiryPurchaseOrderVO">
+    <select id="selectEnquiryTabList" resultType="com.lianchuangjie.lianchuangjie.vo.Enquiry.TabEnquiryPurchaseOrderVO">
         SELECT
             T_OPOR.DocDate, /*订单日期*/
             T_OUSI.UserName, /*采购员*/

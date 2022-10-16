@@ -18,4 +18,8 @@ public class EnquirySubSearchDTO {
     // 销售员编号
     @JsonProperty("OwnerCode")
     private Long ownerCode;
+    @JsonProperty("page")
+    private Integer page;
+    @JsonProperty("size")
+    private Integer size;
 }

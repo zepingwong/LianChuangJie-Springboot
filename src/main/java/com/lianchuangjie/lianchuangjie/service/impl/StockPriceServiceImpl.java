@@ -8,8 +8,8 @@ import com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.StockPriceEntity;
 import com.lianchuangjie.lianchuangjie.mapper.StockPriceMapper;
 import com.lianchuangjie.lianchuangjie.service.StockPriceService;
-import com.lianchuangjie.lianchuangjie.vo.StockPriceVO;
-import com.lianchuangjie.lianchuangjie.vo.TabStockPriceBaseVO;
+import com.lianchuangjie.lianchuangjie.vo.StockPrice.StockPriceVO;
+import com.lianchuangjie.lianchuangjie.vo.StockPrice.TabStockPriceBaseVO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

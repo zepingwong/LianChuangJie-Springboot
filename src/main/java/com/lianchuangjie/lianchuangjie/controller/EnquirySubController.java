@@ -1,10 +1,13 @@
 package com.lianchuangjie.lianchuangjie.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lianchuangjie.lianchuangjie.config.Authentication;
 import com.lianchuangjie.lianchuangjie.dto.EnquirySaveItemDTO;
-import com.lianchuangjie.lianchuangjie.service.EnquirySubService;
+import com.lianchuangjie.lianchuangjie.dto.search.EnquirySubSearchDTO;
+import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquirySubService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
-import com.lianchuangjie.lianchuangjie.vo.EnquirySubVO;
+import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
+import com.lianchuangjie.lianchuangjie.vo.Enquiry.EnquirySubVO;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -27,8 +30,18 @@ public class EnquirySubController extends BaseController {
      */
     @GetMapping("/sub")
     @Authentication(sale = true)
-    public Result<List<EnquirySubVO>> enquirySubController(@RequestParam(defaultValue = "#{null}", value = "DocEntry") Long docEntry) {
-        List<EnquirySubVO> list = enquirySubService.list(docEntry);
+    public Result<Page<EnquirySubVO>> enquirySubController(
+            @RequestParam(defaultValue = "#{null}", value = "DocEntry") Long docEntry,
+            @RequestParam(defaultValue = "#{null}", value = "page") Integer page,
+            @RequestParam(defaultValue = "#{null}", value = "size") Integer size
+    ) {
+        EnquirySubSearchDTO searchCondition = new EnquirySubSearchDTO();
+        searchCondition.setDocEntry(docEntry);
+        Long userSign = SessionUtil.getUserSign();
+        searchCondition.setOwnerCode(userSign);
+        searchCondition.setPage(page);
+        searchCondition.setSize(size);
+        Page<EnquirySubVO> list = enquirySubService.list(searchCondition);
         return Result.success(list, "Success");
     }
 

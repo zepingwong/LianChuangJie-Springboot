@@ -36,7 +36,7 @@
             )
         )
     </select>
-    <select id="selectEnquiryTabList" resultType="com.lianchuangjie.lianchuangjie.vo.TabEnquirySalesOrderVO">
+    <select id="selectEnquiryTabList" resultType="com.lianchuangjie.lianchuangjie.vo.Enquiry.TabEnquirySalesOrderVO">
         DECLARE @UserSign BIGINT
         DECLARE @DataPur NVARCHAR(10) /*All/Dept/self*/
         DECLARE @BaseFormID BIGINT /*视图编号*/

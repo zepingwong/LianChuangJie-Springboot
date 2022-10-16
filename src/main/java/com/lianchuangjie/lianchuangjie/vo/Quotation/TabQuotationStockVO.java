@@ -46,14 +46,6 @@ public class TabQuotationStockVO {
     // 可用数量
     @JsonProperty("AvailableQty")
     private BigDecimal availableQty;
-
-    public BigDecimal getAvailableQty() {
-        if (uLockQty != null) {
-            return quantity.subtract(uLockQty);
-        }
-        return null;
-    }
-
     // 备注 U_Remark
     @JsonProperty("U_Remark")
     private String uRemark;

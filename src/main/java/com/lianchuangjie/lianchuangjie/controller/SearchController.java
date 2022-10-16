@@ -6,6 +6,7 @@ import com.lianchuangjie.lianchuangjie.dto.SingleQueryDTO;
 import com.lianchuangjie.lianchuangjie.dto.search.EnquiryBuyerSearchDTO;
 import com.lianchuangjie.lianchuangjie.dto.search.EnquirySearchDTO;
 import com.lianchuangjie.lianchuangjie.service.*;
+import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquiryBuyerService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
 import com.lianchuangjie.lianchuangjie.vo.BomQueryItemVO;
 import com.lianchuangjie.lianchuangjie.vo.EnquiryBuyerItemVO;

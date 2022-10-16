@@ -57,7 +57,8 @@ public class QuotationController extends BaseController {
             @RequestParam(defaultValue = "#{null}", required = false, value = "InquiryDateStart") Date inquiryDateStart,
             @RequestParam(defaultValue = "#{null}", required = false, value = "InquiryDateEnd") Date inquiryDateEnd,
             @RequestParam(defaultValue = "#{null}", value = "U_Buyer") Long uBuyer,
-            @RequestParam(defaultValue = "#{null}", value = "OwnerCode") Long ownerCode
+            @RequestParam(defaultValue = "#{null}", value = "OwnerCode") Long ownerCode,
+            @RequestParam(defaultValue = "#{null}", value = "U_DeptCode") String uDeptCode
     ) {
         QuotationSearchDTO quotationSearchDTO = new QuotationSearchDTO();
         quotationSearchDTO.setPage(page);
@@ -66,6 +67,7 @@ public class QuotationController extends BaseController {
         quotationSearchDTO.setBrand(brand);
         quotationSearchDTO.setUBuyer(uBuyer);
         quotationSearchDTO.setUStatus(uStatus);
+        quotationSearchDTO.setUDeptCode(uDeptCode);
         quotationSearchDTO.setOwnerCode(ownerCode);
         quotationSearchDTO.setInquiryDateStart(inquiryDateStart);
         quotationSearchDTO.setInquiryDateEnd(inquiryDateEnd);

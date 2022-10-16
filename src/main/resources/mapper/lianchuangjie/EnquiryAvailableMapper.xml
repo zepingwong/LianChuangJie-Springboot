@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lianchuangjie.lianchuangjie.mapper.EnquiryAvailableMapper">
+
+    <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.Enquiry.TabEnquiryAvailableVO">
+        SELECT *
+        FROM T_ICIN1
+        WHERE U_QuoModle
+                  IN (SELECT SDADA_1.sno
+                      FROM SDADA SDADA_1
+                      WHERE SDADA_1.TAG IN
+                            (SELECT SDADA.TAG
+                             FROM SDADA
+                             WHERE SDADA.sno = #{sc.modle}))
+    </select>
+</mapper>

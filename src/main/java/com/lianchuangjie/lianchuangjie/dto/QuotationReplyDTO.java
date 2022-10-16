@@ -29,4 +29,6 @@ public class QuotationReplyDTO {
      */
     @JsonProperty("BaseLine")
     private Long baseLine;
+    @JsonProperty("OwnerCode")
+    private Long ownerCode;
 }

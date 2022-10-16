@@ -3,7 +3,14 @@
 <mapper namespace="com.lianchuangjie.lianchuangjie.mapper.QuotationMapper">
     <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.Quotation.QuotationVO">
         SELECT
-            U_ICIN1.*,
+            U_ICIN1.DocEntry,
+            fp.LineNum,
+            U_ICIN1.ItemId,
+            U_ICIN1.Modle, /*需求型号*/
+            U_ICIN1.Brand, /*需求品牌*/
+            U_ICIN1.DemandQty, /*需求数量*/
+            U_ICIN1.Package, /*需求封装*/
+            U_ICIN1.Year, /*需求批次*/
             U_ICIN1.ECCN AS 'U_ECCN', /*ECCN*/
             IIF(fp.U_KeyPoint = 'Y', 'Y', U_ICIN1.KeyPoint) AS 'U_KeyPoint', /*标记为重点询价*/
             IIF(fp.U_KeyPoint = 'Y', fp.U_KeyRemark, U_ICIN1.KeyRemark) AS 'U_KeyRemark', /*重点报价说明*/
@@ -12,21 +19,24 @@
             U_ICIN1.Secrecy AS 'U_Secrecy', /*是否保密*/
             U_ICIN1.Delivery AS 'U_Delivery',
             T_ICIN.InquiryDate AS 'DemandDate',
-            T_ICIN.U_CusIndustries AS 'U_Industries', /*客户行业领域代码*/
+            T_ICIN.U_Industries AS 'U_Industries', /*客户行业领域代码*/
             T_ICIN.U_CusLevel AS 'U_U_Level', /*客户等级名称*/
             T_ICIN.U_CusGroupCode AS 'U_GroupCode', /*客户性质名称*/
             T_ICIN.U_DeptName, /*销售部门名称*/
             T_ICIN.U_UserName, /*销售员姓名*/
+            T_ICIN.OwnerCode, /*销售员编号*/
             T_ICIN.U_DocCur AS 'U_Currency', /*需求货币*/
             T_ICIN.U_VatGroup,
             T_ICIN.U_ShortCode,
             fp.U_BaseLine, /*对应询价单内部编号*/
             fp.U_BaseEntry, /*对应询价单主表编号*/
             fp.U_Status, /*报价状态*/
-            fp.U_QuoBrand, /*采购报价品牌*/
-            fp.U_QuoModle, /*采购报价型号*/
-            fp.U_QuoQty, /*采购报价数量*/
+            IIF(fp.U_QuoBrand IS NOT NULL, fp.U_QuoBrand, U_ICIN1.Brand) AS 'U_QuoBrand', /*采购报价品牌*/
+            IIF(fp.U_QuoModle IS NOT NULL, fp.U_QuoModle, U_ICIN1.Modle) AS 'U_QuoModle', /*采购报价型号*/
+            IIF(fp.U_QuoQty IS NOT NULL, fp.U_QuoQty, U_ICIN1.DemandQty) AS 'U_QuoQty', /*采购报价数量*/
             fp.U_CardName, /*供应商名称*/
+            fp.U_CardCode, /*供应商代码*/
+            fp.U_QuoGroupCode, /*供应商性质*/
             fp.U_QuoPrice, /*供方报价*/
             fp.U_QuoYear, /*供方批次*/
             fp.U_QuoRemark, /*供方备注*/
@@ -146,7 +156,7 @@
         AND T_ICIN1.U_Buyer = #{sc.userSign} /*查询采购员*/
         AND T_ICIN1.U_QuoDate IS NOT NULL
     </select>
-    <select id="selectEnquiryList" resultType="com.lianchuangjie.lianchuangjie.vo.TabEnquiryQuotationVO">
+    <select id="selectEnquiryList" resultType="com.lianchuangjie.lianchuangjie.vo.Enquiry.TabEnquiryQuotationVO">
         SELECT
             T_ICIN1.U_QuoDate, /*报价日期*/
             T_ICIN1.U_Buyer, /*采购员编号*/
@@ -183,7 +193,7 @@
             )
         )
     </select>
-    <select id="selectEffectiveList" resultType="com.lianchuangjie.lianchuangjie.vo.TabEffectiveQuotationVO"
+    <select id="selectEffectiveList" resultType="com.lianchuangjie.lianchuangjie.vo.Quotation.TabEffectiveQuotationVO"
             parameterType="com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO">
         SELECT
             T_ICIN1.*,
@@ -222,7 +232,7 @@
         )
         AND T_ICIN1.U_QuoDate IS NOT NULL
     </select>
-    <select id="selectStockList" resultType="com.lianchuangjie.lianchuangjie.vo.TabStockPriceQuoteVO">
+    <select id="selectStockList" resultType="com.lianchuangjie.lianchuangjie.vo.StockPrice.TabStockPriceQuoteVO">
         SELECT
             T.*,
             T_OVTG.Rate AS 'U_QuoVatRate', /*税率*/

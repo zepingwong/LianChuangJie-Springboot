@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lianchuangjie.lianchuangjie.mapper.StockMapper">
-    <select id="selectStockPriceTabList" resultType="com.lianchuangjie.lianchuangjie.vo.TabStockPriceOriginVO">
+    <select id="selectStockPriceTabList" resultType="com.lianchuangjie.lianchuangjie.vo.StockPrice.TabStockPriceOriginVO">
         DECLARE @PageSize INT;
         DECLARE @CurrentPage INT;
         SET @PageSize = ${sc.getSize}; /*每页显示数量*/
@@ -146,6 +146,7 @@
             T_OBTN.U_Package, /*包装*/
             T_OBTN.U_OriginalBid, /*原标*/
             T_OBTN.U_Secrecy, /*保密*/
+            IIF(T_OBTQ.Quantity IS NOT NULL AND T_OBTN.U_LockQty IS NOT NULL, T_OBTQ.Quantity - T_OBTN.U_LockQty, NULL) AS 'AvailableQty', /*可用数量*/
             T_OBTN.U_GrindingCode /*磨码说明*/
         FROM T_OBTN /*库存批次表*/
         LEFT JOIN T_OBTQ

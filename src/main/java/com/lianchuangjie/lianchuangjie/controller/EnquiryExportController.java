@@ -6,7 +6,7 @@ import com.alibaba.excel.write.metadata.WriteSheet;
 import com.alibaba.excel.write.metadata.fill.FillConfig;
 import com.lianchuangjie.lianchuangjie.config.Authentication;
 import com.lianchuangjie.lianchuangjie.exception.ResponseEnum;
-import com.lianchuangjie.lianchuangjie.service.EnquiryExportService;
+import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquiryExportService;
 import com.lianchuangjie.lianchuangjie.vo.EnquiryExportDataVO;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.web.bind.annotation.GetMapping;

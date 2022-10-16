@@ -1,10 +1,9 @@
 package com.lianchuangjie.lianchuangjie.mapper;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.lianchuangjie.lianchuangjie.dto.search.EnquiryMainSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.EnquiryMainEntity;
-import com.lianchuangjie.lianchuangjie.vo.EnquiryMainItemVO;
+import com.lianchuangjie.lianchuangjie.vo.Enquiry.EnquiryMainItemVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;

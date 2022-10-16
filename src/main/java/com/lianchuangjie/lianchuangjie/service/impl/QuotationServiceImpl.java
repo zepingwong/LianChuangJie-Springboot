@@ -14,8 +14,11 @@ import com.lianchuangjie.lianchuangjie.mapper.EnquiryMainMapper;
 import com.lianchuangjie.lianchuangjie.mapper.QuotationMapper;
 import com.lianchuangjie.lianchuangjie.service.QuotationService;
 import com.lianchuangjie.lianchuangjie.vo.*;
+import com.lianchuangjie.lianchuangjie.vo.Enquiry.TabEnquiryQuotationVO;
 import com.lianchuangjie.lianchuangjie.vo.Quotation.QuotationVO;
+import com.lianchuangjie.lianchuangjie.vo.Quotation.TabEffectiveQuotationVO;
 import com.lianchuangjie.lianchuangjie.vo.Quotation.TabMyQuotationVO;
+import com.lianchuangjie.lianchuangjie.vo.StockPrice.TabStockPriceQuoteVO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -76,11 +79,11 @@ public class QuotationServiceImpl extends ServiceImpl<QuotationMapper, Quotation
          */
         QueryWrapper<QuotationEntity> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("DocEntry", quotationReplyDTO.getDocEntry());
-        queryWrapper.eq("U_BaseLine", quotationReplyDTO.getLineNum());
+        queryWrapper.eq("LineNum", quotationReplyDTO.getLineNum());
         QuotationEntity quotationEntity = quotationMapper.selectOne(queryWrapper);
-        if (quotationEntity.getUStatus().equals("N")) {
+        if (quotationEntity.getUStatus() != null & quotationEntity.getUStatus().equals("N")) {
             quotationEntity.setUStatus("Y");
-        } else if (quotationEntity.getUStatus().equals("W")) {
+        } else if (quotationEntity.getUStatus() != null & quotationEntity.getUStatus().equals("W")) {
             quotationEntity.setUStatus("C");
         }
         quotationMapper.update(quotationEntity, queryWrapper);
@@ -89,7 +92,7 @@ public class QuotationServiceImpl extends ServiceImpl<QuotationMapper, Quotation
          */
         QueryWrapper<EnquiryMainEntity> selectEnquiryMainEntity = new QueryWrapper<>();
         selectEnquiryMainEntity.eq("DocEntry", quotationReplyDTO.getDocEntry());
-        EnquiryMainEntity enquiryMainEntity = enquiryMainMapper.selectOne(selectEnquiryMainEntity);
+        EnquiryMainEntity enquiryMainEntity = enquiryMainMapper.selectByDocEntry(quotationReplyDTO.getDocEntry(), quotationReplyDTO.getOwnerCode());
         enquiryMainEntity.setUNew("Y");
         return enquiryMainMapper.update(enquiryMainEntity, selectEnquiryMainEntity) == 1;
     }

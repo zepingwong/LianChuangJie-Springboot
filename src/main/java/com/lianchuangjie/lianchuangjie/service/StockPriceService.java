@@ -6,8 +6,8 @@ import com.lianchuangjie.lianchuangjie.dto.StockPriceOKDTO;
 import com.lianchuangjie.lianchuangjie.dto.search.StockPriceSearchDTO;
 import com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.StockPriceEntity;
-import com.lianchuangjie.lianchuangjie.vo.StockPriceVO;
-import com.lianchuangjie.lianchuangjie.vo.TabStockPriceBaseVO;
+import com.lianchuangjie.lianchuangjie.vo.StockPrice.StockPriceVO;
+import com.lianchuangjie.lianchuangjie.vo.StockPrice.TabStockPriceBaseVO;
 
 import java.util.List;
 

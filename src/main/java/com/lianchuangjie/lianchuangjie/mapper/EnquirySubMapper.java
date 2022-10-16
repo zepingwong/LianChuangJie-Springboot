@@ -7,7 +7,10 @@ import com.lianchuangjie.lianchuangjie.dto.search.EnquirySubSearchDTO;
 import com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.EnquirySubEntity;
 import com.lianchuangjie.lianchuangjie.vo.*;
+import com.lianchuangjie.lianchuangjie.vo.Enquiry.EnquirySubVO;
+import com.lianchuangjie.lianchuangjie.vo.Enquiry.TabEnquiryNeedsVO;
 import com.lianchuangjie.lianchuangjie.vo.Quotation.TabQuotationNeedsVO;
+import com.lianchuangjie.lianchuangjie.vo.StockPrice.TabStockPriceEnquiryVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -42,14 +45,13 @@ public interface EnquirySubMapper extends BaseMapper<EnquirySubEntity> {
     EnquirySubEntity selectOne(@Param("ew") QueryWrapper<EnquirySubEntity> queryWrapper);
 
     /**
-     * @param enquirySubSearchDTO enquirySubSearchDTO
      * @return List
      * @description 获取询价单子表列表
      * @author WANG Zeping
      * @email zepingwong@gmail.com
      * @date 9/19/2022
      */
-    List<EnquirySubVO> selectList(@Param("sc") EnquirySubSearchDTO enquirySubSearchDTO);
+    IPage<EnquirySubVO> selectList(IPage<EnquirySubVO> page, @Param("sc") EnquirySubSearchDTO enquirySIbSearchDTO);
 
     Boolean clear(@Param("DocEntry") Long docEntry, @Param("LineNum") Long lineNum);
 

@@ -18,27 +18,21 @@ public class QuotationVO {
     /**
      * @description 编号
      */
-    // 询价单编号-主键 U_ICIN1.DocEntry
+    // 询价单编号-主键 T_ICIN1.DocEntry
     @JsonProperty("DocEntry")
     private Long docEntry;
-    // 行号-主键 U_ICIN1.LineNum
+    // 行号-主键 T_ICIN1.LineNum
     @JsonProperty("LineNum")
     private Long lineNum;
+    // 关联报价单编号
+    @JsonProperty("U_BaseEntry")
+    private Long uBaseEntry;
+    // 关联报价单行号
+    @JsonProperty("U_BaseLine")
+    private Long uBaseLine;
     // ItemId 关联型号 ItemId 相同
     @JsonProperty("ItemId")
     private Long itemId;
-    // 报价表对应询价单单据编号 T_ICIN1.U_BaseEntry
-    @JsonProperty("U_BaseEntry")
-    private Long uBaseEntry;
-    // 报价表对应询价单内部行号 T_ICIN1.U_BaseLine
-    @JsonProperty("U_BaseLine")
-    private Long uBaseLine;
-    // 询价单对应货源的单据编号 U_ICIN1.BaseEntry
-    @JsonProperty("BaseEntry")
-    private Long baseEntry;
-    // 询价单对应货源的内部行号 U_ICIN1.BaseLine
-    @JsonProperty("BaseLine")
-    private Long baseLine;
     /**
      * @description 客户需求
      */
@@ -94,26 +88,13 @@ public class QuotationVO {
     @JsonProperty("U_QuoModle")
     private String uQuoModle;
 
-    public String getUQuoModle() {
-        return uQuoModle == null ? modle : uQuoModle;
-    }
-
     // 采购报价品牌 T_ICIN1.U_QuoBrand
     @JsonProperty("U_QuoBrand")
     private String uQuoBrand;
 
-    public String getUQuoBrand() {
-        return uQuoBrand == null ? brand : uQuoBrand;
-    }
-
     // 采购报价数量 T_ICIN1.U_QuoQty
     @JsonProperty("U_QuoQty")
     private BigDecimal uQuoQty;
-
-    public BigDecimal getUQuoQty() {
-        return uQuoQty == null ? demandQty : uQuoQty;
-    }
-
     // 供方报价 单价 T_ICIN1.U_QuoPrice
     @JsonProperty("U_QuoPrice")
     private BigDecimal uQuoPrice;
@@ -183,7 +164,7 @@ public class QuotationVO {
     private String uContPhone;
     // 地址 T_ICIN1.ContAddress
     @JsonProperty("U_ContAddress")
-    private String contAddress;
+    private String uContAddress;
     // 邮箱 T_ICIN1.U_ContEmail
     @JsonProperty("U_ContEmail")
     private String uContEmail;
@@ -253,6 +234,9 @@ public class QuotationVO {
     // 采购报价供应商等级名称 T_ICIN1.U_QuoLevel
     @JsonProperty("U_QuoLevel")
     private String uQuoLevel;
+    // 供应商性质
+    @JsonProperty("U_QuoGroupCode")
+    private String uQuoGroupCode;
     /**
      * @description 重点报价
      */

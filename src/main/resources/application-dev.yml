@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: net.sourceforge.jtds.jdbc.Driver
-    url: jdbc:jtds:sqlserver://152.136.120.86/LCJ_SAP360;useLOBs=false
+    url: jdbc:jtds:sqlserver://192.168.16.207/LCJ_SAP360;useLOBs=false
     username: sa
     password: 25429125Lcj
     hikari:

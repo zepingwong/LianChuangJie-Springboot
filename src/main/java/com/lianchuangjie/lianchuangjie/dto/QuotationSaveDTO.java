@@ -89,22 +89,22 @@ public class QuotationSaveDTO {
     private String uStatus;
     // 起订量 T_ICIN1.MinQty
     @JsonProperty("U_MinQty")
-    private Integer minQty;
+    private Integer uMinQty;
     // 联系人 T_ICIN1.ContPerson
     @JsonProperty("U_ContPerson")
-    private String contPerson;
+    private String uContPerson;
     // 电话 T_ICIN1.ContPhone
     @JsonProperty("U_ContPhone")
-    private String contPhone;
+    private String uContPhone;
     // 地址 T_ICIN1.ContAddress
     @JsonProperty("U_ContAddress")
-    private String contAddress;
+    private String uContAddress;
     // 邮箱 T_ICIN1.ContEmail
     @JsonProperty("U_ContEmail")
-    private String contEmail;
+    private String uContEmail;
     // 标准包装 T_ICIN1.StanPackage
     @JsonProperty("U_StanPackage")
-    private String stanPackage;
+    private String uStanPackage;
     // 供方备注 T_ICIN1.U_QuoRemark
     @JsonProperty("U_QuoRemark")
     private String uQuoRemark;
@@ -114,7 +114,7 @@ public class QuotationSaveDTO {
     /**
      * 客户信息
      */
-    // 客户行业领域 U_Industries
+    // 客户行业领域代码 U_Industries
     @JsonProperty("U_Industries")
     private String uIndustries;
     // 客户等级

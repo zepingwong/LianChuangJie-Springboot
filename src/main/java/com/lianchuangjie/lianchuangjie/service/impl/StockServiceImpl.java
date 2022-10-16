@@ -5,7 +5,7 @@ import com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO;
 import com.lianchuangjie.lianchuangjie.mapper.StockMapper;
 import com.lianchuangjie.lianchuangjie.service.StockService;
 import com.lianchuangjie.lianchuangjie.vo.Quotation.TabQuotationStockVO;
-import com.lianchuangjie.lianchuangjie.vo.TabStockPriceOriginVO;
+import com.lianchuangjie.lianchuangjie.vo.StockPrice.TabStockPriceOriginVO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

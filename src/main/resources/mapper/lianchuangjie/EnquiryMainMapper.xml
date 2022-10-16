@@ -34,7 +34,7 @@
         SELECT MAX(DocEntry)
         FROM T_ICIN
     </select>
-    <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.EnquiryMainItemVO">
+    <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.Enquiry.EnquiryMainItemVO">
         DECLARE @UserSign BIGINT;
         DECLARE @DataPur NVARCHAR ( 10 ); /*All/Dept/selft*/
         DECLARE @BaseFormID BIGINT; /*视图编号*/

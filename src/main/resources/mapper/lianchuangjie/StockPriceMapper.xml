@@ -27,7 +27,7 @@
         AND kc_now.DocDate = #{da.docDate}
         AND kc_now.Batch = #{da.batch}
     </update>
-    <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.StockPriceVO">
+    <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.StockPrice.StockPriceVO">
         DECLARE @PageSize INT;
         DECLARE @CurrentPage INT;
         SET @PageSize = ${sc.getSize}; /*每页显示数量*/
@@ -156,7 +156,7 @@
         )TT
         WHERE TT.LineNum > (@CurrentPage - 1) * @PageSize
     </select>
-    <select id="tabList" resultType="com.lianchuangjie.lianchuangjie.vo.TabStockPriceBaseVO">
+    <select id="tabList" resultType="com.lianchuangjie.lianchuangjie.vo.StockPrice.TabStockPriceBaseVO">
         SELECT
             kc_now.kc_price14, /*库存定价(14天)*/
             kc_now.kc_price30, /*库存定价(14天)*/

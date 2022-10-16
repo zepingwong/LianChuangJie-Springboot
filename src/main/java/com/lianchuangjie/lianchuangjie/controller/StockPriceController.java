@@ -15,7 +15,7 @@ import com.lianchuangjie.lianchuangjie.utils.HttpUtil;
 import com.lianchuangjie.lianchuangjie.utils.Result;
 import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
 import com.lianchuangjie.lianchuangjie.vo.BrandItemVO;
-import com.lianchuangjie.lianchuangjie.vo.StockPriceVO;
+import com.lianchuangjie.lianchuangjie.vo.StockPrice.StockPriceVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;

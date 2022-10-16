@@ -4,8 +4,11 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lianchuangjie.lianchuangjie.config.Authentication;
 import com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO;
 import com.lianchuangjie.lianchuangjie.service.*;
+import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquiryAvailableService;
+import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquirySubService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
 import com.lianchuangjie.lianchuangjie.vo.*;
+import com.lianchuangjie.lianchuangjie.vo.Enquiry.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,6 +29,8 @@ public class TabEnquiryController {
     PurchaseOrderSubService purchaseOrderSubService;
     @Resource
     StockQuantityService stockQuantityService;
+    @Resource
+    EnquiryAvailableService enquiryAvailableService;
 
     /**
      * @param page  page 页码
@@ -130,5 +135,20 @@ public class TabEnquiryController {
         tabSearchDTO.setModle(modle);
         Page<TabStockVO> pages = stockQuantityService.tabList(tabSearchDTO);
         return Result.success(pages, "Success");
+    }
+
+    @GetMapping("/enquiry/available")
+    @Authentication(sale = true)
+    public Result<Page<TabEnquiryAvailableVO>> getAvailableListController(
+            @RequestParam(defaultValue = "#{null}", value = "page") Integer page,
+            @RequestParam(defaultValue = "#{null}", value = "size") Integer size,
+            @RequestParam(defaultValue = "#{null}", value = "Modle") String modle
+    ) {
+        TabSearchDTO tabSearchDTO = new TabSearchDTO();
+        tabSearchDTO.setPage(page);
+        tabSearchDTO.setSize(size);
+        tabSearchDTO.setModle(modle);
+        Page<TabEnquiryAvailableVO> pages = enquiryAvailableService.list(tabSearchDTO);
+        return Result.success(pages, "成功");
     }
 }

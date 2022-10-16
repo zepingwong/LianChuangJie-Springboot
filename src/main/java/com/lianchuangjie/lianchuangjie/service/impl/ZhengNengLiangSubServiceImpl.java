@@ -6,7 +6,7 @@ import com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.ZhengNengLiangSubEntity;
 import com.lianchuangjie.lianchuangjie.mapper.ZhengNengLiangSubMapper;
 import com.lianchuangjie.lianchuangjie.service.ZhengNengLiangSubService;
-import com.lianchuangjie.lianchuangjie.vo.TabStockPriceZNLVO;
+import com.lianchuangjie.lianchuangjie.vo.StockPrice.TabStockPriceZNLVO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

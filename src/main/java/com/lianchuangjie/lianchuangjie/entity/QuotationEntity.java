@@ -134,7 +134,7 @@ public class QuotationEntity {
     private String uContPhone;
     // 地址
     @TableField(value = "U_ContAddress")
-    private String contAddress;
+    private String uContAddress;
     // 邮箱
     @TableField(value = "U_ContEmail")
     private String uContEmail;

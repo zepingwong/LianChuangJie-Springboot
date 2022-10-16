@@ -3,11 +3,11 @@ package com.lianchuangjie.lianchuangjie.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lianchuangjie.lianchuangjie.config.Authentication;
 import com.lianchuangjie.lianchuangjie.dto.search.EnquiryMainSearchDTO;
-import com.lianchuangjie.lianchuangjie.service.EnquiryMainService;
+import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquiryMainService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
 import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
-import com.lianchuangjie.lianchuangjie.vo.EnquiryMainInfoVO;
-import com.lianchuangjie.lianchuangjie.vo.EnquiryMainItemVO;
+import com.lianchuangjie.lianchuangjie.vo.Enquiry.EnquiryMainInfoVO;
+import com.lianchuangjie.lianchuangjie.vo.Enquiry.EnquiryMainItemVO;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
