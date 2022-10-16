@@ -64,4 +64,6 @@ public interface EnquirySubService extends IService<EnquirySubEntity> {
      * @date 9/4/2022
      */
     Page<TabStockPriceEnquiryVO> stockTabList(TabSearchDTO tabSearchDTO);
+
+    Boolean saveOne(EnquirySaveItemDTO enquirySaveItemDTO);
 }

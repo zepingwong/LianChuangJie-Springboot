@@ -58,4 +58,11 @@ public class EnquirySubController extends BaseController {
     public Result<Boolean> saveEnquirySubController(@RequestBody List<EnquirySaveItemDTO> enquirySubItemDTOList) {
         return Result.success(enquirySubService.save(enquirySubItemDTOList), "保存成功");
     }
+
+    @PatchMapping("/sub")
+    @Authentication(sale = true)
+    public Result<Boolean> saveOne(@RequestBody EnquirySaveItemDTO enquirySaveItemDTO) {
+        enquirySubService.saveOne(enquirySaveItemDTO);
+        return null;
+    }
 }

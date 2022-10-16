@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
+import java.math.BigDecimal;
 
 @Data
 @AllArgsConstructor
@@ -39,4 +40,10 @@ public class EnquiryReQuoteDTO {
     // 报价型号
     @JsonProperty("U_QuoModle")
     private String uQuoModle;
+    // 供方单价报价价格,人民币不含税 T_ICIN1.U_QuoPrice
+    @JsonProperty("U_QuoPrice")
+    private BigDecimal uQuoPrice;
+    // 供应商等级 T_ICIN1.U_QuoLevel
+    @JsonProperty("U_QuoLevel")
+    private String uQuoLevel;
 }

@@ -25,7 +25,7 @@ public class EnquirySubVO {
     // 行号-主键 U_ICIN1.LineNum
     @JsonProperty("LineNum")
     private Long lineNum;
-    // 需求型号 U_ICIN1.Modle
+    // 需求型号
     @JsonProperty("Modle")
     private String modle;
     // 需求品牌 U_ICIN1.Brand
@@ -49,7 +49,6 @@ public class EnquirySubVO {
     // 接受价格 U_ICIN1.ExpectedPrice
     @JsonProperty("ExpectedPrice")
     private BigDecimal expectedPrice;
-
     // 失效时间 U_ICIN1.ExpDate
     @JsonProperty("ExpDate")
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
@@ -66,22 +65,7 @@ public class EnquirySubVO {
     // 报价单内部行号
     @JsonProperty("BaseLine")
     private Long baseLine;
-    // 报价品牌
-    @JsonProperty("U_QuoBrand")
-    private String uQuoBrand;
-    // 报价型号 T_ICIN1.U_QuoModle
-    @JsonProperty("U_QuoModle")
-    private String uQuoModle;
-    // 报价交期 T_ICIN1.U_QuoDelivery
-    @JsonProperty("U_QuoDelivery")
-    private String uQuoDelivery;
-    // 报价批次 T_ICIN1.U_QuoYear
-    @JsonProperty("U_QuoYear")
-    private String uQuoYear;
-    // 报价数量 T_ICIN1.U_QuoQty
-    @JsonProperty("U_QuoQty")
-    private BigDecimal uQuoQty = BigDecimal.valueOf(0);
-    // 供方单价报价价格,人民币不含税 T_ICIN1.U_QuoPrice
+    // 供方报价
     @JsonProperty("U_QuoPrice")
     private BigDecimal uQuoPrice;
     // 供应商等级 T_ICIN1.U_QuoLevel
@@ -109,22 +93,29 @@ public class EnquirySubVO {
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonProperty("U_QuoDate")
     private Date uQuoDate;
-    // 采购报价税率代码
-    @JsonProperty("U_QuoVatGroup")
-    private String uQuoVatRate;
+
     /**
-     * 销售报价
+     * 销售报价信息
      */
     // 销售报价单价 U_ICIN1.PriceAfVAT
     @JsonProperty("PriceAfVAT")
     private BigDecimal priceAfVAT;
+    // 报价数量
+    @JsonProperty("SuoQuantity")
+    private BigDecimal suoQuantity = BigDecimal.valueOf(0);
+    // 报价品牌
+    @JsonProperty("QuoBrand")
+    private String quoBrand;
+    // 报价型号
+    @JsonProperty("QuoModle")
+    private String quoModle;
     // 销售备注 U_ICIN1.LineRemark
     @JsonProperty("LineRemark")
     private String lineRemark;
     // 是否下单
     @JsonProperty("IsOrdered")
     private String isOrdered;
-    // 货源属性
+    // 货源属性-是否未备用货源
     @JsonProperty("IsSpare")
     private String isSpare;
     // QuoState 是否询价
@@ -183,4 +174,8 @@ public class EnquirySubVO {
             return null;
         }
     }
+    @JsonProperty("ItemEntry")
+    private Long itemEntry;
+    @JsonProperty("ItemLine")
+    private Long itemLine;
 }

@@ -5,18 +5,16 @@ import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lianchuangjie.lianchuangjie.dto.EnquirySaveItemDTO;
-import com.lianchuangjie.lianchuangjie.dto.EnquirySubItemDTO;
 import com.lianchuangjie.lianchuangjie.dto.search.EnquirySubSearchDTO;
 import com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.EnquirySubEntity;
 import com.lianchuangjie.lianchuangjie.mapper.EnquirySubMapper;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquirySubService;
 import com.lianchuangjie.lianchuangjie.vo.Enquiry.EnquirySubVO;
+import com.lianchuangjie.lianchuangjie.vo.Enquiry.TabEnquiryNeedsVO;
 import com.lianchuangjie.lianchuangjie.vo.Quotation.TabQuotationNeedsVO;
 import com.lianchuangjie.lianchuangjie.vo.StockPrice.TabStockPriceEnquiryVO;
-import com.lianchuangjie.lianchuangjie.vo.Enquiry.TabEnquiryNeedsVO;
 import com.lianchuangjie.lianchuangjie.vo.TabSearchNeedsVO;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -64,30 +62,6 @@ public class EnquirySubServiceImpl extends ServiceImpl<EnquirySubMapper, Enquiry
      */
     @Override
     public Boolean save(List<EnquirySaveItemDTO> enquirySubList) {
-        // 两层循环,第一次时询价表,第二层时货源
-        for (EnquirySaveItemDTO enquirySaveItemDTO : enquirySubList) {
-            QueryWrapper<EnquirySubEntity> queryWrapper = new QueryWrapper<>();
-            queryWrapper.eq("DocEntry", enquirySaveItemDTO.getDocEntry());
-            queryWrapper.eq("LineNum", enquirySaveItemDTO.getLineNum());
-            EnquirySubEntity enquirySubEntity = enquirySubMapper.selectOne(queryWrapper);
-            enquirySubMapper.clear(enquirySaveItemDTO.getDocEntry(), enquirySaveItemDTO.getLineNum());
-            int i = 0;
-            for (EnquirySubItemDTO enquirySubItemDTO : enquirySaveItemDTO.getRecommend()) {
-                 BeanUtils.copyProperties(enquirySubItemDTO, enquirySubEntity);
-                if (i == 0) {
-                    // 第一条对应的是原始需求的货源,需要 update
-                    enquirySubMapper.updateOne(enquirySubEntity);
-                } else {
-                    // 其他的时选择的多个货源, 需要 insert,行号需要增长
-                    Long lineNum = enquirySubMapper.count(enquirySubItemDTO.getDocEntry()) + 1L;
-                    enquirySubEntity.setItemEntry(enquirySubEntity.getDocEntry()); // ItemEntry 与 DocEntry 相同
-                    enquirySubEntity.setItemLine(enquirySubEntity.getLineNum()); // ItemLine 与 LineNum 相同
-                    enquirySubEntity.setLineNum(lineNum); // 先设置ItemLine 再更新 LineNum
-                    enquirySubMapper.insert(enquirySubEntity);
-                }
-                i += 1;
-            }
-        }
         return true;
     }
 
@@ -142,5 +116,26 @@ public class EnquirySubServiceImpl extends ServiceImpl<EnquirySubMapper, Enquiry
         Page<TabStockPriceEnquiryVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
         enquirySubMapper.selectStockPriceTabList(page, searchCondition);
         return page;
+    }
+
+    @Override
+    public Boolean saveOne(EnquirySaveItemDTO enquirySaveItemDTO) {
+        QueryWrapper<EnquirySubEntity> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("DocEntry", enquirySaveItemDTO.getDocEntry());
+        queryWrapper.eq("LineNum", enquirySaveItemDTO.getLineNum());
+        EnquirySubEntity enquirySubEntity = enquirySubMapper.selectOne(queryWrapper);
+        enquirySubEntity.setBaseEntry(enquirySaveItemDTO.getBaseEntry()); // 货源信息
+        enquirySubEntity.setBaseLine(enquirySaveItemDTO.getBaseLine()); // 货源信息
+        if (enquirySubEntity.getBaseEntry() != null & enquirySubEntity.getBaseLine() != null) {
+            // 已经存过货源信息了,接下来存多个货源
+            Long lineNum = enquirySubMapper.count(enquirySaveItemDTO.getDocEntry()) + 1L;
+            enquirySubEntity.setLineNum(lineNum); // LineNum 只能继续增加
+            enquirySubEntity.setItemEntry(enquirySaveItemDTO.getDocEntry()); // 多个货源的需求信息检索
+            enquirySubEntity.setItemLine(enquirySaveItemDTO.getLineNum()); // 多个货源的需求信息检索
+            enquirySubMapper.insert(enquirySubEntity);
+        } else {
+            enquirySubMapper.updateOne(enquirySubEntity);
+        }
+        return true;
     }
 }

@@ -56,6 +56,7 @@
         LEFT JOIN T_ICIN ON U_ICIN1.DocEntry = T_ICIN.DocEntry
         WHERE U_ICIN1.DocEntry = #{sc.docEntry}
         AND T_ICIN.OwnerCode = #{sc.ownerCode}
+        ORDER BY U_ICIN1.LineNum
     </select>
     <select id="selectEnquiryTabList" resultType="com.lianchuangjie.lianchuangjie.vo.Enquiry.TabEnquiryNeedsVO">
         DECLARE @UserSign BIGINT
@@ -428,5 +429,18 @@
         ORDER BY TT.InquiryDate DESC
     </select>
     <select id="selectQuotationTabList"
-            resultType="com.lianchuangjie.lianchuangjie.vo.Quotation.TabQuotationNeedsVO"></select>
+            resultType="com.lianchuangjie.lianchuangjie.vo.Quotation.TabQuotationNeedsVO">
+        SELECT U_ICIN1.*
+        FROM U_ICIN1
+        WHERE U_ICIN1.Modle IN (
+            SELECT SDADA_1.sno
+            FROM SDADA SDADA_1
+            WHERE SDADA_1.TAG IN (
+                SELECT SDADA.TAG
+                FROM SDADA
+                WHERE SDADA.sno = #{sc.modle}
+            )
+        )
+        AND U_ICIN1.Secrecy != 'Y'
+    </select>
 </mapper>

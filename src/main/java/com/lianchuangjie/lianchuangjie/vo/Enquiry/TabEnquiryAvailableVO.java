@@ -45,6 +45,9 @@ public class TabEnquiryAvailableVO {
     // 质检标准 T_ICIN1.U_QCDesc
     @JsonProperty("U_QCDesc")
     private String uQCDesc;
+    // 供应商等级 T_ICIN1.U_QuoLevel
+    @JsonProperty("U_QuoLevel")
+    private String uQuoLevel;
     // 采购部门名称/货源 T_OCDP.Name
     @JsonProperty("DeptName")
     private String deptName;
