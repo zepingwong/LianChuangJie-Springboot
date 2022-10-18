@@ -62,5 +62,5 @@ public interface TabQuotationService extends IService<QuotationEntity> {
      * @email zepingwong@gmail.com
      * @date 9/4/2022
      */
-    Page<TabStockPriceQuoteVO> stockTabList(TabSearchDTO tabSearchDTO);
+    Page<TabStockPriceQuoteVO> stockPriceTabList(TabSearchDTO tabSearchDTO);
 }

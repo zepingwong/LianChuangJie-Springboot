@@ -201,7 +201,7 @@ public class TabStockPriceController {
         tabSearchDTO.setPage(page);
         tabSearchDTO.setSize(size);
         tabSearchDTO.setModle(modle);
-        Page<TabStockPriceQuoteVO> pages = tabQuotationService.stockTabList(tabSearchDTO);
+        Page<TabStockPriceQuoteVO> pages = tabQuotationService.stockPriceTabList(tabSearchDTO);
         return Result.success(pages, "Success");
     }
 }

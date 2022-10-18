@@ -136,7 +136,7 @@
                     T_ICIN.U_DocCur, /*报价货币*/
                     T_OVTG.Name AS 'U_VatName', /*税率文本*/
                     U_ICIN1.PriceAfVAT, /*销售报价*/
-                    U_ICIN1.Delivery, /*报价货期*/
+                    U_ICIN1.SuoDelivery, /*报价货期*/
                     U_ICIN1.LineRemark, /*销售备注*/
                     U_ICIN1.Status /*价格类型*/
                 FROM U_ICIN1
@@ -167,7 +167,7 @@
                     T_ICIN.U_DocCur, /*报价货币*/
                     T_OVTG.Name AS 'U_VatName', /*税率文本*/
                     U_ICIN1.PriceAfVAT, /*销售报价*/
-                    U_ICIN1.Delivery, /*报价货期*/
+                    U_ICIN1.SuoDelivery, /*报价货期*/
                     U_ICIN1.LineRemark, /*销售备注*/
                     U_ICIN1.Status /*价格类型*/
                 FROM U_ICIN1
@@ -186,15 +186,13 @@
                 )
             ) T
             WHERE T.Modle IN (
-            SELECT SDADA_1.sno
-            FROM SDADA SDADA_1
-            WHERE SDADA_1.TAG IN (
-            SELECT SDADA.TAG
-            FROM SDADA
-            WHERE SDADA.sno IN
-            <foreach collection="sc.modleList " item="item" open="(" separator="," close=")" index="index">'${item}'
-            </foreach>
-            )
+                SELECT SDADA_1.sno
+                FROM SDADA SDADA_1
+                WHERE SDADA_1.TAG IN (
+                    SELECT SDADA.TAG
+                    FROM SDADA
+                    WHERE SDADA.sno = #{sc.modle}
+                )
             )
         ) TT
         WHERE TT.ROWNUMBER > (@CurrentPage - 1) * @PageSize
@@ -273,10 +271,10 @@
             T_OVTG.Rate AS 'U_VatRate', /*税率税点*/
             T_OVTG.Name AS 'U_VatName' /*税率名称*/
         FROM U_ICIN1
-                 LEFT JOIN T_ICIN ON T_ICIN.DocEntry = U_ICIN1.DocEntry
-                 LEFT JOIN T_OUSI ON T_ICIN.OwnerCode = T_OUSI.UserSign
-                 LEFT JOIN T_OCDP ON T_OUSI.DftDept = T_OCDP.DeptCode
-                 LEFT JOIN T_OVTG ON T_ICIN.U_VatGroup = T_OVTG.Code
+        LEFT JOIN T_ICIN ON T_ICIN.DocEntry = U_ICIN1.DocEntry
+        LEFT JOIN T_OUSI ON T_ICIN.OwnerCode = T_OUSI.UserSign
+        LEFT JOIN T_OCDP ON T_OUSI.DftDept = T_OCDP.DeptCode
+        LEFT JOIN T_OVTG ON T_ICIN.U_VatGroup = T_OVTG.Code
         WHERE U_ICIN1.Modle IN (
             SELECT SDADA_1.sno
             FROM SDADA SDADA_1

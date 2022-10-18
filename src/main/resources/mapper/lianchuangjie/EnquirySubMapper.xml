@@ -52,9 +52,10 @@
     </delete>
     <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.Enquiry.EnquirySubVO">
         SELECT
-
+            Enquiry.*,
             Quotation.U_QuoLevel, /*供应商等级*/
             Quotation.U_QCDesc, /*质检标准*/
+            Quotation.U_QuoDate, /*报价日期*/
             Quotation.UserName AS 'BuyerName', /*采购员姓名*/
             Quotation.DeptName /*采购部门名称*/
         FROM  (
@@ -64,6 +65,7 @@
                 U_ICIN1.Modle, /*需求型号*/
                 U_ICIN1.Brand, /*需求品牌*/
                 U_ICIN1.Year, /*需求批次*/
+                U_ICIN1.ECCN, /*ECCN*/
                 U_ICIN1.Delivery, /*需求交期*/
                 U_ICIN1.DemandQty, /*需求数量*/
                 U_ICIN1.CurRemark, /*客户备注*/
@@ -88,6 +90,7 @@
                     U_BaseEntry,
                     U_BaseLine,
                     U_Buyer,
+                    U_QuoDate,
                     U_QCDesc, /*质检标准*/
                     U_QuoLevel /*供应商等级*/
                 FROM T_ICIN1
@@ -96,6 +99,7 @@
                     U_BaseEntry,
                     U_BaseLine,
                     U_Buyer,
+                    U_QuoDate,
                     U_QCDesc, /*质检标准*/
                     U_QuoLevel /*供应商等级*/
                 FROM U_ICIN11

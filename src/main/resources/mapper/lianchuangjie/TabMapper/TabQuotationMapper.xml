@@ -49,39 +49,78 @@
         * 销售报价页面-采购报价Tab
         */
         SELECT
-            T_ICIN1.U_QuoDate, /*报价日期*/
-            T_ICIN1.U_Buyer, /*采购员编号*/
+            T.U_QuoDate, /*报价日期*/
+            T.U_Buyer, /*采购员编号*/
             T_OUSI.UserName AS 'U_BuyerName', /*采购员姓名*/
             T_OUSI.DftDept, /*采购部门编号*/
             T_OCDP.Name AS 'DftDeptName', /*采购部门名称*/
-            T_ICIN1.U_QuoGroupCode, /*供应商性质*/
-            T_ICIN1.U_QuoLevel, /*供应商等级*/
+            T.U_QuoGroupCode, /*供应商性质*/
+            T.U_QuoLevel, /*供应商等级*/
             U_ICIN1.Status, /*价格类型*/
-            T_ICIN1.U_QuoModle, /*报价型号*/
-            T_ICIN1.U_ECCN, /*ECCN*/
-            T_ICIN1.U_QuoBrand, /*报价品牌*/
-            T_ICIN1.U_QuoQty, /*报价数量*/
-            T_ICIN1.U_QuoCurr, /*采购报价货币*/
-            T_ICIN1.U_QuoPrice, /*单价*/
-            T_ICIN1.U_QuoVatGroup, /*税率代码*/
+            T.U_QuoModle, /*报价型号*/
+            T.U_ECCN, /*ECCN*/
+            T.U_QuoBrand, /*报价品牌*/
+            T.U_QuoQty, /*报价数量*/
+            T.U_QuoCurr, /*采购报价货币*/
+            T.U_QuoPrice, /*单价*/
+            T.U_QuoVatGroup, /*税率代码*/
             T_OVTG.Name AS 'U_QuoVatName', /*税率文本*/
             T_OVTG.Rate AS 'U_QuoVatRate', /*税点*/
-            T_ICIN1.U_QuoDelivery AS 'U_QuoDelivery', /*供方交期*/
-            T_ICIN1.U_QuoExplain /*备注*/
-        FROM T_ICIN1
-        LEFT JOIN T_OUSI on T_ICIN1.U_Buyer = T_OUSI.UserSign
+            T.U_QuoDelivery AS 'U_QuoDelivery', /*供方交期*/
+            T.U_QuoExplain /*备注*/
+        FROM (
+            SELECT
+                U_BaseEntry,
+                U_BaseLine,
+                Modle,
+                U_Secrecy,
+                U_QuoDate,
+                U_Buyer,
+                U_QuoGroupCode,
+                U_QuoLevel,
+                U_QuoModle,
+                U_ECCN,
+                U_QuoBrand,
+                U_QuoQty,
+                U_QuoCurr,
+                U_QuoPrice,
+                U_QuoVatGroup,
+                U_QuoDelivery,
+                U_QuoExplain
+            FROM T_ICIN1
+            UNION ALL
+            SELECT
+                U_BaseEntry,
+                U_BaseLine,
+                Modle,
+                U_Secrecy,
+                U_QuoDate,
+                U_Buyer,
+                U_QuoGroupCode,
+                U_QuoLevel,
+                U_QuoModle,
+                U_ECCN,
+                U_QuoBrand,
+                U_QuoQty,
+                U_QuoCurr,
+                U_QuoPrice,
+                U_QuoVatGroup,
+                U_QuoDelivery,
+                U_QuoExplain
+            FROM U_ICIN11
+        ) T
+        LEFT JOIN T_OUSI on T.U_Buyer = T_OUSI.UserSign
         LEFT JOIN T_OCDP ON T_OUSI.DftDept = T_OCDP.DeptCode
-        LEFT JOIN U_ICIN1 ON T_ICIN1.U_BaseEntry = U_ICIN1.DocEntry AND T_ICIN1.U_BaseLine = U_ICIN1.LineNum
-        LEFT JOIN T_OVTG ON T_ICIN1.U_QuoVatGroup = T_OVTG.Code
-        WHERE T_ICIN1.Modle IN (
+        LEFT JOIN U_ICIN1 ON T.U_BaseEntry = U_ICIN1.DocEntry AND T.U_BaseLine = U_ICIN1.LineNum
+        LEFT JOIN T_OVTG ON T.U_QuoVatGroup = T_OVTG.Code
+        WHERE T.Modle IN (
             SELECT SDADA_1.sno
             FROM SDADA SDADA_1
             WHERE SDADA_1.TAG IN (
                 SELECT SDADA.TAG FROM SDADA WHERE SDADA.sno = #{sc.modle}
             )
         )
-        AND T_ICIN1.U_Secrecy != 'Y'
-        ORDER BY T_ICIN1.U_QuoDate DESC
+        AND T.U_Secrecy != 'Y'
     </select>
     <select id="selectEffectiveTabList"
             resultType="com.lianchuangjie.lianchuangjie.vo.Quotation.TabEffectiveQuotationVO"
@@ -107,7 +146,6 @@
             )
         )
         AND T_ICIN1.U_QuoDate IS NOT NULL
-        ORDER BY T_ICIN1.U_QuoDate DESC
     </select>
     <select id="selectStockPriceTabList" resultType="com.lianchuangjie.lianchuangjie.vo.StockPrice.TabStockPriceQuoteVO">
         SELECT

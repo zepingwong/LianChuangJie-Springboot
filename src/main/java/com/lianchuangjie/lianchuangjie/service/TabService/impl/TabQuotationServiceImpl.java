@@ -25,7 +25,7 @@ public class TabQuotationServiceImpl extends ServiceImpl<QuotationMapper, Quotat
     @Override
     public Page<TabEnquiryQuotationVO> enquiryTabList(TabSearchDTO searchCondition) {
         Page<TabEnquiryQuotationVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
-        page.addOrder(OrderItem.desc("T_ICIN1.U_QuoDate"));
+        page.addOrder(OrderItem.desc("T.U_QuoDate"));
         tabQuotationMapper.selectEnquiryTabList(page, searchCondition);
         return page;
     }
@@ -39,7 +39,7 @@ public class TabQuotationServiceImpl extends ServiceImpl<QuotationMapper, Quotat
     }
 
     @Override
-    public Page<TabStockPriceQuoteVO> stockTabList(TabSearchDTO searchCondition) {
+    public Page<TabStockPriceQuoteVO> stockPriceTabList(TabSearchDTO searchCondition) {
         Page<TabStockPriceQuoteVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
         tabQuotationMapper.selectStockPriceTabList(page, searchCondition);
         return page;

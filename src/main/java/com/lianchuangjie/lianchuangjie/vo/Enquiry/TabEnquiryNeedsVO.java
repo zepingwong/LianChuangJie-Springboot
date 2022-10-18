@@ -103,10 +103,10 @@ public class TabEnquiryNeedsVO {
     @JsonProperty("PriceAfVAT")
     private BigDecimal priceAfVAT;
     /**
-     * @description 报价交期 Delivery
+     * @description 报价交期 SuoDelivery
      */
-    @JsonProperty("Delivery")
-    private String delivery;
+    @JsonProperty("SuoDelivery")
+    private String suoDelivery;
     /**
      * @description 销售备注 LineRemark
      */
