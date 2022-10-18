@@ -120,7 +120,6 @@
                 SELECT SDADA.TAG FROM SDADA WHERE SDADA.sno = #{sc.modle}
             )
         )
-        AND T.U_Secrecy != 'Y'
     </select>
     <select id="selectEffectiveTabList"
             resultType="com.lianchuangjie.lianchuangjie.vo.Quotation.TabEffectiveQuotationVO"
