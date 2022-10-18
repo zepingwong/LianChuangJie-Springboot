@@ -1,42 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lianchuangjie.lianchuangjie.mapper.StockQuantityMapper">
-
-    <select id="selectTabList" resultType="com.lianchuangjie.lianchuangjie.vo.TabStockVO">
-        SELECT
-        T_OBTQ.WhsCode, /*仓库*/
-        T_OBTN.U_AreaType, /*库存性质*/
-        T_OBTN.InDate, /*入库时间*/
-        T_OBTN.ItemName, /*型号*/
-        T_OBTN.U_ECCN, /*ECCN*/
-        (SELECT TOP(1) QuoBrand FROM SDADA WHERE SDADA.sno = T_OBTN.ItemName) AS 'QuoBrand', /*品牌*/
-        T_OBTN.U_Batch, /*批次*/
-        T_OBTQ.Quantity, /*库存数量*/
-        T_OBTN.U_LockQty, /*锁货数量*/
-        T_OBTN.U_Remark, /*备注*/
-        T_OBTN.U_msl, /*MSL*/
-        T_OBTN.U_COO, /*产地*/
-        T_OBTN.U_MPQ, /*MPQ*/
-        T_OBTN.U_BuyerName, /*采购员*/
-        T_OBTN.U_Package, /*包装*/
-        T_OBTN.U_OriginalBid, /*原标*/
-        T_OBTN.U_Secrecy, /*保密*/
-        T_OBTN.U_GrindingCode /*磨码说明*/
-        FROM T_OBTN /*库存批次表*/
-        LEFT JOIN T_OBTQ ON T_OBTQ.MdAbsEntry = T_OBTN.AbsEntry /*库存数量表，通过批次和型号代码关联*/
-        AND T_OBTQ.ItemCode = T_OBTN.ItemCode
-        WHERE T_OBTN.ItemName IN (
-            SELECT SDADA_1.sno
-            FROM SDADA SDADA_1
-            WHERE SDADA_1.TAG IN (
-                SELECT SDADA.TAG FROM SDADA WHERE SDADA.sno IN
-                <foreach collection="sc.modleList " item="item" open="(" separator="," close=")" index="index">
-                    '${item}'
-                </foreach>
-            )
-        )
-        <if test="sc.year">
-            AND T_OBTN.U_Batch = ${sc.getYear} /*批次条件*/
-        </if>
-    </select>
 </mapper>

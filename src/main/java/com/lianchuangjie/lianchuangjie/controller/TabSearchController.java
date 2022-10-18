@@ -3,10 +3,13 @@ package com.lianchuangjie.lianchuangjie.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lianchuangjie.lianchuangjie.config.Authentication;
 import com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO;
-import com.lianchuangjie.lianchuangjie.service.*;
-import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquirySubService;
+import com.lianchuangjie.lianchuangjie.service.TabService.*;
 import com.lianchuangjie.lianchuangjie.utils.Result;
-import com.lianchuangjie.lianchuangjie.vo.*;
+import com.lianchuangjie.lianchuangjie.vo.Search.TabSearchNeedsVO;
+import com.lianchuangjie.lianchuangjie.vo.Search.TabSearchSdadaVO;
+import com.lianchuangjie.lianchuangjie.vo.Search.TabSearchPurchaseOrderVO;
+import com.lianchuangjie.lianchuangjie.vo.Search.TabSearchQuotationVO;
+import com.lianchuangjie.lianchuangjie.vo.Search.TabSearchSalesOrderVO;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -16,15 +19,16 @@ import java.util.List;
 @RequestMapping("/tab")
 public class TabSearchController {
     @Resource
-    SdadaService sdadaService;
+    TabSdadaService tabSdadaService;
     @Resource
-    QuotationService quotationService;
+    TabQuotationService tabQuotationService;
     @Resource
-    EnquirySubService enquirySubService;
+    TabClientNeedsService tabClientNeedsService;
+
     @Resource
-    SalesOrderSubService salesOrderSubService;
+    TabSalesOrderService tabSalesOrderService;
     @Resource
-    PurchaseOrderSubService purchaseOrderSubService;
+    TabPurchaseOrderService tabPurchaseOrderService;
     /**
      * @return Result
      * @description 模糊搜索-标准型号Tab
@@ -34,7 +38,7 @@ public class TabSearchController {
      */
     @PostMapping("/search/sdada/{page}/{size}")
     @Authentication(sale = true, buyer = true)
-    public Result<Page<SdadaVO>> getStandardDataList(
+    public Result<Page<TabSearchSdadaVO>> getStandardDataList(
             @RequestBody List<String> modleList,
             @PathVariable Integer page,
             @PathVariable Integer size
@@ -44,7 +48,7 @@ public class TabSearchController {
         tabSearchDTO.setModleList(modleList);
         tabSearchDTO.setPage(page);
         tabSearchDTO.setSize(size);
-        Page<SdadaVO> res = sdadaService.tabList(tabSearchDTO);
+        Page<TabSearchSdadaVO> res = tabSdadaService.searchTabList(tabSearchDTO);
         return Result.success(res);
     }
     /**
@@ -66,7 +70,7 @@ public class TabSearchController {
         tabSearchDTO.setModleList(modleList);
         tabSearchDTO.setPage(page);
         tabSearchDTO.setSize(size);
-        Page<TabSearchQuotationVO> res = quotationService.searchTabList(tabSearchDTO);
+        Page<TabSearchQuotationVO> res = tabQuotationService.searchTabList(tabSearchDTO);
         return Result.success(res);
     }
     /**
@@ -88,7 +92,7 @@ public class TabSearchController {
         tabSearchDTO.setModleList(modleList);
         tabSearchDTO.setPage(page);
         tabSearchDTO.setSize(size);
-        Page<TabSearchNeedsVO> res = enquirySubService.searchTabList(tabSearchDTO);
+        Page<TabSearchNeedsVO> res = tabClientNeedsService.searchTabList(tabSearchDTO);
         return Result.success(res);
     }
     /**
@@ -110,7 +114,7 @@ public class TabSearchController {
         tabSearchDTO.setModleList(modleList);
         tabSearchDTO.setPage(page);
         tabSearchDTO.setSize(size);
-        Page<TabSearchSalesOrderVO> res = salesOrderSubService.searchTabList(tabSearchDTO);
+        Page<TabSearchSalesOrderVO> res = tabSalesOrderService.searchTabList(tabSearchDTO);
         return Result.success(res);
     }
     /**
@@ -131,7 +135,7 @@ public class TabSearchController {
         tabSearchDTO.setModleList(modleList);
         tabSearchDTO.setPage(page);
         tabSearchDTO.setSize(size);
-        Page<TabSearchPurchaseOrderVO> res = purchaseOrderSubService.searchTabList(tabSearchDTO);
+        Page<TabSearchPurchaseOrderVO> res = tabPurchaseOrderService.searchTabList(tabSearchDTO);
         return Result.success(res);
     }
 }

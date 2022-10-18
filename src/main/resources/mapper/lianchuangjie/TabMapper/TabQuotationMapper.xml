@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lianchuangjie.lianchuangjie.mapper.TabMapper.TabQuotationMapper">
+    <select id="selectMyQuotationTabList" resultType="com.lianchuangjie.lianchuangjie.vo.Quotation.TabMyQuotationVO">
+        /*
+         * 1.采购报价页面-我的报价Tab
+         */
+        SELECT
+            T_ICIN1.U_QuoDate, /*采购报价时间*/
+            T_ICIN1.U_BaseEntry, /*询价单编号*/
+            T_ICIN1.U_CardName, /*供应商名称*/
+            T_ICIN1.U_CardCode, /*供应商代码*/
+            T_ICIN1.U_QuoGroupCode, /*供应商性质*/
+            T_ICIN1.U_QuoModle, /*报价型号*/
+            T_ICIN1.U_QuoBrand, /*报价品牌*/
+            T_ICIN1.U_QuoLevel, /*供应商等级*/
+            T_ICIN1.U_QuoCurr, /*报价货币*/
+            T_ICIN1.U_QuoQty, /*报价数量*/
+            T_ICIN1.U_QuoYear, /*报价批次*/
+            T_ICIN1.U_QuoPrice, /*供方报价*/
+            T_ICIN1.U_QuoDelivery, /*供方交期*/
+            T_ICIN1.U_QuoRemark, /*供方备注*/
+            T_ICIN1.U_Status, /*报价状态*/
+            ( T_ICIN1.U_QuoCurr + '+' + T_ICIN1.U_QuoVatGroup + '+' + CAST ( CAST ( T_OVTG.Rate AS FLOAT ) AS VARCHAR ) ) AS 'CurVat',
+            ( T_ICIN1.U_QuoCurr + N'（' + CAST ( CAST ( T_OVTG.Rate AS FLOAT ) AS VARCHAR ) ) + N'%）' AS 'CurVatLabel',
+            T_OUSI.UserName AS 'U_BuyerName',/*采购员姓名*/
+            T_OCDP.Name AS 'DftDeptName' /*采购部门名称*/
+        FROM T_ICIN1
+                 LEFT JOIN T_OUSI ON T_ICIN1.U_Buyer = T_OUSI.UserSign /*采购员信息*/
+                 LEFT JOIN T_OCDP ON T_OUSI.DftDept = T_OCDP.DeptCode /*公司部门*/
+                 LEFT JOIN T_OVTG ON T_OVTG.Code = T_ICIN1.U_QuoVatGroup /*税率*/
+            /*查询关联型号*/
+        WHERE T_ICIN1.U_QuoModle IN (
+            SELECT SDADA_1.sno
+            FROM SDADA SDADA_1
+            WHERE SDADA_1.TAG IN (
+                SELECT SDADA.TAG FROM SDADA WHERE SDADA.sno = #{sc.modle}
+            )
+        )
+          AND T_ICIN1.U_Buyer = #{sc.userSign} /*查询采购员*/
+          AND T_ICIN1.U_QuoDate IS NOT NULL
+    </select>
+    <select id="selectEnquiryTabList" resultType="com.lianchuangjie.lianchuangjie.vo.Enquiry.TabEnquiryQuotationVO">
+        SELECT
+        T_ICIN1.U_QuoDate, /*报价日期*/
+        T_ICIN1.U_Buyer, /*采购员编号*/
+        T_OUSI.UserName AS 'U_BuyerName', /*采购员姓名*/
+        T_OUSI.DftDept, /*采购部门编号*/
+        T_OCDP.Name AS 'DftDeptName', /*采购部门名称*/
+        T_ICIN1.U_QuoGroupCode, /*供应商性质*/
+        T_ICIN1.U_QuoLevel, /*供应商等级*/
+        U_ICIN1.Status, /*价格类型*/
+        T_ICIN1.U_QuoModle, /*报价型号*/
+        T_ICIN1.U_ECCN, /*ECCN*/
+        T_ICIN1.U_QuoBrand, /*报价品牌*/
+        T_ICIN1.U_QuoQty, /*报价数量*/
+        T_ICIN1.U_QuoCurr, /*采购报价货币*/
+        T_ICIN1.U_QuoPrice, /*单价*/
+        T_ICIN1.U_QuoVatGroup, /*税率代码*/
+        T_OVTG.Name AS 'U_QuoVatName', /*税率文本*/
+        T_OVTG.Rate AS 'U_QuoVatRate', /*税点*/
+        T_ICIN1.U_QuoDelivery AS 'U_QuoDelivery', /*供方交期*/
+        T_ICIN1.U_QuoExplain /*备注*/
+        FROM T_ICIN1
+        LEFT JOIN T_OUSI on T_ICIN1.U_Buyer = T_OUSI.UserSign
+        LEFT JOIN T_OCDP ON T_OUSI.DftDept = T_OCDP.DeptCode
+        LEFT JOIN U_ICIN1 ON T_ICIN1.U_BaseEntry = U_ICIN1.DocEntry AND T_ICIN1.U_BaseLine = U_ICIN1.LineNum
+        LEFT JOIN T_OVTG ON T_ICIN1.U_QuoVatGroup = T_OVTG.Code
+        WHERE T_ICIN1.Modle IN (
+        SELECT SDADA_1.sno
+        FROM SDADA SDADA_1
+        WHERE SDADA_1.TAG IN(
+        SELECT SDADA.TAG FROM SDADA WHERE SDADA.sno IN
+        <foreach collection="sc.modleList " item="item" open="(" separator="," close=")" index="index">
+            '${item}'
+        </foreach>
+        )
+        )
+    </select>
+    <select id="selectEffectiveTabList" resultType="com.lianchuangjie.lianchuangjie.vo.Quotation.TabEffectiveQuotationVO"
+            parameterType="com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO">
+        SELECT
+        T_ICIN1.*,
+        CASE WHEN T_ICIN1.U_Status = 'B' THEN N'采购报价' WHEN T_ICIN1.U_Status = 'E' THEN N'云汉报价' END AS 'ItemDescStatus',
+        T_OUSI.UserName AS 'U_BuyerName', /*采购员姓名*/
+        T_OCDP.Name AS 'DftDeptName' /*采购部门*/
+        FROM T_ICIN1
+        LEFT JOIN T_OUSI ON T_ICIN1.U_Buyer = T_OUSI.UserSign /*采购员信息*/
+        LEFT JOIN T_OCDP ON T_OUSI.DftDept = T_OCDP.DeptCode /*公司部门*/
+        WHERE T_ICIN1.Modle IN (
+        SELECT SDADA_1.sno
+        FROM SDADA SDADA_1
+        WHERE SDADA_1.TAG IN (
+        SELECT SDADA.TAG FROM SDADA WHERE SDADA.sno IN
+        <foreach collection="sc.modleList " item="item" open="(" separator="," close=")" index="index">
+            '${item}'
+        </foreach>
+        )
+        )
+        AND T_ICIN1.U_QuoDate IS NOT NULL
+    </select>
+    <select id="countEffectiveTabList" resultType="java.lang.Integer" parameterType="com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO">
+        SELECT COUNT(*)
+        FROM T_ICIN1
+        LEFT JOIN T_OUSI ON T_ICIN1.U_Buyer = T_OUSI.UserSign /*采购员信息*/
+        LEFT JOIN T_OCDP ON T_OUSI.DftDept = T_OCDP.DeptCode /*公司部门*/
+        WHERE T_ICIN1.Modle IN (
+        SELECT SDADA_1.sno
+        FROM SDADA SDADA_1
+        WHERE SDADA_1.TAG IN (
+        SELECT SDADA.TAG FROM SDADA WHERE SDADA.sno IN
+        <foreach collection="sc.modleList " item="item" open="(" separator="," close=")" index="index">
+            '${item}'
+        </foreach>
+        )
+        )
+        AND T_ICIN1.U_QuoDate IS NOT NULL
+    </select>
+    <select id="selectStockPriceTabList" resultType="com.lianchuangjie.lianchuangjie.vo.StockPrice.TabStockPriceQuoteVO">
+        SELECT
+        T.*,
+        T_OVTG.Rate AS 'U_QuoVatRate', /*税率*/
+        T_OUSI.UserName AS 'U_BuyerName', /*采购员姓名*/
+        T_OCDP.Name AS 'DftDeptName' /*采购部门名称*/
+        FROM (
+        SELECT
+        T_ICIN1.U_QuoDate, /*报价日期*/
+        T_ICIN1.U_QuoModle, /*报价型号*/
+        T_ICIN1.U_QuoBrand, /*报价品牌*/
+        T_ICIN1.U_SuoDelivery, /*供方交期*/
+        T_ICIN1.U_QuoGroupCode, /*供应商类型*/
+        T_ICIN1.U_QuoLevel, /*供应商等级*/
+        T_ICIN1.U_QuoQty, /*报价数量*/
+        T_ICIN1.U_QuoYear, /*报价批次*/
+        T_ICIN1.U_QuoCurr, /*报价货币*/
+        T_ICIN1.U_QuoPrice, /*供方报价*/
+        T_ICIN1.U_QuoDelivery, /*报价交期*/
+        T_ICIN1.U_Buyer, /*采购员*/
+        T_ICIN1.U_QuoVatGroup, /*税率*/
+        T_ICIN1.U_QuoExplain /*采购备注*/
+        FROM T_ICIN1
+        WHERE T_ICIN1.U_QuoPrice IS NOT NULL
+        UNION ALL
+        SELECT
+        U_ICIN11.U_QuoDate, /*报价日期*/
+        U_ICIN11.U_QuoModle, /*报价型号*/
+        U_ICIN11.U_QuoBrand, /*报价品牌*/
+        U_ICIN11.U_SuoDelivery, /*供方交期*/
+        U_ICIN11.U_QuoGroupCode, /*供应商类型*/
+        U_ICIN11.U_QuoLevel, /*供应商等级*/
+        U_ICIN11.U_QuoQty, /*报价数量*/
+        U_ICIN11.U_QuoYear, /*报价批次*/
+        U_ICIN11.U_QuoCurr, /*报价货币*/
+        U_ICIN11.U_QuoPrice, /*供方报价*/
+        U_ICIN11.U_QuoDelivery, /*报价交期*/
+        U_ICIN11.U_Buyer, /*采购员*/
+        U_ICIN11.U_QuoVatGroup, /*税率*/
+        U_ICIN11.U_QuoExplain /*采购备注*/
+        FROM U_ICIN11
+        WHERE U_ICIN11.U_QuoPrice IS NOT NULL
+        ) T
+        LEFT JOIN T_OUSI ON T_OUSI.UserSign = T.U_Buyer
+        LEFT JOIN T_OCDP ON T_OUSI.DftDept = T_OCDP.DeptCode
+        LEFT JOIN T_OVTG ON T_OVTG.Code = T.U_QuoVatGroup
+        WHERE T.U_QuoModle IN (
+        SELECT SDADA_1.sno
+        FROM SDADA SDADA_1
+        WHERE SDADA_1.TAG IN (
+        SELECT SDADA.TAG FROM SDADA WHERE SDADA.sno IN
+        <foreach collection="sc.modleList " item="item" open="(" separator="," close=")" index="index">
+            '${item}'
+        </foreach>
+        )
+        )
+    </select>
+    <select id="selectSearchTabList" resultType="com.lianchuangjie.lianchuangjie.vo.Search.TabSearchQuotationVO">
+        SELECT
+        T_ICIN1.U_QuoDate, /*报价日期*/
+        T_ICIN1.U_Buyer, /*采购员编号*/
+        T_OUSI.UserName AS 'U_BuyerName', /*采购员姓名*/
+        T_OUSI.DftDept, /*采购部门编号*/
+        T_OCDP.Name AS 'DftDeptName', /*采购部门名称*/
+        T_ICIN1.U_QuoGroupCode, /*供应商性质*/
+        T_ICIN1.U_QuoLevel, /*供应商等级*/
+        U_ICIN1.Status, /*价格类型*/
+        T_ICIN1.U_QuoModle, /*报价型号*/
+        T_ICIN1.U_ECCN, /*ECCN*/
+        T_ICIN1.U_QuoBrand, /*报价品牌*/
+        T_ICIN1.U_QuoQty, /*报价数量*/
+        T_ICIN1.U_QuoCurr, /*采购报价货币*/
+        T_ICIN1.U_QuoPrice, /*单价*/
+        T_ICIN1.U_QuoVatGroup, /*税率代码*/
+        T_OVTG.Name AS 'U_QuoVatName', /*税率文本*/
+        T_OVTG.Rate AS 'U_QuoVatRate', /*税点*/
+        T_ICIN1.U_QuoDelivery AS 'U_QuoDelivery', /*供方交期*/
+        T_ICIN1.U_QuoExplain /*备注*/
+        FROM T_ICIN1
+        LEFT JOIN T_OUSI on T_ICIN1.U_Buyer = T_OUSI.UserSign
+        LEFT JOIN T_OCDP ON T_OUSI.DftDept = T_OCDP.DeptCode
+        LEFT JOIN U_ICIN1 ON T_ICIN1.U_BaseEntry = U_ICIN1.DocEntry AND T_ICIN1.U_BaseLine = U_ICIN1.LineNum
+        LEFT JOIN T_OVTG ON T_ICIN1.U_QuoVatGroup = T_OVTG.Code
+        WHERE T_ICIN1.Modle IN (
+        SELECT SDADA_1.sno
+        FROM SDADA SDADA_1
+        WHERE SDADA_1.TAG IN(
+        SELECT SDADA.TAG FROM SDADA WHERE SDADA.sno IN
+        <foreach collection="sc.modleList " item="item" open="(" separator="," close=")" index="index">
+            '${item}'
+        </foreach>
+        )
+        )
+    </select>
+</mapper>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lianchuangjie.lianchuangjie.mapper.TabMapper.TabSdadaMapper">
+    <select id="selectQuotationSdadaTab" resultType="com.lianchuangjie.lianchuangjie.vo.Quotation.TabQuotationSdadaVO">
+        SELECT
+        SDADA_1.sno, /*型号*/
+        SDADA_1.QuoBrand, /*品牌*/
+        SDADA_1.package AS 'packages', /*封装*/
+        SDADA_1.packing, /*包装*/
+        SDADA_1.spq, /*SPQ*/
+        SDADA_1.datasheet, /*技术资料URL*/
+        SDADA_1.rohs, /*rohs*/
+        SDADA_1.msl_new, /*MSL-湿度等级*/
+        SDADA_1.ECCN, /*ECCN*/
+        SDADA_1.TAG, /*TAG*/
+        SDADA_1.type /*type*/
+        FROM SDADA SDADA_1
+        WHERE SDADA_1.TAG IN (
+        SELECT SDADA.TAG FROM SDADA WHERE SDADA.sno IN
+        <foreach collection="modleList " item="item" open="(" separator="," close=")" index="index">
+            '${item}'
+        </foreach>
+        )
+    </select>
+    <select id="selectSearchTabList" resultType="com.lianchuangjie.lianchuangjie.vo.Search.TabSearchSdadaVO">
+        SELECT
+        SDADA_1.sno, /*型号*/
+        SDADA_1.QuoBrand, /*品牌*/
+        SDADA_1.package AS 'packages', /*封装*/
+        SDADA_1.packing, /*包装*/
+        SDADA_1.spq, /*SPQ*/
+        SDADA_1.datasheet, /*技术资料URL*/
+        SDADA_1.rohs, /*rohs*/
+        SDADA_1.msl_new, /*MSL-湿度等级*/
+        SDADA_1.ECCN, /*ECCN*/
+        SDADA_1.TAG, /*TAG*/
+        SDADA_1.type /*type*/
+        FROM SDADA SDADA_1
+        WHERE SDADA_1.TAG IN (
+        SELECT SDADA.TAG FROM SDADA WHERE SDADA.sno IN
+        <foreach collection="modleList " item="item" open="(" separator="," close=")" index="index">
+            '${item}'
+        </foreach>
+        )
+    </select>
+</mapper>
+
+
+

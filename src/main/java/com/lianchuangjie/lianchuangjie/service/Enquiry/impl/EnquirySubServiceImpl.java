@@ -1,20 +1,14 @@
 package com.lianchuangjie.lianchuangjie.service.Enquiry.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lianchuangjie.lianchuangjie.dto.EnquirySaveItemDTO;
 import com.lianchuangjie.lianchuangjie.dto.search.EnquirySubSearchDTO;
-import com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.EnquirySubEntity;
 import com.lianchuangjie.lianchuangjie.mapper.EnquirySubMapper;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquirySubService;
 import com.lianchuangjie.lianchuangjie.vo.Enquiry.EnquirySubVO;
-import com.lianchuangjie.lianchuangjie.vo.Enquiry.TabEnquiryNeedsVO;
-import com.lianchuangjie.lianchuangjie.vo.Quotation.TabQuotationNeedsVO;
-import com.lianchuangjie.lianchuangjie.vo.StockPrice.TabStockPriceEnquiryVO;
-import com.lianchuangjie.lianchuangjie.vo.TabSearchNeedsVO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -63,59 +57,6 @@ public class EnquirySubServiceImpl extends ServiceImpl<EnquirySubMapper, Enquiry
     @Override
     public Boolean save(List<EnquirySaveItemDTO> enquirySubList) {
         return true;
-    }
-
-    /**
-     * @param searchCondition searchCondition
-     * @return Page
-     * @description 采购报价页面-客户需求TAB
-     * @author WANG Zeping
-     * @email zepingwong@gmail.com
-     * @date 8/20/2022
-     */
-    @Override
-    public Page<TabQuotationNeedsVO> quotationTabList(TabSearchDTO searchCondition) {
-        Page<TabQuotationNeedsVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
-        page.addOrder(OrderItem.desc("T_ICIN.InquiryDate"));
-        enquirySubMapper.selectQuotationTabList(page, searchCondition);
-        return page;
-    }
-
-    /**
-     * @param searchCondition searchCondition
-     * @return Page
-     * @description 销售报价页面-客户需求TAB
-     * @author WANG Zeping
-     * @email zepingwong@gmail.com
-     * @date 8/20/2022
-     */
-    @Override
-    public Page<TabEnquiryNeedsVO> enquiryTabList(TabSearchDTO searchCondition) {
-        Page<TabEnquiryNeedsVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
-        page.addOrder(OrderItem.desc("T_ICIN.InquiryDate"));
-        page.setOptimizeCountSql(false);
-        page.setSearchCount(false);
-        page.setRecords(enquirySubMapper.selectEnquiryTabList(searchCondition));
-        page.setTotal(enquirySubMapper.countEnquiryTabList(searchCondition));
-        return page;
-    }
-
-    @Override
-    public Page<TabSearchNeedsVO> searchTabList(TabSearchDTO searchCondition) {
-        Page<TabSearchNeedsVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
-        page.addOrder(OrderItem.desc("T_ICIN.InquiryDate"));
-        page.setOptimizeCountSql(false);
-        page.setSearchCount(false);
-        page.setRecords(enquirySubMapper.selectSearchTabList(searchCondition));
-        page.setTotal(enquirySubMapper.countEnquiryTabList(searchCondition));
-        return page;
-    }
-
-    @Override
-    public Page<TabStockPriceEnquiryVO> stockTabList(TabSearchDTO searchCondition) {
-        Page<TabStockPriceEnquiryVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
-        enquirySubMapper.selectStockPriceTabList(page, searchCondition);
-        return page;
     }
 
     @Override

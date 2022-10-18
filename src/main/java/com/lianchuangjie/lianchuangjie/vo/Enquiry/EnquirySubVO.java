@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.Date;
 
 @Data
@@ -65,24 +64,15 @@ public class EnquirySubVO {
     // 报价单内部行号
     @JsonProperty("BaseLine")
     private Long baseLine;
-    // 供方报价
-    @JsonProperty("U_QuoPrice")
-    private BigDecimal uQuoPrice;
     // 供应商等级 T_ICIN1.U_QuoLevel
     @JsonProperty("U_QuoLevel")
     private String uQuoLevel;
-    // 质检标准 T_ICIN1.U_QCDesc
-    @JsonProperty("U_QCDesc")
-    private String uQCDesc;
     // 采购部门名称/货源 T_OCDP.Name
     @JsonProperty("DeptName")
     private String deptName;
     // 引用采购报价的采购员姓名 T_OUSI.UserName
     @JsonProperty("BuyerName")
     private String buyerName;
-    // 用采购报价的采购员编号 T_ICIN1.U_Buyer
-    @JsonProperty("U_Buyer")
-    private Long uBuyer;
     // 询价状态名称 U_ICIN1.ItemDescStatus
     @JsonProperty("ItemDescStatus")
     private String itemDescStatus;
@@ -121,61 +111,10 @@ public class EnquirySubVO {
     // QuoState 是否询价
     @JsonProperty("QuoState")
     private String quoState;
-    // ExchangeRate
-    @JsonProperty("ExchangeRate")
-    private BigDecimal exchangeRate;
-
-    /**
-     * 智能报价算法
-     */
-    // 客户代码
-    @JsonProperty("CardCode")
-    private String cardCode;
-    // U_CusGroupCode
-    @JsonProperty("U_CusGroupCode")
-    private String uCusGroupCode;
-    @JsonProperty("U_DomainName")
-    private String uDomainName;
-    @JsonProperty("U_Region")
-    private String uRegion;
-    // 成单率
-    @JsonProperty("TransactionRate")
-    private BigDecimal transactionRate;
-    public BigDecimal getTransactionRate() {
-        if (transactionRate != null) {
-            return transactionRate.setScale(2, RoundingMode.HALF_UP).multiply(BigDecimal.valueOf(100));
-        } else {
-            return null;
-        }
-    }
-    // 最低利润率
-    @JsonProperty("MinProfitMargin")
-    private BigDecimal minProfitMargin;
-    // 利润率
-    @JsonProperty("ProfitMargin")
-    private BigDecimal profitMargin;
-    // 推荐报价 RecoPrice
-    @JsonProperty("RecoPrice")
-    private BigDecimal recoPrice;
-    public BigDecimal getRecoPrice() {
-        if (profitMargin != null & uQuoPrice != null & exchangeRate != null) {
-            return uQuoPrice.multiply(profitMargin).add(uQuoPrice).multiply(exchangeRate).setScale(2, RoundingMode.HALF_UP); // 汇率转换
-        } else {
-            return null;
-        }
-    }
-    // 最低报价 MinQuoPrice
-    @JsonProperty("MinQuoPrice")
-    private BigDecimal minQuoPrice;
-    public BigDecimal getMinQuoPrice() {
-        if (minProfitMargin != null & uQuoPrice != null) {
-            return uQuoPrice.multiply(minProfitMargin).add(uQuoPrice).multiply(exchangeRate).setScale(2, RoundingMode.HALF_UP); // 汇率转换
-        } else {
-            return null;
-        }
-    }
-    @JsonProperty("ItemEntry")
-    private Long itemEntry;
-    @JsonProperty("ItemLine")
-    private Long itemLine;
+    // U_QCDesc 质检标准
+    @JsonProperty("U_QCDesc")
+    private String uQCDesc;
+    // 货源属性
+    @JsonProperty("Resource")
+    private String resource;
 }

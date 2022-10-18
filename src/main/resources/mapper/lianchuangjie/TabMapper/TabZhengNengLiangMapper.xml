@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lianchuangjie.lianchuangjie.mapper.TabMapper.TabZhengNengLiangMapper">
+    <select id="selectStockPriceTabList" resultType="com.lianchuangjie.lianchuangjie.vo.StockPrice.TabStockPriceZNLVO">
+        SELECT U_OZNL.CreateDate, /*创建时间*/
+               U_ZNL1.Brand, /*品牌*/
+               U_ZNL1.ItemName, /*型号*/
+               U_ZNL1.Series, /*价值排名*/
+               U_ZNL1.SEOQty, /*搜索次数（30天内）*/
+               U_ZNL1.SEOCompany, /*搜索公司（30天内）*/
+               U_ZNL1.PriceQty, /*云价格条数（30天内）*/
+               U_ZNL1.PriceCompany, /*云价格记录（30天内）*/
+               U_ZNL1.OnHandQty, /*现货家数*/
+               U_ZNL1.OnHand /*现货库存*/
+        FROM U_ZNL1
+                 LEFT JOIN U_OZNL ON U_OZNL.DocEntry = U_ZNL1.DocEntry
+        WHERE U_ZNL1.ItemName IN (SELECT SDADA_1.sno
+                                  FROM SDADA SDADA_1
+                                  WHERE SDADA_1.TAG IN (SELECT SDADA.TAG
+                                                        FROM SDADA
+                                                        WHERE SDADA.sno = #{sc.modle}))
+        ORDER BY U_OZNL.CreateDate DESC
+    </select>
+</mapper>

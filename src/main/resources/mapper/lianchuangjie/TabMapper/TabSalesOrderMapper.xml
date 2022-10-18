@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lianchuangjie.lianchuangjie.mapper.TabMapper.TabSalesOrderMapper">
+    <select id="selectQuotationTabList"
+            resultType="com.lianchuangjie.lianchuangjie.vo.Quotation.TabQuotationSalesOrderVO">
+        SELECT
+        T_ORDR.DocDate, /*订单日期*/
+        T_ICIN.U_UserName, /*销售员*/
+        T_ICIN.U_DeptName, /*销售部门名称*/
+        T_ICIN.U_CusGroupCode, /*客户类型*/
+        T_ICIN.U_CusLevel, /*客户等级*/
+        T_ICIN.U_DomainName, /*客户行业*/
+        U_ICIN1.Secrecy, /*是否保密*/
+        U_ICIN1.QuoModle, /*型号*/
+        U_ICIN1.QuoBrand, /*品牌*/
+        U_ICIN1.SuoYear, /*批次*/
+        T_ORDR1.Quantity, /*订单数量*/
+        T_ORDR1.OpenQty, /*未交数量*/
+        T_ORDR1.U_ECCN, /*ECCN*/
+        T_ORDR1.U_Currency, /*币种*/
+        T_ORDR1.U_VatGroup, /*税率*/
+        T_ORDR1.U_PriceAfVAT, /*单价*/
+        T_ORDR1.ShipDate, /*交货日期*/
+        T_ORDR1.U_Remark /*备注*/
+        FROM T_ORDR1
+        LEFT JOIN T_ORDR ON T_ORDR.DocEntry = T_ORDR1.DocEntry
+        LEFT JOIN T_ICIN ON T_ORDR1.U_BaseEntry = T_ICIN.DocEntry
+        LEFT JOIN U_ICIN1 ON T_ORDR1.U_BaseEntry = U_ICIN1.DocEntry AND T_ORDR1.U_BaseLine = U_ICIN1.LineNum
+        WHERE T_ORDR1.Dscription IN (
+        SELECT SDADA_1.sno
+        FROM SDADA SDADA_1
+        WHERE SDADA_1.TAG IN (
+        SELECT SDADA.TAG
+        FROM SDADA
+        WHERE SDADA.sno IN
+        <foreach collection="sc.modleList " item="item" open="(" separator="," close=")" index="index">'${item}'
+        </foreach>
+        )
+        )
+    </select>
+    <select id="selectEnquiryTabList" resultType="com.lianchuangjie.lianchuangjie.vo.Enquiry.TabEnquirySalesOrderVO">
+        DECLARE @UserSign BIGINT
+        DECLARE @DataPur NVARCHAR(10) /*All/Dept/self*/
+        DECLARE @BaseFormID BIGINT /*视图编号*/
+        DECLARE @IsSale VARCHAR(1)
+        DECLARE @PageSize INT
+        DECLARE @CurrentPage INT
+        SET @PageSize = ${sc.getSize} /*每页显示数量*/
+        SET @CurrentPage = ${sc.getPage} /*当前页码*/
+        SET @UserSign = ${sc.getUserSign}
+        SELECT TOP (1) @BaseFormID = TransType FROM T_ORDR WHERE TransType IS NOT NULL; /*单据类型*/
+        SELECT @IsSale = U_IsSale FROM T_OUSI WHERE UserSign = @UserSign; /*判断当前用户是否为销售员*/
+        SELECT @DataPur = [dbo].[UF_DataPurview](@UserSign, @BaseFormID); /*判断权限*/
+        SELECT TOP (@PageSize) *
+        FROM (
+        SELECT
+        ROW_NUMBER() OVER (ORDER BY T.DocDate DESC) AS ROWNUMBER,
+        T.*
+        FROM (
+        /*权限内全部订单*/
+        SELECT
+        T_ORDR.DocDate, /*订单日期*/
+        T_OUSI.UserName, /*销售员姓名*/
+        T_OCDP.Name AS 'DeptName', /*销售部门*/
+        T_ORDR.CardName, /*客户名称*/
+        T_ORDR.U_GroupCode, /*客户类型*/
+        T_ORDR.U_CusLevel, /*客户等级*/
+        T_ORDR.U_Industries, /*客户行业*/
+        T_ORDR1.U_Secrecy, /*是否保密*/
+        T_ORDR1.Dscription, /*型号*/
+        T_ORDR1.U_Brand, /*品牌*/
+        T_ORDR1.U_Batch, /*批次*/
+        T_ORDR1.Quantity, /*订单数量*/
+        T_ORDR1.OpenQty, /*未交数量*/
+        T_ORDR1.U_ECCN, /*ECCN*/
+        T_ORDR.DocCur, /*币种*/
+        T_OVTG.Name AS 'U_VatName', /*税率*/
+        T_ORDR1.U_PriceAfVAT, /*成交价*/
+        T_ORDR1.ShipDate, /*交货日期*/
+        T_ORDR1.U_Remark /*备注*/
+        FROM T_ORDR1
+        LEFT JOIN T_ORDR ON T_ORDR1.DocEntry = T_ORDR.DocEntry
+        LEFT JOIN T_OCRD2 ON T_ORDR.CardCode = T_OCRD2.CardCode AND T_OCRD2.OptUser = @UserSign
+        /*客户共享用户：比如说**销售员的客户共享给**销售助理，由销售助理跟进该客户的订单及发货*/
+        LEFT JOIN (SELECT DeptCode FROM T_OUDL WHERE UserSign = @UserSign) T2 ON T_ORDR.DeptCode = T2.DeptCode
+        /*关联当前用户的所属部门*/
+        LEFT JOIN T_OUSI ON T_OUSI.UserSign = T_ORDR.UserSign
+        LEFT JOIN T_OCDP ON T_ORDR.DeptCode = T_OCDP.DeptCode
+        LEFT JOIN T_OVTG ON T_ORDR1.U_VatGroup = T_OVTG.Code
+        WHERE (
+        @DataPur = 'ALL' /*看所有*/
+        OR T_ORDR.OwnerCode = @UserSign /*T0.OwnerCode销售员字段，仅看自己*/
+        OR T_ORDR.UserSign = @UserSign /*T0.UserSign制单人字段，仅看自己*/
+        OR (@DataPur = 'Dept' AND ISNULL(T2.DeptCode, '') != '') /*判断是否属于本部门，看本部门数据*/
+        OR (@IsSale = 'N' AND ISNULL(T_OCRD2.OptUser, 0) > 0) /*此权限作用于：判断为非销售员（一般为销售助理），且客户共享给了当前用户*/
+        )
+        AND T_ORDR1.LineStatus != 'Q' /*非取消状态*/
+        /*权限外-保密订单*/
+        UNION ALL
+        SELECT
+        T_ORDR.DocDate, /*订单日期*/
+        T_OUSI.UserName, /*销售员姓名*/
+        T_OCDP.Name AS 'DeptName', /*销售部门*/
+        '******' AS 'CardName', /*客户名称*/
+        T_ORDR.U_GroupCode, /*客户类型*/
+        T_ORDR.U_CusLevel, /*客户等级*/
+        T_ORDR.U_Industries, /*客户行业*/
+        T_ORDR1.U_Secrecy, /*是否保密*/
+        T_ORDR1.Dscription, /*型号*/
+        T_ORDR1.U_Brand, /*品牌*/
+        T_ORDR1.U_Batch, /*批次*/
+        T_ORDR1.Quantity, /*订单数量*/
+        T_ORDR1.OpenQty, /*未交数量*/
+        T_ORDR1.U_ECCN, /*ECCN*/
+        T_ORDR.DocCur, /*币种*/
+        T_OVTG.Name AS 'U_VatName', /*税率*/
+        T_ORDR1.U_PriceAfVAT, /*成交价*/
+        T_ORDR1.ShipDate, /*交货日期*/
+        T_ORDR1.U_Remark /*备注*/
+        FROM T_ORDR1
+        LEFT JOIN T_ORDR ON T_ORDR1.DocEntry = T_ORDR.DocEntry
+        LEFT JOIN T_OCRD2 ON T_ORDR.CardCode = T_OCRD2.CardCode AND T_OCRD2.OptUser = @UserSign
+        /*客户共享用户：比如说**销售员的客户共享给**销售助理，由销售助理跟进该客户的订单及发货*/
+        LEFT JOIN (SELECT DeptCode FROM T_OUDL WHERE UserSign = @UserSign) T2 ON T_ORDR.DeptCode = T2.DeptCode
+        /*关联当前用户的所属部门*/
+        LEFT JOIN T_OUSI ON T_OUSI.UserSign = T_ORDR.UserSign
+        LEFT JOIN T_OCDP ON T_ORDR.DeptCode = T_OCDP.DeptCode
+        LEFT JOIN T_OVTG ON T_ORDR1.U_VatGroup = T_OVTG.Code
+        WHERE T_ORDR1.LineStatus != 'Q' /*非取消状态*/
+        AND T_ORDR1.U_Secrecy = 'N'
+        AND T_ORDR1.DocEntry NOT IN (
+        SELECT T_ORDR.DocEntry
+        FROM T_ORDR
+        WHERE (
+        @DataPur = 'ALL' /*看所有*/
+        OR T_ORDR.OwnerCode =
+        @UserSign /*T0.OwnerCode销售员字段，仅看自己*/
+        OR T_ORDR.UserSign =
+        @UserSign /*T0.UserSign制单人字段，仅看自己*/
+        OR (@DataPur = 'Dept' AND ISNULL(T2.DeptCode, '') != '') /*判断是否属于本部门，看本部门数据*/
+        OR (@IsSale = 'N' AND ISNULL(T_OCRD2.OptUser, 0) > 0) /*此权限作用于：判断为非销售员（一般为销售助理），且客户共享给了当前用户*/
+        )
+        )
+        /*权限外-保密且未完成订单*/
+        UNION ALL
+        SELECT
+        null AS DocDate, /*订单日期*/
+        T_OUSI.UserName, /*销售员姓名*/
+        T_OCDP.Name AS 'DeptName', /*销售部门*/
+        null AS CardName, /*客户名称*/
+        null AS U_GroupCode, /*客户类型*/
+        null AS U_CusLevel, /*客户等级*/
+        null AS U_Industries, /*客户行业*/
+        T_ORDR1.U_Secrecy, /*是否保密*/
+        T_ORDR1.Dscription, /*型号*/
+        T_ORDR1.U_Brand, /*品牌*/
+        null AS U_Batch, /*批次*/
+        null AS Quantity, /*订单数量*/
+        null AS OpenQty, /*未交数量*/
+        null AS U_ECCN, /*ECCN*/
+        null AS DocCur, /*币种*/
+        null AS 'U_VatName', /*税率*/
+        null AS U_PriceAfVAT, /*成交价*/
+        null AS ShipDate, /*交货日期*/
+        null AS U_Remark /*备注*/
+        FROM T_ORDR1
+        LEFT JOIN T_ORDR ON T_ORDR1.DocEntry = T_ORDR.DocEntry
+        LEFT JOIN T_OCRD2 ON T_ORDR.CardCode = T_OCRD2.CardCode AND T_OCRD2.OptUser = @UserSign
+        /*客户共享用户：比如说**销售员的客户共享给**销售助理，由销售助理跟进该客户的订单及发货*/
+        LEFT JOIN (SELECT DeptCode FROM T_OUDL WHERE UserSign = @UserSign) T2 ON T_ORDR.DeptCode = T2.DeptCode
+        /*关联当前用户的所属部门*/
+        LEFT JOIN T_OUSI ON T_OUSI.UserSign = T_ORDR.UserSign
+        LEFT JOIN T_OCDP ON T_ORDR.DeptCode = T_OCDP.DeptCode
+        LEFT JOIN T_OVTG ON T_ORDR1.U_VatGroup = T_OVTG.Code
+        WHERE
+        T_ORDR1.LineStatus != 'Q' /*非取消状态*/
+        AND T_ORDR1.U_Secrecy = 'N'
+        AND T_ORDR1.DocEntry NOT IN (
+        SELECT T_ORDR.DocEntry
+        FROM T_ORDR
+        WHERE (
+        @DataPur = 'ALL' /*看所有*/
+        OR T_ORDR.OwnerCode = @UserSign /*T0.OwnerCode销售员字段，仅看自己*/
+        OR T_ORDR.UserSign = @UserSign /*T0.UserSign制单人字段，仅看自己*/
+        OR (@DataPur = 'Dept' AND ISNULL(T2.DeptCode, '') != '') /*判断是否属于本部门，看本部门数据*/
+        OR (@IsSale = 'N' AND ISNULL(T_OCRD2.OptUser, 0) > 0) /*此权限作用于：判断为非销售员（一般为销售助理），且客户共享给了当前用户*/
+        )
+        )
+        ) T
+        WHERE T.Dscription IN (
+        SELECT SDADA_1.sno
+        FROM SDADA SDADA_1
+        WHERE SDADA_1.TAG IN (
+        SELECT SDADA.TAG
+        FROM SDADA
+        WHERE SDADA.sno IN
+        <foreach collection="sc.modleList " item="item" open="(" separator="," close=")" index="index">'${item}'
+        </foreach>
+        )
+        )
+        ) TT
+        WHERE TT.ROWNUMBER > (@CurrentPage - 1) * @PageSize
+        ORDER BY TT.DocDate DESC
+    </select>
+    <select id="countEnquiryTabList" resultType="java.lang.Integer">
+        DECLARE @UserSign BIGINT
+        DECLARE @DataPur NVARCHAR(10) /*All/Dept/self*/
+        DECLARE @BaseFormID BIGINT /*视图编号*/
+        DECLARE @IsSale VARCHAR(1)
+        SET @UserSign = ${sc.getUserSign}
+        SELECT TOP (1) @BaseFormID = TransType FROM T_ORDR WHERE TransType IS NOT NULL; /*单据类型*/
+        SELECT @IsSale = U_IsSale FROM T_OUSI WHERE UserSign = @UserSign; /*判断当前用户是否为销售员*/
+        SELECT @DataPur = [dbo].[UF_DataPurview](@UserSign, @BaseFormID); /*判断权限*/
+        SELECT COUNT(*)
+        FROM (
+        /*权限内全部订单*/
+        SELECT T_ORDR1.*
+        FROM T_ORDR1
+        LEFT JOIN T_ORDR ON T_ORDR1.DocEntry = T_ORDR.DocEntry
+        LEFT JOIN T_OCRD2 ON T_ORDR.CardCode = T_OCRD2.CardCode AND T_OCRD2.OptUser = @UserSign
+        /*客户共享用户：比如说**销售员的客户共享给**销售助理，由销售助理跟进该客户的订单及发货*/
+        LEFT JOIN (SELECT DeptCode FROM T_OUDL WHERE UserSign = @UserSign) T2 ON T_ORDR.DeptCode = T2.DeptCode
+        /*关联当前用户的所属部门*/
+        LEFT JOIN T_OUSI ON T_OUSI.UserSign = T_ORDR.UserSign
+        LEFT JOIN T_OCDP ON T_ORDR.DeptCode = T_OCDP.DeptCode
+        LEFT JOIN T_OVTG ON T_ORDR1.U_VatGroup = T_OVTG.Code
+        WHERE (
+        @DataPur = 'ALL' /*看所有*/
+        OR T_ORDR.OwnerCode = @UserSign /*T0.OwnerCode销售员字段，仅看自己*/
+        OR T_ORDR.UserSign = @UserSign /*T0.UserSign制单人字段，仅看自己*/
+        OR (@DataPur = 'Dept' AND ISNULL(T2.DeptCode, '') != '') /*判断是否属于本部门，看本部门数据*/
+        OR (@IsSale = 'N' AND ISNULL(T_OCRD2.OptUser, 0) > 0) /*此权限作用于：判断为非销售员（一般为销售助理），且客户共享给了当前用户*/
+        )
+        AND T_ORDR1.LineStatus != 'Q' /*非取消状态*/
+        /*权限外-保密订单*/
+        UNION ALL
+        SELECT T_ORDR1.*
+        FROM T_ORDR1
+        LEFT JOIN T_ORDR ON T_ORDR1.DocEntry = T_ORDR.DocEntry
+        LEFT JOIN T_OCRD2 ON T_ORDR.CardCode = T_OCRD2.CardCode AND T_OCRD2.OptUser = @UserSign
+        /*客户共享用户：比如说**销售员的客户共享给**销售助理，由销售助理跟进该客户的订单及发货*/
+        LEFT JOIN (SELECT DeptCode FROM T_OUDL WHERE UserSign = @UserSign) T2 ON T_ORDR.DeptCode = T2.DeptCode
+        /*关联当前用户的所属部门*/
+        LEFT JOIN T_OUSI ON T_OUSI.UserSign = T_ORDR.UserSign
+        LEFT JOIN T_OCDP ON T_ORDR.DeptCode = T_OCDP.DeptCode
+        LEFT JOIN T_OVTG ON T_ORDR1.U_VatGroup = T_OVTG.Code
+        WHERE T_ORDR1.LineStatus != 'Q' /*非取消状态*/
+        AND T_ORDR1.U_Secrecy = 'N'
+        AND T_ORDR1.DocEntry NOT IN (
+        SELECT T_ORDR.DocEntry
+        FROM T_ORDR
+        WHERE (
+        @DataPur = 'ALL' /*看所有*/
+        OR T_ORDR.OwnerCode = @UserSign /*T0.OwnerCode销售员字段，仅看自己*/
+        OR T_ORDR.UserSign = @UserSign /*T0.UserSign制单人字段，仅看自己*/
+        OR (@DataPur = 'Dept' AND ISNULL(T2.DeptCode, '') != '') /*判断是否属于本部门，看本部门数据*/
+        OR (@IsSale = 'N' AND ISNULL(T_OCRD2.OptUser, 0) > 0) /*此权限作用于：判断为非销售员（一般为销售助理），且客户共享给了当前用户*/
+        )
+        )
+        /*权限外-保密且未完成订单*/
+        UNION ALL
+        SELECT T_ORDR1.*
+        FROM T_ORDR1
+        LEFT JOIN T_ORDR ON T_ORDR1.DocEntry = T_ORDR.DocEntry
+        LEFT JOIN T_OCRD2 ON T_ORDR.CardCode = T_OCRD2.CardCode AND T_OCRD2.OptUser = @UserSign
+        /*客户共享用户：比如说**销售员的客户共享给**销售助理，由销售助理跟进该客户的订单及发货*/
+        LEFT JOIN (SELECT DeptCode FROM T_OUDL WHERE UserSign = @UserSign) T2 ON T_ORDR.DeptCode = T2.DeptCode
+        /*关联当前用户的所属部门*/
+        LEFT JOIN T_OUSI ON T_OUSI.UserSign = T_ORDR.UserSign
+        LEFT JOIN T_OCDP ON T_ORDR.DeptCode = T_OCDP.DeptCode
+        LEFT JOIN T_OVTG ON T_ORDR1.U_VatGroup = T_OVTG.Code
+        WHERE T_ORDR1.LineStatus != 'Q' /*非取消状态*/
+        AND T_ORDR1.U_Secrecy = 'N'
+        AND T_ORDR1.DocEntry NOT IN (
+        SELECT T_ORDR.DocEntry
+        FROM T_ORDR
+        WHERE (
+        @DataPur = 'ALL' /*看所有*/
+        OR T_ORDR.OwnerCode = @UserSign /*T0.OwnerCode销售员字段，仅看自己*/
+        OR T_ORDR.UserSign = @UserSign /*T0.UserSign制单人字段，仅看自己*/
+        OR (@DataPur = 'Dept' AND ISNULL(T2.DeptCode, '') != '') /*判断是否属于本部门，看本部门数据*/
+        OR (@IsSale = 'N' AND ISNULL(T_OCRD2.OptUser, 0) > 0) /*此权限作用于：判断为非销售员（一般为销售助理），且客户共享给了当前用户*/
+        )
+        )
+        ) T
+        WHERE T.Dscription IN (
+        SELECT SDADA_1.sno
+        FROM SDADA SDADA_1
+        WHERE SDADA_1.TAG IN (
+        SELECT SDADA.TAG
+        FROM SDADA
+        WHERE SDADA.sno IN
+        <foreach collection="sc.modleList " item="item" open="(" separator="," close=")" index="index">'${item}'
+        </foreach>
+        )
+        )
+    </select>
+    <select id="existByCardName" resultType="java.lang.Boolean" parameterType="java.lang.String">
+        IF (SELECT COUNT(*)
+            FROM T_ORDR
+            WHERE CardName = #{CardName}) > 0
+            SELECT 1
+        ELSE
+            SELECT 0
+    </select>
+    <select id="selectSearchTabList" resultType="com.lianchuangjie.lianchuangjie.vo.Search.TabSearchSalesOrderVO">
+        DECLARE @UserSign BIGINT
+        DECLARE @DataPur NVARCHAR(10) /*All/Dept/self*/
+        DECLARE @BaseFormID BIGINT /*视图编号*/
+        DECLARE @IsSale VARCHAR(1)
+        DECLARE @PageSize INT
+        DECLARE @CurrentPage INT
+        SET @PageSize = ${sc.getSize} /*每页显示数量*/
+        SET @CurrentPage = ${sc.getPage} /*当前页码*/
+        SET @UserSign = ${sc.getUserSign}
+        SELECT TOP (1) @BaseFormID = TransType FROM T_ORDR WHERE TransType IS NOT NULL; /*单据类型*/
+        SELECT @IsSale = U_IsSale FROM T_OUSI WHERE UserSign = @UserSign; /*判断当前用户是否为销售员*/
+        SELECT @DataPur = [dbo].[UF_DataPurview](@UserSign, @BaseFormID); /*判断权限*/
+        SELECT TOP (@PageSize) *
+        FROM (
+        SELECT
+        ROW_NUMBER() OVER (ORDER BY T.DocDate DESC) AS ROWNUMBER,
+        T.*
+        FROM (
+        /*权限内全部订单*/
+        SELECT
+        T_ORDR.DocDate, /*订单日期*/
+        T_OUSI.UserName, /*销售员姓名*/
+        T_OCDP.Name AS 'DeptName', /*销售部门*/
+        T_ORDR.CardName, /*客户名称*/
+        T_ORDR.U_GroupCode, /*客户类型*/
+        T_ORDR.U_CusLevel, /*客户等级*/
+        T_ORDR.U_Industries, /*客户行业*/
+        T_ORDR1.U_Secrecy, /*是否保密*/
+        T_ORDR1.Dscription, /*型号*/
+        T_ORDR1.U_Brand, /*品牌*/
+        T_ORDR1.U_Batch, /*批次*/
+        T_ORDR1.Quantity, /*订单数量*/
+        T_ORDR1.OpenQty, /*未交数量*/
+        T_ORDR1.U_ECCN, /*ECCN*/
+        T_ORDR.DocCur, /*币种*/
+        T_OVTG.Name AS 'U_VatName', /*税率*/
+        T_ORDR1.U_PriceAfVAT, /*成交价*/
+        T_ORDR1.ShipDate, /*交货日期*/
+        T_ORDR1.U_Remark /*备注*/
+        FROM T_ORDR1
+        LEFT JOIN T_ORDR ON T_ORDR1.DocEntry = T_ORDR.DocEntry
+        LEFT JOIN T_OCRD2 ON T_ORDR.CardCode = T_OCRD2.CardCode AND T_OCRD2.OptUser = @UserSign
+        /*客户共享用户：比如说**销售员的客户共享给**销售助理，由销售助理跟进该客户的订单及发货*/
+        LEFT JOIN (SELECT DeptCode FROM T_OUDL WHERE UserSign = @UserSign) T2 ON T_ORDR.DeptCode = T2.DeptCode
+        /*关联当前用户的所属部门*/
+        LEFT JOIN T_OUSI ON T_OUSI.UserSign = T_ORDR.UserSign
+        LEFT JOIN T_OCDP ON T_ORDR.DeptCode = T_OCDP.DeptCode
+        LEFT JOIN T_OVTG ON T_ORDR1.U_VatGroup = T_OVTG.Code
+        WHERE (
+        @DataPur = 'ALL' /*看所有*/
+        OR T_ORDR.OwnerCode = @UserSign /*T0.OwnerCode销售员字段，仅看自己*/
+        OR T_ORDR.UserSign = @UserSign /*T0.UserSign制单人字段，仅看自己*/
+        OR (@DataPur = 'Dept' AND ISNULL(T2.DeptCode, '') != '') /*判断是否属于本部门，看本部门数据*/
+        OR (@IsSale = 'N' AND ISNULL(T_OCRD2.OptUser, 0) > 0) /*此权限作用于：判断为非销售员（一般为销售助理），且客户共享给了当前用户*/
+        )
+        AND T_ORDR1.LineStatus != 'Q' /*非取消状态*/
+        /*权限外-保密订单*/
+        UNION ALL
+        SELECT
+        T_ORDR.DocDate, /*订单日期*/
+        T_OUSI.UserName, /*销售员姓名*/
+        T_OCDP.Name AS 'DeptName', /*销售部门*/
+        '******' AS 'CardName', /*客户名称*/
+        T_ORDR.U_GroupCode, /*客户类型*/
+        T_ORDR.U_CusLevel, /*客户等级*/
+        T_ORDR.U_Industries, /*客户行业*/
+        T_ORDR1.U_Secrecy, /*是否保密*/
+        T_ORDR1.Dscription, /*型号*/
+        T_ORDR1.U_Brand, /*品牌*/
+        T_ORDR1.U_Batch, /*批次*/
+        T_ORDR1.Quantity, /*订单数量*/
+        T_ORDR1.OpenQty, /*未交数量*/
+        T_ORDR1.U_ECCN, /*ECCN*/
+        T_ORDR.DocCur, /*币种*/
+        T_OVTG.Name AS 'U_VatName', /*税率*/
+        T_ORDR1.U_PriceAfVAT, /*成交价*/
+        T_ORDR1.ShipDate, /*交货日期*/
+        T_ORDR1.U_Remark /*备注*/
+        FROM T_ORDR1
+        LEFT JOIN T_ORDR ON T_ORDR1.DocEntry = T_ORDR.DocEntry
+        LEFT JOIN T_OCRD2 ON T_ORDR.CardCode = T_OCRD2.CardCode AND T_OCRD2.OptUser = @UserSign
+        /*客户共享用户：比如说**销售员的客户共享给**销售助理，由销售助理跟进该客户的订单及发货*/
+        LEFT JOIN (SELECT DeptCode FROM T_OUDL WHERE UserSign = @UserSign) T2 ON T_ORDR.DeptCode = T2.DeptCode
+        /*关联当前用户的所属部门*/
+        LEFT JOIN T_OUSI ON T_OUSI.UserSign = T_ORDR.UserSign
+        LEFT JOIN T_OCDP ON T_ORDR.DeptCode = T_OCDP.DeptCode
+        LEFT JOIN T_OVTG ON T_ORDR1.U_VatGroup = T_OVTG.Code
+        WHERE T_ORDR1.LineStatus != 'Q' /*非取消状态*/
+        AND T_ORDR1.U_Secrecy = 'N'
+        AND T_ORDR1.DocEntry NOT IN (
+        SELECT T_ORDR.DocEntry
+        FROM T_ORDR
+        WHERE (
+        @DataPur = 'ALL' /*看所有*/
+        OR T_ORDR.OwnerCode =
+        @UserSign /*T0.OwnerCode销售员字段，仅看自己*/
+        OR T_ORDR.UserSign =
+        @UserSign /*T0.UserSign制单人字段，仅看自己*/
+        OR (@DataPur = 'Dept' AND ISNULL(T2.DeptCode, '') != '') /*判断是否属于本部门，看本部门数据*/
+        OR (@IsSale = 'N' AND ISNULL(T_OCRD2.OptUser, 0) > 0) /*此权限作用于：判断为非销售员（一般为销售助理），且客户共享给了当前用户*/
+        )
+        )
+        /*权限外-保密且未完成订单*/
+        UNION ALL
+        SELECT
+        null AS DocDate, /*订单日期*/
+        T_OUSI.UserName, /*销售员姓名*/
+        T_OCDP.Name AS 'DeptName', /*销售部门*/
+        null AS CardName, /*客户名称*/
+        null AS U_GroupCode, /*客户类型*/
+        null AS U_CusLevel, /*客户等级*/
+        null AS U_Industries, /*客户行业*/
+        T_ORDR1.U_Secrecy, /*是否保密*/
+        T_ORDR1.Dscription, /*型号*/
+        T_ORDR1.U_Brand, /*品牌*/
+        null AS U_Batch, /*批次*/
+        null AS Quantity, /*订单数量*/
+        null AS OpenQty, /*未交数量*/
+        null AS U_ECCN, /*ECCN*/
+        null AS DocCur, /*币种*/
+        null AS 'U_VatName', /*税率*/
+        null AS U_PriceAfVAT, /*成交价*/
+        null AS ShipDate, /*交货日期*/
+        null AS U_Remark /*备注*/
+        FROM T_ORDR1
+        LEFT JOIN T_ORDR ON T_ORDR1.DocEntry = T_ORDR.DocEntry
+        LEFT JOIN T_OCRD2 ON T_ORDR.CardCode = T_OCRD2.CardCode AND T_OCRD2.OptUser = @UserSign
+        /*客户共享用户：比如说**销售员的客户共享给**销售助理，由销售助理跟进该客户的订单及发货*/
+        LEFT JOIN (SELECT DeptCode FROM T_OUDL WHERE UserSign = @UserSign) T2 ON T_ORDR.DeptCode = T2.DeptCode
+        /*关联当前用户的所属部门*/
+        LEFT JOIN T_OUSI ON T_OUSI.UserSign = T_ORDR.UserSign
+        LEFT JOIN T_OCDP ON T_ORDR.DeptCode = T_OCDP.DeptCode
+        LEFT JOIN T_OVTG ON T_ORDR1.U_VatGroup = T_OVTG.Code
+        WHERE
+        T_ORDR1.LineStatus != 'Q' /*非取消状态*/
+        AND T_ORDR1.U_Secrecy = 'N'
+        AND T_ORDR1.DocEntry NOT IN (
+        SELECT T_ORDR.DocEntry
+        FROM T_ORDR
+        WHERE (
+        @DataPur = 'ALL' /*看所有*/
+        OR T_ORDR.OwnerCode = @UserSign /*T0.OwnerCode销售员字段，仅看自己*/
+        OR T_ORDR.UserSign = @UserSign /*T0.UserSign制单人字段，仅看自己*/
+        OR (@DataPur = 'Dept' AND ISNULL(T2.DeptCode, '') != '') /*判断是否属于本部门，看本部门数据*/
+        OR (@IsSale = 'N' AND ISNULL(T_OCRD2.OptUser, 0) > 0) /*此权限作用于：判断为非销售员（一般为销售助理），且客户共享给了当前用户*/
+        )
+        )
+        ) T
+        WHERE T.Dscription IN (
+        SELECT SDADA_1.sno
+        FROM SDADA SDADA_1
+        WHERE SDADA_1.TAG IN (
+        SELECT SDADA.TAG
+        FROM SDADA
+        WHERE SDADA.sno IN
+        <foreach collection="sc.modleList " item="item" open="(" separator="," close=")" index="index">'${item}'
+        </foreach>
+        )
+        )
+        ) TT
+        WHERE TT.ROWNUMBER > (@CurrentPage - 1) * @PageSize
+        ORDER BY TT.DocDate DESC
+    </select>
+</mapper>

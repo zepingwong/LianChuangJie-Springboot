@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Date;
 
 /**
@@ -64,4 +65,48 @@ public class TabEnquiryAvailableVO {
     // QuoState 是否询价
     @JsonProperty("QuoState")
     private String quoState;
+
+
+    // 成单率
+    @JsonProperty("TransactionRate")
+    private BigDecimal transactionRate;
+    public BigDecimal getTransactionRate() {
+        if (transactionRate != null) {
+            return transactionRate.setScale(2, RoundingMode.HALF_UP).multiply(BigDecimal.valueOf(100));
+        } else {
+            return null;
+        }
+    }
+    // ExchangeRate
+    @JsonProperty("ExchangeRate")
+    private BigDecimal exchangeRate;
+    // 最低利润率
+    @JsonProperty("MinProfitMargin")
+    private BigDecimal minProfitMargin;
+    // 利润率
+    @JsonProperty("ProfitMargin")
+    private BigDecimal profitMargin;
+    // 供方报价
+    @JsonProperty("U_QuoPrice")
+    private BigDecimal uQuoPrice;
+    // 推荐报价 RecoPrice
+    @JsonProperty("RecoPrice")
+    private BigDecimal recoPrice;
+    public BigDecimal getRecoPrice() {
+        if (profitMargin != null & uQuoPrice != null & exchangeRate != null) {
+            return uQuoPrice.multiply(profitMargin).add(uQuoPrice).multiply(exchangeRate).setScale(2, RoundingMode.HALF_UP); // 汇率转换
+        } else {
+            return null;
+        }
+    }
+    // 最低报价 MinQuoPrice
+    @JsonProperty("MinQuoPrice")
+    private BigDecimal minQuoPrice;
+    public BigDecimal getMinQuoPrice() {
+        if (minProfitMargin != null & uQuoPrice != null) {
+            return uQuoPrice.multiply(minProfitMargin).add(uQuoPrice).multiply(exchangeRate).setScale(2, RoundingMode.HALF_UP); // 汇率转换
+        } else {
+            return null;
+        }
+    }
 }

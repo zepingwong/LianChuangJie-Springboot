@@ -4,9 +4,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lianchuangjie.lianchuangjie.config.Authentication;
 import com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO;
 import com.lianchuangjie.lianchuangjie.service.*;
-import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquirySubService;
+import com.lianchuangjie.lianchuangjie.service.TabService.*;
 import com.lianchuangjie.lianchuangjie.utils.Result;
-import com.lianchuangjie.lianchuangjie.vo.Quotation.TabQuotationNeedsVO;
 import com.lianchuangjie.lianchuangjie.vo.Quotation.TabQuotationPurchaseOrderVO;
 import com.lianchuangjie.lianchuangjie.vo.Quotation.TabQuotationSalesOrderVO;
 import com.lianchuangjie.lianchuangjie.vo.StockPrice.*;
@@ -21,19 +20,25 @@ import javax.annotation.Resource;
 @RequestMapping("/tab")
 public class TabStockPriceController {
     @Resource
+    TabPurchaseOrderService tabPurchaseOrderService;
+    // 客户需求
+    @Resource
+    TabClientNeedsService tabClientNeedsService;
+    // 销售报价
+    TabEnquiryService tabEnquiryService;
+
+    @Resource
     StockPriceService stockPriceService;
     @Resource
-    ZhengNengLiangSubService zhengNengLiangSubService;
+    TabZhengNengLiangService tabZhengNengLiangService;
     @Resource
-    EnquirySubService enquirySubService;
+    TabSalesOrderService tabSalesOrderService;
+
     @Resource
-    SalesOrderSubService salesOrderSubService;
+    TabQuotationService tabQuotationService;
     @Resource
-    PurchaseOrderSubService purchaseOrderSubService;
-    @Resource
-    QuotationService quotationService;
-    @Resource
-    StockService stockService;
+    TabStockService tabStockService;
+
 
     @GetMapping("/stockprice/origin")
     @Authentication(sale = true, buyer = true)
@@ -46,7 +51,7 @@ public class TabStockPriceController {
         tabSearchDTO.setPage(page);
         tabSearchDTO.setSize(size);
         tabSearchDTO.setModle(modle);
-        Page<TabStockPriceOriginVO> res = stockService.stockPriceTabList(tabSearchDTO);
+        Page<TabStockPriceOriginVO> res = tabStockService.stockPriceTabList(tabSearchDTO);
         return Result.success(res);
     }
     /**
@@ -91,7 +96,7 @@ public class TabStockPriceController {
         tabSearchDTO.setPage(page);
         tabSearchDTO.setSize(size);
         tabSearchDTO.setModle(modle);
-        Page<TabStockPriceZNLVO> res = zhengNengLiangSubService.tabList(tabSearchDTO);
+        Page<TabStockPriceZNLVO> res = tabZhengNengLiangService.stockPriceTabList(tabSearchDTO);
         return Result.success(res);
     }
 
@@ -107,12 +112,12 @@ public class TabStockPriceController {
      */
     @GetMapping("/stockprice/needs")
     @Authentication(buyer = true)
-    public Result<Page<TabQuotationNeedsVO>> getCusNeedsListController(@RequestParam(defaultValue = "#{null}", value = "page") Integer page, @RequestParam(defaultValue = "#{null}", value = "size") Integer size, @RequestParam(defaultValue = "#{null}", value = "Modle") String modle) {
+    public Result<Page<TabStockPriceNeedsVO>> getCusNeedsListController(@RequestParam(defaultValue = "#{null}", value = "page") Integer page, @RequestParam(defaultValue = "#{null}", value = "size") Integer size, @RequestParam(defaultValue = "#{null}", value = "Modle") String modle) {
         TabSearchDTO tabSearchDTO = new TabSearchDTO();
         tabSearchDTO.setPage(page);
         tabSearchDTO.setSize(size);
         tabSearchDTO.setModle(modle);
-        Page<TabQuotationNeedsVO> pages = enquirySubService.quotationTabList(tabSearchDTO);
+        Page<TabStockPriceNeedsVO> pages = tabClientNeedsService.stockPriceTabList(tabSearchDTO);
         return Result.success(pages, "Success");
     }
 
@@ -133,7 +138,7 @@ public class TabStockPriceController {
         tabSearchDTO.setPage(page);
         tabSearchDTO.setSize(size);
         tabSearchDTO.setModle(modle);
-        Page<TabQuotationSalesOrderVO> pages = salesOrderSubService.quotationTabList(tabSearchDTO);
+        Page<TabQuotationSalesOrderVO> pages = tabSalesOrderService.quotationTabList(tabSearchDTO);
         return Result.success(pages, "Success");
     }
 
@@ -154,7 +159,7 @@ public class TabStockPriceController {
         tabSearchDTO.setPage(page);
         tabSearchDTO.setSize(size);
         tabSearchDTO.setModle(modle);
-        Page<TabQuotationPurchaseOrderVO> pages = purchaseOrderSubService.quotationTabList(tabSearchDTO);
+        Page<TabQuotationPurchaseOrderVO> pages = tabPurchaseOrderService.quotationTabList(tabSearchDTO);
         return Result.success(pages, "Success");
     }
 
@@ -175,7 +180,7 @@ public class TabStockPriceController {
         tabSearchDTO.setPage(page);
         tabSearchDTO.setSize(size);
         tabSearchDTO.setModle(modle);
-        Page<TabStockPriceEnquiryVO> pages = enquirySubService.stockTabList(tabSearchDTO);
+        Page<TabStockPriceEnquiryVO> pages = tabEnquiryService.stockPriceTabList(tabSearchDTO);
         return Result.success(pages, "Success");
     }
 
@@ -196,7 +201,7 @@ public class TabStockPriceController {
         tabSearchDTO.setPage(page);
         tabSearchDTO.setSize(size);
         tabSearchDTO.setModle(modle);
-        Page<TabStockPriceQuoteVO> pages = quotationService.stockTabList(tabSearchDTO);
+        Page<TabStockPriceQuoteVO> pages = tabQuotationService.stockTabList(tabSearchDTO);
         return Result.success(pages, "Success");
     }
 }

@@ -7,18 +7,12 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
 import com.lianchuangjie.lianchuangjie.dto.QuotationReplyDTO;
 import com.lianchuangjie.lianchuangjie.dto.search.QuotationSearchDTO;
-import com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.EnquiryMainEntity;
 import com.lianchuangjie.lianchuangjie.entity.QuotationEntity;
 import com.lianchuangjie.lianchuangjie.mapper.EnquiryMainMapper;
 import com.lianchuangjie.lianchuangjie.mapper.QuotationMapper;
 import com.lianchuangjie.lianchuangjie.service.QuotationService;
-import com.lianchuangjie.lianchuangjie.vo.*;
-import com.lianchuangjie.lianchuangjie.vo.Enquiry.TabEnquiryQuotationVO;
 import com.lianchuangjie.lianchuangjie.vo.Quotation.QuotationVO;
-import com.lianchuangjie.lianchuangjie.vo.Quotation.TabEffectiveQuotationVO;
-import com.lianchuangjie.lianchuangjie.vo.Quotation.TabMyQuotationVO;
-import com.lianchuangjie.lianchuangjie.vo.StockPrice.TabStockPriceQuoteVO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -38,37 +32,6 @@ public class QuotationServiceImpl extends ServiceImpl<QuotationMapper, Quotation
         quotationMapper.selectList(page, searchCondition);
         return page;
     }
-
-    /**
-     * @param searchCondition 查询条件
-     * @return Page<TabMyQuotationVO>
-     * @description 我的报价
-     */
-    @Override
-    public Page<TabMyQuotationVO> tabMyList(TabSearchDTO searchCondition) {
-        Page<TabMyQuotationVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
-        page.addOrder(OrderItem.desc("T_ICIN1.U_QuoDate"));
-        quotationMapper.selectMyList(page, searchCondition);
-        return page;
-    }
-
-    /**
-     * @param searchCondition searchCondition
-     * @return Page
-     * @description 有效报价
-     * @author WANG Zeping
-     * @email zepingwong@gmail.com
-     * @date 8/24/2022
-     */
-    @Override
-    public Page<TabEffectiveQuotationVO> tabEffectiveList(TabSearchDTO searchCondition) {
-        Page<TabEffectiveQuotationVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
-        page.addOrder(OrderItem.desc("T_ICIN1.U_QuoDate"));
-        page.setRecords(quotationMapper.selectEffectiveList(searchCondition));
-        page.setTotal(quotationMapper.countEffectiveList(searchCondition));
-        return page;
-    }
-
     @Override
     public Boolean reply(QuotationReplyDTO quotationReplyDTO) {
         /*
@@ -100,28 +63,5 @@ public class QuotationServiceImpl extends ServiceImpl<QuotationMapper, Quotation
     @Override
     public QuotationEntity getOne(QueryWrapper<QuotationEntity> queryWrapper) {
         return quotationMapper.selectOne(queryWrapper);
-    }
-
-    @Override
-    public Page<TabEnquiryQuotationVO> enquiryTabList(TabSearchDTO searchCondition) {
-        Page<TabEnquiryQuotationVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
-        page.addOrder(OrderItem.desc("T_ICIN1.U_QuoDate"));
-        quotationMapper.selectEnquiryList(page, searchCondition);
-        return page;
-    }
-
-    @Override
-    public Page<TabSearchQuotationVO> searchTabList(TabSearchDTO searchCondition) {
-        Page<TabSearchQuotationVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
-        page.addOrder(OrderItem.desc("T_ICIN1.U_QuoDate"));
-        quotationMapper.selectSearchList(page, searchCondition);
-        return page;
-    }
-
-    @Override
-    public Page<TabStockPriceQuoteVO> stockTabList(TabSearchDTO searchCondition) {
-        Page<TabStockPriceQuoteVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
-        quotationMapper.selectStockList(page, searchCondition);
-        return page;
     }
 }
