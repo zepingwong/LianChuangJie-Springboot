@@ -18,16 +18,16 @@ public class QuotationVO {
     /**
      * @description 编号
      */
-    // 询价单编号-主键 T_ICIN1.DocEntry
+    // 报价单编号-主键 T_ICIN1.DocEntry
     @JsonProperty("DocEntry")
     private Long docEntry;
-    // 行号-主键 T_ICIN1.LineNum
+    // 报价单行号-主键 T_ICIN1.LineNum
     @JsonProperty("LineNum")
     private Long lineNum;
-    // 关联报价单编号
+    // 关联询价单编号
     @JsonProperty("U_BaseEntry")
     private Long uBaseEntry;
-    // 关联报价单行号
+    // 关联询价单行号
     @JsonProperty("U_BaseLine")
     private Long uBaseLine;
     // ItemId 关联型号 ItemId 相同

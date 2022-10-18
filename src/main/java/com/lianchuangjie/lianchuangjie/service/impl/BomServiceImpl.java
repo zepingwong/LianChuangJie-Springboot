@@ -54,7 +54,7 @@ public class BomServiceImpl implements BomService {
     @Override
     public BomQueryResVO list(Long docEntry) {
         BomQueryResVO bomQueryRes = new BomQueryResVO();
-        Long userSign = SessionUtil.getUserSign();
+        Long userSign = SessionUtil.getUser().getUserSign();
         QueryWrapper<UserEntity> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("UserSign", userSign);
         UserEntity user = userMapper.selectOne(queryWrapper);
@@ -85,7 +85,7 @@ public class BomServiceImpl implements BomService {
             // 保存Bom单主表信息
             BomMainEntity bomMainEntity = new BomMainEntity();
             bomMainEntity.setFileName(fileName);
-            bomMainEntity.setOwnerCode(SessionUtil.getUserSign());
+            bomMainEntity.setOwnerCode(SessionUtil.getUser().getUserSign());
             bomMainService.save(bomMainEntity);
             // 主表信息保存后，BomMainEntity产生DocEntry
             Long docEntry = bomMainEntity.getDocEntry();

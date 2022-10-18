@@ -16,11 +16,11 @@ public class ClientServiceImpl extends ServiceImpl<ClienteleClientMapper, Client
     ClienteleClientMapper clienteleClientMapper;
     @Override
     public List<ClienteleVO> list(String CardName) {
-        return clienteleClientMapper.selectList(CardName, SessionUtil.getUserSign());
+        return clienteleClientMapper.selectList(CardName, SessionUtil.getUser().getUserSign());
     }
 
     @Override
     public ClienteleVO getOne(String CardCode) {
-        return clienteleClientMapper.selectOne(CardCode, SessionUtil.getUserSign());
+        return clienteleClientMapper.selectOne(CardCode, SessionUtil.getUser().getUserSign());
     }
 }

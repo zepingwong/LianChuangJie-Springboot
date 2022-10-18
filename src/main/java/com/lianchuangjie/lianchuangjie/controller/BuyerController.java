@@ -33,7 +33,7 @@ public class BuyerController {
     @GetMapping("/brand")
     @Authentication(buyer = true)
     public Result<List<BrandItemVO>> getBuyersBrandController(@RequestParam(defaultValue = "#{null}", value = "OwnerCode") Long ownerCode) {
-        if (ownerCode == null) ownerCode = SessionUtil.getUserSign();
+        if (ownerCode == null) ownerCode = SessionUtil.getUser().getUserSign();
         List<BrandItemVO> list = brandService.list(ownerCode);
         return Result.success(list, "success");
     }
@@ -41,7 +41,7 @@ public class BuyerController {
     @GetMapping("/seller")
     @Authentication(buyer = true)
     public Result<List<SellerVO>> getBuyersSellerController(@RequestParam(defaultValue = "#{null}", value = "OwnerCode") Long ownerCode) {
-        if (ownerCode == null) ownerCode = SessionUtil.getUserSign();
+        if (ownerCode == null) ownerCode = SessionUtil.getUser().getUserSign();
         List<SellerVO> list = sellerService.list(ownerCode);
         return Result.success(list, "success");
     }

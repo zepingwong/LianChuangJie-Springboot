@@ -94,8 +94,8 @@ public class TabMyQuotationVO {
     @JsonProperty("CurVatLabel")
     private String curVatLabel;
     // 税率代码
-    @JsonProperty("U_VatGroup")
-    private String uVatGroup;
+    @JsonProperty("U_QuoVatGroup")
+    private String uQuoVatGroup;
     // 税率税点
     @JsonProperty("U_VatRate")
     private BigDecimal uVatRate;

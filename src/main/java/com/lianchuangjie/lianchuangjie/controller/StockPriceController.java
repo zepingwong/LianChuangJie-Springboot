@@ -117,7 +117,7 @@ public class StockPriceController extends BaseController {
         // T_ICIN1.LineNum表示报价次数
         queryWrapper.eq("DocEntry", 0);
         quotationEntity.setLineNum(quotationService.count(queryWrapper) + 1);
-        quotationEntity.setUBuyer(SessionUtil.getUserSign()); // 采购员编号
+        quotationEntity.setUBuyer(SessionUtil.getUser().getUserSign()); // 采购员编号
         quotationEntity.setUStatus("Y");
         Boolean res = quotationService.save(quotationEntity);
         if (res) {

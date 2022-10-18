@@ -21,6 +21,7 @@
             T_ICIN1.U_QuoDelivery, /*供方交期*/
             T_ICIN1.U_QuoRemark, /*供方备注*/
             T_ICIN1.U_Status, /*报价状态*/
+            T_ICIN1.U_QuoVatGroup, /*报价税率代码*/
             ( T_ICIN1.U_QuoCurr + '+' + T_ICIN1.U_QuoVatGroup + '+' + CAST ( CAST ( T_OVTG.Rate AS FLOAT ) AS VARCHAR ) ) AS 'CurVat',
             ( T_ICIN1.U_QuoCurr + N'（' + CAST ( CAST ( T_OVTG.Rate AS FLOAT ) AS VARCHAR ) ) + N'%）' AS 'CurVatLabel',
             T_OUSI.UserName AS 'U_BuyerName',/*采购员姓名*/

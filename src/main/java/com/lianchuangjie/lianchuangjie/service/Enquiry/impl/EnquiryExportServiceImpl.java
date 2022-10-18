@@ -23,7 +23,7 @@ public class EnquiryExportServiceImpl implements EnquiryExportService {
 
     @Override
     public EnquiryExportDataVO list(Long docEntry) {
-        EnquiryMainEntity enquiryMainEntity = enquiryMainMapper.selectByDocEntry(docEntry, SessionUtil.getUserSign());
+        EnquiryMainEntity enquiryMainEntity = enquiryMainMapper.selectByDocEntry(docEntry, SessionUtil.getUser().getUserSign());
         /*
          * 1. 报价单导出次数 +1
          * 2. 要判断报价单导出次数是否为 null
@@ -40,7 +40,7 @@ public class EnquiryExportServiceImpl implements EnquiryExportService {
         // 查询条件
         EnquirySubSearchDTO enquirySubSearchDTO = new EnquirySubSearchDTO();
         enquirySubSearchDTO.setDocEntry(docEntry);
-        enquirySubSearchDTO.setOwnerCode(SessionUtil.getUserSign());
+        enquirySubSearchDTO.setOwnerCode(SessionUtil.getUser().getUserSign());
         // 表头
         EnquiryExportHeadVO enquiryExportHeadVO = enquirySubMapper.head(enquirySubSearchDTO);
         enquiryExportHeadVO.setSubject("报价");

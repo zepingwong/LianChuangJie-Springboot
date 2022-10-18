@@ -18,11 +18,11 @@ public class SupplierServiceImpl extends ServiceImpl<ClienteleSupplierMapper, Cl
 
     @Override
     public List<ClienteleVO> list(String CardName) {
-        return clienteleSupplierMapper.selectList(CardName, SessionUtil.getUserSign());
+        return clienteleSupplierMapper.selectList(CardName, SessionUtil.getUser().getUserSign());
     }
 
     @Override
     public ClienteleVO getOne(String CardCode) {
-        return clienteleSupplierMapper.selectOne(CardCode, SessionUtil.getUserSign());
+        return clienteleSupplierMapper.selectOne(CardCode, SessionUtil.getUser().getUserSign());
     }
 }

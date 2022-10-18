@@ -30,7 +30,7 @@ public class QuotationSearchDTO {
      */
     private Long uBuyer;
     public void setUBuyer(Long ownerCode) {
-        this.uBuyer = ownerCode != null ? ownerCode : SessionUtil.getUserSign();
+        this.uBuyer = ownerCode != null ? ownerCode : SessionUtil.getUser().getUserSign();
     }
     /**
      * @description 需求型号 Modle

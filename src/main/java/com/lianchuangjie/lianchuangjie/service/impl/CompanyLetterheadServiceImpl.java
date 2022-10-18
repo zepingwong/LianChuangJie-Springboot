@@ -19,6 +19,6 @@ public class CompanyLetterheadServiceImpl extends ServiceImpl<CompanyLetterheadM
 
     @Override
     public List<CompanyLetterheadVO> list(QueryWrapper<CompanyLetterheadVO> queryWrapper) {
-        return companyLetterheadMapper.selectList(SessionUtil.getUserSign());
+        return companyLetterheadMapper.selectList(SessionUtil.getUser().getUserSign());
     }
 }

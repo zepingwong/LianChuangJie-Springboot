@@ -23,15 +23,14 @@ public class EnquiryBuyerServiceImpl extends ServiceImpl<EnquiryBuyerMapper, Enq
 
     @Override
     public List<EnquiryBuyerItemVO> list(EnquiryBuyerSearchDTO enquiryBuyerSearchDTO) {
+        UserEntity user;
         if (enquiryBuyerSearchDTO.getSlpCode() == null) {
-            Long userSign = SessionUtil.getUserSign();
-            UserEntity user = userMapper.selectById(userSign);
-            enquiryBuyerSearchDTO.setSlpCode(userSign);
-            enquiryBuyerSearchDTO.setDeptCode(user.getDftDept());
+            user = SessionUtil.getUser();
+            enquiryBuyerSearchDTO.setSlpCode(user.getUserSign());
         } else {
-            UserEntity user = userMapper.selectById(enquiryBuyerSearchDTO.getSlpCode());
-            enquiryBuyerSearchDTO.setDeptCode(user.getDftDept());
+            user = userMapper.selectById(enquiryBuyerSearchDTO.getSlpCode());
         }
+        enquiryBuyerSearchDTO.setDeptCode(user.getDftDept());
         return enquiryBuyerMapper.selectList(enquiryBuyerSearchDTO);
     }
 }

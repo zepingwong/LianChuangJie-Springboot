@@ -1,5 +1,7 @@
 package com.lianchuangjie.lianchuangjie.utils;
 
+import com.lianchuangjie.lianchuangjie.entity.UserEntity;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -21,16 +23,15 @@ public class SessionUtil {
         session.invalidate();
         return true;
     }
+    public static ThreadLocal<UserEntity> ctx = new ThreadLocal<>();
 
-    public static ThreadLocal<Long> context = new ThreadLocal<>();
-
-    public static void setUserSign(Long userSign) {
-        context.set(userSign);
+    public static void setUser(UserEntity userEntity) {
+        ctx.set(userEntity);
     }
-    public static Long getUserSign() {
-        return context.get();
+    public static UserEntity getUser() {
+        return ctx.get();
     }
     public static void shutdown() {
-        context.remove();
+        ctx.remove();
     }
 }

@@ -29,7 +29,7 @@ public class BrandController {
     public Result<List<BrandItemVO>> getBuyersBrandController(
             @RequestParam(defaultValue = "#{null}", value = "OwnerCode") Long ownerCode
     ) {
-        if (ownerCode == null) ownerCode = SessionUtil.getUserSign();
+        if (ownerCode == null) ownerCode = SessionUtil.getUser().getUserSign();
         List<BrandItemVO> list = brandService.list(ownerCode);
         return Result.success(list, "success");
     }

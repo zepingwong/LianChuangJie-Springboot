@@ -7,11 +7,9 @@ import com.lianchuangjie.lianchuangjie.dto.QuotationReplyDTO;
 import com.lianchuangjie.lianchuangjie.dto.QuotationSaveDTO;
 import com.lianchuangjie.lianchuangjie.dto.search.QuotationSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.QuotationEntity;
-import com.lianchuangjie.lianchuangjie.entity.UserEntity;
 import com.lianchuangjie.lianchuangjie.service.QuotationService;
 import com.lianchuangjie.lianchuangjie.service.UserInfoService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
-import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
 import com.lianchuangjie.lianchuangjie.vo.Quotation.QuotationVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.validation.annotation.Validated;
@@ -86,22 +84,12 @@ public class QuotationController extends BaseController {
     @PostMapping("quote")
     @Authentication(buyer = true)
     public Result<Boolean> saveQuotationController(@RequestBody @Valid QuotationSaveDTO quotationSaveDTO) {
-        // 报价状态，为 ”Y“ 表示已经 reply；”N“ 仅代表 save
-        quotationSaveDTO.setUStatus("N");
         QuotationEntity quotationEntity = new QuotationEntity();
         BeanUtils.copyProperties(quotationSaveDTO, quotationEntity);
-        quotationEntity.setUBaseEntry(quotationSaveDTO.getDocEntry()); // T_ICIN1 关联询价单编号
-        quotationEntity.setUBaseLine(quotationSaveDTO.getLineNum()); // T_ICIN1 关联询价单行号
         QueryWrapper<QuotationEntity> queryWrapper = new QueryWrapper<>();
         // T_ICIN1.LineNum表示报价次数
-        queryWrapper.eq("DocEntry", quotationSaveDTO.getDocEntry());
+        queryWrapper.eq("DocEntry", quotationSaveDTO.getUBaseEntry());
         quotationEntity.setLineNum(quotationService.count(queryWrapper) + 1);
-        // 采购员和采购部门信息
-        Long userSign = SessionUtil.getUserSign();
-        quotationEntity.setUBuyer(userSign);
-        UserEntity user = userInfoService.getOne(userSign);
-        quotationEntity.setUserName(user.getUserName()); // 采购员姓名
-        quotationEntity.setUDeptCod(user.getDftDeptName()); // 采购部门名称
         return Result.success(quotationService.save(quotationEntity));
     }
 

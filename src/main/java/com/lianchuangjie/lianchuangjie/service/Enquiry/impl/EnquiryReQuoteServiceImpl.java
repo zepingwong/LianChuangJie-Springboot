@@ -36,10 +36,10 @@ public class EnquiryReQuoteServiceImpl extends ServiceImpl<EnquirySubMapper, Enq
         selectEnquirySubEntity.eq("LineNum", enquiryReQuoteDTO.getLineNum());
         EnquirySubEntity enquirySubEntity = enquirySubMapper.selectOne(selectEnquirySubEntity);
         // 需求主表
-        EnquiryMainEntity enquiryMainEntity = enquiryMainMapper.selectByDocEntry(enquiryReQuoteDTO.getDocEntry(), SessionUtil.getUserSign());
+        EnquiryMainEntity enquiryMainEntity = enquiryMainMapper.selectByDocEntry(enquiryReQuoteDTO.getDocEntry(), SessionUtil.getUser().getUserSign());
         // 该货源的采购员
         QueryWrapper<UserEntity> selectUserEntity = new QueryWrapper<>();
-        selectUserEntity.eq("UserSign", SessionUtil.getUserSign());
+        selectUserEntity.eq("UserSign", SessionUtil.getUser().getUserSign());
         UserEntity userEntity = userMapper.selectOne(selectUserEntity);
         /*
          * 1. 判断当前询价单是否已经发送给该货源对应的采购

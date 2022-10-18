@@ -32,7 +32,7 @@ public class EnquiryMainServiceImpl extends ServiceImpl<EnquiryMainMapper, Enqui
                 enquiryMainMapper.exists(queryWrapper),
                 "编号为" + docEntry + "的询价单不存在"
         );
-        Long userSign = SessionUtil.getUserSign();
+        Long userSign = SessionUtil.getUser().getUserSign();
         EnquiryMainEntity enquiryMainEntity = enquiryMainMapper.selectByDocEntry(docEntry, userSign);
         // 判断权限
         ResponseEnum.HAS_NO_AUTHENTICATION.assertNotNull(

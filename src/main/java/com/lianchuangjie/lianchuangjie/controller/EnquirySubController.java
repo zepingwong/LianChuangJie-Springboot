@@ -37,7 +37,7 @@ public class EnquirySubController extends BaseController {
     ) {
         EnquirySubSearchDTO searchCondition = new EnquirySubSearchDTO();
         searchCondition.setDocEntry(docEntry);
-        Long userSign = SessionUtil.getUserSign();
+        Long userSign = SessionUtil.getUser().getUserSign();
         searchCondition.setOwnerCode(userSign);
         searchCondition.setPage(page);
         searchCondition.setSize(size);

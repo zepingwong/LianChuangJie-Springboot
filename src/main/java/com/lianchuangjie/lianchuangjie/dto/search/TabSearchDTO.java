@@ -33,7 +33,7 @@ public class TabSearchDTO {
      */
     private Long userSign;
     public Long getUserSign() {
-        return SessionUtil.getUserSign();
+        return SessionUtil.getUser().getUserSign();
     }
     /**
      * @description 需求型号数组 Modle

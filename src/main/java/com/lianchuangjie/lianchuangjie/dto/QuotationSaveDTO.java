@@ -3,6 +3,8 @@ package com.lianchuangjie.lianchuangjie.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.lianchuangjie.lianchuangjie.entity.UserEntity;
+import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,14 +23,18 @@ public class QuotationSaveDTO {
     /**
      * @description 编号
      */
-    // 询价单编号-主键 U_ICIN1.DocEntry
-    @NotNull(message = "询价单编号不能为空")
+    // 报价单编号-主键 T_ICIN1.U_BaseEntry
+    @NotNull(message = "报价单编号不能为空")
     @JsonProperty("DocEntry")
     private Long docEntry;
-    // 行号-主键 U_ICIN1.LineNum
+    // 询价单编号-主键 T_ICIN1.U_BaseEntry
+    @NotNull(message = "询价单编号不能为空")
+    @JsonProperty("U_BaseEntry")
+    private Long uBaseEntry;
+    // 行号-主键 T_ICIN1.U_BaseLine
     @NotNull(message = "询价单行号不能为空")
-    @JsonProperty("LineNum")
-    private Long lineNum;
+    @JsonProperty("U_BaseLine")
+    private Long uBaseLine;
     // 无法报价 T_ICIN1.UnableQuote
     @JsonProperty("UnableQuote")
     private String unableQuote;
@@ -185,4 +191,12 @@ public class QuotationSaveDTO {
     // 销售员等级
     @JsonProperty("U_SaleLevel")
     private String uSaleLevel;
+    /**
+     * 采购员信息
+     */
+    UserEntity user = SessionUtil.getUser();
+    // 采购员编号
+    private Long uBuyer = user.getUserSign();
+    private String userName = user.getUserName();
+    private String uDeptCod = user.getDftDeptName();
 }

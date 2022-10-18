@@ -28,6 +28,13 @@ public interface QuotationService extends IService<QuotationEntity> {
      * @date 9/25/2022
      */
     QuotationEntity getOne(QueryWrapper<QuotationEntity> queryWrapper);
-
+    /**
+     * @param quotationSearchDTO 采购报价列表查询
+     * @return QuotationEntity
+     * @description 查询一条采购报价信息
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 9/25/2022
+     */
     Page<QuotationVO> getList(QuotationSearchDTO quotationSearchDTO);
 }

@@ -30,7 +30,7 @@ public class AuthenticationInterpreter implements HandlerInterceptor {
         ResponseEnum.SESSION_EXPIRED.assertNotNull(object,"Session已过期，请重新登录");
         UserEntity user = objectMapper.convertValue(object, UserEntity.class);
         // 请求开始将解析的用户信息放入上下文对象
-        SessionUtil.setUserSign(user.getUserSign());
+        SessionUtil.setUser(user);
         // 如果不设置 @Authentication 注解，则对所有用户放行
         Authentication authentication = method.getAnnotation(Authentication.class);
 

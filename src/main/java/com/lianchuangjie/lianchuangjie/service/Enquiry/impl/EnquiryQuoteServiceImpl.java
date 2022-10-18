@@ -30,7 +30,7 @@ public class EnquiryQuoteServiceImpl implements EnquiryQuoteService {
         // 查询条件
         EnquirySubSearchDTO enquirySubSearchDTO = new EnquirySubSearchDTO();
         enquirySubSearchDTO.setDocEntry(docEntry);
-        enquirySubSearchDTO.setOwnerCode(SessionUtil.getUserSign());
+        enquirySubSearchDTO.setOwnerCode(SessionUtil.getUser().getUserSign());
         // 表头
         EnquiryExportHeadVO enquiryExportHeadVO = enquirySubMapper.head(enquirySubSearchDTO);
         enquiryExportHeadVO.setSubject("报价");
@@ -45,7 +45,7 @@ public class EnquiryQuoteServiceImpl implements EnquiryQuoteService {
     public Boolean save(EnquiryExportSaveDTO enquiryExportSaveDTO) {
         QueryWrapper<EnquiryMainEntity> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("T_ICIN.DocEntry", enquiryExportSaveDTO.getDocEntry());
-        EnquiryMainEntity enquiryMainEntity = enquiryMainMapper.selectByDocEntry(enquiryExportSaveDTO.getDocEntry(), SessionUtil.getUserSign());
+        EnquiryMainEntity enquiryMainEntity = enquiryMainMapper.selectByDocEntry(enquiryExportSaveDTO.getDocEntry(), SessionUtil.getUser().getUserSign());
         // 更新表头信息
         enquiryMainEntity.setUFromCompany(enquiryExportSaveDTO.getUFromCompany()); // 报价公司抬头
         enquiryMainEntity.setUSenderName(enquiryExportSaveDTO.getUSenderName()); // 发件人姓名
