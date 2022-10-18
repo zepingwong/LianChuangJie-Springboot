@@ -70,8 +70,7 @@ public class TabQuotationServiceImpl extends ServiceImpl<QuotationMapper, Quotat
     public Page<TabEffectiveQuotationVO> tabEffectiveList(TabSearchDTO searchCondition) {
         Page<TabEffectiveQuotationVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
         page.addOrder(OrderItem.desc("T_ICIN1.U_QuoDate"));
-        page.setRecords(tabQuotationMapper.selectEffectiveTabList(searchCondition));
-        page.setTotal(tabQuotationMapper.countEffectiveTabList(searchCondition));
+        tabQuotationMapper.selectEffectiveTabList(page ,searchCondition);
         return page;
     }
 }

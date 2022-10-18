@@ -8,13 +8,11 @@ import com.lianchuangjie.lianchuangjie.entity.QuotationEntity;
 import com.lianchuangjie.lianchuangjie.vo.Enquiry.TabEnquiryQuotationVO;
 import com.lianchuangjie.lianchuangjie.vo.Quotation.TabEffectiveQuotationVO;
 import com.lianchuangjie.lianchuangjie.vo.Quotation.TabMyQuotationVO;
-import com.lianchuangjie.lianchuangjie.vo.StockPrice.TabStockPriceQuoteVO;
 import com.lianchuangjie.lianchuangjie.vo.Search.TabSearchQuotationVO;
+import com.lianchuangjie.lianchuangjie.vo.StockPrice.TabStockPriceQuoteVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 @Mapper
 @Repository
@@ -58,9 +56,7 @@ public interface TabQuotationMapper extends BaseMapper<QuotationEntity> {
      * @email zepingwong@gmail.com
      * @date 8/28/2022
      */
-    List<TabEffectiveQuotationVO> selectEffectiveTabList(@Param("sc") TabSearchDTO searchCondition);
-
-    Integer countEffectiveTabList(@Param("sc") TabSearchDTO searchCondition);
+    IPage<TabEffectiveQuotationVO> selectEffectiveTabList(Page<TabEffectiveQuotationVO> page, @Param("sc") TabSearchDTO searchCondition);
     /**
      * @param page            page
      * @param searchCondition searchCondition
