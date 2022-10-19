@@ -10,5 +10,13 @@ import com.lianchuangjie.lianchuangjie.vo.StockPrice.TabStockPriceEnquiryVO;
  * 销售报价Tab
  */
 public interface TabEnquiryService extends IService<EnquirySubEntity> {
+    /**
+     * @param tabSearchDTO tabSearchDTO
+     * @return Page
+     * @description 库存定价页面-销售报价Tab
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 8/21/2022
+     */
     Page<TabStockPriceEnquiryVO> stockPriceTabList(TabSearchDTO tabSearchDTO);
 }

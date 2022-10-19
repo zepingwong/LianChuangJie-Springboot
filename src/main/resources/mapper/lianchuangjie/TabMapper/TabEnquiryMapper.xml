@@ -4,6 +4,9 @@
 
     <select id="selectStockPriceTabList"
             resultType="com.lianchuangjie.lianchuangjie.vo.StockPrice.TabStockPriceEnquiryVO">
+        /*
+         * 库存定价-销售报价Tab
+         */
         SELECT
             U_ICIN1.DocEntry, /*询价单编号*/
             U_ICIN1.LineNum, /*询价单行号*/
@@ -34,5 +37,6 @@
             )
         )
         AND U_ICIN1.PriceAfVAT IS NOT NULL
+        AND U_ICIN1.Secrecy != 'Y'
     </select>
 </mapper>

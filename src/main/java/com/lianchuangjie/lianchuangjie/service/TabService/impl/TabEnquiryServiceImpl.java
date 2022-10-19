@@ -1,5 +1,6 @@
 package com.lianchuangjie.lianchuangjie.service.TabService.impl;
 
+import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO;
@@ -18,9 +19,8 @@ public class TabEnquiryServiceImpl extends ServiceImpl<TabEnquiryMapper, Enquiry
     @Override
     public Page<TabStockPriceEnquiryVO> stockPriceTabList(TabSearchDTO searchCondition) {
         Page<TabStockPriceEnquiryVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
+        page.addOrder(OrderItem.desc("U_ICIN1.CheckINDateT")); // 按照销售确认报价日期排序
         tabEnquiryMapper.selectStockPriceTabList(page, searchCondition);
-        System.out.println("**************************************");
-        System.out.println(page);
         return page;
     }
 }
