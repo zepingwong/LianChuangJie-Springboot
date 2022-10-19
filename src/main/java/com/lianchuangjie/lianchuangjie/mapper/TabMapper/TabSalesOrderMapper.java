@@ -2,13 +2,12 @@ package com.lianchuangjie.lianchuangjie.mapper.TabMapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.SalesOrderSubEntity;
 import com.lianchuangjie.lianchuangjie.vo.Enquiry.TabEnquirySalesOrderVO;
 import com.lianchuangjie.lianchuangjie.vo.Quotation.TabQuotationSalesOrderVO;
-import com.lianchuangjie.lianchuangjie.vo.StockPrice.TabStockPriceSalesOrderVO;
 import com.lianchuangjie.lianchuangjie.vo.Search.TabSearchSalesOrderVO;
+import com.lianchuangjie.lianchuangjie.vo.StockPrice.TabStockPriceSalesOrderVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -26,8 +25,8 @@ public interface TabSalesOrderMapper extends BaseMapper<SalesOrderSubEntity> {
      * @email zepingwong@gmail.com
      * @date 8/21/2022
      */
-    IPage<TabStockPriceSalesOrderVO> selectStockPriceTabList(Page<TabStockPriceSalesOrderVO> page, @Param("sc") TabSearchDTO searchCondition);
-    IPage<TabQuotationSalesOrderVO> selectQuotationTabList(Page<TabQuotationSalesOrderVO> page, @Param("sc") TabSearchDTO searchCondition);
+    IPage<TabStockPriceSalesOrderVO> selectStockPriceTabList(IPage<TabStockPriceSalesOrderVO> page, @Param("sc") TabSearchDTO searchCondition);
+    IPage<TabQuotationSalesOrderVO> selectQuotationTabList(IPage<TabQuotationSalesOrderVO> page, @Param("sc") TabSearchDTO searchCondition);
     /**
      * @param searchCondition searchCondition
      * @return List

@@ -2,7 +2,6 @@ package com.lianchuangjie.lianchuangjie.mapper.TabMapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.QuotationEntity;
 import com.lianchuangjie.lianchuangjie.vo.Enquiry.TabEnquiryQuotationVO;
@@ -36,7 +35,7 @@ public interface TabQuotationMapper extends BaseMapper<QuotationEntity> {
      * @email zepingwong@gmail.com
      * @date 8/28/2022
      */
-    IPage<TabEnquiryQuotationVO> selectEnquiryTabList(Page<TabEnquiryQuotationVO> page, @Param("sc") TabSearchDTO searchCondition);
+    IPage<TabEnquiryQuotationVO> selectEnquiryTabList(IPage<TabEnquiryQuotationVO> page, @Param("sc") TabSearchDTO searchCondition);
     /**
      * @param page            page
      * @param searchCondition searchCondition
@@ -46,7 +45,7 @@ public interface TabQuotationMapper extends BaseMapper<QuotationEntity> {
      * @email zepingwong@gmail.com
      * @date 8/28/2022
      */
-    IPage<TabSearchQuotationVO> selectSearchTabList(Page<TabSearchQuotationVO> page, @Param("sc") TabSearchDTO searchCondition);
+    IPage<TabSearchQuotationVO> selectSearchTabList(IPage<TabSearchQuotationVO> page, @Param("sc") TabSearchDTO searchCondition);
 
     /**
      * @param searchCondition searchCondition
@@ -56,7 +55,7 @@ public interface TabQuotationMapper extends BaseMapper<QuotationEntity> {
      * @email zepingwong@gmail.com
      * @date 8/28/2022
      */
-    IPage<TabEffectiveQuotationVO> selectEffectiveTabList(Page<TabEffectiveQuotationVO> page, @Param("sc") TabSearchDTO searchCondition);
+    IPage<TabEffectiveQuotationVO> selectEffectiveTabList(IPage<TabEffectiveQuotationVO> page, @Param("sc") TabSearchDTO searchCondition);
     /**
      * @param page            page
      * @param searchCondition searchCondition
@@ -66,5 +65,5 @@ public interface TabQuotationMapper extends BaseMapper<QuotationEntity> {
      * @email zepingwong@gmail.com
      * @date 9/4/2022
      */
-    IPage<TabStockPriceQuoteVO> selectStockPriceTabList(Page<TabStockPriceQuoteVO> page, @Param("sc") TabSearchDTO searchCondition);
+    IPage<TabStockPriceQuoteVO> selectStockPriceTabList(IPage<TabStockPriceQuoteVO> page, @Param("sc") TabSearchDTO searchCondition);
 }

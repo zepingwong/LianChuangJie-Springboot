@@ -94,4 +94,7 @@ public class ReplenishDTO {
     // 库存成本价
     @JsonProperty("U_Price")
     private BigDecimal uPrice;
+    // 货币
+    @JsonProperty("CurVat")
+    private String curVat;
 }

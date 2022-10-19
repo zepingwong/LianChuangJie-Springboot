@@ -48,4 +48,9 @@ public class StockPriceServiceImpl extends ServiceImpl<StockPriceMapper, StockPr
             stockPriceMapper.update(itemDTO);
         }
     }
+
+    @Override
+    public List<StockPriceVO> inAdvanceList(String modle) {
+        return stockPriceMapper.inAdvance(modle);
+    }
 }

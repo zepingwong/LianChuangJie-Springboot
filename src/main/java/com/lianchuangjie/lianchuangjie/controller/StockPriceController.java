@@ -54,7 +54,7 @@ public class StockPriceController extends BaseController {
             @RequestParam(defaultValue = "#{null}", value = "StockDays") Integer stockDays,
             @RequestParam(defaultValue = "#{null}", value = "NeedReplenish") Boolean needReplenish,
             @RequestParam(defaultValue = "#{null}", value = "Modify") String modify,
-            @RequestParam(defaultValue = "#{null}", value = "PricingType") Integer pricingType
+            @RequestParam(defaultValue = "#{null}", value = "PriceType") Integer pricingType
     ) {
         StockPriceSearchDTO stockPriceSearchDTO = new StockPriceSearchDTO();
         stockPriceSearchDTO.setPage(page);
@@ -156,9 +156,9 @@ public class StockPriceController extends BaseController {
      * @email zepingwong@gmail.com
      * @date 9/7/2022
      */
-    @GetMapping("/price/calculate")
+    @PostMapping("/price/calculate")
     @Authentication(buyer = true)
-    public Result<Boolean> recalculateController() {
+    public Result<Boolean> recalculateController(@RequestBody List<StockPriceVO> list) {
         String state = stringRedisTemplate.opsForValue().get("StockPrice");
         if (Objects.equals(state, "1")) {
             return Result.error(1, "算法正在运行，请稍后刷新结果");
@@ -167,7 +167,7 @@ public class StockPriceController extends BaseController {
             String res;
             try {
                 JSONObject json = new JSONObject();
-                json.put("data", "111");
+                json.put("data", list);
                 res = HttpUtil.jsonPost(address + "model_predict_a_day", null, json);
                 System.out.println(res);
                 if (res != null) {
@@ -179,5 +179,19 @@ public class StockPriceController extends BaseController {
             }
             return Result.success(true, "更新成功");
         }
+    }
+    // 获取提前定价型号列表
+    /**
+     * @return Result
+     * @description 算法调用接口
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 9/7/2022
+     */
+    @GetMapping("/price/inadvance")
+    @Authentication(buyer = true)
+    public Result<List<StockPriceVO>> getStockPriceInAdvanceList(@RequestParam(defaultValue = "#{null}", value = "Modle") String modle) {
+        List<StockPriceVO> list = stockPriceService.inAdvanceList(modle);
+        return Result.success(list);
     }
 }

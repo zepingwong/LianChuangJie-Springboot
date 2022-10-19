@@ -22,4 +22,8 @@ public interface StockPriceMapper extends BaseMapper<StockPriceEntity> {
     Integer countList(@Param("sc") StockPriceSearchDTO stockPriceSearchDTO);
     Boolean update(@Param("da") StockPriceOKDTO stockPriceOKDTO);
     IPage<TabStockPriceBaseVO> tabList(Page<TabStockPriceBaseVO> page, @Param("sc") TabSearchDTO searchCondition);
+    /**
+     * 提前定价列表
+     */
+    List<StockPriceVO> inAdvance(@Param("modle") String modle);
 }

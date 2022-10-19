@@ -25,6 +25,7 @@ public class TabStockPriceController {
     @Resource
     TabClientNeedsService tabClientNeedsService;
     // 销售报价
+    @Resource
     TabEnquiryService tabEnquiryService;
 
     @Resource
@@ -112,7 +113,11 @@ public class TabStockPriceController {
      */
     @GetMapping("/stockprice/needs")
     @Authentication(buyer = true)
-    public Result<Page<TabStockPriceNeedsVO>> getCusNeedsListController(@RequestParam(defaultValue = "#{null}", value = "page") Integer page, @RequestParam(defaultValue = "#{null}", value = "size") Integer size, @RequestParam(defaultValue = "#{null}", value = "Modle") String modle) {
+    public Result<Page<TabStockPriceNeedsVO>> getCusNeedsListController(
+            @RequestParam(defaultValue = "#{null}", value = "page") Integer page,
+            @RequestParam(defaultValue = "#{null}", value = "size") Integer size,
+            @RequestParam(defaultValue = "#{null}", value = "Modle") String modle
+    ) {
         TabSearchDTO tabSearchDTO = new TabSearchDTO();
         tabSearchDTO.setPage(page);
         tabSearchDTO.setSize(size);
@@ -175,11 +180,17 @@ public class TabStockPriceController {
      */
     @GetMapping("/stockprice/enquiry")
     @Authentication(buyer = true)
-    public Result<Page<TabStockPriceEnquiryVO>> getEnquiryListController(@RequestParam(defaultValue = "#{null}", value = "page") Integer page, @RequestParam(defaultValue = "#{null}", value = "size") Integer size, @RequestParam(defaultValue = "#{null}", value = "Modle") String modle) {
+    public Result<Page<TabStockPriceEnquiryVO>> getEnquiryListController(
+            @RequestParam(defaultValue = "#{null}", value = "page") Integer page,
+            @RequestParam(defaultValue = "#{null}", value = "size") Integer size,
+            @RequestParam(defaultValue = "#{null}", value = "Modle") String modle
+    ) {
         TabSearchDTO tabSearchDTO = new TabSearchDTO();
         tabSearchDTO.setPage(page);
         tabSearchDTO.setSize(size);
         tabSearchDTO.setModle(modle);
+        System.out.println("**********************************************");
+        System.out.println(tabEnquiryService.stockPriceTabList(tabSearchDTO));
         Page<TabStockPriceEnquiryVO> pages = tabEnquiryService.stockPriceTabList(tabSearchDTO);
         return Result.success(pages, "Success");
     }

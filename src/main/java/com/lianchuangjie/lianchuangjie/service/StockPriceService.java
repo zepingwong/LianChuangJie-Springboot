@@ -33,4 +33,10 @@ public interface StockPriceService extends IService<StockPriceEntity> {
      * @date 9/4/2022
      */
     void updateALL(List<StockPriceOKDTO> list);
+
+    /**
+     * 获取提前定价列表
+     * @return List<StockPriceVO>
+     */
+    List<StockPriceVO> inAdvanceList(String modle);
 }
