@@ -5,7 +5,7 @@ import com.lianchuangjie.lianchuangjie.entity.EnquiryBuyerEntity;
 import com.lianchuangjie.lianchuangjie.entity.UserEntity;
 import com.lianchuangjie.lianchuangjie.mapper.EnquiryMapper.EnquiryBuyerMapper;
 import com.lianchuangjie.lianchuangjie.mapper.UserMapper;
-import com.lianchuangjie.lianchuangjie.dto.search.EnquiryBuyerSearchDTO;
+import com.lianchuangjie.lianchuangjie.dto.Enquiry.EnquiryBuyerSearchDTO;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquiryBuyerService;
 import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
 import com.lianchuangjie.lianchuangjie.vo.EnquiryBuyerItemVO;

@@ -1,4 +1,4 @@
-package com.lianchuangjie.lianchuangjie.dto.search;
+package com.lianchuangjie.lianchuangjie.dto.Enquiry;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;

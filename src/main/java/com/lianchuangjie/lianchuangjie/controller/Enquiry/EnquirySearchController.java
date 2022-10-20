@@ -3,17 +3,16 @@ package com.lianchuangjie.lianchuangjie.controller.Enquiry;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lianchuangjie.lianchuangjie.config.Authentication;
 import com.lianchuangjie.lianchuangjie.controller.BaseController;
-import com.lianchuangjie.lianchuangjie.dto.SingleQueryDTO;
-import com.lianchuangjie.lianchuangjie.dto.search.EnquiryBuyerSearchDTO;
-import com.lianchuangjie.lianchuangjie.dto.search.EnquirySearchDTO;
-import com.lianchuangjie.lianchuangjie.service.*;
+import com.lianchuangjie.lianchuangjie.dto.Enquiry.EnquirySingleQueryDTO;
+import com.lianchuangjie.lianchuangjie.dto.Enquiry.EnquiryBuyerSearchDTO;
+import com.lianchuangjie.lianchuangjie.dto.Enquiry.EnquirySearchDTO;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquiryBuyerService;
-import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquiryHotwordsService;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquirySearchService;
+import com.lianchuangjie.lianchuangjie.service.QueryService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
-import com.lianchuangjie.lianchuangjie.vo.*;
-import com.lianchuangjie.lianchuangjie.vo.Enquiry.EnquiryHotwordsVO;
+import com.lianchuangjie.lianchuangjie.vo.BomQueryItemVO;
 import com.lianchuangjie.lianchuangjie.vo.Enquiry.EnquirySearchResultVO;
+import com.lianchuangjie.lianchuangjie.vo.EnquiryBuyerItemVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +21,9 @@ import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.List;
 
+/**
+ * 询价搜索接口
+ */
 @Slf4j
 @Validated
 @RestController
@@ -30,32 +32,14 @@ public class EnquirySearchController extends BaseController {
     @Resource
     QueryService queryService;
     @Resource
-    SdadaService sdadaService;
-    @Resource
     EnquiryBuyerService enquiryBuyerService;
     @Resource
     EnquirySearchService enquirySearchService;
-    @Resource
-    EnquiryHotwordsService enquiryHotwordsService;
-    /**
-     * @param singleQueryDTO singleQueryDTO
-     * @return Result
-     * @description 单个型号询价
-     * @author WANG Zeping
-     * @email zepingwong@gmail.com
-     * @date 8/24/2022
-     */
-    @PostMapping("/query/single")
-    @Authentication(sale = true)
-    public Result<BomQueryItemVO> querySingleController(@RequestBody SingleQueryDTO singleQueryDTO) {
-        BomQueryItemVO bomQueryItem = queryService.querySingle(singleQueryDTO);
-        return Result.success(bomQueryItem);
-    }
 
     @PostMapping("/query/related")
     @Authentication(sale = true)
-    public Result<List<BomQueryItemVO>> queryRelatedController(@RequestBody SingleQueryDTO singleQueryDTO) {
-        List<BomQueryItemVO> list = queryService.queryRelated(singleQueryDTO);
+    public Result<List<BomQueryItemVO>> queryRelatedController(@RequestBody EnquirySingleQueryDTO enquirySingleQueryDTO) {
+        List<BomQueryItemVO> list = queryService.queryRelated(enquirySingleQueryDTO);
         return Result.success(list);
     }
 
@@ -77,22 +61,17 @@ public class EnquirySearchController extends BaseController {
         List<EnquiryBuyerItemVO> list = enquiryBuyerService.list(enquiryBuyerSearchDTO);
         return Result.success(list, "Success");
     }
+
     /**
-     * @param modle modle
+     * @param page 页码
+     * @param size 每页显示条数
+     * @param modle 型号
      * @return Result
-     * @description 查询关联型号
+     * @description 搜索型号
      * @author WANG Zeping
      * @email zepingwong@gmail.com
-     * @date 8/21/2022
+     * @date 8/24/2022
      */
-    @GetMapping("related")
-    @Authentication(sale = true, buyer = true)
-    public Result<List<SdadaVO>> getRelatedListController(@RequestParam(name = "Modle", defaultValue = "#{null}") String modle) {
-        List<SdadaVO> list = sdadaService.relatedList(modle);
-        return Result.success(list, "Success");
-    }
-
-
     @GetMapping("/search")
     @Authentication(sale = true)
     public Result<Page<EnquirySearchResultVO>> getEnquirySearchResult(
@@ -106,19 +85,5 @@ public class EnquirySearchController extends BaseController {
         enquirySearchDTO.setSize(size);
         Page<EnquirySearchResultVO> res = enquirySearchService.list(enquirySearchDTO);
         return Result.success(res, "success");
-    }
-
-    /**
-     * @return Result 排名前两个的热搜词
-     * @description 查询热搜词
-     * @author WANG Zeping
-     * @email zepingwong@gmail.com
-     * @date 9/17/2022
-     */
-    @GetMapping("/search/hotwords")
-    @Authentication(sale = true)
-    public Result<List<EnquiryHotwordsVO>> getEnquiryHotwords() {
-        List<EnquiryHotwordsVO> list = enquiryHotwordsService.getList();
-        return Result.success(list);
     }
 }

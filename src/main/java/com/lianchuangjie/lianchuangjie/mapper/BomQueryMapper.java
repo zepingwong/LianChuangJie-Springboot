@@ -1,6 +1,6 @@
 package com.lianchuangjie.lianchuangjie.mapper;
 
-import com.lianchuangjie.lianchuangjie.dto.SingleQueryDTO;
+import com.lianchuangjie.lianchuangjie.dto.Enquiry.EnquirySingleQueryDTO;
 import com.lianchuangjie.lianchuangjie.vo.BomQueryItemVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -16,6 +16,5 @@ public interface BomQueryMapper {
             @Param("DeptCode") String deptCode, // 销售部门代码
             @Param("UserSign") Long userSign // 销售编号
     );
-    BomQueryItemVO querySingle(@Param("sc") SingleQueryDTO singleQueryDTO);
-    List<BomQueryItemVO> queryRelated(@Param("sc") SingleQueryDTO singleQueryDTO);
+    List<BomQueryItemVO> queryRelated(@Param("sc") EnquirySingleQueryDTO enquirySingleQueryDTO);
 }

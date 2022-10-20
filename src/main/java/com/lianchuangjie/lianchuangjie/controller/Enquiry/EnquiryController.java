@@ -2,8 +2,8 @@ package com.lianchuangjie.lianchuangjie.controller.Enquiry;
 
 import com.lianchuangjie.lianchuangjie.config.Authentication;
 import com.lianchuangjie.lianchuangjie.controller.BaseController;
-import com.lianchuangjie.lianchuangjie.dto.EnquiryIsOrderedDTO;
-import com.lianchuangjie.lianchuangjie.dto.EnquiryReQuoteDTO;
+import com.lianchuangjie.lianchuangjie.dto.Enquiry.EnquiryIsOrderedDTO;
+import com.lianchuangjie.lianchuangjie.dto.Enquiry.EnquiryReQuoteDTO;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquiryIsOrderedService;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquiryReQuoteService;
 import com.lianchuangjie.lianchuangjie.utils.Result;

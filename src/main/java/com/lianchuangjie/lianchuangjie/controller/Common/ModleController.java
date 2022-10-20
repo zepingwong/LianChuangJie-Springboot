@@ -31,4 +31,18 @@ public class ModleController {
         List<SdadaVO> list = sdadaService.containList(modle);
         return Result.success(list, "Success");
     }
+    /**
+     * @param modle modle
+     * @return Result
+     * @description 查询关联型号
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 8/21/2022
+     */
+    @GetMapping("related")
+    @Authentication(sale = true, buyer = true)
+    public Result<List<SdadaVO>> getRelatedListController(@RequestParam(name = "Modle", defaultValue = "#{null}") String modle) {
+        List<SdadaVO> list = sdadaService.relatedList(modle);
+        return Result.success(list, "Success");
+    }
 }

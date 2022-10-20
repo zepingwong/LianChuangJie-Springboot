@@ -137,61 +137,8 @@
         ) TT
         ORDER BY TT.ItemId, TT.Match DESC /*按照客户上传的BOM单内部行号进行排序，关联型号在完全匹配型号下面*/
     </select>
-    <select id="querySingle" resultType="com.lianchuangjie.lianchuangjie.vo.BomQueryItemVO" parameterType="com.lianchuangjie.lianchuangjie.dto.SingleQueryDTO">
-        DECLARE @DemandQty INT; /*需求数量*/
-        DECLARE @DeptCode VARCHAR(255); /*销售部门*/
-        DECLARE @SlpCode INT; /*销售员*/
-        SET @DemandQty = ${sc.getDemandQty};
-        SET @DeptCode = ${sc.getDeptCode};
-        SET @SlpCode = ${sc.getSlpCode};
-        SELECT
-            SDADA.QuoBrand, /*匹配品牌*/
-            SDADA.TAG, /*匹配TAG*/
-            SDADA.sno, /*匹配型号*/
-            SDADA.spq, /*spq*/
-            SDADA.ECCN, /*ECCN*/
-            #{sc.brand}                  AS 'Brand', /*客户需求品牌*/
-            #{sc.modle}                  AS 'Modle', /*客户需求型号*/
-            @DemandQty                   AS 'DemandQty', /*客户需求数量*/
-            stock.Quantity, /*库存数量*/
-            U_OPRI.PrePrice, /*参考价格*/
-            U_OPRI.PrePrice * @DemandQty AS 'TotalPrice', /*预估总价*/
-            N'模糊搜索'                  AS 'Match' /*匹配情况*/,
-            /*询价状态*/
-            (
-                CASE
-                    WHEN @DemandQty &lt; stock.Quantity THEN 'C'
-                    WHEN U_OPRI.PrePrice * @DemandQty > 1000 OR U_OPRI.PrePrice * @DemandQty IS NULL THEN 'B'
-                    ELSE 'E'
-                END
-            )                        AS Status,
-            /*采购员*/
-
-        FROM SDADA
-        LEFT JOIN (
-            SELECT
-                T_OBTN.ItemName,
-                SUM(T.Quantity - T_OBTN.U_LockQty) AS Quantity
-            FROM (
-                SELECT
-                    MdAbsEntry,
-                    SUM(Quantity) AS Quantity
-                FROM T_OBTQ
-                GROUP BY MdAbsEntry
-            ) T
-            INNER JOIN T_OBTN ON T.MdAbsEntry = T_OBTN.AbsEntry
-            GROUP BY ItemName
-        ) stock ON stock.ItemName = SDADA.sno
-        LEFT JOIN U_OPRI ON U_OPRI.ItemName = SDADA.sno
-        <where>
-            SDADA.sno = #{sc.modle}
-            <if test="sc.brand != null">
-                AND SDADA.QuoBrand = #{sc.brand}
-            </if>
-        </where>
-    </select>
     <select id="queryRelated" resultType="com.lianchuangjie.lianchuangjie.vo.BomQueryItemVO"
-            parameterType="com.lianchuangjie.lianchuangjie.dto.SingleQueryDTO">
+            parameterType="com.lianchuangjie.lianchuangjie.dto.Enquiry.EnquirySingleQueryDTO">
         DECLARE @DemandQty INT; /*需求数量*/
         DECLARE @DeptCode VARCHAR; /*销售部门*/
         DECLARE @SlpCode INT; /*销售员*/

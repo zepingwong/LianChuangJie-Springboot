@@ -2,7 +2,7 @@ package com.lianchuangjie.lianchuangjie.service.Enquiry.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.lianchuangjie.lianchuangjie.dto.EnquiryReQuoteDTO;
+import com.lianchuangjie.lianchuangjie.dto.Enquiry.EnquiryReQuoteDTO;
 import com.lianchuangjie.lianchuangjie.entity.EnquiryMainEntity;
 import com.lianchuangjie.lianchuangjie.entity.EnquirySubEntity;
 import com.lianchuangjie.lianchuangjie.entity.QuotationEntity;

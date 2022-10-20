@@ -1,7 +1,7 @@
 package com.lianchuangjie.lianchuangjie.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.lianchuangjie.lianchuangjie.dto.SingleQueryDTO;
+import com.lianchuangjie.lianchuangjie.dto.Enquiry.EnquirySingleQueryDTO;
 import com.lianchuangjie.lianchuangjie.entity.UserEntity;
 import com.lianchuangjie.lianchuangjie.mapper.BomQueryMapper;
 import com.lianchuangjie.lianchuangjie.mapper.UserMapper;
@@ -20,26 +20,18 @@ public class QueryServiceImpl implements QueryService {
     @Resource
     UserMapper userMapper;
     
-    private void setUserInfo(SingleQueryDTO singleQueryDTO) {
+    private void setUserInfo(EnquirySingleQueryDTO enquirySingleQueryDTO) {
         Long userSign = SessionUtil.getUser().getUserSign();
         QueryWrapper<UserEntity> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("UserSign", userSign);
         UserEntity user = userMapper.selectOne(queryWrapper);
-        singleQueryDTO.setSlpCode(userSign);
-        singleQueryDTO.setDeptCode(user.getDftDept());
+        enquirySingleQueryDTO.setSlpCode(userSign);
+        enquirySingleQueryDTO.setDeptCode(user.getDftDept());
     }
-
     @Override
-    public BomQueryItemVO querySingle(SingleQueryDTO singleQueryDTO) {
+    public List<BomQueryItemVO> queryRelated(EnquirySingleQueryDTO enquirySingleQueryDTO) {
         // 当前登录用户
-        setUserInfo(singleQueryDTO);
-        return bomQueryMapper.querySingle(singleQueryDTO);
-    }
-
-    @Override
-    public List<BomQueryItemVO> queryRelated(SingleQueryDTO singleQueryDTO) {
-        // 当前登录用户
-        setUserInfo(singleQueryDTO);
-        return bomQueryMapper.queryRelated(singleQueryDTO);
+        setUserInfo(enquirySingleQueryDTO);
+        return bomQueryMapper.queryRelated(enquirySingleQueryDTO);
     }
 }

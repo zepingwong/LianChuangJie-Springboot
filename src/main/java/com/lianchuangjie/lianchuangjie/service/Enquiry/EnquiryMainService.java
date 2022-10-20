@@ -3,7 +3,7 @@ package com.lianchuangjie.lianchuangjie.service.Enquiry;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lianchuangjie.lianchuangjie.entity.EnquiryMainEntity;
-import com.lianchuangjie.lianchuangjie.dto.search.EnquiryMainSearchDTO;
+import com.lianchuangjie.lianchuangjie.dto.Enquiry.EnquiryMainSearchDTO;
 import com.lianchuangjie.lianchuangjie.vo.Enquiry.EnquiryMainInfoVO;
 import com.lianchuangjie.lianchuangjie.vo.Enquiry.EnquiryMainItemVO;
 

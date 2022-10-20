@@ -1,7 +1,7 @@
 package com.lianchuangjie.lianchuangjie.mapper.EnquiryMapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.lianchuangjie.lianchuangjie.dto.search.EnquiryMainSearchDTO;
+import com.lianchuangjie.lianchuangjie.dto.Enquiry.EnquiryMainSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.EnquiryMainEntity;
 import com.lianchuangjie.lianchuangjie.vo.Enquiry.EnquiryMainItemVO;
 import org.apache.ibatis.annotations.Mapper;

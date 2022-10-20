@@ -1,7 +1,7 @@
 package com.lianchuangjie.lianchuangjie.service.Enquiry;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.lianchuangjie.lianchuangjie.dto.EnquiryIsOrderedDTO;
+import com.lianchuangjie.lianchuangjie.dto.Enquiry.EnquiryIsOrderedDTO;
 import com.lianchuangjie.lianchuangjie.entity.EnquirySubEntity;
 
 public interface EnquiryIsOrderedService extends IService<EnquirySubEntity> {

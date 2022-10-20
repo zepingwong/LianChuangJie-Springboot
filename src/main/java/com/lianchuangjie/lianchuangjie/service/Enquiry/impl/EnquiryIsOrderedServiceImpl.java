@@ -2,7 +2,7 @@ package com.lianchuangjie.lianchuangjie.service.Enquiry.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.lianchuangjie.lianchuangjie.dto.EnquiryIsOrderedDTO;
+import com.lianchuangjie.lianchuangjie.dto.Enquiry.EnquiryIsOrderedDTO;
 import com.lianchuangjie.lianchuangjie.entity.EnquirySubEntity;
 import com.lianchuangjie.lianchuangjie.mapper.EnquiryMapper.EnquirySubMapper;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquiryIsOrderedService;

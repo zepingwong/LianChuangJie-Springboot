@@ -1,7 +1,7 @@
 package com.lianchuangjie.lianchuangjie.service.Enquiry.impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.lianchuangjie.lianchuangjie.dto.search.EnquirySearchDTO;
+import com.lianchuangjie.lianchuangjie.dto.Enquiry.EnquirySearchDTO;
 import com.lianchuangjie.lianchuangjie.mapper.EnquiryMapper.EnquirySearchMapper;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquirySearchService;
 import com.lianchuangjie.lianchuangjie.vo.Enquiry.EnquirySearchResultVO;

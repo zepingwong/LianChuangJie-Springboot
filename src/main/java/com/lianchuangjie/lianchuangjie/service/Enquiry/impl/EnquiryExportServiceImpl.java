@@ -1,6 +1,6 @@
 package com.lianchuangjie.lianchuangjie.service.Enquiry.impl;
 
-import com.lianchuangjie.lianchuangjie.dto.search.EnquirySubSearchDTO;
+import com.lianchuangjie.lianchuangjie.dto.Enquiry.EnquirySubSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.EnquiryMainEntity;
 import com.lianchuangjie.lianchuangjie.mapper.EnquiryMapper.EnquiryMainMapper;
 import com.lianchuangjie.lianchuangjie.mapper.EnquiryMapper.EnquirySubMapper;
