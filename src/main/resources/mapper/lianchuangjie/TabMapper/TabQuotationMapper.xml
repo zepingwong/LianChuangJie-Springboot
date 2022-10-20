@@ -236,6 +236,5 @@
                 </foreach>
             )
         )
-        ORDER BY T_ICIN1.U_QuoDate DESC
     </select>
 </mapper>

@@ -4,16 +4,36 @@
 
     <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.Enquiry.EnquirySearchResultVO">
         SELECT
-            T_OBTN.ItemName AS 'Modle'
-        FROM (
-                 SELECT
-                     WhsCode,
-                     MdAbsEntry,
-                     SUM(Quantity) AS Quantity,
-                     SUM()
-                 FROM T_OBTQ GROUP BY MdAbsEntry, WhsCode
-        ) T
-        INNER JOIN T_OBTN ON T.MdAbsEntry = T_OBTN.AbsEntry
-
+            T_OBTQ.WhsCode, /*仓库代码*/
+            T_OBTQ.Quantity, /*库存数量*/
+            T_OBTN.U_LockQty, /*锁货数量*/
+            (T_OBTQ.Quantity - T_OBTN.U_LockQty) AS 'AvailableQty', /*可用数量*/
+            T_OBTN.InDate, /*入库时间*/
+            T_OBTN.ItemName, /*型号*/
+            T_OBTN.U_Batch, /*批次*/
+            T_OBTN.U_ECCN, /*ECCN*/
+            T_OBTN.U_msl, /*U_msl湿度等级*/
+            T_OBTN.U_BuyerName, /*采购员姓名*/
+            T_OBTN.U_COO, /*产地*/
+            T_OBTN.U_Package, /*包装*/
+            T_OBTN.U_OriginalBid, /*是否原标*/
+            T_OBTN.U_GrindingCode, /*摩码类型*/
+            T_OBTN.U_MOQ, /*标准MPQ*/
+            T_OBTN.U_ThinkPrice, /*建议售价*/
+            T_OBTN.U_AreaType, /*库存性质*/
+            T_OBTN.U_Secrecy, /*是否保密*/
+            DateDiff(dd, T_OBTN.InDate, GETDATE())                                     AS 'StockDays', /*库存天数*/
+            IIF(ISNULL(T_OITM.U_QuoBrand,'') = '', T_OITM.U_Brand, T_OITM.U_QuoBrand) AS Brand
+        FROM T_OBTN
+                 LEFT JOIN T_OBTQ ON T_OBTQ.MdAbsEntry = T_OBTN.AbsEntry
+                 INNER JOIN T_OITM ON T_OBTN.ItemCode = T_OITM.ItemCode
+        WHERE T_OBTQ.Quantity > 0
+        AND T_OBTN.ItemName IN (
+                SELECT SDADA_1.sno
+                FROM SDADA SDADA_1
+                WHERE SDADA_1.TAG IN (
+                SELECT SDADA.TAG FROM SDADA WHERE SDADA.sno = #{sc.modle}
+            )
+        )
     </select>
 </mapper>

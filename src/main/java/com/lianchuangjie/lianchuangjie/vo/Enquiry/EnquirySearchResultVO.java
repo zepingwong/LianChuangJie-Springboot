@@ -19,20 +19,20 @@ import java.util.Date;
 @Accessors(chain = true)
 public class EnquirySearchResultVO {
     // 型号
-    @JsonProperty("Modle")
-    private String sno;
+    @JsonProperty("ItemName")
+    private String itemName;
     // 品牌
-    @JsonProperty("QuoBrand")
-    private String quoBrand;
+    @JsonProperty("Brand")
+    private String brand;
     // MSL
-    @JsonProperty("msl_new")
-    private String mslNew;
-    // MPQ
-    @JsonProperty("spq")
-    private String spq;
+    @JsonProperty("U_msl")
+    private String uMsl;
+    // 标准MPQ
+    @JsonProperty("U_MOQ")
+    private String umoq;
     // ECCN
-    @JsonProperty("ECCN")
-    private String eccn;
+    @JsonProperty("U_ECCN")
+    private String ueccn;
     // U_LockQty 锁货数量
     @JsonProperty("U_LockQty")
     private BigDecimal uLockQty;
@@ -40,8 +40,8 @@ public class EnquirySearchResultVO {
     @JsonProperty("Quantity")
     private BigDecimal quantity;
     // 可用数量
-    @JsonProperty("AvaQuantity")
-    private BigDecimal avaQuantity;
+    @JsonProperty("AvailableQty")
+    private BigDecimal availableQty;
     // 批次
     @JsonProperty("U_Batch")
     private String uBatch;
@@ -61,4 +61,31 @@ public class EnquirySearchResultVO {
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonProperty("InDate")
     private Date inDate;
+    // 产地
+    @JsonProperty("U_COO")
+    private String ucoo;
+    // 包装
+    @JsonProperty("U_Package")
+    private String uPackage;
+    // 采购员
+    @JsonProperty("U_BuyerName")
+    private String uBuyerName;
+    // 库存性质
+    @JsonProperty("U_AreaType")
+    private String uAreaType;
+    // 原标
+    @JsonProperty("U_OriginalBid")
+    private String uOriginalBid;
+    // 仓库代码
+    @JsonProperty("WhsCode")
+    private String whsCode;
+    // 建议售价
+    @JsonProperty("U_ThinkPrice")
+    private BigDecimal uThinkPrice;
+    // U_GrindingCode 磨码类型
+    @JsonProperty("U_GrindingCode")
+    private String uGrindingCode;
+    // 是否保密
+    @JsonProperty("U_Secrecy")
+    private String uSecrecy;
 }
