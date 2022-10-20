@@ -1,4 +1,4 @@
-package com.lianchuangjie.lianchuangjie.mapper;
+package com.lianchuangjie.lianchuangjie.mapper.EnquiryMapper;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;

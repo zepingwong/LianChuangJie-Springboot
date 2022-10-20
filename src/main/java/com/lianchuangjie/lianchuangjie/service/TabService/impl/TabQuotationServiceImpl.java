@@ -21,7 +21,14 @@ import javax.annotation.Resource;
 public class TabQuotationServiceImpl extends ServiceImpl<QuotationMapper, QuotationEntity> implements TabQuotationService {
     @Resource
     TabQuotationMapper tabQuotationMapper;
-
+    /**
+     * @param searchCondition searchCondition
+     * @return Page
+     * @description 销售报价页面-采购报价Tab
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 8/24/2022
+     */
     @Override
     public Page<TabEnquiryQuotationVO> enquiryTabList(TabSearchDTO searchCondition) {
         Page<TabEnquiryQuotationVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
@@ -29,7 +36,14 @@ public class TabQuotationServiceImpl extends ServiceImpl<QuotationMapper, Quotat
         tabQuotationMapper.selectEnquiryTabList(page, searchCondition);
         return page;
     }
-
+    /**
+     * @param searchCondition searchCondition
+     * @return Page
+     * @description 模糊搜索页面-采购报价Tab
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 8/24/2022
+     */
     @Override
     public Page<TabSearchQuotationVO> searchTabList(TabSearchDTO searchCondition) {
         Page<TabSearchQuotationVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
@@ -37,7 +51,14 @@ public class TabQuotationServiceImpl extends ServiceImpl<QuotationMapper, Quotat
         tabQuotationMapper.selectSearchTabList(page, searchCondition);
         return page;
     }
-
+    /**
+     * @param searchCondition searchCondition
+     * @return Page
+     * @description 库存定价页面-采购报价Tab
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 8/24/2022
+     */
     @Override
     public Page<TabStockPriceQuoteVO> stockPriceTabList(TabSearchDTO searchCondition) {
         Page<TabStockPriceQuoteVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
@@ -46,9 +67,12 @@ public class TabQuotationServiceImpl extends ServiceImpl<QuotationMapper, Quotat
     }
 
     /**
-     * @param searchCondition 查询条件
-     * @return Page<TabMyQuotationVO>
-     * @description 我的报价
+     * @param searchCondition searchCondition
+     * @return Page
+     * @description 采购报价页面-我的报价Tab
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 8/24/2022
      */
     @Override
     public Page<TabMyQuotationVO> tabMyList(TabSearchDTO searchCondition) {
@@ -61,7 +85,7 @@ public class TabQuotationServiceImpl extends ServiceImpl<QuotationMapper, Quotat
     /**
      * @param searchCondition searchCondition
      * @return Page
-     * @description 有效报价
+     * @description 采购报价页面-有效报价Tab
      * @author WANG Zeping
      * @email zepingwong@gmail.com
      * @date 8/24/2022

@@ -1,8 +1,8 @@
 package com.lianchuangjie.lianchuangjie.service.Enquiry.impl;
 
-import com.lianchuangjie.lianchuangjie.mapper.EnquiryHotwordsMapper;
+import com.lianchuangjie.lianchuangjie.mapper.EnquiryMapper.EnquiryHotwordsMapper;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquiryHotwordsService;
-import com.lianchuangjie.lianchuangjie.vo.EnquiryHotwordsVO;
+import com.lianchuangjie.lianchuangjie.vo.Enquiry.EnquiryHotwordsVO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

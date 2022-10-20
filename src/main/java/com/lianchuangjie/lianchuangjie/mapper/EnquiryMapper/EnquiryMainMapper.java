@@ -1,4 +1,4 @@
-package com.lianchuangjie.lianchuangjie.mapper;
+package com.lianchuangjie.lianchuangjie.mapper.EnquiryMapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.lianchuangjie.lianchuangjie.dto.search.EnquiryMainSearchDTO;

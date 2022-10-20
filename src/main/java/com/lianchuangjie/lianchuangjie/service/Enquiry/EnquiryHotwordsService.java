@@ -1,6 +1,6 @@
 package com.lianchuangjie.lianchuangjie.service.Enquiry;
 
-import com.lianchuangjie.lianchuangjie.vo.EnquiryHotwordsVO;
+import com.lianchuangjie.lianchuangjie.vo.Enquiry.EnquiryHotwordsVO;
 
 import java.util.List;
 

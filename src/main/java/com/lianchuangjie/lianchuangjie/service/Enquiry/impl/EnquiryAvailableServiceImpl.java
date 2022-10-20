@@ -2,7 +2,7 @@ package com.lianchuangjie.lianchuangjie.service.Enquiry.impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lianchuangjie.lianchuangjie.dto.search.EnquiryAvailableSearchDTO;
-import com.lianchuangjie.lianchuangjie.mapper.EnquiryAvailableMapper;
+import com.lianchuangjie.lianchuangjie.mapper.EnquiryMapper.EnquiryAvailableMapper;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquiryAvailableService;
 import com.lianchuangjie.lianchuangjie.vo.Enquiry.TabEnquiryAvailableVO;
 import org.springframework.stereotype.Service;

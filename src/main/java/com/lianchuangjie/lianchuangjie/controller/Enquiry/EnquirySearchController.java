@@ -1,17 +1,19 @@
-package com.lianchuangjie.lianchuangjie.controller;
+package com.lianchuangjie.lianchuangjie.controller.Enquiry;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lianchuangjie.lianchuangjie.config.Authentication;
+import com.lianchuangjie.lianchuangjie.controller.BaseController;
 import com.lianchuangjie.lianchuangjie.dto.SingleQueryDTO;
 import com.lianchuangjie.lianchuangjie.dto.search.EnquiryBuyerSearchDTO;
 import com.lianchuangjie.lianchuangjie.dto.search.EnquirySearchDTO;
 import com.lianchuangjie.lianchuangjie.service.*;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquiryBuyerService;
+import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquiryHotwordsService;
+import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquirySearchService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
-import com.lianchuangjie.lianchuangjie.vo.BomQueryItemVO;
-import com.lianchuangjie.lianchuangjie.vo.EnquiryBuyerItemVO;
-import com.lianchuangjie.lianchuangjie.vo.SdadaVO;
-import com.lianchuangjie.lianchuangjie.vo.SearchQueryVO;
+import com.lianchuangjie.lianchuangjie.vo.*;
+import com.lianchuangjie.lianchuangjie.vo.Enquiry.EnquiryHotwordsVO;
+import com.lianchuangjie.lianchuangjie.vo.Enquiry.EnquirySearchResultVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -23,8 +25,8 @@ import java.util.List;
 @Slf4j
 @Validated
 @RestController
-@RequestMapping("/search")
-public class SearchController extends BaseController {
+@RequestMapping("/enquiry")
+public class EnquirySearchController extends BaseController {
     @Resource
     QueryService queryService;
     @Resource
@@ -32,22 +34,9 @@ public class SearchController extends BaseController {
     @Resource
     EnquiryBuyerService enquiryBuyerService;
     @Resource
-    SearchService searchService;
-    @GetMapping("/query")
-    @Authentication(sale = true)
-    public Result<Page<SearchQueryVO>> enquirySubController(
-            @RequestParam(defaultValue = "#{null}", value = "page") Integer page, // 页码
-            @RequestParam(defaultValue = "#{null}", value = "size") Integer size, // 每页显示条数
-            @RequestParam(defaultValue = "#{null}", value = "Modle") String modle
-    ) {
-        EnquirySearchDTO enquirySearchDTO = new EnquirySearchDTO();
-        enquirySearchDTO.setModle(modle);
-        enquirySearchDTO.setPage(page);
-        enquirySearchDTO.setSize(size);
-        Page<SearchQueryVO> res = searchService.list(enquirySearchDTO);
-        return Result.success(res, "success");
-    }
-
+    EnquirySearchService enquirySearchService;
+    @Resource
+    EnquiryHotwordsService enquiryHotwordsService;
     /**
      * @param singleQueryDTO singleQueryDTO
      * @return Result
@@ -88,22 +77,6 @@ public class SearchController extends BaseController {
         List<EnquiryBuyerItemVO> list = enquiryBuyerService.list(enquiryBuyerSearchDTO);
         return Result.success(list, "Success");
     }
-
-    /**
-     * @param modle modle
-     * @return Result
-     * @description 型号模糊搜索
-     * @author WANG Zeping
-     * @email zepingwong@gmail.com
-     * @date 8/21/2022
-     */
-    @GetMapping("/snosuggestion")
-    @Authentication(sale = true, buyer = true)
-    public Result<List<SdadaVO>> getSnosuggestionController(@RequestParam(name = "Modle", defaultValue = "#{null}") String modle) {
-        List<SdadaVO> list = sdadaService.containList(modle);
-        return Result.success(list, "Success");
-    }
-
     /**
      * @param modle modle
      * @return Result
@@ -120,4 +93,32 @@ public class SearchController extends BaseController {
     }
 
 
+    @GetMapping("/search")
+    @Authentication(sale = true)
+    public Result<Page<EnquirySearchResultVO>> getEnquirySearchResult(
+            @RequestParam(defaultValue = "#{null}", value = "page") Integer page, // 页码
+            @RequestParam(defaultValue = "#{null}", value = "size") Integer size, // 每页显示条数
+            @RequestParam(defaultValue = "#{null}", value = "Modle") String modle
+    ) {
+        EnquirySearchDTO enquirySearchDTO = new EnquirySearchDTO();
+        enquirySearchDTO.setModle(modle);
+        enquirySearchDTO.setPage(page);
+        enquirySearchDTO.setSize(size);
+        Page<EnquirySearchResultVO> res = enquirySearchService.list(enquirySearchDTO);
+        return Result.success(res, "success");
+    }
+
+    /**
+     * @return Result 排名前两个的热搜词
+     * @description 查询热搜词
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 9/17/2022
+     */
+    @GetMapping("/search/hotwords")
+    @Authentication(sale = true)
+    public Result<List<EnquiryHotwordsVO>> getEnquiryHotwords() {
+        List<EnquiryHotwordsVO> list = enquiryHotwordsService.getList();
+        return Result.success(list);
+    }
 }

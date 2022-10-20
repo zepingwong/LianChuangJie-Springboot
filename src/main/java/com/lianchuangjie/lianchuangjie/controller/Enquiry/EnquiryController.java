@@ -1,17 +1,15 @@
-package com.lianchuangjie.lianchuangjie.controller;
+package com.lianchuangjie.lianchuangjie.controller.Enquiry;
 
 import com.lianchuangjie.lianchuangjie.config.Authentication;
+import com.lianchuangjie.lianchuangjie.controller.BaseController;
 import com.lianchuangjie.lianchuangjie.dto.EnquiryIsOrderedDTO;
 import com.lianchuangjie.lianchuangjie.dto.EnquiryReQuoteDTO;
-import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquiryHotwordsService;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquiryIsOrderedService;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquiryReQuoteService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
-import com.lianchuangjie.lianchuangjie.vo.*;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 @RestController
 @RequestMapping("/enquiry")
@@ -19,24 +17,7 @@ public class EnquiryController extends BaseController {
     @Resource
     EnquiryReQuoteService enquiryReQuoteService;
     @Resource
-    EnquiryHotwordsService enquiryHotwordsService;
-    @Resource
     EnquiryIsOrderedService enquiryIsOrderedService;
-
-
-    /**
-     * @return Result 排名前两个的热搜词
-     * @description 查询热搜词
-     * @author WANG Zeping
-     * @email zepingwong@gmail.com
-     * @date 9/17/2022
-     */
-    @GetMapping("hotwords")
-    @Authentication(sale = true)
-    public Result<List<EnquiryHotwordsVO>> getEnquiryHotwords() {
-        List<EnquiryHotwordsVO> list = enquiryHotwordsService.getList();
-        return Result.success(list);
-    }
 
     /**
      * @return Result

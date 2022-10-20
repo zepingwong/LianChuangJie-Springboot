@@ -54,7 +54,14 @@ public class TabClientNeedsServiceImpl extends ServiceImpl<TabClientNeedsMapper,
         page.setTotal(tabClientNeedsMapper.countEnquiryTabList(searchCondition));
         return page;
     }
-
+    /**
+     * @param searchCondition searchCondition
+     * @return Page
+     * @description 模糊搜索页面-客户需求TAB
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 8/20/2022
+     */
     @Override
     public Page<TabSearchNeedsVO> searchTabList(TabSearchDTO searchCondition) {
         Page<TabSearchNeedsVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
@@ -65,7 +72,14 @@ public class TabClientNeedsServiceImpl extends ServiceImpl<TabClientNeedsMapper,
         page.setTotal(tabClientNeedsMapper.countEnquiryTabList(searchCondition));
         return page;
     }
-
+    /**
+     * @param searchCondition searchCondition
+     * @return Page
+     * @description 库存定价页面-客户需求TAB
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 8/20/2022
+     */
     @Override
     public Page<TabStockPriceNeedsVO> stockPriceTabList(TabSearchDTO searchCondition) {
         Page<TabStockPriceNeedsVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());

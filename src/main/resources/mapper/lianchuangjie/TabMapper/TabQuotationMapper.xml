@@ -42,7 +42,6 @@
         )
         AND T_ICIN1.U_Buyer = #{sc.userSign} /*查询采购员*/
         AND T_ICIN1.U_QuoDate IS NOT NULL
-        ORDER BY T_ICIN1.U_QuoDate DESC
     </select>
     <select id="selectEnquiryTabList" resultType="com.lianchuangjie.lianchuangjie.vo.Enquiry.TabEnquiryQuotationVO">
         /*

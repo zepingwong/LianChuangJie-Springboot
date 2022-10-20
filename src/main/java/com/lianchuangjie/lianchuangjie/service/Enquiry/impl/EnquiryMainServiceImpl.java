@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
 import com.lianchuangjie.lianchuangjie.dto.search.EnquiryMainSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.EnquiryMainEntity;
 import com.lianchuangjie.lianchuangjie.exception.ResponseEnum;
-import com.lianchuangjie.lianchuangjie.mapper.EnquiryMainMapper;
+import com.lianchuangjie.lianchuangjie.mapper.EnquiryMapper.EnquiryMainMapper;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquiryMainService;
 import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
 import com.lianchuangjie.lianchuangjie.vo.Enquiry.EnquiryMainInfoVO;
