@@ -15,7 +15,7 @@
             SDADA.sno, /*匹配型号*/
             SDADA.spq, /*spq*/
             SDADA.ECCN, /*ECCN*/
-            #{sc.brand}                  AS 'Brand', /*客户需求品牌*/
+            IIF(#{sc.brand} IS NULL, SDADA.QuoBrand, #{sc.brand}) AS 'Brand', /*客户需求品牌*/
             #{sc.modle}                  AS 'Modle', /*客户需求型号*/
             @DemandQty                   AS 'DemandQty', /*客户需求数量*/
             stock.Quantity, /*库存数量*/
@@ -29,7 +29,7 @@
                     WHEN U_OPRI.PrePrice * @DemandQty > 1000 OR U_OPRI.PrePrice * @DemandQty IS NULL THEN 'B'
                     ELSE 'E'
                 END
-            )                        AS Status,
+            )                        AS Status
         FROM SDADA
         LEFT JOIN (
             SELECT
