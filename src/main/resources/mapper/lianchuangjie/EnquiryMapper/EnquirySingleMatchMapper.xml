@@ -30,7 +30,6 @@
                     ELSE 'E'
                 END
             )                        AS Status,
-        /*采购员*/
         FROM SDADA
         LEFT JOIN (
             SELECT

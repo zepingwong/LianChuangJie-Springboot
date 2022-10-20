@@ -2,6 +2,7 @@ package com.lianchuangjie.lianchuangjie.service.Enquiry.impl;
 
 import com.lianchuangjie.lianchuangjie.dto.Enquiry.EnquirySingleQueryDTO;
 import com.lianchuangjie.lianchuangjie.entity.UserEntity;
+import com.lianchuangjie.lianchuangjie.mapper.EnquiryMapper.EnquiryBatchMatchMapper;
 import com.lianchuangjie.lianchuangjie.mapper.EnquiryMapper.EnquirySingleMatchMapper;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquiryMatchService;
 import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
@@ -15,6 +16,8 @@ import java.util.List;
 public class EnquiryMatchServiceImpl implements EnquiryMatchService {
     @Resource
     EnquirySingleMatchMapper enquirySingleMatchMapper;
+    @Resource
+    EnquiryBatchMatchMapper enquiryBatchMatchMapper;
     private void setUserInfo(EnquirySingleQueryDTO enquirySingleQueryDTO) {
         UserEntity user = SessionUtil.getUser();
         enquirySingleQueryDTO.setSlpCode(user.getUserSign());
@@ -25,5 +28,11 @@ public class EnquiryMatchServiceImpl implements EnquiryMatchService {
         // 当前登录用户
         setUserInfo(enquirySingleQueryDTO);
         return enquirySingleMatchMapper.query(enquirySingleQueryDTO);
+    }
+
+    @Override
+    public List<EnquiryMatchItemVO> queryBatch(List<EnquirySingleQueryDTO> enquirySingleQueryDTOList) {
+        UserEntity user = SessionUtil.getUser();
+        return enquiryBatchMatchMapper.query(enquirySingleQueryDTOList, user.getDftDept(), user.getUserSign());
     }
 }

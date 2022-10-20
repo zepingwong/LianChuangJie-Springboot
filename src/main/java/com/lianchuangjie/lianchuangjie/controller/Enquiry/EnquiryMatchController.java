@@ -32,4 +32,18 @@ public class EnquiryMatchController {
         List<EnquiryMatchItemVO> list = enquiryMatchService.querySingle(enquirySingleQueryDTO);
         return Result.success(list);
     }
+    /**
+     * @param enquirySingleQueryDTOList enquirySingleQueryDTOList
+     * @return Result
+     * @description 多个型号批量询价
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 8/24/2022
+     */
+    @PostMapping("/batch")
+    @Authentication(sale = true)
+    public Result<List<EnquiryMatchItemVO>> queryBatchController(@RequestBody List<EnquirySingleQueryDTO> enquirySingleQueryDTOList) {
+        List<EnquiryMatchItemVO> list = enquiryMatchService.queryBatch(enquirySingleQueryDTOList);
+        return Result.success(list);
+    }
 }
