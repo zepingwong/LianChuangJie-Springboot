@@ -48,4 +48,7 @@ public class UserInfoVO {
     @JsonProperty("ModifyPwdDate")
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date modifyPwdDate;
+    // 初始密码未修改
+    @JsonProperty("IsOldPassword")
+    private String isOldPassword;
 }

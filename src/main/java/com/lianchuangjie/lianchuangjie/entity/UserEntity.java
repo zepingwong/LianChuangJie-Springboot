@@ -54,5 +54,8 @@ public class UserEntity {
     @TableField(value = "ModifyPwdDate")
     private Date modifyPwdDate;
     @TableField(value = "U_PasswordWeb")
-    private String uWebPassword;
+    private String uPasswordWeb;
+    // 初始密码未修改
+    @TableField(exist = false)
+    private String isOldPassword;
 }

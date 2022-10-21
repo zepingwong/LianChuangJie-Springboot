@@ -7,7 +7,6 @@ import com.lianchuangjie.lianchuangjie.exception.ResponseEnum;
 import com.lianchuangjie.lianchuangjie.mapper.UserMapper;
 import com.lianchuangjie.lianchuangjie.service.User.UserLoginService;
 import com.lianchuangjie.lianchuangjie.utils.SecurityUtil;
-import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -26,10 +25,11 @@ public class UserLoginServiceImpl implements UserLoginService {
         ResponseEnum.ISNULL.assertNotNull(user, "员工账号不存在");
         // 密码错误
         String password = employee.getPassword();
-        System.out.println(user.getUWebPassword());
-        Boolean match = SecurityUtil.matchesPassword(password, user.getUWebPassword());
-        System.out.println(match);
-        //        ResponseEnum.PASSWORD_ERROR.assertIsFalse(match, "登录失败，密码错误");
+        Boolean match = SecurityUtil.matchesPassword(password, user.getUPasswordWeb());
+        ResponseEnum.PASSWORD_ERROR.assertIsFalse(match, "登录失败，密码错误");
+        if (password.equals("123456")) {
+            user.setIsOldPassword("Y"); // 未修改密码
+        }
         return user;
     }
 }

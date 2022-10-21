@@ -18,7 +18,7 @@ public class UserPasswordServiceImpl extends ServiceImpl<UserMapper, UserEntity>
     @Override
     public Boolean setUserPassword(UserPasswordDTO userPasswordDTO) {
         UserEntity user = SessionUtil.getUser();
-        user.setUWebPassword(SecurityUtil.encodePassword(userPasswordDTO.getNewPassword()));
+        user.setUPasswordWeb(SecurityUtil.encodePassword(userPasswordDTO.getNewPassword()));
         return userMapper.updateById(user) == 1;
     }
 }
