@@ -147,8 +147,8 @@
                             ABS(kc_now.kc_price_final - history.kc_price_final) /history.kc_price_final >= 0.1
                         )
                     </if>
-                    <if test="sc.pricingType == 3">
-                        AND kc_now.NewToday = 'Y'
+                    <if test="sc.newToday != null">
+                        AND kc_now.NewToday = #{sc.newToday}
                     </if>
                     <if test="sc.modify != null">
                         AND kc_now.Modify = #{sc.modify}
@@ -267,6 +267,9 @@
                 history.kc_price_final IS NULL OR
                     ABS(kc_now.kc_price_final - history.kc_price_final) /history.kc_price_final >= 0.1
                 )
+            </if>
+            <if test="sc.newToday != null">
+                AND kc_now.NewToday = #{sc.newToday}
             </if>
             <if test="sc.modify != null">
                 AND kc_now.Modify = #{sc.modify}

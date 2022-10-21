@@ -288,10 +288,6 @@
     </select>
     <select id="selectStockPriceTabList"
             resultType="com.lianchuangjie.lianchuangjie.vo.StockPrice.TabStockPriceNeedsVO">
-        /*
-         * 库存定价页面-客户需求Tab
-         * 1. 按照需求录入时间倒序
-         */
         SELECT
             U_ICIN1.DocEntry, /*询价单编号*/
             U_ICIN1.LineNum, /*询价单行号*/
@@ -328,5 +324,6 @@
             )
         )
         AND U_ICIN1.PriceAfVAT IS NOT NULL
+        ORDER BY T_ICIN.InquiryDate
     </select>
 </mapper>

@@ -54,6 +54,7 @@ public class StockPriceController extends BaseController {
             @RequestParam(defaultValue = "#{null}", value = "StockDays") Integer stockDays,
             @RequestParam(defaultValue = "#{null}", value = "NeedReplenish") Boolean needReplenish,
             @RequestParam(defaultValue = "#{null}", value = "Modify") String modify,
+            @RequestParam(defaultValue = "#{null}", value = "NewToday") String newToday,
             @RequestParam(defaultValue = "#{null}", value = "PriceType") Integer pricingType
     ) {
         StockPriceSearchDTO stockPriceSearchDTO = new StockPriceSearchDTO();
@@ -66,6 +67,7 @@ public class StockPriceController extends BaseController {
         stockPriceSearchDTO.setNeedReplenish(needReplenish);
         stockPriceSearchDTO.setPricingType(pricingType);
         stockPriceSearchDTO.setModify(modify);
+        stockPriceSearchDTO.setNewToday(newToday);
         Page<StockPriceVO> pages = stockPriceService.list(stockPriceSearchDTO);
         return Result.success(pages, "Success");
     }

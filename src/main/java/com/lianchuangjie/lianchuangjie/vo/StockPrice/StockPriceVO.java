@@ -123,4 +123,7 @@ public class StockPriceVO {
     // 原批次
     @JsonProperty("U_Batch")
     private String uBatch;
+    // 今日新入库
+    @JsonProperty("NewToday")
+    private String newToday;
 }

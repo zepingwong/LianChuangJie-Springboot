@@ -2,6 +2,7 @@ package com.lianchuangjie.lianchuangjie.mapper.TabMapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.EnquirySubEntity;
 import com.lianchuangjie.lianchuangjie.vo.Enquiry.TabEnquiryNeedsVO;
@@ -26,7 +27,7 @@ public interface TabClientNeedsMapper extends BaseMapper<EnquirySubEntity> {
      * @email zepingwong@gmail.com
      * @date 9/4/2022
      */
-    IPage<TabStockPriceNeedsVO> selectStockPriceTabList(IPage<TabStockPriceNeedsVO> page, @Param("sc") TabSearchDTO searchCondition);
+    IPage<TabStockPriceNeedsVO> selectStockPriceTabList(Page<TabStockPriceNeedsVO> page, @Param("sc") TabSearchDTO searchCondition);
     /**
      * @param tabSearchDTO tabSearchDTO
      * @return Integer

@@ -31,4 +31,6 @@ public class StockPriceSearchDTO {
     private Integer pricingType;
     // 今日需定价
     private Boolean needToday = true;
+    // 今日新入库
+    private String newToday;
 }
