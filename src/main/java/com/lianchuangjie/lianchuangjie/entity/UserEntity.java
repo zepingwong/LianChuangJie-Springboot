@@ -53,4 +53,6 @@ public class UserEntity {
     // 修改密码日期
     @TableField(value = "ModifyPwdDate")
     private Date modifyPwdDate;
+    @TableField(value = "U_PasswordWeb")
+    private String uWebPassword;
 }
