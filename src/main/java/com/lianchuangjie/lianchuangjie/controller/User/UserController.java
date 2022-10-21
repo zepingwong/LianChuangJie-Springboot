@@ -1,10 +1,10 @@
-package com.lianchuangjie.lianchuangjie.controller;
+package com.lianchuangjie.lianchuangjie.controller.User;
 
 import com.lianchuangjie.lianchuangjie.dto.EmployeeLoginDTO;
 import com.lianchuangjie.lianchuangjie.entity.UserEntity;
-import com.lianchuangjie.lianchuangjie.service.UserInfoService;
-import com.lianchuangjie.lianchuangjie.service.UserLoginService;
-import com.lianchuangjie.lianchuangjie.service.UserLogoutService;
+import com.lianchuangjie.lianchuangjie.service.User.UserInfoService;
+import com.lianchuangjie.lianchuangjie.service.User.UserLoginService;
+import com.lianchuangjie.lianchuangjie.service.User.UserLogoutService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
 import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
 import com.lianchuangjie.lianchuangjie.vo.LoginResVO;

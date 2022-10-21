@@ -1,11 +1,11 @@
-package com.lianchuangjie.lianchuangjie.service.impl;
+package com.lianchuangjie.lianchuangjie.service.User.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lianchuangjie.lianchuangjie.dto.EmployeeLoginDTO;
 import com.lianchuangjie.lianchuangjie.entity.UserEntity;
 import com.lianchuangjie.lianchuangjie.exception.ResponseEnum;
 import com.lianchuangjie.lianchuangjie.mapper.UserMapper;
-import com.lianchuangjie.lianchuangjie.service.UserLoginService;
+import com.lianchuangjie.lianchuangjie.service.User.UserLoginService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

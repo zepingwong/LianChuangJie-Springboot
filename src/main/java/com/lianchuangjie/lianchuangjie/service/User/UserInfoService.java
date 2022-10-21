@@ -1,4 +1,4 @@
-package com.lianchuangjie.lianchuangjie.service;
+package com.lianchuangjie.lianchuangjie.service.User;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lianchuangjie.lianchuangjie.entity.UserEntity;

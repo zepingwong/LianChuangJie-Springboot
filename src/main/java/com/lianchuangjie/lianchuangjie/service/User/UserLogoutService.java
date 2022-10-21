@@ -1,4 +1,4 @@
-package com.lianchuangjie.lianchuangjie.service;
+package com.lianchuangjie.lianchuangjie.service.User;
 
 import javax.servlet.http.HttpServletRequest;
 

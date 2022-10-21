@@ -1,6 +1,6 @@
-package com.lianchuangjie.lianchuangjie.service.impl;
+package com.lianchuangjie.lianchuangjie.service.User.impl;
 
-import com.lianchuangjie.lianchuangjie.service.UserLogoutService;
+import com.lianchuangjie.lianchuangjie.service.User.UserLogoutService;
 import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
 import org.springframework.stereotype.Service;
 
