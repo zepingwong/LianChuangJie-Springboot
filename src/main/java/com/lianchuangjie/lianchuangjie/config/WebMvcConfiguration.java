@@ -2,6 +2,7 @@ package com.lianchuangjie.lianchuangjie.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -19,6 +20,13 @@ import java.util.List;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class WebMvcConfiguration extends WebMvcConfigurationSupport {
+    @Value("${localImgPath}")
+    private String localImgPath;
+
+    @Value("${staticAccessPath}")
+    private String staticAccessPath;
+
+
     // SpringBoot的HandlerInterceptor依赖注入一直为 null
     // 拦截器的加载是在 springcontext 创建之前完成的。这里让bean提前加载就可以注入成功了
     @Bean
@@ -39,12 +47,7 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/**").addResourceLocations(
-                "classpath:/static/");
-        registry.addResourceHandler("swagger-ui.html").addResourceLocations(
-                "classpath:/META-INF/resources/");
-        registry.addResourceHandler("/webjars/**").addResourceLocations(
-                "classpath:/META-INF/resources/webjars/");
+        registry.addResourceHandler(staticAccessPath).addResourceLocations("file:" + localImgPath);
         super.addResourceHandlers(registry);
     }
 
