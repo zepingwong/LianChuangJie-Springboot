@@ -35,7 +35,7 @@ public class BomQueryMainDTO {
     @JsonProperty("CurVat")
     private String curVat;
     // 交易货币 T_ICIN.U_DocCur
-    @JsonProperty("Currency")
+    @JsonProperty("U_DocCur")
     private String uDocCur;
     // 销项税代码 T_ICIN.U_VatGroup
     @NotBlank(message = "销项税代码不能为空")
@@ -55,6 +55,9 @@ public class BomQueryMainDTO {
     @NotBlank(message = "客户等级名称不能为空")
     @JsonProperty("U_CusLevel")
     private String uCusLevel;
+    // 客户性质代码
+    @JsonProperty("U_GroupCode")
+    private String uGroupCode;
     // 客户性质名称 T_ICIN.U_CusGroupCode
     @NotBlank(message = "客户性质不能为空")
     @JsonAlias({"U_CusGroupCode", "U_GroupName"})
