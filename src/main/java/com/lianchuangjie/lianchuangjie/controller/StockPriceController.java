@@ -161,6 +161,7 @@ public class StockPriceController extends BaseController {
     @PostMapping("/price/calculate")
     @Authentication(buyer = true)
     public Result<Boolean> recalculateController(@RequestBody List<StockPriceVO> list) {
+        System.out.println(list);
         String state = stringRedisTemplate.opsForValue().get("StockPrice");
         if (Objects.equals(state, "1")) {
             return Result.error(1, "算法正在运行，请稍后刷新结果");

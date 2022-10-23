@@ -1,14 +1,19 @@
 package com.lianchuangjie.lianchuangjie.service.impl;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.lianchuangjie.lianchuangjie.entity.StockPriceEntity;
 import com.lianchuangjie.lianchuangjie.entity.UserEntity;
 import com.lianchuangjie.lianchuangjie.mapper.HomeToDoMapper;
+import com.lianchuangjie.lianchuangjie.mapper.StockPriceMapper;
 import com.lianchuangjie.lianchuangjie.service.HomeToDoService;
+import com.lianchuangjie.lianchuangjie.service.StockPriceService;
 import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -17,18 +22,27 @@ import java.util.Objects;
 public class HomeToDoServiceImpl implements HomeToDoService {
     @Resource
     HomeToDoMapper homeToDoMapper;
+    @Resource
+    StockPriceMapper stockPriceMapper;
+    @Resource
+    StockPriceService stockPriceService;
 
     @Override
     public Map<String, Long> getToDoNum(HttpServletRequest request) {
         Map<String, Long> map = new HashMap<>();
-        Object obj = SessionUtil.getSession(request, "User");
-        ObjectMapper objectMapper = new ObjectMapper();
-        UserEntity user = objectMapper.convertValue(obj, UserEntity.class);
+        UserEntity user = SessionUtil.getUser();
         if (Objects.equals(user.getUIsSale(), "Y")) {
             map.put("Enquiry", homeToDoMapper.countEnquiry(user.getUserSign()));
         }
         if (Objects.equals(user.getUIsBuyer(), "Y")) {
             map.put("Quotation", homeToDoMapper.countQuotation(user.getUserSign()));
+            QueryWrapper<StockPriceEntity> queryWrapper = new QueryWrapper<>();
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            Date currentTime = new Date();
+            queryWrapper.eq("DocDate", formatter.format(currentTime));
+            map.put("StockPriceAll", stockPriceService.count(queryWrapper));
+            queryWrapper.eq("Modify", "Y");
+            map.put("StockPriceFinished", stockPriceService.count(queryWrapper));
         }
         return map;
     }

@@ -59,11 +59,11 @@
                     kc_now.StockDays, /*库存天数*/
                     kc_now.Modify, /*是否人工修改*/
                     Round(kc_now.kc_price7, 2) AS 'kc_price7', /*库存定价(7天)*/
-                    kc_now.reference7, /*七天定价参考*/
+                    ISNULL(kc_now.reference7, '') AS 'reference7', /*七天定价参考*/
                     kc_now.kc_price , /*综合定价*/
-                    kc_now.reference, /*参考价格*/
+                    ISNULL(kc_now.reference, '') AS 'reference', /*参考价格*/
                     Round(kc_now.kc_price_final, 2) AS 'kc_price_final',  /*最终库存定价*/
-                    kc_now.reference_final, /*最终参考价格*/
+                    ISNULL(kc_now.reference_final, '') AS 'reference_final', /*最终参考价格*/
                     Round(kc_now.price_2w, 2) AS 'price_2w' , /*2w内单价*/
                     kc_now.quan_2w, /*2w区间*/
                     Round(kc_now.price_2w_5w, 2) AS 'price_2w_5w', /*2w-5w内单价*/
@@ -175,8 +175,8 @@
             Round(kc_now.xs_avg7, 2) AS 'xs_avg7', /*xs_avg7*/
             Round(kc_now.xs_avg14, 2) AS 'xs_avg14', /*xs_avg14*/
             Round(kc_now.xs_avg30, 2) AS 'xs_avg30', /*xs_avg30*/
-            kc_now.reference14, /*reference14*/
-            kc_now.reference30, /*reference30*/
+            ISNULL(kc_now.reference30, '') AS 'reference30', /*reference30*/
+            ISNULL(kc_now.reference14, '') AS 'reference14', /*reference14*/
             SDADA.spq, /*spq*/
             SDADA.packing,
             SDADA.package,

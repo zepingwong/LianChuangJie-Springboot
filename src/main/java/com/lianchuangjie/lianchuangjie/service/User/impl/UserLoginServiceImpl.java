@@ -26,9 +26,9 @@ public class UserLoginServiceImpl implements UserLoginService {
         // 密码错误
         String password = employee.getPassword();
         Boolean match = SecurityUtil.matchesPassword(password, user.getUPasswordWeb());
-        ResponseEnum.PASSWORD_ERROR.assertIsFalse(match, "登录失败，密码错误");
+//        ResponseEnum.PASSWORD_ERROR.assertIsFalse(match, "登录失败，密码错误");
         if (password.equals("123456")) {
-            user.setIsOldPassword("Y"); // 未修改密码
+            user.setIsOldPassword("N"); // 未修改密码
         }
         return user;
     }
