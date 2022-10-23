@@ -61,7 +61,7 @@ algorithm_address: 'http://192.168.16.174:5582/'
 
 debug: false
 
-localImgPath: /home/dell/www/static
+localImgPath: /home/dell/www/fronten/static/
 
 networkImgPath: /static/
 
