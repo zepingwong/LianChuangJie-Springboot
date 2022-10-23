@@ -51,6 +51,8 @@ public class BomQueryMainDTO {
     // 客户行业领域代码
     @JsonAlias({"U_CusIndustries", "U_Industries"})
     private String uCusIndustries;
+    // 客户等级代码
+
     // 客户等级名称  T_ICIN.U_CusLevel
     @NotBlank(message = "客户等级名称不能为空")
     @JsonProperty("U_CusLevel")
