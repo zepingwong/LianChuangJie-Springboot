@@ -27,6 +27,9 @@ public class TabStockPriceOriginVO {
     // 原批次
     @JsonProperty("U_Batch")
     private String uBatch;
+    // 原批次
+    @JsonProperty("Batch")
+    private String batch;
     // 成本价
     @JsonProperty("U_Price")
     private BigDecimal uPrice;

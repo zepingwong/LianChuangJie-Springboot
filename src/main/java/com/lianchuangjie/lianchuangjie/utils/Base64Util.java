@@ -1,10 +1,12 @@
 package com.lianchuangjie.lianchuangjie.utils;
 
-import sun.misc.BASE64Decoder;
+
+import org.apache.commons.codec.binary.Base64;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class Base64Util {
     public static String generateImage(String imgStr, String imgDirPath) {
@@ -18,15 +20,14 @@ public class Base64Util {
         String fileName=UUIDUtil.getUUID()+"."+imgExt;
         String imgFilePath=imgDirPath+"/"+fileName;
         System.out.println(imgFilePath);
-        BASE64Decoder decoder = new BASE64Decoder();
         try {
-            byte[] bytes = decoder.decodeBuffer(imgStr);
+            byte[] bytes = Base64.decodeBase64(imgStr);
             for (int i = 0; i < bytes.length; ++i) {
                 if (bytes[i] < 0) {
                     bytes[i] += 256;
                 }
             }
-            OutputStream out = new FileOutputStream(imgFilePath);
+            OutputStream out = Files.newOutputStream(Paths.get(imgFilePath));
             out.write(bytes);
             out.flush();
             out.close();

@@ -61,7 +61,7 @@ algorithm_address: 'http://192.168.16.174:5582/'
 
 debug: false
 
-localImgPath: D:\LianChuangjie\src\main\resources\static
+localImgPath: /home/dell/www/static
 
 networkImgPath: /static/
 
