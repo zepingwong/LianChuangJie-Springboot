@@ -160,7 +160,7 @@ public class StockPriceController extends BaseController {
      */
     @PostMapping("/price/calculate")
     @Authentication(buyer = true)
-    public Result<Boolean> recalculateController(@RequestBody List<StockPriceVO> list) {
+    public Result<Boolean> calculateController(@RequestBody List<StockPriceVO> list) {
         System.out.println(list);
         String state = stringRedisTemplate.opsForValue().get("StockPrice");
         if (Objects.equals(state, "1")) {
@@ -196,5 +196,38 @@ public class StockPriceController extends BaseController {
     public Result<List<StockPriceVO>> getStockPriceInAdvanceList(@RequestParam(defaultValue = "#{null}", value = "Modle") String modle) {
         List<StockPriceVO> list = stockPriceService.inAdvanceList(modle);
         return Result.success(list);
+    }
+
+
+    /**
+     * @return Result
+     * @description 算法调用接口
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 9/7/2022
+     */
+    @GetMapping("/price/recalculate")
+    @Authentication(buyer = true)
+    public Result<Boolean> recalculateController() {
+        String state = stringRedisTemplate.opsForValue().get("StockPrice");
+        if (Objects.equals(state, "1")) {
+            return Result.error(1, "算法正在运行，请稍后刷新结果");
+        } else {
+            stringRedisTemplate.opsForValue().set("StockPrice", "1");
+            String res;
+            try {
+                JSONObject json = new JSONObject();
+                json.put("data", "one_day");
+                res = HttpUtil.jsonPost(address + "model_predict_one_day", null, json);
+                System.out.println(res);
+                if (res != null) {
+                    stringRedisTemplate.opsForValue().set("StockPrice", "0");
+                }
+            } catch (IOException e) {
+                stringRedisTemplate.opsForValue().set("StockPrice", "0");
+                throw new RuntimeException(e);
+            }
+            return Result.success(true, "更新成功");
+        }
     }
 }
