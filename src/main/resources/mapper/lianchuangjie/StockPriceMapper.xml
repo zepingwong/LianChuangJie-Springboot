@@ -32,6 +32,24 @@
         DECLARE @CurrentPage INT;
         SET @PageSize = ${sc.getSize}; /*每页显示数量*/
         SET @CurrentPage = ${sc.getPage}; /*当前页码*/
+        SELECT DISTINCT
+            kc_now.Brand,
+            kc_now.ItemName,
+            kc_now.Batch,
+            kc_now.kc_price_final,
+            kc_now.ConfirmDate
+        INTO #history
+        FROM (
+            SELECT
+                ItemName, Brand, Batch, MAX ( ConfirmDate ) AS ConfirmDate FROM kc_now
+                WHERE Modify = 'Y'
+                GROUP BY ItemName, Brand, Batch
+        ) LastDate
+        LEFT JOIN kc_now ON kc_now.ItemName = LastDate.ItemName
+        AND LastDate.Brand = kc_now.Brand
+        AND LastDate.ConfirmDate = kc_now.ConfirmDate
+
+
         SELECT TOP (@PageSize) *
         FROM (
             SELECT
@@ -75,27 +93,7 @@
                     history.ConfirmDate AS 'LastPricingTime', /*最近一次定价时间*/
                     Round(history.kc_price_final, 2) AS 'LastPrice' /*最近一次定价单价*/
                 FROM kc_now
-                LEFT JOIN (
-                    SELECT DISTINCT
-                        kc_now.Brand,
-                        kc_now.ItemName,
-                        kc_now.Batch,
-                        kc_now.kc_price_final,
-                        kc_now.ConfirmDate
-                    FROM (
-                        SELECT
-                            ItemName,
-                            Brand,
-                            Batch,
-                            MAX ( ConfirmDate ) AS ConfirmDate
-                        FROM kc_now
-                        WHERE Modify = 'Y'
-                        GROUP BY ItemName, Brand, Batch
-                    ) LastDate
-                    LEFT JOIN kc_now ON kc_now.ItemName = LastDate.ItemName
-                    AND LastDate.Brand = kc_now.Brand
-                    AND LastDate.ConfirmDate = kc_now.ConfirmDate
-                ) history
+                LEFT JOIN #history history
                 ON history.Brand = kc_now.Brand
                 AND history.ItemName = kc_now.ItemName
                 AND history.Batch = kc_now.Batch
@@ -195,29 +193,26 @@
         )
     </select>
     <select id="countList" resultType="java.lang.Integer" parameterType="com.lianchuangjie.lianchuangjie.dto.search.StockPriceSearchDTO">
+        SELECT DISTINCT
+            kc_now.Brand,
+            kc_now.ItemName,
+            kc_now.Batch,
+            kc_now.kc_price_final,
+            kc_now.ConfirmDate
+        INTO #history
+        FROM (
+            SELECT
+            ItemName, Brand, Batch, MAX ( ConfirmDate ) AS ConfirmDate FROM kc_now
+            WHERE Modify = 'Y'
+            GROUP BY ItemName, Brand, Batch
+        ) LastDate
+        LEFT JOIN kc_now ON kc_now.ItemName = LastDate.ItemName
+        AND LastDate.Brand = kc_now.Brand
+        AND LastDate.ConfirmDate = kc_now.ConfirmDate;
+
         SELECT COUNT(*)
         FROM kc_now
-        LEFT JOIN (
-            SELECT DISTINCT
-                kc_now.Brand,
-                kc_now.ItemName,
-                kc_now.Batch,
-                kc_now.kc_price_final,
-                kc_now.ConfirmDate
-            FROM (
-                SELECT
-                    ItemName,
-                    Brand,
-                    Batch,
-                    MAX ( ConfirmDate ) AS ConfirmDate
-                FROM kc_now
-                WHERE Modify = 'Y'
-                GROUP BY ItemName, Brand, Batch
-            ) LastDate
-            LEFT JOIN kc_now ON kc_now.ItemName = LastDate.ItemName
-            AND LastDate.Brand = kc_now.Brand
-            AND LastDate.ConfirmDate = kc_now.ConfirmDate
-        ) history
+        LEFT JOIN #history history
         ON history.Brand = kc_now.Brand
         AND history.ItemName = kc_now.ItemName
         AND history.Batch = kc_now.Batch
