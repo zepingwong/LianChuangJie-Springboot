@@ -81,7 +81,9 @@ public class StockPriceController extends BaseController {
      */
     @GetMapping("/price/brand")
     @Authentication(buyer = true)
-    public Result<List<BrandItemVO>> getBrandListController(@RequestParam(defaultValue = "#{null}", value = "Brand") String brand) {
+    public Result<List<BrandItemVO>> getBrandListController(
+            @RequestParam(defaultValue = "#{null}", value = "Brand") String brand
+    ) {
         List<BrandItemVO> list = brandService.all(brand);
         return Result.success(list, "Success");
     }

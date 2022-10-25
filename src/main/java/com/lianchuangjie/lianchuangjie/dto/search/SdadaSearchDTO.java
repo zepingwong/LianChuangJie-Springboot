@@ -13,6 +13,8 @@ public class SdadaSearchDTO {
     private String sno;
     @JsonProperty("QuoBrand")
     private String quoBrand;
+    @JsonProperty("FrgnName")
+    private String frgnName;
     @JsonProperty("size")
     private Integer size;
     @JsonProperty("page")

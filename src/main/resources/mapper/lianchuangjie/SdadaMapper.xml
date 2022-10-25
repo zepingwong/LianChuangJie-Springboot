@@ -26,6 +26,12 @@
             <if test="sc.sno">
                 AND SDADA.sno = #{sc.sno}
             </if>
+            <if test="sc.quoBrand">
+                AND SDADA.QuoBrand = #{sc.quoBrand}
+            </if>
+            <if test="sc.frngName">
+                AND SDADA.FrngName = #{sc.frgnName}
+            </if>
         </where>
     </select>
 </mapper>
