@@ -1,6 +1,8 @@
 package com.lianchuangjie.lianchuangjie.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.lianchuangjie.lianchuangjie.dto.search.SdadaSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.SdadaEntity;
 import com.lianchuangjie.lianchuangjie.vo.SdadaVO;
 
@@ -26,4 +28,5 @@ public interface SdadaService extends IService<SdadaEntity> {
      * @date 8/21/2022
      */
     List<SdadaVO> relatedList(String modle);
+    Page<SdadaVO> list(SdadaSearchDTO sdadaSearchDTO);
 }

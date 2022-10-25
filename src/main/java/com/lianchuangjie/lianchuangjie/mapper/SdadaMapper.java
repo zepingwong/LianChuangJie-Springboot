@@ -1,6 +1,9 @@
 package com.lianchuangjie.lianchuangjie.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.lianchuangjie.lianchuangjie.dto.search.SdadaSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.SdadaEntity;
 import com.lianchuangjie.lianchuangjie.vo.SdadaVO;
 import org.apache.ibatis.annotations.Mapper;
@@ -31,4 +34,6 @@ public interface SdadaMapper extends BaseMapper<SdadaEntity> {
      * @date 8/21/2022
      */
     List<SdadaVO> selectRelated(@Param("sno") String modle);
+
+    Page<SdadaVO> selectList(IPage<SdadaVO> page, @Param("sc") SdadaSearchDTO sdadaSearchDTO);
 }

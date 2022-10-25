@@ -18,4 +18,14 @@
             SELECT SDADA.TAG FROM SDADA WHERE SDADA.sno = @sno
         )
     </select>
+    <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.SdadaVO">
+        SELECT *
+        FROM SDADA
+        <where>
+            1=1
+            <if test="sc.sno">
+                AND SDADA.sno = #{sc.sno}
+            </if>
+        </where>
+    </select>
 </mapper>
