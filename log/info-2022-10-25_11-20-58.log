@@ -1,0 +1,3 @@
+2022-10-25 11:20:58.712 INFO  18800 --- [background-preinit] org.hibernate.validator.internal.util.Version.<clinit>(Version.java:21) ::: HV000001: Hibernate Validator 6.2.3.Final
+2022-10-25 11:20:58.731 INFO  18800 --- [main] org.springframework.boot.StartupInfoLogger.logStarting(StartupInfoLogger.java:55) ::: Starting LianChuangjieApplication using Java 1.8.0_333 on AI-1 with PID 18800 (D:\LianChuangjie\target\classes started by JIEKOU in D:\LianChuangjie)
+2022-10-25 11:20:58.734 INFO  18800 --- [main] org.springframework.boot.SpringApplication.logStartupProfileInfo(SpringApplication.java:640) ::: The following 1 profile is active: "dev"

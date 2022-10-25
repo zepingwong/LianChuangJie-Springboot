@@ -155,9 +155,6 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(value = Exception.class)
     public Result<String> handleException(Exception e, HttpServletRequest request) {
-        log.error(e.getMessage(), e);
-        System.out.println(e.getClass());
-
         log.error("request error!! method:{} uri:{}", request.getMethod(), request.getRequestURI());
         if (ENV_PROD.equals(profile)) {
             // 当为生产环境, 不适合把具体的异常信息展示给用户, 比如数据库异常信息.
