@@ -3,7 +3,7 @@ package com.lianchuangjie.lianchuangjie.service.User.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lianchuangjie.lianchuangjie.dto.UserPasswordDTO;
 import com.lianchuangjie.lianchuangjie.entity.UserEntity;
-import com.lianchuangjie.lianchuangjie.exception.ResponseEnum;
+import com.lianchuangjie.lianchuangjie.exception.Business.ResponseEnum;
 import com.lianchuangjie.lianchuangjie.mapper.UserMapper;
 import com.lianchuangjie.lianchuangjie.service.User.UserPasswordService;
 import com.lianchuangjie.lianchuangjie.utils.SecurityUtil;

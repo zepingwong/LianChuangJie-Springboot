@@ -3,7 +3,7 @@ package com.lianchuangjie.lianchuangjie.service.User.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lianchuangjie.lianchuangjie.dto.EmployeeLoginDTO;
 import com.lianchuangjie.lianchuangjie.entity.UserEntity;
-import com.lianchuangjie.lianchuangjie.exception.ResponseEnum;
+import com.lianchuangjie.lianchuangjie.exception.Login.LoginError;
 import com.lianchuangjie.lianchuangjie.mapper.UserMapper;
 import com.lianchuangjie.lianchuangjie.service.User.UserLoginService;
 import com.lianchuangjie.lianchuangjie.utils.SecurityUtil;
@@ -22,12 +22,11 @@ public class UserLoginServiceImpl implements UserLoginService {
         // 根据 UserCode 查询用户
         UserEntity user = userMapper.selectOne(queryWrapper);
         // 断言用户不为空
-        ResponseEnum.ISNULL.assertNotNull(user, "员工账号不存在");
+        LoginError.ISNULL.assertNotNull(user, "员工账号不存在");
         // 密码错误
         String password = employee.getPassword();
         Boolean match = SecurityUtil.matchesPassword(password, user.getUPasswordWeb());
-        System.out.println(match);
-        ResponseEnum.PASSWORD_ERROR.assertIsFalse(match, "登录失败，密码错误");
+        LoginError.PASSWORD_ERROR.assertIsFalse(match, "登录失败，密码错误");
         if (password.equals("123456")) {
             user.setIsOldPassword("Y"); // 未修改密码
         }

@@ -1,0 +1,1 @@
+2022-10-25 21:24:20.094 ERROR 23812 --- [http-nio-8080-exec-2] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/enquiry/main

@@ -1,4 +1,7 @@
-package com.lianchuangjie.lianchuangjie.exception;
+package com.lianchuangjie.lianchuangjie.exception.Business;
+
+import com.lianchuangjie.lianchuangjie.exception.BaseException;
+import com.lianchuangjie.lianchuangjie.exception.IResponseEnum;
 
 /**
  * <p>业务异常</p>

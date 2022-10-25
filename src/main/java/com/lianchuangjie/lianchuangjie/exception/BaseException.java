@@ -2,6 +2,8 @@ package com.lianchuangjie.lianchuangjie.exception;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @description spring 对于 RuntimeException 异常才会进行事务回滚，所以这里的BaseException 继承 RuntimeException
  * @author WANG Zeping
@@ -10,6 +12,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@Slf4j
 public class BaseException extends RuntimeException{
     protected IResponseEnum responseEnum;
     protected Object[] args;
@@ -29,6 +32,7 @@ public class BaseException extends RuntimeException{
                 return msg;
             }
         };
+        log.error(msg);
     }
     public BaseException(IResponseEnum responseEnum,Object[] args,String message){
         super(message);

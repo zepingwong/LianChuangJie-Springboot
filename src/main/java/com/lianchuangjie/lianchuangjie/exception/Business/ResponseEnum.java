@@ -1,4 +1,4 @@
-package com.lianchuangjie.lianchuangjie.exception;
+package com.lianchuangjie.lianchuangjie.exception.Business;
 
 import lombok.AllArgsConstructor;
 
@@ -11,7 +11,6 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public enum ResponseEnum implements BusinessExceptionAssert {
-
     SUCCESS(0,"成功"),
     FAILURE(500,"错误"),
     PASSWORD_ERROR(8002,"{0}"),

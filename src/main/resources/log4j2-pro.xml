@@ -8,7 +8,7 @@
         <!-- %d{yyyy-MM-dd HH:mm:ss.SSS}=时间，%-5level=日志等级，${sys:PID}=进程PID，[%t]=线程名称，%l=类、方法、日志行，%msg=消息，%n=换行-->
         <Property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level ${sys:PID} --- [%t] %l ::: %msg%n"/>
         <!-- 日志目录-->
-        <Property name="APP_LOG_ROOT" value="D:\LianChuangjie\log"/>
+        <Property name="APP_LOG_ROOT" value="/home/www/log"/>
     </Properties>
 
     <Appenders>
