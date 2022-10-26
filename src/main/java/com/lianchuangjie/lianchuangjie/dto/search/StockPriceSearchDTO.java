@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 /**
  * 库存定价查询条件
  */
@@ -33,4 +35,6 @@ public class StockPriceSearchDTO {
     private Boolean needToday = true;
     // 今日新入库
     private String newToday;
+    // 成单日期
+    private Date orderDate;
 }

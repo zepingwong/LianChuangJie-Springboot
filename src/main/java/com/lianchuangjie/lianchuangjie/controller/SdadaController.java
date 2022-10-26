@@ -20,12 +20,17 @@ public class SdadaController {
     @GetMapping("/list")
     public Result<Page<SdadaVO>> getSdadaList(
             @RequestParam(defaultValue = "#{null}", value = "sno") String sno,
-            @RequestParam(defaultValue = "#{null}", value = "QuoBrand") String quoBrand
+            @RequestParam(defaultValue = "#{null}", value = "QuoBrand") String quoBrand,
+            @RequestParam(defaultValue = "#{null}", value = "page") Integer page,
+            @RequestParam(defaultValue = "#{null}", value = "size") Integer size
+
     ) {
         SdadaSearchDTO sdadaSearchDTO = new SdadaSearchDTO();
         sdadaSearchDTO.setSno(sno);
         sdadaSearchDTO.setQuoBrand(quoBrand);
-        Page<SdadaVO> page = sdadaService.list(sdadaSearchDTO);
-        return Result.success(page, "Success");
+        sdadaSearchDTO.setPage(page);
+        sdadaSearchDTO.setSize(size);
+        Page<SdadaVO> pages = sdadaService.list(sdadaSearchDTO);
+        return Result.success(pages, "Success");
     }
 }

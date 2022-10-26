@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -52,9 +53,10 @@ public class StockPriceController extends BaseController {
             @RequestParam(defaultValue = "#{null}", value = "Brand") String brand,
             @RequestParam(defaultValue = "#{null}", value = "Modle") String modle,
             @RequestParam(defaultValue = "#{null}", value = "StockDays") Integer stockDays,
-            @RequestParam(defaultValue = "#{null}", value = "NeedReplenish") Boolean needReplenish,
+            @RequestParam(defaultValue = "#{null}", value = "NeedReplenish") String needReplenish,
             @RequestParam(defaultValue = "#{null}", value = "Modify") String modify,
             @RequestParam(defaultValue = "#{null}", value = "NewToday") String newToday,
+            @RequestParam(defaultValue = "#{null}", value = "OrderDate") Date orderDate,
             @RequestParam(defaultValue = "#{null}", value = "PriceType") Integer pricingType
     ) {
         StockPriceSearchDTO stockPriceSearchDTO = new StockPriceSearchDTO();
@@ -64,10 +66,11 @@ public class StockPriceController extends BaseController {
         stockPriceSearchDTO.setModle(modle);
         stockPriceSearchDTO.setTypeCode(typeCode);
         stockPriceSearchDTO.setStockDays(stockDays);
-        stockPriceSearchDTO.setNeedReplenish(needReplenish);
+        stockPriceSearchDTO.setNeedReplenish(needReplenish != null &&needReplenish.equals("Y"));
         stockPriceSearchDTO.setPricingType(pricingType);
         stockPriceSearchDTO.setModify(modify);
         stockPriceSearchDTO.setNewToday(newToday);
+        stockPriceSearchDTO.setOrderDate(orderDate);
         Page<StockPriceVO> pages = stockPriceService.list(stockPriceSearchDTO);
         return Result.success(pages, "Success");
     }

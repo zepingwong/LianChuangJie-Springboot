@@ -27,6 +27,7 @@ public class EnquiryMatchServiceImpl implements EnquiryMatchService {
     public List<EnquiryMatchItemVO> querySingle(EnquirySingleQueryDTO enquirySingleQueryDTO) {
         // 当前登录用户
         setUserInfo(enquirySingleQueryDTO);
+        System.out.println(enquirySingleQueryDTO);
         return enquirySingleMatchMapper.query(enquirySingleQueryDTO);
     }
 

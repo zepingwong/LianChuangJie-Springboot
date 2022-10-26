@@ -23,13 +23,13 @@
         FROM SDADA
         <where>
             1=1
-            <if test="sc.sno">
+            <if test="sc.sno != null">
                 AND SDADA.sno = #{sc.sno}
             </if>
-            <if test="sc.quoBrand">
+            <if test="sc.quoBrand != null">
                 AND SDADA.QuoBrand = #{sc.quoBrand}
             </if>
-            <if test="sc.frngName">
+            <if test="sc.frgnName != null">
                 AND SDADA.FrngName = #{sc.frgnName}
             </if>
         </where>

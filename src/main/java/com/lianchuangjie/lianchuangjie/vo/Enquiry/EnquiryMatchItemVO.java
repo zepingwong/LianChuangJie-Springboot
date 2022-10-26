@@ -10,6 +10,7 @@ import lombok.experimental.Accessors;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 询价匹配结果
@@ -127,7 +128,7 @@ public class EnquiryMatchItemVO {
     private List<EnquiryBuyerItemVO> purchaser;
 
     public List<EnquiryBuyerItemVO> getPurchaser() {
-        if (buyer == null) return new ArrayList<>();
+        if (buyer == null | Objects.equals(buyer, "")) return new ArrayList<>();
         List<EnquiryBuyerItemVO> list = new ArrayList<>();
         String[] buyerStrList = buyer.split(",");
         for (String buyerStr : buyerStrList) {

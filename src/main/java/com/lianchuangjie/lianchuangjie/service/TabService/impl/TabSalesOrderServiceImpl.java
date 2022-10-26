@@ -22,6 +22,7 @@ public class TabSalesOrderServiceImpl extends ServiceImpl<TabSalesOrderMapper, S
 
     public Page<TabQuotationSalesOrderVO> quotationTabList(TabSearchDTO searchCondition) {
         Page<TabQuotationSalesOrderVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
+        page.addOrder(OrderItem.desc("T_ORDR.DocDate"));
         tabSalesOrderMapper.selectQuotationTabList(page, searchCondition);
         return page;
     }
@@ -29,6 +30,7 @@ public class TabSalesOrderServiceImpl extends ServiceImpl<TabSalesOrderMapper, S
     @Override
     public Page<TabStockPriceSalesOrderVO> stockPriceTabList(TabSearchDTO searchCondition) {
         Page<TabStockPriceSalesOrderVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
+        page.addOrder(OrderItem.desc("T_ORDR.DocDate"));
         tabSalesOrderMapper.selectStockPriceTabList(page, searchCondition);
         return page;
     }

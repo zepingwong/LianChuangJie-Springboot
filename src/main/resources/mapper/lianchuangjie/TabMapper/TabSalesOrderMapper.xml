@@ -497,9 +497,7 @@
             WHERE SDADA_1.TAG IN (
                 SELECT SDADA.TAG
                 FROM SDADA
-                WHERE SDADA.sno IN
-                <foreach collection="sc.modleList " item="item" open="(" separator="," close=")" index="index">'${item}'
-                </foreach>
+                WHERE SDADA.sno = #{sc.Modle}
             )
         )
     </select>

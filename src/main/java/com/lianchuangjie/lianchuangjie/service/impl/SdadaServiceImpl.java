@@ -32,6 +32,6 @@ public class SdadaServiceImpl extends ServiceImpl<SdadaMapper, SdadaEntity> impl
     public Page<SdadaVO> list(SdadaSearchDTO searchCondition) {
         Page<SdadaVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
         sdadaMapper.selectList(page, searchCondition);
-        return null;
+        return page;
     }
 }
