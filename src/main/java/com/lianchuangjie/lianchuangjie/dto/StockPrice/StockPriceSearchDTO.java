@@ -1,4 +1,4 @@
-package com.lianchuangjie.lianchuangjie.dto.search;
+package com.lianchuangjie.lianchuangjie.dto.StockPrice;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
