@@ -18,8 +18,7 @@ import java.util.List;
 @Mapper
 @Repository
 public interface StockPriceMapper extends BaseMapper<StockPriceEntity> {
-    List<StockPriceVO> selectList(@Param("sc") StockPriceSearchDTO stockPriceSearchDTO);
-    Integer countList(@Param("sc") StockPriceSearchDTO stockPriceSearchDTO);
+    IPage<StockPriceVO> selectList(IPage<StockPriceVO> page ,@Param("sc") StockPriceSearchDTO stockPriceSearchDTO);
     Boolean update(@Param("da") StockPriceOKDTO stockPriceOKDTO);
     IPage<TabStockPriceBaseVO> tabList(Page<TabStockPriceBaseVO> page, @Param("sc") TabSearchDTO searchCondition);
     /**

@@ -28,169 +28,165 @@
         AND kc_now.Batch = #{da.batch}
     </update>
     <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.StockPrice.StockPriceVO">
-        DECLARE @PageSize INT;
-        DECLARE @CurrentPage INT;
-        SET @PageSize = ${sc.getSize}; /*每页显示数量*/
-        SET @CurrentPage = ${sc.getPage}; /*当前页码*/
-        /*最近一次定价信息存入临表*/
-        SELECT DISTINCT
+        SELECT
+            StockPrice.DocDate, /*今日日期*/
+            StockPrice.InDate, /*库存日期*/
+            StockPrice.FrgnName, /*品名*/
+            StockPrice.Brand, /*品牌*/
+            StockPrice.ItemName, /*型号*/
+            StockPrice.Batch, /*批次*/
+            StockPrice.U_Batch, /*原批次*/
+            StockPrice.Quantity, /*库存数量*/
+            StockPrice.TypeCode, /*库存类型*/
+            StockPrice.U_Secrecy, /*是否保密*/
+            Round(StockPrice.U_Price, 2) AS 'U_Price', /*库存成本价*/
+            Round(StockPrice.LastSalePrice, 2) AS 'LastSalePrice', /*最近一次销售报价*/
+            StockPrice.LastSaleDate, /*最近一次销售报价时间*/
+            Round(StockPrice.LastPurchasePrice, 2) AS 'LastPurchasePrice', /*最近一次采购报价*/
+            StockPrice.LastPurchaseDate, /*最近一次采购报价时间*/
+            Round(StockPrice.unit_price, 2) AS 'unit_price', /*云汉价*/
+            StockPrice.unit_price_date, /*云汉价时间*/
+            StockPrice.StockDays, /*库存天数*/
+            StockPrice.Modify, /*是否人工修改*/
+            Round(StockPrice.kc_price7, 2) AS 'kc_price7', /*库存定价(7天)*/
+            ISNULL(StockPrice.reference7, '') AS 'reference7', /*七天定价参考*/
+            StockPrice.kc_price , /*综合定价*/
+            ISNULL(StockPrice.reference, '') AS 'reference', /*参考价格*/
+            Round(StockPrice.kc_price_final, 2) AS 'kc_price_final',  /*最终库存定价*/
+            ISNULL(StockPrice.reference_final, '') AS 'reference_final', /*最终参考价格*/
+            Round(StockPrice.price_2w, 2) AS 'price_2w' , /*2w内单价*/
+            StockPrice.quan_2w, /*2w区间*/
+            Round(StockPrice.price_2w_5w, 2) AS 'price_2w_5w', /*2w-5w内单价*/
+            StockPrice.quan_2w_5w, /*2w-5w区间*/
+            Round(StockPrice.price_5w_10w, 2) AS 'price_5w_10w', /*5w-10w内单价*/
+            StockPrice.quan_5w_10w, /*5w-10w区间*/
+            Round(StockPrice.price_10w, 2) AS 'price_10w', /*10w+单价*/
+            StockPrice.quan_10w, /*10w+区间*/
+            history.ConfirmDate AS 'LastPricingTime', /*最近一次定价时间*/
+            Round(history.kc_price_final, 2) AS 'LastPrice' /*最近一次定价单价*/
+        FROM (
+            SELECT * FROM kc_now
+            <where>
+                1=1
+                <if test="sc.typeCode != null">
+                    AND kc_now.TypeCode = #{sc.typeCode}
+                </if>
+                <if test="sc.stockDays != null">
+                    AND kc_now.StockDays >= #{sc.stockDays}
+                </if>
+                <if test="sc.needReplenish == true">
+                    AND DateDiff(dd,kc_now.LastPurchaseDate,getdate()) > 7
+                </if>
+                <if test="sc.brand != null">
+                    AND kc_now.Brand = #{sc.brand}
+                </if>
+                <if test="sc.modle != null">
+                    AND kc_now.ItemName = #{sc.modle}
+                </if>
+                <if test="sc.modify != null">
+                    /*已处理*/
+                    AND kc_now.Modify = #{sc.modify}
+                </if>
+                <if test="sc.newToday != null">
+                    /*今日新入库*/
+                    AND kc_now.NewToday = #{sc.newToday}
+                </if>
+                AND DateDiff(dd,kc_now.DocDate,getdate()) = 0
+            </where>
+        ) StockPrice
+        LEFT JOIN (
+            /*最近一次定价信息*/
+            SELECT DISTINCT
             kc_now.Brand,
             kc_now.ItemName,
             kc_now.Batch,
             kc_now.kc_price_final,
             kc_now.ConfirmDate
-        INTO #history
-        FROM (
-            SELECT
-                ItemName, Brand, Batch, MAX ( ConfirmDate ) AS ConfirmDate FROM kc_now
+            FROM (
+                SELECT
+                ItemName,
+                Brand,
+                Batch,
+                MAX ( ConfirmDate ) AS ConfirmDate
+                FROM kc_now
                 WHERE Modify = 'Y'
                 GROUP BY ItemName, Brand, Batch
-        ) LastDate
-        LEFT JOIN kc_now ON kc_now.ItemName = LastDate.ItemName
-        AND LastDate.Brand = kc_now.Brand
-        AND LastDate.ConfirmDate = kc_now.ConfirmDate
-        /*最近一次成单信息*/
-        SELECT
-            T.Dscription,
-            T.U_Brand,
-            T.U_Batch,
-            MAX ( T.DocDate ) AS DocDate
-        INTO #LastOrder
-        FROM (
+            ) LastDate
+            LEFT JOIN kc_now
+            ON kc_now.ItemName = LastDate.ItemName
+            AND LastDate.Brand = kc_now.Brand
+            AND LastDate.ConfirmDate = kc_now.ConfirmDate
+        ) history
+            ON history.Brand = StockPrice.Brand
+            AND history.ItemName = StockPrice.ItemName
+            AND history.Batch = StockPrice.Batch
+        LEFT JOIN (
+            /*最近一次成单信息*/
+            SELECT
+                T.Dscription,
+                T.U_Brand,
+                T.U_Batch,
+                MAX ( T.DocDate ) AS DocDate
+            FROM (
             SELECT
                 T_OPOR1.Dscription,
                 T_OPOR.DocDate,
                 T_OPOR1.U_Brand,
                 T_OPOR1.U_Batch
-            FROM T_OPOR1
-            LEFT JOIN T_OPOR ON T_OPOR.DocEntry = T_OPOR1.DocEntry
-        ) T
-        GROUP BY
-            T.Dscription,
-            T.DocDate,
-            T.U_Brand,
-            T.U_Batch
-
-        SELECT TOP (@PageSize) *
-        FROM (
-            SELECT
-                T.*,
-                ROW_NUMBER() over (ORDER BY T.ItemName , T.Batch) AS 'LineNum'
-            FROM (
-                SELECT
-                    kc_now.DocDate, /*今日日期*/
-                    kc_now.InDate, /*库存日期*/
-                    kc_now.FrgnName, /*品名*/
-                    kc_now.Brand, /*品牌*/
-                    kc_now.ItemName, /*型号*/
-                    kc_now.Batch, /*批次*/
-                    kc_now.U_Batch, /*原批次*/
-                    kc_now.Quantity, /*库存数量*/
-                    kc_now.TypeCode, /*库存类型*/
-                    kc_now.U_Secrecy, /*是否保密*/
-                    Round(kc_now.U_Price, 2) AS 'U_Price', /*库存成本价*/
-                    Round(kc_now.LastSalePrice, 2) AS 'LastSalePrice', /*最近一次销售报价*/
-                    kc_now.LastSaleDate, /*最近一次销售报价时间*/
-                    Round(kc_now.LastPurchasePrice, 2) AS 'LastPurchasePrice', /*最近一次采购报价*/
-                    kc_now.LastPurchaseDate, /*最近一次采购报价时间*/
-                    Round(kc_now.unit_price, 2) AS 'unit_price', /*云汉价*/
-                    kc_now.unit_price_date, /*云汉价时间*/
-                    kc_now.StockDays, /*库存天数*/
-                    kc_now.Modify, /*是否人工修改*/
-                    Round(kc_now.kc_price7, 2) AS 'kc_price7', /*库存定价(7天)*/
-                    ISNULL(kc_now.reference7, '') AS 'reference7', /*七天定价参考*/
-                    kc_now.kc_price , /*综合定价*/
-                    ISNULL(kc_now.reference, '') AS 'reference', /*参考价格*/
-                    Round(kc_now.kc_price_final, 2) AS 'kc_price_final',  /*最终库存定价*/
-                    ISNULL(kc_now.reference_final, '') AS 'reference_final', /*最终参考价格*/
-                    Round(kc_now.price_2w, 2) AS 'price_2w' , /*2w内单价*/
-                    kc_now.quan_2w, /*2w区间*/
-                    Round(kc_now.price_2w_5w, 2) AS 'price_2w_5w', /*2w-5w内单价*/
-                    kc_now.quan_2w_5w, /*2w-5w区间*/
-                    Round(kc_now.price_5w_10w, 2) AS 'price_5w_10w', /*5w-10w内单价*/
-                    kc_now.quan_5w_10w, /*5w-10w区间*/
-                    Round(kc_now.price_10w, 2) AS 'price_10w', /*10w+单价*/
-                    kc_now.quan_10w, /*10w+区间*/
-                    history.ConfirmDate AS 'LastPricingTime', /*最近一次定价时间*/
-                    Round(history.kc_price_final, 2) AS 'LastPrice' /*最近一次定价单价*/
-                FROM kc_now
-                LEFT JOIN #history history
-                ON history.Brand = kc_now.Brand
-                AND history.ItemName = kc_now.ItemName
-                AND history.Batch = kc_now.Batch
-                LEFT JOIN #LastOrder LastOrder
-                    ON LastOrder.U_Batch = kc_now.U_Batch
-                    AND LastOrder.Dscription = kc_now.ItemName
-                    AND LastOrder.U_Brand = kc_now.Brand
-                <where>
-                    <if test="sc.needToday == true">
-                        kc_now.DocDate IS NOT NULL
-                    </if>
-                    <if test="sc.typeCode != null">
-                        AND kc_now.TypeCode = #{sc.typeCode}
-                    </if>
-                    <if test="sc.stockDays != null">
-                        AND kc_now.StockDays >= #{sc.stockDays}
-                    </if>
-                    <if test="sc.needReplenish == true">
-                        AND DateDiff(dd,kc_now.LastPurchaseDate,getdate()) > 7
-                    </if>
-                    <if test="sc.brand != null">
-                        AND kc_now.Brand = #{sc.brand}
-                    </if>
-                    <if test="sc.modle != null">
-                        AND kc_now.ItemName = #{sc.modle}
-                    </if>
-                    <if test="sc.pricingType == 0">
-                        AND (
-                        (kc_now.TypeCode = N'奇货可居' AND (DateDiff(dd, history.ConfirmDate, getdate()) >= 3 OR history.ConfirmDate IS NULL))
-                        OR (kc_now.TypeCode = N'特别关注' AND (DateDiff(dd, history.ConfirmDate, getdate()) >= 10 OR history.ConfirmDate IS NULL))
-                        OR (kc_now.TypeCode = N'热门型号' AND (DateDiff(dd, history.ConfirmDate, getdate()) >= 20 OR history.ConfirmDate IS NULL))
-                        OR (kc_now.TypeCode = N'普通库存' AND (DateDiff(dd, history.ConfirmDate, getdate()) >= 60 OR history.ConfirmDate IS NULL))
-                        OR (kc_now.TypeCode = N'呆滞物料' AND (DateDiff(dd, history.ConfirmDate, getdate()) >= 365 OR history.ConfirmDate IS NULL))
-                        )
-                    </if>
-                    <if test="sc.pricingType == 1">
-                        AND (
-                            /*差异大于10%, 缺少最近一次定价也视为差异大于10%*/
-                            history.kc_price_final IS NULL OR
-                            ABS(kc_now.kc_price_final - history.kc_price_final) /history.kc_price_final >= 0.1
-                        )
-                    </if>
-                    <if test="sc.pricingType == 2">
-                        AND (
-                            (
-                                (kc_now.TypeCode = N'奇货可居' AND (DateDiff(dd, history.ConfirmDate, getdate()) >= 3 OR history.ConfirmDate IS NULL))
-                                OR (kc_now.TypeCode = N'特别关注' AND (DateDiff(dd, history.ConfirmDate, getdate()) >= 10 OR history.ConfirmDate IS NULL))
-                                OR (kc_now.TypeCode = N'热门型号' AND (DateDiff(dd, history.ConfirmDate, getdate()) >= 20 OR history.ConfirmDate IS NULL))
-                                OR (kc_now.TypeCode = N'普通库存' AND (DateDiff(dd, history.ConfirmDate, getdate()) >= 60 OR history.ConfirmDate IS NULL))
-                                OR (kc_now.TypeCode = N'呆滞物料' AND (DateDiff(dd, history.ConfirmDate, getdate()) >= 365 OR history.ConfirmDate IS NULL))
-                            )
-                            OR (
-                                history.kc_price_final IS NULL OR
-                                ABS(kc_now.kc_price_final - history.kc_price_final) /history.kc_price_final >= 0.1
-                            )
-                        )
-                    </if>
-                    <if test="sc.newToday != null">
-                        /*今日新入库*/
-                        AND kc_now.NewToday = #{sc.newToday}
-                    </if>
-                    <if test="sc.orderDate != null">
-                        AND LastOrder.DocDate >= #{sc.orderDate}
-                    </if>
-                    <if test="sc.modify != null">
-                        /*已处理*/
-                        AND kc_now.Modify = #{sc.modify}
-                    </if>
-                AND DateDiff(dd,kc_now.DocDate,getdate())=0
-                </where>
+                FROM T_OPOR1
+                LEFT JOIN T_OPOR ON T_OPOR.DocEntry = T_OPOR1.DocEntry
             ) T
-        )TT
-        WHERE TT.LineNum > (@CurrentPage - 1) * @PageSize
+            WHERE T.Dscription IN (
+                SELECT ItemName
+                FROM kc_now
+                WHERE DateDiff(dd,kc_now.DocDate,getdate()) = 0
+            )
+            GROUP BY
+                T.Dscription,
+                T.DocDate,
+                T.U_Brand,
+                T.U_Batch
+        ) LastOrder
+            ON LastOrder.U_Batch = StockPrice.U_Batch
+            AND LastOrder.Dscription = StockPrice.ItemName
+            AND LastOrder.U_Brand = StockPrice.Brand
+        <where>
 
-        DROP TABLE #history
-        DROP TABLE #LastOrder
+            <if test="sc.pricingType == 0">
+                AND (
+                (StockPrice.TypeCode = N'奇货可居' AND (DateDiff(dd, history.ConfirmDate, getdate()) >= 3 OR history.ConfirmDate IS NULL))
+                OR (StockPrice.TypeCode = N'特别关注' AND (DateDiff(dd, history.ConfirmDate, getdate()) >= 10 OR history.ConfirmDate IS NULL))
+                OR (StockPrice.TypeCode = N'热门型号' AND (DateDiff(dd, history.ConfirmDate, getdate()) >= 20 OR history.ConfirmDate IS NULL))
+                OR (StockPrice.TypeCode = N'普通库存' AND (DateDiff(dd, history.ConfirmDate, getdate()) >= 60 OR history.ConfirmDate IS NULL))
+                OR (StockPrice.TypeCode = N'呆滞物料' AND (DateDiff(dd, history.ConfirmDate, getdate()) >= 365 OR history.ConfirmDate IS NULL))
+                )
+            </if>
+            <if test="sc.pricingType == 1">
+                AND (
+                /*差异大于10%, 缺少最近一次定价也视为差异大于10%*/
+                history.kc_price_final IS NULL OR
+                ABS(StockPrice.kc_price_final - history.kc_price_final) /history.kc_price_final >= 0.1
+                )
+            </if>
+            <if test="sc.pricingType == 2">
+                AND (
+                    (
+                        (StockPrice.TypeCode = N'奇货可居' AND (DateDiff(dd, history.ConfirmDate, getdate()) >= 3 OR history.ConfirmDate IS NULL))
+                        OR (StockPrice.TypeCode = N'特别关注' AND (DateDiff(dd, history.ConfirmDate, getdate()) >= 10 OR history.ConfirmDate IS NULL))
+                        OR (StockPrice.TypeCode = N'热门型号' AND (DateDiff(dd, history.ConfirmDate, getdate()) >= 20 OR history.ConfirmDate IS NULL))
+                        OR (StockPrice.TypeCode = N'普通库存' AND (DateDiff(dd, history.ConfirmDate, getdate()) >= 60 OR history.ConfirmDate IS NULL))
+                        OR (StockPrice.TypeCode = N'呆滞物料' AND (DateDiff(dd, history.ConfirmDate, getdate()) >= 365 OR history.ConfirmDate IS NULL))
+                    )
+                    OR (
+                        history.kc_price_final IS NULL OR
+                        ABS(StockPrice.kc_price_final - history.kc_price_final) /history.kc_price_final >= 0.1
+                    )
+                )
+            </if>
+            <if test="sc.orderDate != null">
+                AND LastOrder.DocDate >= #{sc.orderDate}
+            </if>
+        </where>
     </select>
     <select id="tabList" resultType="com.lianchuangjie.lianchuangjie.vo.StockPrice.TabStockPriceBaseVO">
         SELECT
@@ -226,119 +222,6 @@
                 WHERE SDADA.sno IN <foreach collection="sc.modleList " item="item" open="(" separator="," close=")" index="index">'${item}'</foreach>
             )
         )
-    </select>
-    <select id="countList" resultType="java.lang.Integer" parameterType="com.lianchuangjie.lianchuangjie.dto.search.StockPriceSearchDTO">
-        SELECT DISTINCT
-            kc_now.Brand,
-            kc_now.ItemName,
-            kc_now.Batch,
-            kc_now.kc_price_final,
-            kc_now.ConfirmDate
-        INTO #history
-        FROM (
-            SELECT
-            ItemName, Brand, Batch, MAX ( ConfirmDate ) AS ConfirmDate FROM kc_now
-            WHERE Modify = 'Y'
-            GROUP BY ItemName, Brand, Batch
-        ) LastDate
-        LEFT JOIN kc_now
-            ON kc_now.ItemName = LastDate.ItemName
-            AND LastDate.Brand = kc_now.Brand
-            AND LastDate.ConfirmDate = kc_now.ConfirmDate;
-        /*最近一次成单信息*/
-        SELECT
-            T.Dscription,
-            T.U_Brand,
-            T.U_Batch,
-            MAX ( T.DocDate ) AS DocDate
-        INTO #LastOrder
-        FROM (
-            SELECT
-                T_OPOR1.Dscription,
-                T_OPOR.DocDate,
-                T_OPOR1.U_Brand,
-                T_OPOR1.U_Batch
-            FROM T_OPOR1
-            LEFT JOIN T_OPOR ON T_OPOR.DocEntry = T_OPOR1.DocEntry
-        ) T
-        GROUP BY
-            T.Dscription,
-            T.DocDate,
-            T.U_Brand,
-            T.U_Batch
-
-        SELECT COUNT(*)
-        FROM kc_now
-        LEFT JOIN #history history
-            ON history.Brand = kc_now.Brand
-            AND history.ItemName = kc_now.ItemName
-            AND history.Batch = kc_now.Batch
-        LEFT JOIN #LastOrder LastOrder
-            ON LastOrder.U_Batch = kc_now.U_Batch
-            AND LastOrder.Dscription = kc_now.ItemName
-            AND LastOrder.U_Brand = kc_now.Brand
-        <where>
-            <if test="sc.needToday == true">
-                kc_now.DocDate IS NOT NULL
-            </if>
-            <if test="sc.typeCode != null">
-                AND kc_now.TypeCode = #{sc.typeCode}
-            </if>
-            <if test="sc.stockDays != null">
-                AND kc_now.StockDays >= #{sc.stockDays}
-            </if>
-            <if test="sc.needReplenish == true">
-                AND DateDiff(dd,kc_now.LastPurchaseDate,getdate()) > 7
-            </if>
-            <if test="sc.brand != null">
-                AND kc_now.Brand = #{sc.brand}
-            </if>
-            <if test="sc.modle != null">
-                AND kc_now.ItemName = #{sc.modle}
-            </if>
-            <if test="sc.pricingType == 0">
-                AND (
-                (kc_now.TypeCode = N'奇货可居' AND (DateDiff(dd, history.ConfirmDate, getdate()) >= 3 OR history.ConfirmDate IS NULL))
-                OR (kc_now.TypeCode = N'特别关注' AND (DateDiff(dd, history.ConfirmDate, getdate()) >= 10 OR history.ConfirmDate IS NULL))
-                OR (kc_now.TypeCode = N'热门型号' AND (DateDiff(dd, history.ConfirmDate, getdate()) >= 20 OR history.ConfirmDate IS NULL))
-                OR (kc_now.TypeCode = N'普通库存' AND (DateDiff(dd, history.ConfirmDate, getdate()) >= 60 OR history.ConfirmDate IS NULL))
-                OR (kc_now.TypeCode = N'呆滞物料' AND (DateDiff(dd, history.ConfirmDate, getdate()) >= 365 OR history.ConfirmDate IS NULL))
-                )
-            </if>
-            <if test="sc.pricingType == 1">
-                AND (
-                    history.kc_price_final IS NULL OR
-                    ABS(kc_now.kc_price_final - history.kc_price_final) /history.kc_price_final >= 0.1
-                )
-            </if>
-            <if test="sc.pricingType == 2">
-                AND (
-                    (
-                        (kc_now.TypeCode = N'奇货可居' AND (DateDiff(dd, history.ConfirmDate, getdate()) >= 3 OR history.ConfirmDate IS NULL))
-                        OR (kc_now.TypeCode = N'特别关注' AND (DateDiff(dd, history.ConfirmDate, getdate()) >= 10 OR history.ConfirmDate IS NULL))
-                        OR (kc_now.TypeCode = N'热门型号' AND (DateDiff(dd, history.ConfirmDate, getdate()) >= 20 OR history.ConfirmDate IS NULL))
-                        OR (kc_now.TypeCode = N'普通库存' AND (DateDiff(dd, history.ConfirmDate, getdate()) >= 60 OR history.ConfirmDate IS NULL))
-                        OR (kc_now.TypeCode = N'呆滞物料' AND (DateDiff(dd, history.ConfirmDate, getdate()) >= 365 OR history.ConfirmDate IS NULL))
-                    )
-                    OR (
-                        history.kc_price_final IS NULL OR
-                        ABS(kc_now.kc_price_final - history.kc_price_final) /history.kc_price_final >= 0.1
-                    )
-                )
-            </if>
-            <if test="sc.newToday != null">
-                AND kc_now.NewToday = #{sc.newToday}
-            </if>
-            <if test="sc.orderDate != null">
-                AND LastOrder.DocDate >= #{sc.orderDate}
-            </if>
-            <if test="sc.modify != null">
-                AND kc_now.Modify = #{sc.modify}
-            </if>
-            AND DateDiff(dd,kc_now.DocDate,getdate())=0
-            DROP TABLE #history
-            DROP TABLE #LastOrder
-        </where>
     </select>
     <select id="inAdvance" resultType="com.lianchuangjie.lianchuangjie.vo.StockPrice.StockPriceVO">
         SELECT

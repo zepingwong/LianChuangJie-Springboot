@@ -324,6 +324,5 @@
             )
         )
         AND U_ICIN1.PriceAfVAT IS NOT NULL
-        ORDER BY T_ICIN.InquiryDate
     </select>
 </mapper>

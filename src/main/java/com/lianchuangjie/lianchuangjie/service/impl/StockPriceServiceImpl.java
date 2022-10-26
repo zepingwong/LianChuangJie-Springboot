@@ -23,10 +23,7 @@ public class StockPriceServiceImpl extends ServiceImpl<StockPriceMapper, StockPr
     @Override
     public Page<StockPriceVO> list(StockPriceSearchDTO searchCondition) {
         Page<StockPriceVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
-        page.setOptimizeCountSql(false);
-        page.setSearchCount(false);
-        page.setRecords(stockPriceMapper.selectList(searchCondition));
-        page.setTotal(stockPriceMapper.countList(searchCondition));
+        stockPriceMapper.selectList(page, searchCondition);
         return page;
     }
 
