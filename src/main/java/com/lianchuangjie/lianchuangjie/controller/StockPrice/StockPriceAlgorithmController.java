@@ -32,7 +32,7 @@ public class StockPriceAlgorithmController extends BaseController {
     }
     /**
      * @return Result
-     * @description 算法调用接口
+     * @description 手动触发算法调用接口
      * @author WANG Zeping
      * @email zepingwong@gmail.com
      * @date 9/7/2022
@@ -41,6 +41,19 @@ public class StockPriceAlgorithmController extends BaseController {
     @Authentication(buyer = true)
     public Result<Boolean> recalculateController() {
         Boolean res = stockPriceAlgorithmService.calculateOneDayService("手动更新");
+        return Result.success(res, "更新成功");
+    }
+    /**
+     * @return Result
+     * @description 手动触发模型训练
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 9/7/2022
+     */
+    @GetMapping("/price/train")
+    @Authentication(buyer = true)
+    public Result<Boolean> trainController() {
+        Boolean res = stockPriceAlgorithmService.trainService("手动更新");
         return Result.success(res, "更新成功");
     }
 }

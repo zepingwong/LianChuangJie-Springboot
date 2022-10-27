@@ -31,6 +31,7 @@ public class StockPriceAlgorithmServiceImpl implements StockPriceAlgorithmServic
         StockPriceLogEntity stockPriceLogEntity = new StockPriceLogEntity();
         stockPriceLogEntity.setStartTime(new Date());
         stockPriceLogEntity.setTriggerType(triggerType);
+        stockPriceLogEntity.setTriggerName("定价计算");
         String res;
         try {
             if (Objects.equals(state, "1")) {
@@ -74,6 +75,38 @@ public class StockPriceAlgorithmServiceImpl implements StockPriceAlgorithmServic
             }
         } catch (IOException e) {
             stringRedisTemplate.opsForValue().set("StockPrice", "0");
+            throw new RuntimeException(e);
+        }
+        return true;
+    }
+
+    @Override
+    public Boolean trainService(String triggerType) {
+        String state = stringRedisTemplate.opsForValue().get("StockPrice");
+        StockPriceLogEntity stockPriceLogEntity = new StockPriceLogEntity();
+        stockPriceLogEntity.setStartTime(new Date());
+        stockPriceLogEntity.setTriggerType(triggerType);
+        stockPriceLogEntity.setTriggerName("模型训练");
+        String res;
+        try {
+            if (Objects.equals(state, "1")) {
+                throw new RuntimeException("算法正在运行，请稍后刷新结果");
+            }
+            stringRedisTemplate.opsForValue().set("StockPrice", "1");
+            JSONObject json = new JSONObject();
+            json.put("data", "modle_train");
+            res = HttpUtil.jsonPost(address + "model_train", null, json);
+            if (res != null) {
+                stringRedisTemplate.opsForValue().set("StockPrice", "0");
+                stockPriceLogEntity.setEndTime(new Date());
+                stockPriceLogEntity.setResult(1);
+                stockPriceLogMapper.insert(stockPriceLogEntity);
+            }
+        } catch (IOException e) {
+            stringRedisTemplate.opsForValue().set("StockPrice", "0");
+            stockPriceLogEntity.setEndTime(new Date());
+            stockPriceLogEntity.setResult(1);
+            stockPriceLogMapper.insert(stockPriceLogEntity);
             throw new RuntimeException(e);
         }
         return true;

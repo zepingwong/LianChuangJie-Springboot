@@ -1,5 +1,6 @@
 package com.lianchuangjie.lianchuangjie.entity.StockPrice;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -17,7 +18,7 @@ import java.util.Date;
 @NoArgsConstructor
 @TableName("U_SPAL")
 public class StockPriceLogEntity {
-    @TableId(value = "DocEntry")
+    @TableId(value = "DocEntry", type = IdType.AUTO)
     private Long docEntry;
     @TableField(value = "TriggerName")
     private String triggerName;
