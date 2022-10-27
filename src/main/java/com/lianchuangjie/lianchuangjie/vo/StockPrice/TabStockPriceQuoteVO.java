@@ -22,9 +22,10 @@ public class TabStockPriceQuoteVO {
     @JsonProperty("U_QuoDate")
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date uQuoDate;
-    // 供应商类型 T_ICIN1.U_QuoGroupCode
     @JsonProperty("U_QuoGroupCode")
     private String uQuoGroupCode;
+    @JsonProperty("U_CardName")
+    private String uCardName;
     // 供应商等级
     @JsonProperty("U_QuoLevel")
     private String uQuoLevel;

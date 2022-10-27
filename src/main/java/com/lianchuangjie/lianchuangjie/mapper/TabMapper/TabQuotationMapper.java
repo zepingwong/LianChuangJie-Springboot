@@ -13,6 +13,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Mapper
 @Repository
 public interface TabQuotationMapper extends BaseMapper<QuotationEntity> {
@@ -57,7 +59,6 @@ public interface TabQuotationMapper extends BaseMapper<QuotationEntity> {
      */
     IPage<TabEffectiveQuotationVO> selectEffectiveTabList(IPage<TabEffectiveQuotationVO> page, @Param("sc") TabSearchDTO searchCondition);
     /**
-     * @param page            page
      * @param searchCondition searchCondition
      * @return IPage
      * @description 库存定价页面-采购报价TAB
@@ -65,5 +66,6 @@ public interface TabQuotationMapper extends BaseMapper<QuotationEntity> {
      * @email zepingwong@gmail.com
      * @date 9/4/2022
      */
-    IPage<TabStockPriceQuoteVO> selectStockPriceTabList(IPage<TabStockPriceQuoteVO> page, @Param("sc") TabSearchDTO searchCondition);
+    List<TabStockPriceQuoteVO> selectStockPriceTabList(@Param("sc") TabSearchDTO searchCondition);
+    Long countStockPriceTabList(@Param("sc") TabSearchDTO searchCondition);
 }
