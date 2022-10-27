@@ -71,7 +71,8 @@ public class StockPriceController extends BaseController {
         stockPriceSearchDTO.setModle(modle);
         stockPriceSearchDTO.setTypeCode(typeCode);
         stockPriceSearchDTO.setStockDays(stockDays);
-        stockPriceSearchDTO.setNeedReplenish(needReplenish != null &&needReplenish.equals("Y"));
+        // 没有七天采购报价需要补价
+        stockPriceSearchDTO.setNeedReplenish(needReplenish == null ? null : needReplenish.equals("N"));
         stockPriceSearchDTO.setPricingType(pricingType);
         stockPriceSearchDTO.setModify(modify);
         stockPriceSearchDTO.setNewToday(newToday);

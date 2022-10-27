@@ -77,6 +77,9 @@
                 <if test="sc.needReplenish == true">
                     AND DateDiff(dd,kc_now.LastPurchaseDate,getdate()) > 7
                 </if>
+                <if test="sc.needReplenish == false">
+                    AND DateDiff(dd,kc_now.LastPurchaseDate,getdate()) &lt;= 7
+                </if>
                 <if test="sc.brand != null">
                     AND kc_now.Brand = #{sc.brand}
                 </if>
