@@ -11,7 +11,6 @@ import com.lianchuangjie.lianchuangjie.dto.StockPrice.StockPriceSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.QuotationEntity;
 import com.lianchuangjie.lianchuangjie.service.BrandService;
 import com.lianchuangjie.lianchuangjie.service.QuotationService;
-import com.lianchuangjie.lianchuangjie.service.StockPrice.StockPriceAlgorithmService;
 import com.lianchuangjie.lianchuangjie.service.StockPrice.StockPriceService;
 import com.lianchuangjie.lianchuangjie.utils.HttpUtil;
 import com.lianchuangjie.lianchuangjie.utils.Result;
@@ -39,8 +38,6 @@ public class StockPriceController extends BaseController {
     QuotationService quotationService;
     @Resource
     BrandService brandService;
-    @Resource
-    StockPriceAlgorithmService stockPriceAlgorithmService;
     @Value("${algorithm_address}")
     private String address;
 
@@ -155,20 +152,6 @@ public class StockPriceController extends BaseController {
         stockPriceService.updateALL(list);
         return Result.success(true, "Success");
     }
-
-    /**
-     * @return Result
-     * @description 算法调用接口
-     * @author WANG Zeping
-     * @email zepingwong@gmail.com
-     * @date 9/7/2022
-     */
-    @PostMapping("/price/calculate")
-    @Authentication(buyer = true)
-    public Result<Boolean> calculateController(@RequestBody List<StockPriceVO> list) {
-        Boolean res = stockPriceAlgorithmService.calculateADayService(list);
-        return Result.success(res, "更新成功");
-    }
     // 获取提前定价型号列表
     /**
      * @return Result
@@ -182,20 +165,5 @@ public class StockPriceController extends BaseController {
     public Result<List<StockPriceVO>> getStockPriceInAdvanceList(@RequestParam(defaultValue = "#{null}", value = "Modle") String modle) {
         List<StockPriceVO> list = stockPriceService.inAdvanceList(modle);
         return Result.success(list);
-    }
-
-
-    /**
-     * @return Result
-     * @description 算法调用接口
-     * @author WANG Zeping
-     * @email zepingwong@gmail.com
-     * @date 9/7/2022
-     */
-    @GetMapping("/price/recalculate")
-    @Authentication(buyer = true)
-    public Result<Boolean> recalculateController() {
-        Boolean res = stockPriceAlgorithmService.calculateOneDayService("手动更新");
-        return Result.success(res, "更新成功");
     }
 }
