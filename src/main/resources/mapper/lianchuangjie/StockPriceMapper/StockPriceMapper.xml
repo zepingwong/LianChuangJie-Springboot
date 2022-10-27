@@ -146,7 +146,6 @@
             )
             GROUP BY
                 T.Dscription,
-                T.DocDate,
                 T.U_Brand,
                 T.U_Batch
         ) LastOrder

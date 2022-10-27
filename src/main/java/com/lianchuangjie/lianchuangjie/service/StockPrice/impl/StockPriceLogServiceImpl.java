@@ -19,6 +19,6 @@ public class StockPriceLogServiceImpl extends ServiceImpl<StockPriceLogMapper, S
     public Page<StockPriceLogVO> list(StockPriceLogSearchDTO searchCondition) {
         Page<StockPriceLogVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
         stockPriceLogMapper.selectList(page, searchCondition);
-        return null;
+        return page;
     }
 }
