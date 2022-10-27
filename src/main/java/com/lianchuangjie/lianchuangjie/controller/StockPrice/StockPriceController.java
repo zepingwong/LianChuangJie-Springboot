@@ -9,10 +9,9 @@ import com.lianchuangjie.lianchuangjie.dto.StockPrice.ReplenishDTO;
 import com.lianchuangjie.lianchuangjie.dto.StockPrice.StockPriceOKDTO;
 import com.lianchuangjie.lianchuangjie.dto.StockPrice.StockPriceSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.QuotationEntity;
-import com.lianchuangjie.lianchuangjie.entity.StockPrice.StockPriceLogEntity;
-import com.lianchuangjie.lianchuangjie.mapper.StockPrice.StockPriceLogMapper;
 import com.lianchuangjie.lianchuangjie.service.BrandService;
 import com.lianchuangjie.lianchuangjie.service.QuotationService;
+import com.lianchuangjie.lianchuangjie.service.StockPrice.StockPriceAlgorithmService;
 import com.lianchuangjie.lianchuangjie.service.StockPrice.StockPriceService;
 import com.lianchuangjie.lianchuangjie.utils.HttpUtil;
 import com.lianchuangjie.lianchuangjie.utils.Result;
@@ -21,7 +20,6 @@ import com.lianchuangjie.lianchuangjie.vo.BrandItemVO;
 import com.lianchuangjie.lianchuangjie.vo.StockPrice.StockPriceVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,7 +28,6 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 @RestController
 @Validated
@@ -43,11 +40,9 @@ public class StockPriceController extends BaseController {
     @Resource
     BrandService brandService;
     @Resource
-    StringRedisTemplate stringRedisTemplate;
+    StockPriceAlgorithmService stockPriceAlgorithmService;
     @Value("${algorithm_address}")
     private String address;
-    @Resource
-    StockPriceLogMapper stockPriceLogMapper;
 
     @GetMapping("/price")
     @Authentication(buyer = true)
@@ -141,7 +136,6 @@ public class StockPriceController extends BaseController {
                 response = HttpUtil.jsonPost(address + "model_predict_one_time", null, json);
                 System.out.println(response);
             }catch (IOException e) {
-                stringRedisTemplate.opsForValue().set("StockPrice", "0");
                 throw new RuntimeException(e);
             }
         }
@@ -172,26 +166,8 @@ public class StockPriceController extends BaseController {
     @PostMapping("/price/calculate")
     @Authentication(buyer = true)
     public Result<Boolean> calculateController(@RequestBody List<StockPriceVO> list) {
-        String state = stringRedisTemplate.opsForValue().get("StockPrice");
-        if (Objects.equals(state, "1")) {
-            return Result.error(1, "算法正在运行，请稍后刷新结果");
-        } else {
-            stringRedisTemplate.opsForValue().set("StockPrice", "1");
-            String res;
-            try {
-                JSONObject json = new JSONObject();
-                json.put("data", list);
-                res = HttpUtil.jsonPost(address + "model_predict_a_day", null, json);
-                System.out.println(res);
-                if (res != null) {
-                    stringRedisTemplate.opsForValue().set("StockPrice", "0");
-                }
-            } catch (IOException e) {
-                stringRedisTemplate.opsForValue().set("StockPrice", "0");
-                throw new RuntimeException(e);
-            }
-            return Result.success(true, "更新成功");
-        }
+        Boolean res = stockPriceAlgorithmService.calculateADayService(list);
+        return Result.success(res, "更新成功");
     }
     // 获取提前定价型号列表
     /**
@@ -219,34 +195,7 @@ public class StockPriceController extends BaseController {
     @GetMapping("/price/recalculate")
     @Authentication(buyer = true)
     public Result<Boolean> recalculateController() {
-        String state = stringRedisTemplate.opsForValue().get("StockPrice");
-        StockPriceLogEntity stockPriceLogEntity = new StockPriceLogEntity();
-        stockPriceLogEntity.setStartTime(new Date());
-        stockPriceLogEntity.setTriggerType("手动触发");
-        if (Objects.equals(state, "1")) {
-            return Result.error(1, "算法正在运行，请稍后刷新结果");
-        } else {
-            stringRedisTemplate.opsForValue().set("StockPrice", "1");
-            String res;
-            try {
-                JSONObject json = new JSONObject();
-                json.put("data", "one_day");
-                res = HttpUtil.jsonPost(address + "model_predict_one_day", null, json);
-                System.out.println(res);
-                if (res != null) {
-                    stringRedisTemplate.opsForValue().set("StockPrice", "0");
-                    stockPriceLogEntity.setEndTime(new Date());
-                    stockPriceLogEntity.setResult(1);
-                    stockPriceLogMapper.insert(stockPriceLogEntity);
-                }
-            } catch (IOException e) {
-                stringRedisTemplate.opsForValue().set("StockPrice", "0");
-                stockPriceLogEntity.setEndTime(new Date());
-                stockPriceLogEntity.setResult(1);
-                stockPriceLogMapper.insert(stockPriceLogEntity);
-                throw new RuntimeException(e);
-            }
-            return Result.success(true, "更新成功");
-        }
+        Boolean res = stockPriceAlgorithmService.calculateOneDayService("手动更新");
+        return Result.success(res, "更新成功");
     }
 }
