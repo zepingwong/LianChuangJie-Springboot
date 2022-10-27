@@ -204,7 +204,6 @@
                        SELECT T.U_QuoDate, /*报价日期*/
                               T.U_QuoModle, /*报价型号*/
                               T.U_QuoBrand, /*报价品牌*/
-                              T.U_CardName, /*供应商名称*/
                               T.U_SuoDelivery, /*供方交期*/
                               T.U_QuoGroupCode, /*供应商类型*/
                               T.U_QuoLevel, /*供应商等级*/
@@ -216,6 +215,7 @@
                               T.U_Buyer, /*采购员*/
                               T.U_QuoVatGroup, /*税率*/
                               T.U_QuoExplain, /*采购备注*/
+                              T.U_CardName,
                               T_OVTG.Rate     AS 'U_QuoVatRate', /*税率*/
                               T_OUSI.UserName AS 'U_BuyerName', /*采购员姓名*/
                               T_OCDP.Name     AS 'DftDeptName' /*采购部门名称*/
@@ -237,7 +237,6 @@
                               T.U_QuoBrand, /*报价品牌*/
                               T.U_SuoDelivery, /*供方交期*/
                               T.U_QuoGroupCode, /*供应商类型*/
-                              '******'        AS 'U_CardName', /*供应商名称*/
                               T.U_QuoLevel, /*供应商等级*/
                               T.U_QuoQty, /*报价数量*/
                               T.U_QuoYear, /*报价批次*/
@@ -247,6 +246,7 @@
                               T.U_Buyer, /*采购员*/
                               T.U_QuoVatGroup, /*税率*/
                               T.U_QuoExplain, /*采购备注*/
+                              '******' AS U_CardName,
                               T_OVTG.Rate     AS 'U_QuoVatRate', /*税率*/
                               T_OUSI.UserName AS 'U_BuyerName', /*采购员姓名*/
                               T_OCDP.Name     AS 'DftDeptName' /*采购部门名称*/
