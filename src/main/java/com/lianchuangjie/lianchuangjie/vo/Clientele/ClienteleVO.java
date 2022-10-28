@@ -42,6 +42,12 @@ public class ClienteleVO {
     // 客户区域名称 U_OADD.DoMain
     @JsonProperty("DoMain")
     private String doMain;
+    // 业务合作伙伴行业领域代码
+    @JsonProperty("U_Industries")
+    private String uIndustries;
+    // 业务合作伙伴行业领域名称
+    @JsonProperty("U_DomainName")
+    private String uDomainName;
     // 业务合作伙伴性质代码 T_OCRD.GroupCode
     @JsonProperty("GroupCode")
     private Integer groupCode;

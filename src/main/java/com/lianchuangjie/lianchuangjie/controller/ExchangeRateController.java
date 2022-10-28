@@ -2,7 +2,7 @@ package com.lianchuangjie.lianchuangjie.controller;
 
 import com.lianchuangjie.lianchuangjie.config.Authentication;
 import com.lianchuangjie.lianchuangjie.entity.ExchangeRateEntity;
-import com.lianchuangjie.lianchuangjie.exception.ResponseEnum;
+import com.lianchuangjie.lianchuangjie.exception.Business.ResponseEnum;
 import com.lianchuangjie.lianchuangjie.service.ExchangeRateService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
 import org.springframework.web.bind.annotation.GetMapping;

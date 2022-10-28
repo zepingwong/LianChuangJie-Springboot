@@ -62,7 +62,10 @@ public class TabQuotationServiceImpl extends ServiceImpl<QuotationMapper, Quotat
     @Override
     public Page<TabStockPriceQuoteVO> stockPriceTabList(TabSearchDTO searchCondition) {
         Page<TabStockPriceQuoteVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
-        tabQuotationMapper.selectStockPriceTabList(page, searchCondition);
+        page.setOptimizeCountSql(false);
+        page.setSearchCount(false);
+        page.setRecords(tabQuotationMapper.selectStockPriceTabList(searchCondition));
+        page.setTotal(tabQuotationMapper.countStockPriceTabList(searchCondition));
         return page;
     }
 

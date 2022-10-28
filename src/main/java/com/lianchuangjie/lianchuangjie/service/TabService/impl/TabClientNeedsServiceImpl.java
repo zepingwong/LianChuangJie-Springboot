@@ -83,6 +83,7 @@ public class TabClientNeedsServiceImpl extends ServiceImpl<TabClientNeedsMapper,
     @Override
     public Page<TabStockPriceNeedsVO> stockPriceTabList(TabSearchDTO searchCondition) {
         Page<TabStockPriceNeedsVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
+        page.addOrder(OrderItem.desc("T_ICIN.InquiryDate"));
         tabClientNeedsMapper.selectStockPriceTabList(page, searchCondition);
         return page;
     }

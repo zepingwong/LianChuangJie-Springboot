@@ -29,7 +29,54 @@
                     WHEN U_OPRI.PrePrice * @DemandQty > 1000 OR U_OPRI.PrePrice * @DemandQty IS NULL THEN 'B'
                     ELSE 'E'
                 END
-            )                        AS Status
+            )                        AS Status,
+            (
+                CASE
+                    /*完全匹配到的且需要采购报价的，匹配对应的采购员*/
+                    WHEN SDADA.TAG IS NULL THEN ''
+                    WHEN (
+                        U_OPRI.PrePrice * @DemandQty > 1000
+                        OR U_OPRI.PrePrice * @DemandQty IS NULL
+                        OR U_OPRI.PrePrice * @DemandQty = 0
+                    ) THEN (
+                        /*匹配到的采购员格式为：采购员编号1:采购员姓名1,采购员编号2:采购员姓名2...*/
+                        SELECT CAST(CAST(BuyerInfo.UserSign AS VARCHAR) + ':' + BuyerInfo.UserName AS VARCHAR) + ','
+                        FROM T_OUSI BuyerInfo /*采购员信息表*/
+                        LEFT JOIN U_PUR1 U_PUR1 ON U_PUR1.OwnerCode = BuyerInfo.UserSign
+                        LEFT JOIN U_PUR2 U_PUR2 ON U_PUR2.OwnerCode = BuyerInfo.UserSign
+                        LEFT JOIN U_PUR9 U_PUR9 ON U_PUR9.OwnerCode = BuyerInfo.UserSign
+                        WHERE BuyerInfo.U_IsBuyer = 'Y'
+                        AND U_PUR2.Brand LIKE CONCAT('%', SDADA.QuoBrand, '%')
+                        /*
+                        1. 如果U_PUR1.IsSale为Y值，那么需要关联表U_PUR9确认负责的销售列表；
+                        2. 如果U_PUR1.IsSale为N值，那么只需参考字段 DeptCode-负责报价的销售部门；
+                        */
+                        AND (
+                            (U_PUR9.SlpCode = @SlpCode AND U_PUR1.IsSale = 'Y')
+                            OR (U_PUR1.IsSale = 'N' AND ',' + LTRIM(RTRIM(REPLACE(U_PUR1.DeptCode, ' ', ''))) + ',' LIKE CONCAT('%,', @DeptCode, ',%'))
+                        )
+                        /*
+                        1. 采购权限内是否包含该品牌该型号的ECCN码
+                        2. 采购ECCN码为空或为null时表示该采购不受ECCN码限制
+                        */
+                        AND (
+                            ',' + LTRIM(RTRIM(REPLACE(U_PUR1.ECCN, ' ', ''))) + ',' LIKE CONCAT('%', SDADA.ECCN, '%') OR U_PUR1.ECCN = '' OR U_PUR1.ECCN IS NULL
+                        )
+                        /*
+                        1. 预估总价高于采购询价起点时转发给该采购
+                        2. 采购询价起点为0或null表示该采购不受价格限制
+                        */
+                        AND (
+                            U_PUR1.StartTotal IS NULL
+                            OR U_PUR1.StartTotal &lt; (U_OPRI.PrePrice * @DemandQty)
+                            OR U_OPRI.PrePrice * @DemandQty = 0
+                            OR U_OPRI.PrePrice * @DemandQty IS NULL
+                        )
+                        GROUP BY BuyerInfo.UserSign, BuyerInfo.UserName
+                        FOR XML PATH ( '' )
+                    )
+                END
+            )                                          AS Buyer /*匹配采购员*/
         FROM SDADA
         LEFT JOIN (
             SELECT

@@ -8,7 +8,7 @@ import com.lianchuangjie.lianchuangjie.dto.QuotationSaveDTO;
 import com.lianchuangjie.lianchuangjie.dto.search.QuotationSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.QuotationEntity;
 import com.lianchuangjie.lianchuangjie.service.QuotationService;
-import com.lianchuangjie.lianchuangjie.service.UserInfoService;
+import com.lianchuangjie.lianchuangjie.service.User.UserInfoService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
 import com.lianchuangjie.lianchuangjie.vo.Quotation.QuotationVO;
 import org.springframework.beans.BeanUtils;

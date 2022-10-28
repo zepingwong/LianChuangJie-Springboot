@@ -1,6 +1,6 @@
 package com.lianchuangjie.lianchuangjie.utils;
 
-import com.lianchuangjie.lianchuangjie.exception.ResponseEnum;
+import com.lianchuangjie.lianchuangjie.exception.Business.ResponseEnum;
 import lombok.Getter;
 import lombok.Setter;
 

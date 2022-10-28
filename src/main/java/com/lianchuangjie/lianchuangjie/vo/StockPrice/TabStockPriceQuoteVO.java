@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -16,15 +15,15 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Accessors(chain = true)
 public class TabStockPriceQuoteVO {
     // 报价日期
     @JsonProperty("U_QuoDate")
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date uQuoDate;
-    // 供应商类型 T_ICIN1.U_QuoGroupCode
     @JsonProperty("U_QuoGroupCode")
     private String uQuoGroupCode;
+    @JsonProperty("U_CardName")
+    private String uCardName;
     // 供应商等级
     @JsonProperty("U_QuoLevel")
     private String uQuoLevel;

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--日志级别以及优先级排序: OFF > FATAL > ERROR > WARN > INFO > DEBUG > TRACE > ALL -->
+<!--Configuration后面的status，这个用于设置log4j2自身内部的信息输出，可以不设置，当设置成trace时，你会看到log4j2内部各种详细输出-->
+<!--monitorInterval：Log4j能够自动检测修改配置 文件和重新配置本身，设置间隔秒数-->
+<Configuration status="WARN" monitorInterval="60">
+    <!-- 配置 -->
+    <Properties>
+        <!-- %d{yyyy-MM-dd HH:mm:ss.SSS}=时间，%-5level=日志等级，${sys:PID}=进程PID，[%t]=线程名称，%l=类、方法、日志行，%msg=消息，%n=换行-->
+        <Property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level ${sys:PID} --- [%t] %l ::: %msg%n"/>
+        <!-- 日志目录-->
+        <Property name="APP_LOG_ROOT" value="/home/www/log"/>
+    </Properties>
+
+    <Appenders>
+        <!-- 输出控制台日志的配置 -->
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+        </Console>
+
+        <File name="fileLog" fileName="${APP_LOG_ROOT}/file.log">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+        </File>
+
+        <!-- 输出info日志到文件（滚动） -->
+        <RollingFile name="infoLog"
+                     fileName="${APP_LOG_ROOT}/info.log"
+                     filePattern="${APP_LOG_ROOT}/info-%d{yyyy-MM-dd_HH-mm-ss}.log">
+
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+
+            <!-- 记录INFO以上的日志 -->
+            <ThresholdFilter level="INFO"/>
+            <!-- 只记录INFO的日志 -->
+            <!--            <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>-->
+
+            <!-- 指定滚动日志的策略，就是什么时候进行新建日志文件输出日志 -->
+            <Policies>
+                <!-- interval属性用来指定多久滚动一次 -->
+                <TimeBasedTriggeringPolicy interval="1"/>
+            </Policies>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <!-- Root节点用来指定项目的根日志，如果没有单独指定Logger，那么就会默认使用该Root日志输出 -->
+        <!-- level:日志输出级别，共有8个级别，按照从高到低为：OFF > FATAL > ERROR > WARN > INFO > DEBUG > TRACE > ALL -->
+        <Root level="INFO">
+            <!-- AppenderRef：用来指定该日志输出到哪个Appender -->
+            <AppenderRef ref="console"/>
+            <AppenderRef ref="fileLog"/>
+            <AppenderRef ref="infoLog"/>
+        </Root>
+    </Loggers>
+</Configuration>

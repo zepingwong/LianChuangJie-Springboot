@@ -69,11 +69,11 @@ public class TabStockPriceBaseVO {
     private BigDecimal kcPrice14;
     // 参考价格(14天)
     @JsonProperty("reference14")
-    private String reference14;
+    private String reference14 = "";
     // 库存定价(30天)
     @JsonProperty("kc_price30")
     private BigDecimal kcPrice30;
     // 参考价格(30天)
     @JsonProperty("reference30")
-    private String reference30;
+    private String reference30 = "";
 }

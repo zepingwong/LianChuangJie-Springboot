@@ -83,19 +83,19 @@ public class StockPriceVO {
     private BigDecimal kcPrice7;
     // reference7 参考价格(7天)
     @JsonProperty("reference7")
-    private String reference7;
+    private String reference7 = "";
     // kc_price 库存定价
     @JsonProperty("kc_price")
     private BigDecimal kcPrice;
     // reference7 参考价格
     @JsonProperty("reference")
-    private String reference;
+    private String reference = "";
     // kc_price_final 最终库存定价
     @JsonProperty("kc_price_final")
     private BigDecimal kcPriceFinal;
     // reference_final 最终参考价格
     @JsonProperty("reference_final")
-    private String referenceFinal;
+    private String referenceFinal = "";
     // 2w 区间
     @JsonProperty("quan_2w")
     private Integer quan2w;

@@ -50,6 +50,7 @@
                 ROW_NUMBER() OVER (ORDER BY T_OBTN.ItemName DESC)                          AS ROWNUMBER,
                 T_OBTN.ItemName,/*型号*/
                 T_OBTN.U_Batch,/*原批次*/
+                [dbo].[TransformBatch](T_OBTN.U_Batch) AS Batch, /*现批次*/
                 T_OBTN.InDate,/*入库时间*/
                 T_OBTN.U_Price,/*成本价*/
                 T.Quantity,/*库存数量*/
