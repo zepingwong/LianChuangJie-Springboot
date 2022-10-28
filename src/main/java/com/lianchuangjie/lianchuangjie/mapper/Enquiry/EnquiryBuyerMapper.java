@@ -1,4 +1,4 @@
-package com.lianchuangjie.lianchuangjie.mapper.EnquiryMapper;
+package com.lianchuangjie.lianchuangjie.mapper.Enquiry;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.lianchuangjie.lianchuangjie.entity.EnquiryBuyerEntity;

@@ -1,4 +1,4 @@
-package com.lianchuangjie.lianchuangjie.mapper.EnquiryMapper;
+package com.lianchuangjie.lianchuangjie.mapper.Enquiry;
 
 import com.lianchuangjie.lianchuangjie.dto.Enquiry.EnquirySingleQueryDTO;
 import com.lianchuangjie.lianchuangjie.vo.Enquiry.EnquiryMatchItemVO;

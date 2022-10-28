@@ -1,4 +1,4 @@
-package com.lianchuangjie.lianchuangjie.vo.VatCur;
+package com.lianchuangjie.lianchuangjie.vo.CurVat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -14,7 +14,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain = true)
-public class VatCurConfVO {
+public class CurVatConfVO {
     /**
      * @description 序号
      */

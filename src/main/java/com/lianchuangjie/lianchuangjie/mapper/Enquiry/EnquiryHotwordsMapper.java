@@ -1,4 +1,4 @@
-package com.lianchuangjie.lianchuangjie.mapper.EnquiryMapper;
+package com.lianchuangjie.lianchuangjie.mapper.Enquiry;
 
 import com.lianchuangjie.lianchuangjie.vo.Enquiry.EnquiryHotwordsVO;
 import org.apache.ibatis.annotations.Mapper;

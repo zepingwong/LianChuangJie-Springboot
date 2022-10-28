@@ -16,7 +16,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName("U_VCCG")
-public class VatCurConfEntity {
+public class CurVatConfEntity {
     /**
      * @description 序号
      */

@@ -1,7 +1,7 @@
-package com.lianchuangjie.lianchuangjie.mapper;
+package com.lianchuangjie.lianchuangjie.mapper.CurVat;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.lianchuangjie.lianchuangjie.entity.CurrencyEntity;
+import com.lianchuangjie.lianchuangjie.entity.CurVat.CurrencyEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
