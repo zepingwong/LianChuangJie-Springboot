@@ -1,4 +1,4 @@
-package com.lianchuangjie.lianchuangjie.vo;
+package com.lianchuangjie.lianchuangjie.vo.VatCur;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

@@ -7,7 +7,7 @@ import com.lianchuangjie.lianchuangjie.entity.CurVat.VatCurConfEntity;
 import com.lianchuangjie.lianchuangjie.entity.CurVat.VatGroupEntity;
 import com.lianchuangjie.lianchuangjie.service.VatCurConfService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
-import com.lianchuangjie.lianchuangjie.vo.VatCurConfVO;
+import com.lianchuangjie.lianchuangjie.vo.VatCur.VatCurConfVO;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;

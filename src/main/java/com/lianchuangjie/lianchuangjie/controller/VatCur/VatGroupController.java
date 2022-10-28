@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lianchuangjie.lianchuangjie.config.Authentication;
 import com.lianchuangjie.lianchuangjie.service.VatGroupService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
-import com.lianchuangjie.lianchuangjie.vo.VatGroupVO;
+import com.lianchuangjie.lianchuangjie.vo.VatCur.VatGroupVO;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;

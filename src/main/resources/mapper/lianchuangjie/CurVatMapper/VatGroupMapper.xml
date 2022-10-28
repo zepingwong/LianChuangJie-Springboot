@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lianchuangjie.lianchuangjie.mapper.VatGroupMapper">
-    <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.VatGroupVO">
+    <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.VatCur.VatGroupVO">
         SELECT *
         FROM T_OVTG
         <where>
             ${ew.getSqlSegment()}
         </where>
     </select>
-    <select id="selectOne" resultType="com.lianchuangjie.lianchuangjie.vo.VatGroupVO">
+    <select id="selectOne" resultType="com.lianchuangjie.lianchuangjie.vo.VatCur.VatGroupVO">
         SELECT *
         FROM T_OVTG
         <where>

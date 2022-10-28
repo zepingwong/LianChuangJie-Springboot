@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lianchuangjie.lianchuangjie.entity.CurVat.VatCurConfEntity;
 import com.lianchuangjie.lianchuangjie.mapper.VatCurConfMapper;
 import com.lianchuangjie.lianchuangjie.service.VatCurConfService;
-import com.lianchuangjie.lianchuangjie.vo.VatCurConfVO;
+import com.lianchuangjie.lianchuangjie.vo.VatCur.VatCurConfVO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

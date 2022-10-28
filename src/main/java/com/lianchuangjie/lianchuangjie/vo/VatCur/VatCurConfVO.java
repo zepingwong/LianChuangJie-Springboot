@@ -1,5 +1,6 @@
-package com.lianchuangjie.lianchuangjie.vo;
+package com.lianchuangjie.lianchuangjie.vo.VatCur;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -48,4 +50,12 @@ public class VatCurConfVO {
      */
     @JsonProperty("Type")
     private String type;
+    // 添加时间
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonProperty("CreateTime")
+    private Date createTime;
+    // 修改时间
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonProperty("UpdateTime")
+    private Date updateTime;
 }
