@@ -17,17 +17,20 @@ public class VatGroupController {
     VatGroupService vatGroupService;
 
     /**
-     * @param Type 税率类型
+     * @param type 税率类型
      * @return List<VatGroupVO>
      * @description 获取 VatGroup 列表
      */
     @GetMapping("/group")
-    @Authentication(buyer = true, sale = true)
+    @Authentication()
     public Result<List<VatGroupVO>> getVatGroupListController(
-            @RequestParam(defaultValue = "#{null}", value = "Type") String Type
+            @RequestParam(defaultValue = "#{null}", value = "Type") String type
     ) {
         QueryWrapper<VatGroupVO> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("Type", Type);
+
+        if (type != null) {
+            queryWrapper.eq("Type", type);
+        }
         List<VatGroupVO> list = vatGroupService.list(queryWrapper);
         return Result.success(list, "Success");
     }
