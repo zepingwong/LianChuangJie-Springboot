@@ -1,6 +1,6 @@
 2022-10-25 21:23:34.007 WARN  23812 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.SalesOrderSubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
 2022-10-25 21:23:34.048 WARN  23812 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.StockQuantityEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
-2022-10-25 21:23:34.093 WARN  23812 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.VatCurConfEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-10-25 21:23:34.093 WARN  23812 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.CurVat.VatCurConfEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
 2022-10-25 21:23:34.761 WARN  23812 --- [main] org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration.getOrDeducePassword(UserDetailsServiceAutoConfiguration.java:88) ::: 
 
 Using generated security password: 98a72e75-2786-433e-8e4d-9fc426cae945

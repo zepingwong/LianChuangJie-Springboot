@@ -1,10 +1,10 @@
-package com.lianchuangjie.lianchuangjie.controller.VatCurrency;
+package com.lianchuangjie.lianchuangjie.controller.VatCur;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
 import com.lianchuangjie.lianchuangjie.config.Authentication;
-import com.lianchuangjie.lianchuangjie.entity.VatCurConfEntity;
-import com.lianchuangjie.lianchuangjie.entity.VatGroupEntity;
+import com.lianchuangjie.lianchuangjie.entity.CurVat.VatCurConfEntity;
+import com.lianchuangjie.lianchuangjie.entity.CurVat.VatGroupEntity;
 import com.lianchuangjie.lianchuangjie.service.VatCurConfService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
 import com.lianchuangjie.lianchuangjie.vo.VatCurConfVO;

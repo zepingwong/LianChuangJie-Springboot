@@ -1,4 +1,4 @@
-package com.lianchuangjie.lianchuangjie.entity;
+package com.lianchuangjie.lianchuangjie.entity.CurVat;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;

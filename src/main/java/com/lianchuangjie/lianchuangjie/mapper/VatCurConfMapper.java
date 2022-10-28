@@ -2,7 +2,7 @@ package com.lianchuangjie.lianchuangjie.mapper;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.lianchuangjie.lianchuangjie.entity.VatCurConfEntity;
+import com.lianchuangjie.lianchuangjie.entity.CurVat.VatCurConfEntity;
 import com.lianchuangjie.lianchuangjie.vo.VatCurConfVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

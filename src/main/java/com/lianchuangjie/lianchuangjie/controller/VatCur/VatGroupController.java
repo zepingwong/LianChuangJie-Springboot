@@ -1,4 +1,4 @@
-package com.lianchuangjie.lianchuangjie.controller.VatCurrency;
+package com.lianchuangjie.lianchuangjie.controller.VatCur;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lianchuangjie.lianchuangjie.config.Authentication;
