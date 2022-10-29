@@ -1,0 +1,7 @@
+2022-10-29 15:48:13.754 WARN  78158 --- [main] org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration.getOrDeducePassword(UserDetailsServiceAutoConfiguration.java:88) ::: 
+
+Using generated security password: ee269fb7-b4e8-48cd-8768-37d29ec5fc17
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2022-10-29 15:48:13.952 INFO  78158 --- [main] org.springframework.security.web.DefaultSecurityFilterChain.<init>(DefaultSecurityFilterChain.java:55) ::: Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@21d8da75, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5a1c7619, org.springframework.security.web.context.SecurityContextPersistenceFilter@573870cb, org.springframework.security.web.header.HeaderWriterFilter@237aa0c7, org.springframework.security.web.authentication.logout.LogoutFilter@395eb363, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@2739ecc0, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2932e15f, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@20a946d9, org.springframework.security.web.session.SessionManagementFilter@2b1d1a5, org.springframework.security.web.access.ExceptionTranslationFilter@6ffbf0ac, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@484302ee]
