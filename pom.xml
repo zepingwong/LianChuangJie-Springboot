@@ -20,7 +20,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <version>2.7.4</version>
         </dependency>
 
         <dependency>
@@ -31,7 +30,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-            <version>2.7.4</version>
+            <version>2.7.5</version>
         </dependency>
         <dependency>
             <groupId>net.sourceforge.jtds</groupId>
@@ -60,7 +59,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
-            <version>2.7.4</version>
+            <version>2.7.5</version>
         </dependency>
         <dependency>
             <groupId>org.glassfish</groupId>
@@ -90,7 +89,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
-            <version>2.7.4</version>
+            <version>2.7.5</version>
         </dependency>
         <!-- pagehelper -->
         <!--必须是这个版本，其他版本有相互依赖的类，例如A类依赖B类，B类又引用了A类 -->
@@ -102,7 +101,7 @@
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
-            <version>5.8.8</version>
+            <version>5.8.9</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
@@ -112,7 +111,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>2.0.15</version>
+            <version>2.0.16</version>
         </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
@@ -123,12 +122,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
-            <version>2.7.4</version>
+            <version>2.7.5</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-autoconfigure</artifactId>
-            <version>2.7.4</version>
+            <version>2.7.5</version>
         </dependency>
         <!--HttpClient-->
         <dependency>

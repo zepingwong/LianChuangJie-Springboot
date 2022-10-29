@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lianchuangjie.lianchuangjie.dto.Enquiry.EnquirySaveItemDTO;
 import com.lianchuangjie.lianchuangjie.dto.Enquiry.EnquirySubSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.EnquirySubEntity;
-import com.lianchuangjie.lianchuangjie.mapper.EnquiryMapper.EnquirySubMapper;
+import com.lianchuangjie.lianchuangjie.mapper.Enquiry.EnquirySubMapper;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquirySubService;
 import com.lianchuangjie.lianchuangjie.vo.Enquiry.EnquirySubVO;
 import org.springframework.beans.factory.annotation.Value;

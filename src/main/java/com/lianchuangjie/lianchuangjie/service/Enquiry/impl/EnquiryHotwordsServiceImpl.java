@@ -1,6 +1,6 @@
 package com.lianchuangjie.lianchuangjie.service.Enquiry.impl;
 
-import com.lianchuangjie.lianchuangjie.mapper.EnquiryMapper.EnquiryHotwordsMapper;
+import com.lianchuangjie.lianchuangjie.mapper.Enquiry.EnquiryHotwordsMapper;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquiryHotwordsService;
 import com.lianchuangjie.lianchuangjie.vo.Enquiry.EnquiryHotwordsVO;
 import org.springframework.stereotype.Service;

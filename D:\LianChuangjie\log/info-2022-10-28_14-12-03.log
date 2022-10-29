@@ -1,1 +1,0 @@
-2022-10-28 14:12:03.613 ERROR 13007 --- [http-nio-8080-exec-6] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/error

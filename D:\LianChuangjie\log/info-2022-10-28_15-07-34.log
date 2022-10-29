@@ -1,1 +1,0 @@
-2022-10-28 15:07:34.217 ERROR 28871 --- [http-nio-8080-exec-5] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/vat/config

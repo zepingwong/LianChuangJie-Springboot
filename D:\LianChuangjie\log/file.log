@@ -578,3 +578,7 @@ This generated password is for development use only. Your security configuration
 2022-10-29 15:48:41.248 INFO  78158 --- [http-nio-8080-exec-2] com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:123) ::: HikariPool-1 - Start completed.
 2022-10-29 15:48:48.054 WARN  78158 --- [http-nio-8080-exec-5] org.springframework.web.servlet.DispatcherServlet.noHandlerFound(DispatcherServlet.java:1281) ::: No mapping for GET /curvat/currency
 2022-10-29 15:49:02.303 WARN  78158 --- [http-nio-8080-exec-6] org.springframework.web.servlet.DispatcherServlet.noHandlerFound(DispatcherServlet.java:1281) ::: No mapping for GET /curvat/currency
+2022-10-29 15:52:24.697 WARN  78158 --- [http-nio-8080-exec-7] org.springframework.web.servlet.DispatcherServlet.noHandlerFound(DispatcherServlet.java:1281) ::: No mapping for GET /curvat/currency
+2022-10-29 15:52:24.703 ERROR 78158 --- [http-nio-8080-exec-7] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/error
+2022-10-29 15:58:19.429 INFO  78158 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource.close(HikariDataSource.java:350) ::: HikariPool-1 - Shutdown initiated...
+2022-10-29 15:58:19.433 INFO  78158 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource.close(HikariDataSource.java:352) ::: HikariPool-1 - Shutdown completed.
