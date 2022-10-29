@@ -2,6 +2,7 @@ package com.lianchuangjie.lianchuangjie.mapper.CurVat;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.lianchuangjie.lianchuangjie.dto.CurVat.CurVatSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.CurVat.CurVatConfEntity;
 import com.lianchuangjie.lianchuangjie.vo.CurVat.CurVatConfVO;
 import org.apache.ibatis.annotations.Mapper;
@@ -13,6 +14,6 @@ import java.util.List;
 @Mapper
 @Repository
 public interface CurVatConfMapper extends BaseMapper<CurVatConfEntity> {
-    List<CurVatConfVO> selectList(@Param("ew") QueryWrapper<CurVatConfVO> queryWrapper);
+    List<CurVatConfVO> selectList(@Param("sc") CurVatSearchDTO curVatSearchDTO);
     CurVatConfVO selectOne(@Param("ew") QueryWrapper<CurVatConfVO> queryWrapper);
 }

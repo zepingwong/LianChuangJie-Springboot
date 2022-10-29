@@ -1,6 +1,7 @@
 package com.lianchuangjie.lianchuangjie.entity.CurVat;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,7 +21,7 @@ public class CurVatConfEntity {
     /**
      * @description 序号
      */
-    @TableField(value = "DocEntry")
+    @TableId(value = "DocEntry")
     private Long docEntry;
     /**
      * @description 货币

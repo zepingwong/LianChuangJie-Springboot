@@ -1,0 +1,1 @@
+2022-10-29 16:27:42.760 ERROR 84586 --- [http-nio-8080-exec-7] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.handleException(GlobalExceptionHandler.java:160) ::: request error!! method:GET uri:/curvat/config

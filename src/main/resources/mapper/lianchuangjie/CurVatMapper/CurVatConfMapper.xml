@@ -12,7 +12,21 @@
         FROM U_VCCG
         LEFT JOIN T_OVTG ON T_OVTG.Code = U_VCCG.VatGroup
         <where>
-            ${ew.getSqlSegment()}
+            1=1
+            <if test="sc.type != null">
+               AND T_OVTG.Type IN
+                <foreach collection="sc.typeList " item="item" open="(" separator="," close=")" index="index">'${item}'</foreach>
+            </if>
+            <if test="sc.type == null">
+                AND T_OVTG.Type IS NULL
+            </if>
+            <if test="sc.currency != null">
+                AND U_VCCG.Currency IN
+                <foreach collection="sc.currencyList " item="item" open="(" separator="," close=")" index="index">'${item}'</foreach>
+            </if>
+            <if test="sc.currency == null">
+                AND U_VCCG.Currency IS NULL
+            </if>
         </where>
     </select>
     <select id="selectOne" resultType="com.lianchuangjie.lianchuangjie.vo.CurVat.CurVatConfVO">
