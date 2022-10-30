@@ -1,1 +1,0 @@
-2022-10-29 16:54:52.864 ERROR 85025 --- [http-nio-8080-exec-3] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/curvat/group

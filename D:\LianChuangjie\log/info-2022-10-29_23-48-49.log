@@ -1,3 +1,0 @@
-2022-10-29 23:48:49.046 INFO  148016 --- [http-nio-8080-exec-2] com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:110) ::: HikariPool-1 - Starting...
-2022-10-29 23:48:49.196 INFO  148016 --- [http-nio-8080-exec-2] com.zaxxer.hikari.pool.PoolBase.getAndSetNetworkTimeout(PoolBase.java:541) ::: HikariPool-1 - Driver does not support get/set network timeout for connections. (null)
-2022-10-29 23:48:49.254 INFO  148016 --- [http-nio-8080-exec-2] com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:123) ::: HikariPool-1 - Start completed.

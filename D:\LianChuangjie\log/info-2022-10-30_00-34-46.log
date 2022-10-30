@@ -1,1 +1,0 @@
-2022-10-30 00:34:46.804 ERROR 149501 --- [http-nio-8080-exec-2] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.handleException(GlobalExceptionHandler.java:160) ::: request error!! method:GET uri:/enquiry/hotwords

@@ -1,1 +1,0 @@
-2022-10-29 21:13:57.912 ERROR 116893 --- [http-nio-8080-exec-10] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:POST uri:/curvat/config

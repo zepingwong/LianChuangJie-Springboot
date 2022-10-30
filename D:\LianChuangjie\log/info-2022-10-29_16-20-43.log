@@ -1,4 +1,0 @@
-2022-10-29 16:20:43.972 INFO  83551 --- [http-nio-8080-exec-1] org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) ::: Initializing Spring DispatcherServlet 'dispatcherServlet'
-2022-10-29 16:20:43.973 INFO  83551 --- [http-nio-8080-exec-1] org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:525) ::: Initializing Servlet 'dispatcherServlet'
-2022-10-29 16:20:43.974 INFO  83551 --- [http-nio-8080-exec-1] org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:547) ::: Completed initialization in 0 ms
-2022-10-29 16:20:43.989 ERROR 83551 --- [http-nio-8080-exec-1] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/curvat/currency
