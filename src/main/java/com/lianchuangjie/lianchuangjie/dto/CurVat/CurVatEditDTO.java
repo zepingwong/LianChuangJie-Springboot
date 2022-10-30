@@ -14,7 +14,6 @@ import java.util.Date;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CurVatEditDTO {
-    @NotBlank(message = "编号不能为空")
     @JsonProperty("DocEntry")
     private Long docEntry;
     @NotBlank(message = "税率代码不能为空")

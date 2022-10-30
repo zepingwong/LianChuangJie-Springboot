@@ -24,8 +24,8 @@
                 AND U_VCCG.Currency IN
                 <foreach collection="sc.currencyList " item="item" open="(" separator="," close=")" index="index">'${item}'</foreach>
             </if>
-            <if test="sc.currency == null">
-                AND U_VCCG.Currency IS NULL
+            <if test="sc.isDeleted != null">
+                AND U_VCCG.IsDeleted = #{sc.isDeleted}
             </if>
         </where>
     </select>

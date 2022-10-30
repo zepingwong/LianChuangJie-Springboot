@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lianchuangjie.lianchuangjie.mapper.EnquiryMapper.EnquiryBatchMatchMapper">
+<mapper namespace="com.lianchuangjie.lianchuangjie.mapper.Enquiry.EnquiryBatchMatchMapper">
     <select id="query" resultType="com.lianchuangjie.lianchuangjie.vo.Enquiry.EnquiryMatchItemVO">
         DECLARE @DeptCode VARCHAR(255); /*销售部门*/
         DECLARE @SlpCode INT; /*销售员*/

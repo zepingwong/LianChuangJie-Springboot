@@ -5,7 +5,8 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public enum CurVatError implements CurVatExceptionAssert {
     DUPLICATION(1, "改配置已存在"),
-    SAVE_ERROR(1, "保存失败"),;
+    SAVE_ERROR(1, "保存失败"),
+    IS_NULL(1, "配置项不存在");
     private final Integer code;
     private final String message;
 

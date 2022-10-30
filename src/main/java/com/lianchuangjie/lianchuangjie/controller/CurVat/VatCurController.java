@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Objects;
 
 @Validated
 @RestController
@@ -30,11 +31,13 @@ public class VatCurController {
     @Authentication(buyer = true, sale = true)
     public Result<List<CurVatConfVO>> getVatConfigListController(
             @RequestParam(defaultValue = "#{null}", value = "Type") String type,
-            @RequestParam(defaultValue = "#{null}", value = "Currency") String currency
+            @RequestParam(defaultValue = "#{null}", value = "Currency") String currency,
+            @RequestParam(defaultValue = "#{null}", value = "IsDeleted") String isDeleted
     ) {
         CurVatSearchDTO curVatSearchDTO = new CurVatSearchDTO();
         curVatSearchDTO.setCurrency(currency);
         curVatSearchDTO.setType(type);
+        curVatSearchDTO.setIsDeleted(isDeleted);
         List<CurVatConfVO> list = curVatConfService.list(curVatSearchDTO);
         return Result.success(list, "Success");
     }
@@ -68,6 +71,8 @@ public class VatCurController {
         CurVatError.DUPLICATION.assertIsTrue(curVatConfService.count(queryWrapper) > 0);
 
         CurVatConfEntity curVatConfEntity = curVatConfService.getById(curVatEditDTO.getDocEntry());
+        // 断言配置项是否存在
+        CurVatError.IS_NULL.assertNotNull(curVatConfEntity);
         BeanUtils.copyProperties(curVatConfEntity, curVatEditDTO);
         boolean res = curVatConfService.updateById(curVatConfEntity);
         // 断言保存失败
@@ -86,5 +91,25 @@ public class VatCurController {
         queryWrapper.eq(SqlHelper.table(CurVatConfEntity.class).getTableName() + ".DocEntry", docEntry);
         CurVatConfVO vatCurConf = curVatConfService.getOne(queryWrapper);
         return Result.success(vatCurConf, "Success");
+    }
+
+    @DeleteMapping("/config/{docEntry}")
+    public Result<Boolean> deleteCurVatController(
+            @PathVariable Long docEntry
+    ) {
+        CurVatConfEntity curVatConfEntity = curVatConfService.getById(docEntry);
+        // 断言配置项是否存在
+        CurVatError.IS_NULL.assertNotNull(curVatConfEntity);
+        if (Objects.equals(curVatConfEntity.getIsDeleted(), "Y")) {
+            // 作废
+            curVatConfEntity.setIsDeleted("N");
+        } else {
+            // 启用
+            curVatConfEntity.setIsDeleted("Y");
+        }
+        boolean res = curVatConfService.updateById(curVatConfEntity);
+        // 断言保存失败
+        CurVatError.SAVE_ERROR.assertIsFalse(res);
+        return Result.success(res, "Success");
     }
 }

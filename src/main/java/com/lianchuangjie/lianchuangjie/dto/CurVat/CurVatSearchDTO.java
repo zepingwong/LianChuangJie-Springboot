@@ -24,4 +24,5 @@ public class CurVatSearchDTO {
     public List<String> getCurrencyList() {
         return Arrays.asList(currency.split(","));
     }
+    private String isDeleted;
 }

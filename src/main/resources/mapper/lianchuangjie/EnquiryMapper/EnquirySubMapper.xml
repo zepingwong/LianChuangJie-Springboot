@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lianchuangjie.lianchuangjie.mapper.EnquiryMapper.EnquirySubMapper">
+<mapper namespace="com.lianchuangjie.lianchuangjie.mapper.Enquiry.EnquirySubMapper">
     <update id="updateOne" parameterType="com.lianchuangjie.lianchuangjie.entity.EnquirySubEntity">
         UPDATE U_ICIN1
         SET BaseEntry   = #{Entity.baseEntry},

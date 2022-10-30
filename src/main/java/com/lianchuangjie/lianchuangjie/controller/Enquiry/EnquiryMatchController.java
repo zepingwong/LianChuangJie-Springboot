@@ -1,6 +1,7 @@
 package com.lianchuangjie.lianchuangjie.controller.Enquiry;
 
 import com.lianchuangjie.lianchuangjie.config.Authentication;
+import com.lianchuangjie.lianchuangjie.dto.Enquiry.EnquiryMatchSaveDTO;
 import com.lianchuangjie.lianchuangjie.dto.Enquiry.EnquirySingleQueryDTO;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquiryMatchService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
@@ -45,5 +46,11 @@ public class EnquiryMatchController {
     public Result<List<EnquiryMatchItemVO>> queryBatchController(@RequestBody List<EnquirySingleQueryDTO> enquirySingleQueryDTOList) {
         List<EnquiryMatchItemVO> list = enquiryMatchService.queryBatch(enquirySingleQueryDTOList);
         return Result.success(list);
+    }
+    @PostMapping("save")
+    @Authentication(sale = true)
+    public Result<Boolean> saveMatchResultController(@RequestBody EnquiryMatchSaveDTO enquiryMatchSaveDTO) {
+        Boolean res = enquiryMatchService.save(enquiryMatchSaveDTO);
+        return Result.success(res, "Success");
     }
 }

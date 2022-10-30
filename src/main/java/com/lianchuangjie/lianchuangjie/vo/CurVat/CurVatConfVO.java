@@ -58,4 +58,7 @@ public class CurVatConfVO {
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonProperty("UpdateTime")
     private Date updateTime;
+    // 有效
+    @JsonProperty("IsDeleted")
+    private String isDeleted;
 }

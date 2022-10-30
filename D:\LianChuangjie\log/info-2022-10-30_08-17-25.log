@@ -1,0 +1,3 @@
+2022-10-30 08:17:25.752 INFO  171592 --- [background-preinit] org.hibernate.validator.internal.util.Version.<clinit>(Version.java:21) ::: HV000001: Hibernate Validator 6.2.3.Final
+2022-10-30 08:17:25.766 INFO  171592 --- [main] org.springframework.boot.StartupInfoLogger.logStarting(StartupInfoLogger.java:55) ::: Starting LianChuangjieApplication using Java 19.0.1 on ITX with PID 171592 (/home/wang/Project/LianChuangJie/springboot/target/classes started by wang in /home/wang/Project/LianChuangJie/springboot)
+2022-10-30 08:17:25.768 INFO  171592 --- [main] org.springframework.boot.SpringApplication.logStartupProfileInfo(SpringApplication.java:640) ::: The following 1 profile is active: "dev"

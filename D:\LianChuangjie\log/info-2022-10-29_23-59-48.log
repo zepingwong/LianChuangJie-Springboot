@@ -1,0 +1,1 @@
+2022-10-29 23:59:48.765 ERROR 149501 --- [http-nio-8080-exec-1] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.handleException(GlobalExceptionHandler.java:160) ::: request error!! method:GET uri:/enquiry/main

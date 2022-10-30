@@ -74,9 +74,7 @@ public class BomController {
     @PostMapping("save")
     @Authentication(sale = true)
     public Result<Boolean> saveQueryController(@RequestBody @Valid BomQuerySaveDTO bomQuerySaveDTO, HttpServletRequest request) {
-        Object obj = SessionUtil.getSession(request, "User");
-        ObjectMapper objectMapper = new ObjectMapper();
-        UserEntity user = objectMapper.convertValue(obj, UserEntity.class);
+        UserEntity user = SessionUtil.getUser();
         Boolean res = bomService.save(bomQuerySaveDTO, user);
         return Result.success(res, "Success");
     }

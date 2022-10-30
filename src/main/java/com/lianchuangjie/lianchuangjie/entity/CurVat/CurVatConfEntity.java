@@ -68,4 +68,7 @@ public class CurVatConfEntity {
      */
     @TableField(exist = false)
     private String label;
+    // 是否作废
+    @TableField(value = "IsDeleted")
+    private String isDeleted;
 }
