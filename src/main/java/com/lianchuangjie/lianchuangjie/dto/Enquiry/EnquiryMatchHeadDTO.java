@@ -21,8 +21,6 @@ import java.util.Objects;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class EnquiryMatchHeadDTO {
-    @Resource
-    SalesOrderSubMapper salesOrderSubMapper;
     private UserEntity user = SessionUtil.getUser();
     // 交易地点 T_ICIN.U_TransaPlace
     @NotNull(message = "交易地点不能为空")
@@ -107,8 +105,9 @@ public class EnquiryMatchHeadDTO {
     @JsonProperty("U_DeptName")
     private String uDeptName = user.getDftDeptName();
     // 判断是否为老客户,只有下过单的才是老客户
-    Boolean oldCus = salesOrderSubMapper.existByCardName(getCardName());
+    @JsonProperty("OldCustomer")
+    private String oldCustomer;
     // T_ICIN.U_CardStatus = 'Y' 表示该客户第一次询价
     @JsonProperty("U_CardStatus")
-    private String uCardStatus = oldCus ? "N" : "Y";
+    private String uCardStatus;
 }

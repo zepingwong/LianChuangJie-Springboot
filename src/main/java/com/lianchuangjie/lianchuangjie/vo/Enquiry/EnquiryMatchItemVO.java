@@ -48,7 +48,7 @@ public class EnquiryMatchItemVO {
      * @description 匹配品牌
      */
     @JsonProperty("QuoBrand")
-    private String QuoBrand;
+    private String quoBrand;
     /**
      * @description 打标情况
      */

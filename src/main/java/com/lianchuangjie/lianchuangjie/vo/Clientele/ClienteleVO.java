@@ -81,4 +81,10 @@ public class ClienteleVO {
     @JsonProperty("CreateDate")
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createDate;
+    // U_CardStatus = 'Y' 表示该客户第一次询价
+    @JsonProperty("U_CardStatus")
+    private String uCardStatus;
+    // OldCustomer 是否下过单, 下过单为老客户
+    @JsonProperty("OldCustomer")
+    private String oldCustomer;
 }

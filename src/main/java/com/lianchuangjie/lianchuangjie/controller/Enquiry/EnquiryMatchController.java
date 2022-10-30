@@ -1,6 +1,7 @@
 package com.lianchuangjie.lianchuangjie.controller.Enquiry;
 
 import com.lianchuangjie.lianchuangjie.config.Authentication;
+import com.lianchuangjie.lianchuangjie.controller.BaseController;
 import com.lianchuangjie.lianchuangjie.dto.Enquiry.EnquiryMatchSaveDTO;
 import com.lianchuangjie.lianchuangjie.dto.Enquiry.EnquirySingleQueryDTO;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquiryMatchService;
@@ -16,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/enquiry/match")
-public class EnquiryMatchController {
+public class EnquiryMatchController extends BaseController {
     @Resource
     EnquiryMatchService enquiryMatchService;
     /**

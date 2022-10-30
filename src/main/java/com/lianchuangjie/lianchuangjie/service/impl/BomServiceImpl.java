@@ -49,8 +49,6 @@ public class BomServiceImpl implements BomService {
     EnquirySubService enquirySubService;
     @Resource
     ClienteleRegionMapper clienteleRegionMapper;
-    @Resource
-    SalesOrderSubMapper salesOrderSubMapper;
 
     @Override
     public BomQueryResVO list(Long docEntry) {
@@ -114,12 +112,6 @@ public class BomServiceImpl implements BomService {
         enquiryMainEntity.setUUserName(user.getUserName()); // 销售员名称
         enquiryMainEntity.setDeptCode(user.getDftDept()); // 销售部门代码
         enquiryMainEntity.setUDeptName(user.getDftDeptName()); // 销售部门名称
-        // 判断是否为老客户,只有下过单的才是老客户
-        Boolean oldCus = salesOrderSubMapper.existByCardName(enquiryMainEntity.getCardName());
-        if (oldCus) {
-            // T_ICIN.U_CardStatus = 'Y' 表示该客户第一次询价
-            enquiryMainEntity.setUCardStatus("N");
-        }
         // 询价单编号
         Long docEntry = enquiryMainMapper.selectMaxDocEntry() + 1;
         enquiryMainEntity.setDocEntry(docEntry);
@@ -143,12 +135,6 @@ public class BomServiceImpl implements BomService {
                 } else {
                     // 非关联型号 ItemId 与 LineNum 相同
                     enquirySubEntity.setItemId(lineNum);
-                }
-                // 如果是老客户,自动标记为重点询价,重点询价说明为 “以前下过单！”,标记重点询价用户为当前销售员
-                if (oldCus) {
-                    enquirySubEntity.setKeyPoint("Y");
-                    enquirySubEntity.setKeyRemark("以前下过单！");
-                    enquirySubEntity.setKeyUser(user.getUserSign());
                 }
                 saveList.add(enquirySubEntity);
                 lineNum++;

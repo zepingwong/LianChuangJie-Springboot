@@ -69,7 +69,8 @@ public class EnquiryMatchServiceImpl implements EnquiryMatchService {
         enquiryMainEntity.setDocEntry(docEntry);
         // 保存询价单主表信息
         boolean res = enquiryMainService.save(enquiryMainEntity);
-        if (!res) EnquiryError.SAVE_ERROR.assertIsFalse(res);
+        // 断言判断是否保存成功
+        EnquiryError.SAVE_ERROR.assertIsFalse(res);
         List<EnquiryMatchItemDTO> list = enquiryMatchSaveDTO.getEnquiryMatchItemList();
         List<EnquirySubEntity> saveList = new ArrayList<>();
         long lineNum = 1;
@@ -89,9 +90,7 @@ public class EnquiryMatchServiceImpl implements EnquiryMatchService {
                     enquirySubEntity.setItemId(lineNum);
                 }
                 // 如果是老客户,自动标记为重点询价,重点询价说明为 “以前下过单！”,标记重点询价用户为当前销售员
-                if (enquiryMatchHead.getOldCus()) {
-                    enquirySubEntity.setKeyPoint("Y");
-                    enquirySubEntity.setKeyRemark(item.getKeyRemark() != null ? item.getKeyRemark() : "以前下过单！");
+                if (enquiryMatchHead.getOldCustomer().equals("Y")) {
                     enquirySubEntity.setKeyUser(user.getUserSign());
                 }
                 saveList.add(enquirySubEntity);
