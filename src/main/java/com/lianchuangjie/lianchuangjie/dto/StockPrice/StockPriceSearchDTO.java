@@ -1,10 +1,13 @@
 package com.lianchuangjie.lianchuangjie.dto.StockPrice;
 
+import com.lianchuangjie.lianchuangjie.entity.UserEntity;
+import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * 库存定价查询条件
@@ -37,4 +40,6 @@ public class StockPriceSearchDTO {
     private String newToday;
     // 成单日期
     private Date orderDate;
+    UserEntity user = SessionUtil.getUser();
+    private Long userSign = Objects.equals(user.getSuperUser(), "Y") ? null : user.getUserSign();
 }

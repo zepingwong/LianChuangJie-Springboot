@@ -94,6 +94,15 @@
                     /*今日新入库*/
                     AND kc_now.NewToday = #{sc.newToday}
                 </if>
+                <if test="sc.userSign != null">
+                    AND kc_now.Brand IN (
+                        SELECT
+                        T1.Brand
+                        FROM U_PUR1 T0
+                        INNER JOIN U_PUR2 T1 ON T0.OwnerCode= T1.OwnerCode
+                        WHERE T0.IsDJ = 'Y' AND T0.OwnerCode = #{sc.userSign}
+                    )
+                </if>
                 AND DateDiff(dd,kc_now.DocDate,getdate()) = 0
             </where>
         ) StockPrice
