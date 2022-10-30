@@ -70,6 +70,7 @@
             T8.Level                                                                           AS 'U_CusLevel',
             (T0.Currency + '+' + T0.VatGroup + '+' + CONVERT(VARCHAR, CAST(T9.Rate AS FLOAT))) AS 'CurVat',
             T9.Rate                                                                            AS 'VatRate',
+            T9.Name                                                                            AS 'VatName', /*税率名称*/
             IIF(T10.CardCode IS NULL, 'N', 'Y')                                                AS 'OldCustomer', /*下过单的为老客户*/
             IIF(T11.CardCode IS NULL, 'Y', 'N')                                                AS 'U_CardStatus' /*U_CardStatus = 'Y' 表示该客户第一次询价*/
         FROM (

@@ -156,6 +156,6 @@ public class EnquiryMatchItemVO {
     @JsonProperty("ItemFrgnName")
     private String itemFrgnName;
     // 包装
-    @JsonProperty("Package")
-    private String _package;
+    @JsonProperty("Packaging")
+    private String packaging;
 }

@@ -178,7 +178,7 @@ public class EnquirySubEntity {
     private String itemFrgnName;
     // 包装
     @TableField(value = "Package")
-    private String _package;
+    private String packaging;
     // Col1
     @TableField(value = "Col1")
     private String col1 = "0";

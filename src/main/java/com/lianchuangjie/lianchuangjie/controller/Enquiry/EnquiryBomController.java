@@ -1,6 +1,5 @@
-package com.lianchuangjie.lianchuangjie.controller;
+package com.lianchuangjie.lianchuangjie.controller.Enquiry;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lianchuangjie.lianchuangjie.config.Authentication;
 import com.lianchuangjie.lianchuangjie.dto.BomQuerySaveDTO;
 import com.lianchuangjie.lianchuangjie.entity.UserEntity;
@@ -30,8 +29,8 @@ import java.nio.charset.StandardCharsets;
 
 @Validated
 @RestController
-@RequestMapping("/bom")
-public class BomController {
+@RequestMapping("/enquiry/bom")
+public class EnquiryBomController {
     @Resource
     BomService bomService;
 

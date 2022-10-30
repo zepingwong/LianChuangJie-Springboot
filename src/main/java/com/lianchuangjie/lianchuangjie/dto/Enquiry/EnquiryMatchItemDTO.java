@@ -109,9 +109,12 @@ public class EnquiryMatchItemDTO {
     @JsonProperty("ItemFrgnName")
     private String itemFrgnName;
     // 包装
-    @JsonProperty("Package")
-    private String _package;
+    @JsonProperty("Packaging")
+    private String packaging;
     // 紧急
     @JsonProperty("UrgentType")
     private String urgentType;
+    // 税率代码
+    @JsonProperty("VatGroup")
+    private String vatGroup;
 }

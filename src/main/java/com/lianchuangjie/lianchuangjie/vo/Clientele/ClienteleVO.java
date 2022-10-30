@@ -66,6 +66,9 @@ public class ClienteleVO {
     // 业务合作伙伴默认税率 VatGroup
     @JsonProperty("VatGroup")
     private String vatGroup;
+    // 税率名称
+    @JsonProperty("VatName")
+    private String vatName;
     @JsonProperty("VatRate")
     private BigDecimal vatRate;
     // Currency+VatGroup+VatRate
