@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lianchuangjie.lianchuangjie.mapper.Enquiry.EnquirySubMapper">
-    <update id="updateOne" parameterType="com.lianchuangjie.lianchuangjie.entity.EnquirySubEntity">
+    <update id="updateOne" parameterType="com.lianchuangjie.lianchuangjie.entity.Enquiry.EnquirySubEntity">
         UPDATE U_ICIN1
         SET BaseEntry   = #{Entity.baseEntry},
             BaseLine    = #{Entity.baseLine},
@@ -16,12 +16,12 @@
             QuoModle    = #{Entity.quoModle}
         WHERE DocEntry = #{Entity.docEntry} AND LineNum = #{Entity.lineNum}
     </update>
-    <update id="updateBuyers" parameterType="com.lianchuangjie.lianchuangjie.entity.EnquirySubEntity">
+    <update id="updateBuyers" parameterType="com.lianchuangjie.lianchuangjie.entity.Enquiry.EnquirySubEntity">
         UPDATE U_ICIN1
         SET Buyer = #{Entity.buyer}
         WHERE DocEntry = #{Entity.docEntry} AND LineNum = #{Entity.lineNum}
     </update>
-    <update id="order" parameterType="com.lianchuangjie.lianchuangjie.entity.EnquirySubEntity">
+    <update id="order" parameterType="com.lianchuangjie.lianchuangjie.entity.Enquiry.EnquirySubEntity">
         UPDATE U_ICIN1
         SET IsOrdered = 'Y'
         WHERE DocEntry = #{Entity.docEntry}
@@ -113,7 +113,7 @@
     <select id="count" resultType="java.lang.Integer" parameterType="java.lang.Long">
         SELECT COUNT(*) FROM U_ICIN1 WHERE DocEntry = #{DocEntry}
     </select>
-    <select id="selectOne" resultType="com.lianchuangjie.lianchuangjie.entity.EnquirySubEntity">
+    <select id="selectOne" resultType="com.lianchuangjie.lianchuangjie.entity.Enquiry.EnquirySubEntity">
         SELECT * FROM U_ICIN1
         <where>
             ${ew.getSqlSegment()}

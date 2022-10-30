@@ -15,13 +15,15 @@
             SDADA.sno, /*匹配型号*/
             SDADA.spq, /*spq*/
             SDADA.ECCN, /*ECCN*/
+            SDADA.FrgnName AS 'ItemFrgnName', /*品名*/
+            SDADA.packing AS 'Package', /*包装*/
             IIF(#{sc.brand} IS NULL, SDADA.QuoBrand, #{sc.brand}) AS 'Brand', /*客户需求品牌*/
             #{sc.modle}                  AS 'Modle', /*客户需求型号*/
             @DemandQty                   AS 'DemandQty', /*客户需求数量*/
             stock.Quantity, /*库存数量*/
             U_OPRI.PrePrice, /*参考价格*/
             U_OPRI.PrePrice * @DemandQty AS 'TotalPrice', /*预估总价*/
-            N'模糊搜索'                  AS 'Match' /*匹配情况*/,
+            N'完全匹配'                  AS 'Match' /*匹配情况*/,
             /*询价状态*/
             (
                 CASE

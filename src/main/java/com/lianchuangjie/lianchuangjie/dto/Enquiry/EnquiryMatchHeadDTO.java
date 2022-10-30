@@ -4,14 +4,12 @@ import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.lianchuangjie.lianchuangjie.entity.UserEntity;
-import com.lianchuangjie.lianchuangjie.mapper.SalesOrderSubMapper;
 import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
 import com.lianchuangjie.lianchuangjie.utils.validate.NotEqual;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.annotation.Resource;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
@@ -29,8 +27,9 @@ public class EnquiryMatchHeadDTO {
     // 需求交期 T_ICIN.U_Delivery
     @JsonProperty("U_Delivery")
     private String uDelivery;
-    // 询价来源 T_ICIN.SourceType
-    private String sourceType = "BOM单";
+    // 询价来源 T_ICIN.U_SourceType
+    @JsonProperty("U_SourceType")
+    private String uSourceType;
     /**
      * 货币及税率
      */
@@ -55,7 +54,7 @@ public class EnquiryMatchHeadDTO {
     private String uDomainName;
     // 客户行业领域代码
     @JsonAlias({"U_CusIndustries", "U_Industries"})
-    private String uCusIndustries;
+    private String uIndustries;
     // 客户等级代码
 
     // 客户等级名称  T_ICIN.U_CusLevel
@@ -110,4 +109,14 @@ public class EnquiryMatchHeadDTO {
     // T_ICIN.U_CardStatus = 'Y' 表示该客户第一次询价
     @JsonProperty("U_CardStatus")
     private String uCardStatus;
+    // 重要程度-无效字段
+    private String uUrgentType = "O";
+    // 客户性质简称
+    @JsonProperty("U_ShortName")
+    private String uShortName;
+
+    private String uShortCode;
+    public String getUShortCode() {
+        return  uRegion + " " + uDomainName + " " + uShortName + "-" + cardCode.replace("C", "");
+    }
 }

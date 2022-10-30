@@ -1,4 +1,4 @@
-package com.lianchuangjie.lianchuangjie.entity;
+package com.lianchuangjie.lianchuangjie.entity.Enquiry;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;

@@ -1,4 +1,4 @@
-package com.lianchuangjie.lianchuangjie.entity;
+package com.lianchuangjie.lianchuangjie.entity.Enquiry;
 
 import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -106,8 +106,8 @@ public class EnquiryMainEntity {
     @TableField(value = "U_DomainName")
     private String uDomainName;
     // 客户行业领域代码
-    @TableField(value = "U_CusIndustries")
-    private String uCusIndustries;
+    @TableField(value = "U_Industries")
+    private String uIndustries;
     // 需求客户区域名称 U_Region
     @TableField(value = "U_Region")
     private String uRegion;
@@ -141,4 +141,10 @@ public class EnquiryMainEntity {
     // 付款方式
     @TableField(value = "U_PaymentMethod")
     private String uPaymentMethod;
+    // 重要程度-无效字段
+    @TableField(value = "U_UrgentType")
+    private String uUrgentType = "O";
+    // 无效字段
+    @TableField(value = "U_OrderType")
+    private String uOrderType = "SO";
 }

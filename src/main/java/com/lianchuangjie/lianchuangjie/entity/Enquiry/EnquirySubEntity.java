@@ -1,4 +1,4 @@
-package com.lianchuangjie.lianchuangjie.entity;
+package com.lianchuangjie.lianchuangjie.entity.Enquiry;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -173,4 +173,24 @@ public class EnquirySubEntity {
     // 是否下单了
     @TableField(value = "IsOrdered")
     private String isOrdered;
+    // 品名
+    @TableField(value = "ItemFrgnName")
+    private String itemFrgnName;
+    // 包装
+    @TableField(value = "Package")
+    private String _package;
+    // Col1
+    @TableField(value = "Col1")
+    private String col1 = "0";
+    @TableField(value = "Col3")
+    private String col3 = "1";
+    @TableField(value = "Col4")
+    private String col4 = "N";
+    @TableField(value = "Freshen")
+    private String freshen = "N";
+    //
+    @TableField(value = "LineInquiryStatus")
+    private String lineInquiryStatus = "1";
+    @TableField(value = "ExpHour")
+    private BigDecimal expHour = BigDecimal.valueOf(0);
 }

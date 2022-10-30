@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lianchuangjie.lianchuangjie.mapper.Enquiry.EnquiryMainMapper">
 
-    <select id="selectByDocEntry" resultType="com.lianchuangjie.lianchuangjie.entity.EnquiryMainEntity">
+    <select id="selectByDocEntry" resultType="com.lianchuangjie.lianchuangjie.entity.Enquiry.EnquiryMainEntity">
         DECLARE @FormID BIGINT;
         DECLARE @DataPur VARCHAR(10);
         SELECT @FormID = FormID FROM T_OUDW WHERE UdoID = 'T_ICIN';

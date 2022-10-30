@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO;
-import com.lianchuangjie.lianchuangjie.entity.EnquirySubEntity;
+import com.lianchuangjie.lianchuangjie.entity.Enquiry.EnquirySubEntity;
 import com.lianchuangjie.lianchuangjie.vo.Enquiry.TabEnquiryNeedsVO;
 import com.lianchuangjie.lianchuangjie.vo.Quotation.TabQuotationNeedsVO;
 import com.lianchuangjie.lianchuangjie.vo.Search.TabSearchNeedsVO;

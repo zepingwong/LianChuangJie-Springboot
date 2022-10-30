@@ -2,7 +2,7 @@ package com.lianchuangjie.lianchuangjie.service.Enquiry;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lianchuangjie.lianchuangjie.dto.Enquiry.EnquiryReQuoteDTO;
-import com.lianchuangjie.lianchuangjie.entity.EnquirySubEntity;
+import com.lianchuangjie.lianchuangjie.entity.Enquiry.EnquirySubEntity;
 
 public interface EnquiryReQuoteService extends IService<EnquirySubEntity> {
     /**

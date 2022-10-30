@@ -1,7 +1,7 @@
 package com.lianchuangjie.lianchuangjie.service.Enquiry.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.lianchuangjie.lianchuangjie.entity.EnquiryBuyerEntity;
+import com.lianchuangjie.lianchuangjie.entity.Enquiry.EnquiryBuyerEntity;
 import com.lianchuangjie.lianchuangjie.entity.UserEntity;
 import com.lianchuangjie.lianchuangjie.mapper.Enquiry.EnquiryBuyerMapper;
 import com.lianchuangjie.lianchuangjie.mapper.UserMapper;

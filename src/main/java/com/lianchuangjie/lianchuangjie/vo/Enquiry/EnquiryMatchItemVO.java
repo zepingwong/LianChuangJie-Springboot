@@ -152,4 +152,10 @@ public class EnquiryMatchItemVO {
     // 关联型号折叠
     @JsonProperty("children")
     List<EnquiryMatchItemVO> children = new ArrayList<>();
+    // 品名
+    @JsonProperty("ItemFrgnName")
+    private String itemFrgnName;
+    // 包装
+    @JsonProperty("Package")
+    private String _package;
 }

@@ -59,7 +59,7 @@ public class EnquiryMatchItemDTO {
     /**
      * @description 失效时间
      */
-    @JsonProperty("ExpiredTime")
+    @JsonProperty("ExpDate")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") // 接参数
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date expDate;
@@ -105,4 +105,13 @@ public class EnquiryMatchItemDTO {
     private String buyer;
     @JsonProperty("VatName")
     private String vatName;
+    // 品名
+    @JsonProperty("ItemFrgnName")
+    private String itemFrgnName;
+    // 包装
+    @JsonProperty("Package")
+    private String _package;
+    // 紧急
+    @JsonProperty("UrgentType")
+    private String urgentType;
 }

@@ -7,6 +7,8 @@ import com.lianchuangjie.lianchuangjie.dto.BomQuerySaveDTO;
 import com.lianchuangjie.lianchuangjie.dto.BomQuerySubDTO;
 import com.lianchuangjie.lianchuangjie.entity.*;
 import com.lianchuangjie.lianchuangjie.entity.Clientele.ClienteleRegionEntity;
+import com.lianchuangjie.lianchuangjie.entity.Enquiry.EnquiryMainEntity;
+import com.lianchuangjie.lianchuangjie.entity.Enquiry.EnquirySubEntity;
 import com.lianchuangjie.lianchuangjie.excel.BomListener;
 import com.lianchuangjie.lianchuangjie.exception.Business.ResponseEnum;
 import com.lianchuangjie.lianchuangjie.mapper.*;

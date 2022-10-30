@@ -64,7 +64,8 @@
         SELECT
             T0.*,
             T5.DoMain,/*客户地区名称*/
-            T6.Name                                                                            AS 'U_GroupName',
+            T6.Name                                                                            AS 'U_GroupName', /*客户性质名称*/
+            T6.U_ShortName                                                                     AS 'U_ShortName', /*客户性质简称*/
             T7.DomainName                                                                      AS 'U_DomainName',
             T8.Level                                                                           AS 'U_CusLevel',
             (T0.Currency + '+' + T0.VatGroup + '+' + CONVERT(VARCHAR, CAST(T9.Rate AS FLOAT))) AS 'CurVat',

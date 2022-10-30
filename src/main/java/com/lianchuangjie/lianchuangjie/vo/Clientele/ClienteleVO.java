@@ -51,6 +51,9 @@ public class ClienteleVO {
     // 业务合作伙伴性质代码 T_OCRD.GroupCode
     @JsonProperty("GroupCode")
     private Integer groupCode;
+    // 业务合作伙伴性质简称
+    @JsonProperty("U_ShortName")
+    private String uShortName;
     // 业务合作伙伴性质名称 T_OCRG.Name
     @JsonProperty("U_GroupName")
     private String uGroupName;

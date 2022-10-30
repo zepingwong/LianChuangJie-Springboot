@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.lianchuangjie.lianchuangjie.dto.Enquiry.EnquirySubSearchDTO;
-import com.lianchuangjie.lianchuangjie.entity.EnquirySubEntity;
+import com.lianchuangjie.lianchuangjie.entity.Enquiry.EnquirySubEntity;
 import com.lianchuangjie.lianchuangjie.vo.Enquiry.EnquirySubVO;
 import com.lianchuangjie.lianchuangjie.vo.EnquiryExportHeadVO;
 import com.lianchuangjie.lianchuangjie.vo.EnquiryExportItemVO;
