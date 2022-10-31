@@ -1,5 +1,6 @@
 package com.lianchuangjie.lianchuangjie.service.StockPrice.impl;
 
+import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lianchuangjie.lianchuangjie.dto.StockPrice.StockPriceLogSearchDTO;
@@ -18,6 +19,7 @@ public class StockPriceLogServiceImpl extends ServiceImpl<StockPriceLogMapper, S
     @Override
     public Page<StockPriceLogVO> list(StockPriceLogSearchDTO searchCondition) {
         Page<StockPriceLogVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
+        page.addOrder(OrderItem.desc("U_SPAL.EndTime"));
         stockPriceLogMapper.selectList(page, searchCondition);
         return page;
     }

@@ -19,8 +19,9 @@
             <if test="da.kcPriceFinal">
                 Modify = 'Y',
                 kc_price_final = #{da.kcPriceFinal},
-                ConfirmDate = getdate()
+                ConfirmDate = getdate(),
             </if>
+            UserSign = #{da.userSign}
         </set>
         WHERE kc_now.ItemName = #{da.itemName}
         AND kc_now.Brand = #{da.brand}
