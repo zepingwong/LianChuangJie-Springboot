@@ -23,7 +23,7 @@ import java.util.Objects;
 @Validated
 @RestController
 @RequestMapping("/curvat")
-public class VatCurController {
+public class CurVatController {
     @Resource
     CurVatConfService curVatConfService;
 
@@ -73,12 +73,12 @@ public class VatCurController {
         CurVatConfEntity curVatConfEntity = curVatConfService.getById(curVatEditDTO.getDocEntry());
         // 断言配置项是否存在
         CurVatError.IS_NULL.assertNotNull(curVatConfEntity);
-        BeanUtils.copyProperties(curVatConfEntity, curVatEditDTO);
+        BeanUtils.copyProperties(curVatEditDTO, curVatConfEntity);
         boolean res = curVatConfService.updateById(curVatConfEntity);
         // 断言保存失败
         CurVatError.SAVE_ERROR.assertIsFalse(res);
         CurVatConfVO curVatConfVO = new CurVatConfVO();
-        BeanUtils.copyProperties(curVatConfVO, curVatConfEntity);
+        BeanUtils.copyProperties(curVatConfEntity, curVatConfVO);
         return Result.success(curVatConfVO, "Success");
     }
 
