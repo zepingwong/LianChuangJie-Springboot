@@ -7,8 +7,8 @@
         WHERE OwnerCode = #{UserSign}
     </select>
     <select id="selectAll" resultType="com.lianchuangjie.lianchuangjie.vo.BrandItemVO">
-        SELECT BrandName AS 'Brand'
+        SELECT Name AS 'Brand'
         FROM U_OBRA
-        WHERE BrandName LIKE CONCAT('%', #{Brand}, '%')
+        WHERE Name LIKE CONCAT('%', #{Brand}, '%')
     </select>
 </mapper>

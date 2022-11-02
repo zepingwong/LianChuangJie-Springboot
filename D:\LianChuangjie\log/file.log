@@ -1,0 +1,726 @@
+2022-11-01 22:20:40.618 INFO  5596 --- [background-preinit] org.hibernate.validator.internal.util.Version.<clinit>(Version.java:21) ::: HV000001: Hibernate Validator 6.2.3.Final
+2022-11-01 22:20:40.632 INFO  5596 --- [main] org.springframework.boot.StartupInfoLogger.logStarting(StartupInfoLogger.java:55) ::: Starting LianChuangjieApplication using Java 19.0.1 on ITX with PID 5596 (/home/wang/Project/LianChuangJie/springboot/target/classes started by wang in /home/wang/Project/LianChuangJie/springboot)
+2022-11-01 22:20:40.634 INFO  5596 --- [main] org.springframework.boot.SpringApplication.logStartupProfileInfo(SpringApplication.java:640) ::: The following 1 profile is active: "dev"
+2022-11-01 22:20:42.135 INFO  5668 --- [background-preinit] org.hibernate.validator.internal.util.Version.<clinit>(Version.java:21) ::: HV000001: Hibernate Validator 6.2.3.Final
+2022-11-01 22:20:42.150 INFO  5668 --- [main] org.springframework.boot.StartupInfoLogger.logStarting(StartupInfoLogger.java:55) ::: Starting LianChuangjieApplication using Java 19.0.1 on ITX with PID 5668 (/home/wang/Project/LianChuangJie/springboot/target/classes started by wang in /home/wang/Project/LianChuangJie/springboot)
+2022-11-01 22:20:42.151 INFO  5668 --- [main] org.springframework.boot.SpringApplication.logStartupProfileInfo(SpringApplication.java:640) ::: The following 1 profile is active: "dev"
+2022-11-01 22:20:48.555 INFO  5668 --- [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate.multipleStoresDetected(RepositoryConfigurationDelegate.java:262) ::: Multiple Spring Data modules found, entering strict repository configuration mode
+2022-11-01 22:20:48.557 INFO  5668 --- [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:132) ::: Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2022-11-01 22:20:48.571 INFO  5668 --- [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:201) ::: Finished Spring Data repository scanning in 8 ms. Found 0 Redis repository interfaces.
+2022-11-01 22:20:48.925 INFO  5668 --- [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:108) ::: Tomcat initialized with port(s): 8080 (http)
+2022-11-01 22:20:48.932 INFO  5668 --- [main] org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) ::: Initializing ProtocolHandler ["http-nio-8080"]
+2022-11-01 22:20:48.933 INFO  5668 --- [main] org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) ::: Starting service [Tomcat]
+2022-11-01 22:20:48.933 INFO  5668 --- [main] org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) ::: Starting Servlet engine: [Apache Tomcat/9.0.65]
+2022-11-01 22:20:48.993 INFO  5668 --- [main] org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) ::: Initializing Spring embedded WebApplicationContext
+2022-11-01 22:20:48.993 INFO  5668 --- [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.prepareWebApplicationContext(ServletWebServerApplicationContext.java:292) ::: Root WebApplicationContext: initialization completed in 6821 ms
+2022-11-01 22:20:49.442 WARN  5668 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.BomSubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-01 22:20:49.465 WARN  5668 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.BrandEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-01 22:20:49.475 WARN  5668 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Clientele.ClienteleClientLevelEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-01 22:20:49.485 WARN  5668 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Clientele.ClienteleEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-01 22:20:49.494 WARN  5668 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Clientele.ClienteleGroupEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-01 22:20:49.522 WARN  5668 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Clientele.ClienteleSupplierLevelEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-01 22:20:49.530 WARN  5668 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Clientele.ClienteleEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-01 22:20:49.561 WARN  5668 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.CompanyDepartmentEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-01 22:20:49.615 WARN  5668 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.CompanyLetterheadEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-01 22:20:49.731 WARN  5668 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.CurVat.CurrencyEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-01 22:20:49.934 WARN  5668 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Enquiry.EnquiryBuyerEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-01 22:20:50.036 WARN  5668 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Enquiry.EnquirySubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-01 22:20:50.077 WARN  5668 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.ExchangeRateEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-01 22:20:50.273 WARN  5668 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.PurchaseOrderMainEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-01 22:20:50.299 WARN  5668 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.PurchaseOrderSubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-01 22:20:50.438 WARN  5668 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.QuotationEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-01 22:20:50.468 WARN  5668 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.SalesOrderMainEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-01 22:20:50.489 WARN  5668 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.SalesOrderSubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-01 22:20:50.593 WARN  5668 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.StockBatchEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-01 22:20:50.611 WARN  5668 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.StockListMainEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-01 22:20:50.689 WARN  5668 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.StockListSubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-01 22:20:50.714 WARN  5668 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.StockPrice.StockPriceEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-01 22:20:50.736 WARN  5668 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.StockQuantityEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-01 22:20:50.826 WARN  5668 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Enquiry.EnquirySubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-01 22:20:50.852 WARN  5668 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Enquiry.EnquirySubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-01 22:20:50.909 WARN  5668 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.PurchaseOrderSubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-01 22:20:50.919 WARN  5668 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.QuotationEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-01 22:20:50.964 WARN  5668 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.SalesOrderSubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-01 22:20:51.011 WARN  5668 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.StockQuantityEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-01 22:20:51.722 WARN  5668 --- [main] org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration.getOrDeducePassword(UserDetailsServiceAutoConfiguration.java:88) ::: 
+
+Using generated security password: ba82d8c0-c2ca-4312-891b-ea5368b19d6e
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2022-11-01 22:20:51.770 INFO  5668 --- [main] org.springframework.security.web.DefaultSecurityFilterChain.<init>(DefaultSecurityFilterChain.java:55) ::: Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@396f2724, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1b465fa9, org.springframework.security.web.context.SecurityContextPersistenceFilter@7544260a, org.springframework.security.web.header.HeaderWriterFilter@4449b273, org.springframework.security.web.authentication.logout.LogoutFilter@57839834, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@506b083, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5eee3da9, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@28b2e4d8, org.springframework.security.web.session.SessionManagementFilter@3d98729a, org.springframework.security.web.access.ExceptionTranslationFilter@1592e540, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@20a946d9]
+2022-11-01 22:20:52.020 INFO  5668 --- [main] org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) ::: Starting ProtocolHandler ["http-nio-8080"]
+2022-11-01 22:20:52.027 INFO  5668 --- [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:220) ::: Tomcat started on port(s): 8080 (http) with context path ''
+2022-11-01 22:20:52.034 INFO  5668 --- [main] org.springframework.boot.StartupInfoLogger.logStarted(StartupInfoLogger.java:61) ::: Started LianChuangjieApplication in 10.127 seconds (JVM running for 10.519)
+2022-11-01 22:32:47.397 INFO  5668 --- [http-nio-8080-exec-1] org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) ::: Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-11-01 22:32:47.397 INFO  5668 --- [http-nio-8080-exec-1] org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:525) ::: Initializing Servlet 'dispatcherServlet'
+2022-11-01 22:32:47.398 INFO  5668 --- [http-nio-8080-exec-1] org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:547) ::: Completed initialization in 1 ms
+2022-11-01 22:32:47.413 ERROR 5668 --- [http-nio-8080-exec-1] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/home/todo
+2022-11-01 22:33:04.305 ERROR 5668 --- [http-nio-8080-exec-2] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/error
+2022-11-01 22:33:04.458 ERROR 5668 --- [http-nio-8080-exec-4] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/home/todo
+2022-11-01 22:33:04.459 ERROR 5668 --- [http-nio-8080-exec-3] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/error
+2022-11-01 22:33:11.804 INFO  5668 --- [http-nio-8080-exec-5] com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:110) ::: HikariPool-1 - Starting...
+2022-11-01 22:33:12.810 ERROR 5668 --- [http-nio-8080-exec-5] com.zaxxer.hikari.pool.HikariPool.throwPoolInitializationException(HikariPool.java:594) ::: HikariPool-1 - Exception during pool initialization.
+java.sql.SQLException: The syntax of the connection URL 'jdbc:jtds:sqlserver:http://152.136.120.86/LCJ_SAP360;useLOBs=false' is invalid.
+	at net.sourceforge.jtds.jdbc.Driver.setupConnectProperties(Driver.java:242) ~[jtds-1.3.1.jar:1.3.1]
+	at net.sourceforge.jtds.jdbc.Driver.connect(Driver.java:182) ~[jtds-1.3.1.jar:1.3.1]
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138) ~[HikariCP-4.0.3.jar:?]
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:364) ~[HikariCP-4.0.3.jar:?]
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:206) ~[HikariCP-4.0.3.jar:?]
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:476) ~[HikariCP-4.0.3.jar:?]
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:561) ~[HikariCP-4.0.3.jar:?]
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:115) ~[HikariCP-4.0.3.jar:?]
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:112) ~[HikariCP-4.0.3.jar:?]
+	at org.springframework.jdbc.datasource.DataSourceUtils.fetchConnection(DataSourceUtils.java:159) ~[spring-jdbc-5.3.22.jar:5.3.22]
+	at org.springframework.jdbc.datasource.DataSourceUtils.doGetConnection(DataSourceUtils.java:117) ~[spring-jdbc-5.3.22.jar:5.3.22]
+	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:80) ~[spring-jdbc-5.3.22.jar:5.3.22]
+	at org.mybatis.spring.transaction.SpringManagedTransaction.openConnection(SpringManagedTransaction.java:80) ~[mybatis-spring-2.0.7.jar:2.0.7]
+	at org.mybatis.spring.transaction.SpringManagedTransaction.getConnection(SpringManagedTransaction.java:67) ~[mybatis-spring-2.0.7.jar:2.0.7]
+	at org.apache.ibatis.executor.BaseExecutor.getConnection(BaseExecutor.java:337) ~[mybatis-3.5.11.jar:3.5.11]
+	at org.apache.ibatis.executor.SimpleExecutor.prepareStatement(SimpleExecutor.java:86) ~[mybatis-3.5.11.jar:3.5.11]
+	at org.apache.ibatis.executor.SimpleExecutor.doQuery(SimpleExecutor.java:62) ~[mybatis-3.5.11.jar:3.5.11]
+	at org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:325) ~[mybatis-3.5.11.jar:3.5.11]
+	at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:156) ~[mybatis-3.5.11.jar:3.5.11]
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:109) ~[mybatis-3.5.11.jar:3.5.11]
+	at com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor.intercept(MybatisPlusInterceptor.java:81) ~[mybatis-plus-extension-3.5.2.jar:3.5.2]
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:62) ~[mybatis-3.5.11.jar:3.5.11]
+	at jdk.proxy2.$Proxy230.query(Unknown Source) ~[?:?]
+	at com.github.pagehelper.PageInterceptor.intercept(PageInterceptor.java:151) ~[pagehelper-5.3.2.jar:?]
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:62) ~[mybatis-3.5.11.jar:3.5.11]
+	at jdk.proxy2.$Proxy230.query(Unknown Source) ~[?:?]
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:151) ~[mybatis-3.5.11.jar:3.5.11]
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:145) ~[mybatis-3.5.11.jar:3.5.11]
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:140) ~[mybatis-3.5.11.jar:3.5.11]
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectOne(DefaultSqlSession.java:76) ~[mybatis-3.5.11.jar:3.5.11]
+	at jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:578) ~[?:?]
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:427) ~[mybatis-spring-2.0.7.jar:2.0.7]
+	at jdk.proxy2.$Proxy99.selectOne(Unknown Source) ~[?:?]
+	at org.mybatis.spring.SqlSessionTemplate.selectOne(SqlSessionTemplate.java:160) ~[mybatis-spring-2.0.7.jar:2.0.7]
+	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.execute(MybatisMapperMethod.java:89) ~[mybatis-plus-core-3.5.2.jar:3.5.2]
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148) ~[mybatis-plus-core-3.5.2.jar:3.5.2]
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89) ~[mybatis-plus-core-3.5.2.jar:3.5.2]
+	at jdk.proxy2.$Proxy143.selectOne(Unknown Source) ~[?:?]
+	at jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:578) ~[?:?]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:344) ~[spring-aop-5.3.22.jar:5.3.22]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:198) ~[spring-aop-5.3.22.jar:5.3.22]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163) ~[spring-aop-5.3.22.jar:5.3.22]
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:137) ~[spring-tx-5.3.22.jar:5.3.22]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186) ~[spring-aop-5.3.22.jar:5.3.22]
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:215) ~[spring-aop-5.3.22.jar:5.3.22]
+	at jdk.proxy2.$Proxy144.selectOne(Unknown Source) ~[?:?]
+	at com.lianchuangjie.lianchuangjie.service.User.impl.UserLoginServiceImpl.employeeLoginService(UserLoginServiceImpl.java:23) ~[classes/:?]
+	at com.lianchuangjie.lianchuangjie.controller.User.UserController.loginController(UserController.java:42) ~[classes/:?]
+	at com.lianchuangjie.lianchuangjie.controller.User.UserController$$FastClassBySpringCGLIB$$da65927d.invoke(<generated>) ~[classes/:?]
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218) ~[spring-core-5.3.22.jar:5.3.22]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:793) ~[spring-aop-5.3.22.jar:5.3.22]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163) ~[spring-aop-5.3.22.jar:5.3.22]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763) ~[spring-aop-5.3.22.jar:5.3.22]
+	at org.springframework.validation.beanvalidation.MethodValidationInterceptor.invoke(MethodValidationInterceptor.java:123) ~[spring-context-5.3.22.jar:5.3.22]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186) ~[spring-aop-5.3.22.jar:5.3.22]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763) ~[spring-aop-5.3.22.jar:5.3.22]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:708) ~[spring-aop-5.3.22.jar:5.3.22]
+	at com.lianchuangjie.lianchuangjie.controller.User.UserController$$EnhancerBySpringCGLIB$$2999dfef.loginController(<generated>) ~[classes/:?]
+	at jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:578) ~[?:?]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1070) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:963) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:681) ~[tomcat-embed-core-9.0.65.jar:4.0.FR]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764) ~[tomcat-embed-core-9.0.65.jar:4.0.FR]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-embed-websocket-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:327) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:115) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:81) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:122) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:116) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:126) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:81) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:109) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:149) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:103) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:89) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:112) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:82) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:55) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:211) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:183) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:354) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:267) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:890) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1789) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at java.lang.Thread.run(Thread.java:1589) ~[?:?]
+2022-11-01 22:33:12.824 ERROR 5668 --- [http-nio-8080-exec-5] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.handleException(GlobalExceptionHandler.java:160) ::: request error!! method:POST uri:/user/login/employee
+2022-11-02 02:00:00.004 INFO  5668 --- [scheduling-1] com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:110) ::: HikariPool-1 - Starting...
+2022-11-02 02:00:01.007 ERROR 5668 --- [scheduling-1] com.zaxxer.hikari.pool.HikariPool.throwPoolInitializationException(HikariPool.java:594) ::: HikariPool-1 - Exception during pool initialization.
+java.sql.SQLException: The syntax of the connection URL 'jdbc:jtds:sqlserver:http://152.136.120.86/LCJ_SAP360;useLOBs=false' is invalid.
+	at net.sourceforge.jtds.jdbc.Driver.setupConnectProperties(Driver.java:242) ~[jtds-1.3.1.jar:1.3.1]
+	at net.sourceforge.jtds.jdbc.Driver.connect(Driver.java:182) ~[jtds-1.3.1.jar:1.3.1]
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138) ~[HikariCP-4.0.3.jar:?]
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:364) ~[HikariCP-4.0.3.jar:?]
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:206) ~[HikariCP-4.0.3.jar:?]
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:476) ~[HikariCP-4.0.3.jar:?]
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:561) ~[HikariCP-4.0.3.jar:?]
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:115) ~[HikariCP-4.0.3.jar:?]
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:112) ~[HikariCP-4.0.3.jar:?]
+	at org.springframework.jdbc.datasource.DataSourceUtils.fetchConnection(DataSourceUtils.java:159) ~[spring-jdbc-5.3.22.jar:5.3.22]
+	at org.springframework.jdbc.datasource.DataSourceUtils.doGetConnection(DataSourceUtils.java:117) ~[spring-jdbc-5.3.22.jar:5.3.22]
+	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:80) ~[spring-jdbc-5.3.22.jar:5.3.22]
+	at org.mybatis.spring.transaction.SpringManagedTransaction.openConnection(SpringManagedTransaction.java:80) ~[mybatis-spring-2.0.7.jar:2.0.7]
+	at org.mybatis.spring.transaction.SpringManagedTransaction.getConnection(SpringManagedTransaction.java:67) ~[mybatis-spring-2.0.7.jar:2.0.7]
+	at org.apache.ibatis.executor.BaseExecutor.getConnection(BaseExecutor.java:337) ~[mybatis-3.5.11.jar:3.5.11]
+	at org.apache.ibatis.executor.SimpleExecutor.prepareStatement(SimpleExecutor.java:86) ~[mybatis-3.5.11.jar:3.5.11]
+	at org.apache.ibatis.executor.SimpleExecutor.doUpdate(SimpleExecutor.java:49) ~[mybatis-3.5.11.jar:3.5.11]
+	at org.apache.ibatis.executor.BaseExecutor.update(BaseExecutor.java:117) ~[mybatis-3.5.11.jar:3.5.11]
+	at org.apache.ibatis.executor.CachingExecutor.update(CachingExecutor.java:76) ~[mybatis-3.5.11.jar:3.5.11]
+	at jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:578) ~[?:?]
+	at org.apache.ibatis.plugin.Invocation.proceed(Invocation.java:49) ~[mybatis-3.5.11.jar:3.5.11]
+	at com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor.intercept(MybatisPlusInterceptor.java:106) ~[mybatis-plus-extension-3.5.2.jar:3.5.2]
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:62) ~[mybatis-3.5.11.jar:3.5.11]
+	at jdk.proxy2.$Proxy230.update(Unknown Source) ~[?:?]
+	at jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:578) ~[?:?]
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:64) ~[mybatis-3.5.11.jar:3.5.11]
+	at jdk.proxy2.$Proxy230.update(Unknown Source) ~[?:?]
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.update(DefaultSqlSession.java:194) ~[mybatis-3.5.11.jar:3.5.11]
+	at jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:578) ~[?:?]
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:427) ~[mybatis-spring-2.0.7.jar:2.0.7]
+	at jdk.proxy2.$Proxy99.update(Unknown Source) ~[?:?]
+	at org.mybatis.spring.SqlSessionTemplate.update(SqlSessionTemplate.java:288) ~[mybatis-spring-2.0.7.jar:2.0.7]
+	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.execute(MybatisMapperMethod.java:64) ~[mybatis-plus-core-3.5.2.jar:3.5.2]
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148) ~[mybatis-plus-core-3.5.2.jar:3.5.2]
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89) ~[mybatis-plus-core-3.5.2.jar:3.5.2]
+	at jdk.proxy2.$Proxy100.daily(Unknown Source) ~[?:?]
+	at com.lianchuangjie.lianchuangjie.config.ScheduleTaskConfiguration.updateUInquiry(ScheduleTaskConfiguration.java:29) ~[classes/:?]
+	at jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:578) ~[?:?]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.22.jar:5.3.22]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.22.jar:5.3.22]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.22.jar:5.3.22]
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:577) ~[?:?]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:317) ~[?:?]
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[?:?]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144) ~[?:?]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642) ~[?:?]
+	at java.lang.Thread.run(Thread.java:1589) ~[?:?]
+2022-11-02 02:00:01.011 ERROR 5668 --- [scheduling-1] org.springframework.scheduling.support.TaskUtils$LoggingErrorHandler.handleError(TaskUtils.java:95) ::: Unexpected error occurred in scheduled task
+org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.PersistenceException: 
+### Error updating database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: The syntax of the connection URL 'jdbc:jtds:sqlserver:http://152.136.120.86/LCJ_SAP360;useLOBs=false' is invalid.
+### The error may exist in file [/home/wang/Project/LianChuangJie/springboot/target/classes/mapper/lianchuangjie/UInquiryMapper.xml]
+### The error may involve com.lianchuangjie.lianchuangjie.mapper.UInquiryMapper.daily
+### The error occurred while executing an update
+### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: The syntax of the connection URL 'jdbc:jtds:sqlserver:http://152.136.120.86/LCJ_SAP360;useLOBs=false' is invalid.
+	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:96) ~[mybatis-spring-2.0.7.jar:2.0.7]
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:441) ~[mybatis-spring-2.0.7.jar:2.0.7]
+	at jdk.proxy2.$Proxy99.update(Unknown Source) ~[?:?]
+	at org.mybatis.spring.SqlSessionTemplate.update(SqlSessionTemplate.java:288) ~[mybatis-spring-2.0.7.jar:2.0.7]
+	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.execute(MybatisMapperMethod.java:64) ~[mybatis-plus-core-3.5.2.jar:3.5.2]
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148) ~[mybatis-plus-core-3.5.2.jar:3.5.2]
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89) ~[mybatis-plus-core-3.5.2.jar:3.5.2]
+	at jdk.proxy2.$Proxy100.daily(Unknown Source) ~[?:?]
+	at com.lianchuangjie.lianchuangjie.config.ScheduleTaskConfiguration.updateUInquiry(ScheduleTaskConfiguration.java:29) ~[classes/:?]
+	at jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:578) ~[?:?]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.22.jar:5.3.22]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.22.jar:5.3.22]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.22.jar:5.3.22]
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:577) ~[?:?]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:317) ~[?:?]
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[?:?]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144) ~[?:?]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642) ~[?:?]
+	at java.lang.Thread.run(Thread.java:1589) ~[?:?]
+Caused by: org.apache.ibatis.exceptions.PersistenceException: 
+### Error updating database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: The syntax of the connection URL 'jdbc:jtds:sqlserver:http://152.136.120.86/LCJ_SAP360;useLOBs=false' is invalid.
+### The error may exist in file [/home/wang/Project/LianChuangJie/springboot/target/classes/mapper/lianchuangjie/UInquiryMapper.xml]
+### The error may involve com.lianchuangjie.lianchuangjie.mapper.UInquiryMapper.daily
+### The error occurred while executing an update
+### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: The syntax of the connection URL 'jdbc:jtds:sqlserver:http://152.136.120.86/LCJ_SAP360;useLOBs=false' is invalid.
+	at org.apache.ibatis.exceptions.ExceptionFactory.wrapException(ExceptionFactory.java:30) ~[mybatis-3.5.11.jar:3.5.11]
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.update(DefaultSqlSession.java:196) ~[mybatis-3.5.11.jar:3.5.11]
+	at jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:578) ~[?:?]
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:427) ~[mybatis-spring-2.0.7.jar:2.0.7]
+	... 18 more
+Caused by: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: The syntax of the connection URL 'jdbc:jtds:sqlserver:http://152.136.120.86/LCJ_SAP360;useLOBs=false' is invalid.
+	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:83) ~[spring-jdbc-5.3.22.jar:5.3.22]
+	at org.mybatis.spring.transaction.SpringManagedTransaction.openConnection(SpringManagedTransaction.java:80) ~[mybatis-spring-2.0.7.jar:2.0.7]
+	at org.mybatis.spring.transaction.SpringManagedTransaction.getConnection(SpringManagedTransaction.java:67) ~[mybatis-spring-2.0.7.jar:2.0.7]
+	at org.apache.ibatis.executor.BaseExecutor.getConnection(BaseExecutor.java:337) ~[mybatis-3.5.11.jar:3.5.11]
+	at org.apache.ibatis.executor.SimpleExecutor.prepareStatement(SimpleExecutor.java:86) ~[mybatis-3.5.11.jar:3.5.11]
+	at org.apache.ibatis.executor.SimpleExecutor.doUpdate(SimpleExecutor.java:49) ~[mybatis-3.5.11.jar:3.5.11]
+	at org.apache.ibatis.executor.BaseExecutor.update(BaseExecutor.java:117) ~[mybatis-3.5.11.jar:3.5.11]
+	at org.apache.ibatis.executor.CachingExecutor.update(CachingExecutor.java:76) ~[mybatis-3.5.11.jar:3.5.11]
+	at jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:578) ~[?:?]
+	at org.apache.ibatis.plugin.Invocation.proceed(Invocation.java:49) ~[mybatis-3.5.11.jar:3.5.11]
+	at com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor.intercept(MybatisPlusInterceptor.java:106) ~[mybatis-plus-extension-3.5.2.jar:3.5.2]
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:62) ~[mybatis-3.5.11.jar:3.5.11]
+	at jdk.proxy2.$Proxy230.update(Unknown Source) ~[?:?]
+	at jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:578) ~[?:?]
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:64) ~[mybatis-3.5.11.jar:3.5.11]
+	at jdk.proxy2.$Proxy230.update(Unknown Source) ~[?:?]
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.update(DefaultSqlSession.java:194) ~[mybatis-3.5.11.jar:3.5.11]
+	at jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:578) ~[?:?]
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:427) ~[mybatis-spring-2.0.7.jar:2.0.7]
+	... 18 more
+Caused by: java.sql.SQLException: The syntax of the connection URL 'jdbc:jtds:sqlserver:http://152.136.120.86/LCJ_SAP360;useLOBs=false' is invalid.
+	at net.sourceforge.jtds.jdbc.Driver.setupConnectProperties(Driver.java:242) ~[jtds-1.3.1.jar:1.3.1]
+	at net.sourceforge.jtds.jdbc.Driver.connect(Driver.java:182) ~[jtds-1.3.1.jar:1.3.1]
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138) ~[HikariCP-4.0.3.jar:?]
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:364) ~[HikariCP-4.0.3.jar:?]
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:206) ~[HikariCP-4.0.3.jar:?]
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:476) ~[HikariCP-4.0.3.jar:?]
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:561) ~[HikariCP-4.0.3.jar:?]
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:115) ~[HikariCP-4.0.3.jar:?]
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:112) ~[HikariCP-4.0.3.jar:?]
+	at org.springframework.jdbc.datasource.DataSourceUtils.fetchConnection(DataSourceUtils.java:159) ~[spring-jdbc-5.3.22.jar:5.3.22]
+	at org.springframework.jdbc.datasource.DataSourceUtils.doGetConnection(DataSourceUtils.java:117) ~[spring-jdbc-5.3.22.jar:5.3.22]
+	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:80) ~[spring-jdbc-5.3.22.jar:5.3.22]
+	at org.mybatis.spring.transaction.SpringManagedTransaction.openConnection(SpringManagedTransaction.java:80) ~[mybatis-spring-2.0.7.jar:2.0.7]
+	at org.mybatis.spring.transaction.SpringManagedTransaction.getConnection(SpringManagedTransaction.java:67) ~[mybatis-spring-2.0.7.jar:2.0.7]
+	at org.apache.ibatis.executor.BaseExecutor.getConnection(BaseExecutor.java:337) ~[mybatis-3.5.11.jar:3.5.11]
+	at org.apache.ibatis.executor.SimpleExecutor.prepareStatement(SimpleExecutor.java:86) ~[mybatis-3.5.11.jar:3.5.11]
+	at org.apache.ibatis.executor.SimpleExecutor.doUpdate(SimpleExecutor.java:49) ~[mybatis-3.5.11.jar:3.5.11]
+	at org.apache.ibatis.executor.BaseExecutor.update(BaseExecutor.java:117) ~[mybatis-3.5.11.jar:3.5.11]
+	at org.apache.ibatis.executor.CachingExecutor.update(CachingExecutor.java:76) ~[mybatis-3.5.11.jar:3.5.11]
+	at jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:578) ~[?:?]
+	at org.apache.ibatis.plugin.Invocation.proceed(Invocation.java:49) ~[mybatis-3.5.11.jar:3.5.11]
+	at com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor.intercept(MybatisPlusInterceptor.java:106) ~[mybatis-plus-extension-3.5.2.jar:3.5.2]
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:62) ~[mybatis-3.5.11.jar:3.5.11]
+	at jdk.proxy2.$Proxy230.update(Unknown Source) ~[?:?]
+	at jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:578) ~[?:?]
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:64) ~[mybatis-3.5.11.jar:3.5.11]
+	at jdk.proxy2.$Proxy230.update(Unknown Source) ~[?:?]
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.update(DefaultSqlSession.java:194) ~[mybatis-3.5.11.jar:3.5.11]
+	at jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:578) ~[?:?]
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:427) ~[mybatis-spring-2.0.7.jar:2.0.7]
+	... 18 more
+2022-11-02 02:00:11.134 ERROR 5668 --- [scheduling-1] org.springframework.scheduling.support.TaskUtils$LoggingErrorHandler.handleError(TaskUtils.java:95) ::: Unexpected error occurred in scheduled task
+org.springframework.data.redis.RedisConnectionFailureException: Unable to connect to Redis; nested exception is io.lettuce.core.RedisConnectionException: Unable to connect to 192.168.16.203/<unresolved>:6379
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory$ExceptionTranslatingConnectionProvider.translateException(LettuceConnectionFactory.java:1689) ~[spring-data-redis-2.7.2.jar:2.7.2]
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory$ExceptionTranslatingConnectionProvider.getConnection(LettuceConnectionFactory.java:1597) ~[spring-data-redis-2.7.2.jar:2.7.2]
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory$SharedConnection.getNativeConnection(LettuceConnectionFactory.java:1383) ~[spring-data-redis-2.7.2.jar:2.7.2]
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory$SharedConnection.getConnection(LettuceConnectionFactory.java:1366) ~[spring-data-redis-2.7.2.jar:2.7.2]
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory.getSharedConnection(LettuceConnectionFactory.java:1093) ~[spring-data-redis-2.7.2.jar:2.7.2]
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory.getConnection(LettuceConnectionFactory.java:421) ~[spring-data-redis-2.7.2.jar:2.7.2]
+	at org.springframework.data.redis.core.RedisConnectionUtils.fetchConnection(RedisConnectionUtils.java:193) ~[spring-data-redis-2.7.2.jar:2.7.2]
+	at org.springframework.data.redis.core.RedisConnectionUtils.doGetConnection(RedisConnectionUtils.java:144) ~[spring-data-redis-2.7.2.jar:2.7.2]
+	at org.springframework.data.redis.core.RedisConnectionUtils.getConnection(RedisConnectionUtils.java:105) ~[spring-data-redis-2.7.2.jar:2.7.2]
+	at org.springframework.data.redis.core.RedisTemplate.execute(RedisTemplate.java:211) ~[spring-data-redis-2.7.2.jar:2.7.2]
+	at org.springframework.data.redis.core.RedisTemplate.execute(RedisTemplate.java:191) ~[spring-data-redis-2.7.2.jar:2.7.2]
+	at org.springframework.data.redis.core.AbstractOperations.execute(AbstractOperations.java:97) ~[spring-data-redis-2.7.2.jar:2.7.2]
+	at org.springframework.data.redis.core.DefaultValueOperations.get(DefaultValueOperations.java:54) ~[spring-data-redis-2.7.2.jar:2.7.2]
+	at com.lianchuangjie.lianchuangjie.service.StockPrice.impl.StockPriceAlgorithmServiceImpl.calculateOneDayService(StockPriceAlgorithmServiceImpl.java:30) ~[classes/:?]
+	at com.lianchuangjie.lianchuangjie.config.ScheduleTaskConfiguration.stockPrice(ScheduleTaskConfiguration.java:24) ~[classes/:?]
+	at jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:578) ~[?:?]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84) ~[spring-context-5.3.22.jar:5.3.22]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-5.3.22.jar:5.3.22]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:95) ~[spring-context-5.3.22.jar:5.3.22]
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:577) ~[?:?]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:317) ~[?:?]
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304) ~[?:?]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144) ~[?:?]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642) ~[?:?]
+	at java.lang.Thread.run(Thread.java:1589) ~[?:?]
+Caused by: io.lettuce.core.RedisConnectionException: Unable to connect to 192.168.16.203/<unresolved>:6379
+	at io.lettuce.core.RedisConnectionException.create(RedisConnectionException.java:78) ~[lettuce-core-6.2.1.RELEASE.jar:6.2.1.RELEASE]
+	at io.lettuce.core.RedisConnectionException.create(RedisConnectionException.java:56) ~[lettuce-core-6.2.1.RELEASE.jar:6.2.1.RELEASE]
+	at io.lettuce.core.AbstractRedisClient.getConnection(AbstractRedisClient.java:350) ~[lettuce-core-6.2.1.RELEASE.jar:6.2.1.RELEASE]
+	at io.lettuce.core.RedisClient.connect(RedisClient.java:216) ~[lettuce-core-6.2.1.RELEASE.jar:6.2.1.RELEASE]
+	at org.springframework.data.redis.connection.lettuce.StandaloneConnectionProvider.lambda$getConnection$1(StandaloneConnectionProvider.java:115) ~[spring-data-redis-2.7.2.jar:2.7.2]
+	at java.util.Optional.orElseGet(Optional.java:364) ~[?:?]
+	at org.springframework.data.redis.connection.lettuce.StandaloneConnectionProvider.getConnection(StandaloneConnectionProvider.java:115) ~[spring-data-redis-2.7.2.jar:2.7.2]
+	at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory$ExceptionTranslatingConnectionProvider.getConnection(LettuceConnectionFactory.java:1595) ~[spring-data-redis-2.7.2.jar:2.7.2]
+	... 24 more
+Caused by: io.netty.channel.ConnectTimeoutException: connection timed out: /192.168.16.203:6379
+	at io.netty.channel.nio.AbstractNioChannel$AbstractNioUnsafe$1.run(AbstractNioChannel.java:261) ~[netty-transport-4.1.79.Final.jar:4.1.79.Final]
+	at io.netty.util.concurrent.PromiseTask.runTask(PromiseTask.java:98) ~[netty-common-4.1.79.Final.jar:4.1.79.Final]
+	at io.netty.util.concurrent.ScheduledFutureTask.run(ScheduledFutureTask.java:153) ~[netty-common-4.1.79.Final.jar:4.1.79.Final]
+	at io.netty.util.concurrent.AbstractEventExecutor.runTask(AbstractEventExecutor.java:174) ~[netty-common-4.1.79.Final.jar:4.1.79.Final]
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:167) ~[netty-common-4.1.79.Final.jar:4.1.79.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:470) ~[netty-common-4.1.79.Final.jar:4.1.79.Final]
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:503) ~[netty-transport-4.1.79.Final.jar:4.1.79.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997) ~[netty-common-4.1.79.Final.jar:4.1.79.Final]
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74) ~[netty-common-4.1.79.Final.jar:4.1.79.Final]
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) ~[netty-common-4.1.79.Final.jar:4.1.79.Final]
+	... 1 more
+2022-11-02 02:56:29.812 ERROR 5668 --- [http-nio-8080-exec-6] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/home/todo
+2022-11-02 07:33:42.760 ERROR 5668 --- [http-nio-8080-exec-7] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/error
+2022-11-02 09:53:03.236 INFO  39306 --- [background-preinit] org.hibernate.validator.internal.util.Version.<clinit>(Version.java:21) ::: HV000001: Hibernate Validator 6.2.3.Final
+2022-11-02 09:53:03.250 INFO  39306 --- [main] org.springframework.boot.StartupInfoLogger.logStarting(StartupInfoLogger.java:55) ::: Starting LianChuangjieApplication using Java 19.0.1 on ITX with PID 39306 (/home/wang/Project/LianChuangJie/springboot/target/classes started by wang in /home/wang/Project/LianChuangJie/springboot)
+2022-11-02 09:53:03.252 INFO  39306 --- [main] org.springframework.boot.SpringApplication.logStartupProfileInfo(SpringApplication.java:640) ::: The following 1 profile is active: "dev"
+2022-11-02 09:53:03.572 INFO  39306 --- [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate.multipleStoresDetected(RepositoryConfigurationDelegate.java:262) ::: Multiple Spring Data modules found, entering strict repository configuration mode
+2022-11-02 09:53:03.573 INFO  39306 --- [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:132) ::: Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2022-11-02 09:53:03.589 INFO  39306 --- [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:201) ::: Finished Spring Data repository scanning in 9 ms. Found 0 Redis repository interfaces.
+2022-11-02 09:53:03.899 INFO  39306 --- [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:108) ::: Tomcat initialized with port(s): 8080 (http)
+2022-11-02 09:53:03.903 INFO  39306 --- [main] org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) ::: Initializing ProtocolHandler ["http-nio-8080"]
+2022-11-02 09:53:03.903 INFO  39306 --- [main] org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) ::: Starting service [Tomcat]
+2022-11-02 09:53:03.903 INFO  39306 --- [main] org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) ::: Starting Servlet engine: [Apache Tomcat/9.0.65]
+2022-11-02 09:53:03.939 INFO  39306 --- [main] org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) ::: Initializing Spring embedded WebApplicationContext
+2022-11-02 09:53:03.940 INFO  39306 --- [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.prepareWebApplicationContext(ServletWebServerApplicationContext.java:292) ::: Root WebApplicationContext: initialization completed in 669 ms
+2022-11-02 09:53:04.089 WARN  39306 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.BomSubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:04.099 WARN  39306 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.BrandEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:04.109 WARN  39306 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Clientele.ClienteleClientLevelEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:04.118 WARN  39306 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Clientele.ClienteleEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:04.125 WARN  39306 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Clientele.ClienteleGroupEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:04.149 WARN  39306 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Clientele.ClienteleSupplierLevelEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:04.157 WARN  39306 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Clientele.ClienteleEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:04.165 WARN  39306 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.CompanyDepartmentEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:04.173 WARN  39306 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.CompanyLetterheadEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:04.190 WARN  39306 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.CurVat.CurrencyEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:04.211 WARN  39306 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Enquiry.EnquiryBuyerEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:04.240 WARN  39306 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Enquiry.EnquirySubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:04.250 WARN  39306 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.ExchangeRateEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:04.259 WARN  39306 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.PurchaseOrderMainEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:04.266 WARN  39306 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.PurchaseOrderSubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:04.278 WARN  39306 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.QuotationEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:04.287 WARN  39306 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.SalesOrderMainEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:04.293 WARN  39306 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.SalesOrderSubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:04.311 WARN  39306 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.StockBatchEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:04.318 WARN  39306 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.StockListMainEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:04.325 WARN  39306 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.StockListSubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:04.337 WARN  39306 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.StockPrice.StockPriceEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:04.344 WARN  39306 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.StockQuantityEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:04.357 WARN  39306 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Enquiry.EnquirySubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:04.363 WARN  39306 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Enquiry.EnquirySubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:04.370 WARN  39306 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.PurchaseOrderSubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:04.376 WARN  39306 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.QuotationEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:04.384 WARN  39306 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.SalesOrderSubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:04.395 WARN  39306 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.StockQuantityEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:04.933 WARN  39306 --- [main] org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration.getOrDeducePassword(UserDetailsServiceAutoConfiguration.java:88) ::: 
+
+Using generated security password: 3d5089be-0abb-4151-92c6-7d3ac2630272
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2022-11-02 09:53:04.981 INFO  39306 --- [main] org.springframework.security.web.DefaultSecurityFilterChain.<init>(DefaultSecurityFilterChain.java:55) ::: Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@1feb586d, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@34695b23, org.springframework.security.web.context.SecurityContextPersistenceFilter@708f7386, org.springframework.security.web.header.HeaderWriterFilter@2739ecc0, org.springframework.security.web.authentication.logout.LogoutFilter@25df2014, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@27b490de, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@36cf16a6, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@611a2d82, org.springframework.security.web.session.SessionManagementFilter@2a6dbb7c, org.springframework.security.web.access.ExceptionTranslationFilter@573870cb, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@300aa927]
+2022-11-02 09:53:05.229 INFO  39306 --- [main] org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) ::: Starting ProtocolHandler ["http-nio-8080"]
+2022-11-02 09:53:05.236 INFO  39306 --- [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:220) ::: Tomcat started on port(s): 8080 (http) with context path ''
+2022-11-02 09:53:05.242 INFO  39306 --- [main] org.springframework.boot.StartupInfoLogger.logStarted(StartupInfoLogger.java:61) ::: Started LianChuangjieApplication in 2.197 seconds (JVM running for 2.513)
+2022-11-02 09:53:16.178 INFO  39306 --- [http-nio-8080-exec-1] org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) ::: Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-11-02 09:53:16.178 INFO  39306 --- [http-nio-8080-exec-1] org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:525) ::: Initializing Servlet 'dispatcherServlet'
+2022-11-02 09:53:16.179 INFO  39306 --- [http-nio-8080-exec-1] org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:547) ::: Completed initialization in 1 ms
+2022-11-02 09:53:16.197 ERROR 39306 --- [http-nio-8080-exec-1] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/error
+2022-11-02 09:53:16.318 ERROR 39306 --- [http-nio-8080-exec-3] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/home/todo
+2022-11-02 09:53:16.319 ERROR 39306 --- [http-nio-8080-exec-2] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/error
+2022-11-02 09:53:22.102 INFO  39306 --- [http-nio-8080-exec-4] com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:110) ::: HikariPool-1 - Starting...
+2022-11-02 09:53:23.108 ERROR 39306 --- [http-nio-8080-exec-4] com.zaxxer.hikari.pool.HikariPool.throwPoolInitializationException(HikariPool.java:594) ::: HikariPool-1 - Exception during pool initialization.
+java.sql.SQLException: The syntax of the connection URL 'jdbc:jtds:sqlserver:152.136.120.86/LCJ_SAP360;useLOBs=false' is invalid.
+	at net.sourceforge.jtds.jdbc.Driver.setupConnectProperties(Driver.java:242) ~[jtds-1.3.1.jar:1.3.1]
+	at net.sourceforge.jtds.jdbc.Driver.connect(Driver.java:182) ~[jtds-1.3.1.jar:1.3.1]
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138) ~[HikariCP-4.0.3.jar:?]
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:364) ~[HikariCP-4.0.3.jar:?]
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:206) ~[HikariCP-4.0.3.jar:?]
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:476) ~[HikariCP-4.0.3.jar:?]
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:561) ~[HikariCP-4.0.3.jar:?]
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:115) ~[HikariCP-4.0.3.jar:?]
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:112) ~[HikariCP-4.0.3.jar:?]
+	at org.springframework.jdbc.datasource.DataSourceUtils.fetchConnection(DataSourceUtils.java:159) ~[spring-jdbc-5.3.22.jar:5.3.22]
+	at org.springframework.jdbc.datasource.DataSourceUtils.doGetConnection(DataSourceUtils.java:117) ~[spring-jdbc-5.3.22.jar:5.3.22]
+	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:80) ~[spring-jdbc-5.3.22.jar:5.3.22]
+	at org.mybatis.spring.transaction.SpringManagedTransaction.openConnection(SpringManagedTransaction.java:80) ~[mybatis-spring-2.0.7.jar:2.0.7]
+	at org.mybatis.spring.transaction.SpringManagedTransaction.getConnection(SpringManagedTransaction.java:67) ~[mybatis-spring-2.0.7.jar:2.0.7]
+	at org.apache.ibatis.executor.BaseExecutor.getConnection(BaseExecutor.java:337) ~[mybatis-3.5.11.jar:3.5.11]
+	at org.apache.ibatis.executor.SimpleExecutor.prepareStatement(SimpleExecutor.java:86) ~[mybatis-3.5.11.jar:3.5.11]
+	at org.apache.ibatis.executor.SimpleExecutor.doQuery(SimpleExecutor.java:62) ~[mybatis-3.5.11.jar:3.5.11]
+	at org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:325) ~[mybatis-3.5.11.jar:3.5.11]
+	at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:156) ~[mybatis-3.5.11.jar:3.5.11]
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:109) ~[mybatis-3.5.11.jar:3.5.11]
+	at com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor.intercept(MybatisPlusInterceptor.java:81) ~[mybatis-plus-extension-3.5.2.jar:3.5.2]
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:62) ~[mybatis-3.5.11.jar:3.5.11]
+	at jdk.proxy2.$Proxy230.query(Unknown Source) ~[?:?]
+	at com.github.pagehelper.PageInterceptor.intercept(PageInterceptor.java:151) ~[pagehelper-5.3.2.jar:?]
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:62) ~[mybatis-3.5.11.jar:3.5.11]
+	at jdk.proxy2.$Proxy230.query(Unknown Source) ~[?:?]
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:151) ~[mybatis-3.5.11.jar:3.5.11]
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:145) ~[mybatis-3.5.11.jar:3.5.11]
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:140) ~[mybatis-3.5.11.jar:3.5.11]
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectOne(DefaultSqlSession.java:76) ~[mybatis-3.5.11.jar:3.5.11]
+	at jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:578) ~[?:?]
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:427) ~[mybatis-spring-2.0.7.jar:2.0.7]
+	at jdk.proxy2.$Proxy99.selectOne(Unknown Source) ~[?:?]
+	at org.mybatis.spring.SqlSessionTemplate.selectOne(SqlSessionTemplate.java:160) ~[mybatis-spring-2.0.7.jar:2.0.7]
+	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.execute(MybatisMapperMethod.java:89) ~[mybatis-plus-core-3.5.2.jar:3.5.2]
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148) ~[mybatis-plus-core-3.5.2.jar:3.5.2]
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89) ~[mybatis-plus-core-3.5.2.jar:3.5.2]
+	at jdk.proxy2.$Proxy143.selectOne(Unknown Source) ~[?:?]
+	at jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:578) ~[?:?]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:344) ~[spring-aop-5.3.22.jar:5.3.22]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:198) ~[spring-aop-5.3.22.jar:5.3.22]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163) ~[spring-aop-5.3.22.jar:5.3.22]
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:137) ~[spring-tx-5.3.22.jar:5.3.22]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186) ~[spring-aop-5.3.22.jar:5.3.22]
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:215) ~[spring-aop-5.3.22.jar:5.3.22]
+	at jdk.proxy2.$Proxy144.selectOne(Unknown Source) ~[?:?]
+	at com.lianchuangjie.lianchuangjie.service.User.impl.UserLoginServiceImpl.employeeLoginService(UserLoginServiceImpl.java:23) ~[classes/:?]
+	at com.lianchuangjie.lianchuangjie.controller.User.UserController.loginController(UserController.java:42) ~[classes/:?]
+	at com.lianchuangjie.lianchuangjie.controller.User.UserController$$FastClassBySpringCGLIB$$da65927d.invoke(<generated>) ~[classes/:?]
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218) ~[spring-core-5.3.22.jar:5.3.22]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:793) ~[spring-aop-5.3.22.jar:5.3.22]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163) ~[spring-aop-5.3.22.jar:5.3.22]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763) ~[spring-aop-5.3.22.jar:5.3.22]
+	at org.springframework.validation.beanvalidation.MethodValidationInterceptor.invoke(MethodValidationInterceptor.java:123) ~[spring-context-5.3.22.jar:5.3.22]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186) ~[spring-aop-5.3.22.jar:5.3.22]
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763) ~[spring-aop-5.3.22.jar:5.3.22]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:708) ~[spring-aop-5.3.22.jar:5.3.22]
+	at com.lianchuangjie.lianchuangjie.controller.User.UserController$$EnhancerBySpringCGLIB$$9e75919b.loginController(<generated>) ~[classes/:?]
+	at jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:578) ~[?:?]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1070) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:963) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:681) ~[tomcat-embed-core-9.0.65.jar:4.0.FR]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764) ~[tomcat-embed-core-9.0.65.jar:4.0.FR]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-embed-websocket-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:327) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:115) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:81) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:122) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:116) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:126) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:81) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:109) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:149) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:103) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:89) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:112) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:82) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:55) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:211) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:183) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:354) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:267) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:890) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1789) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at java.lang.Thread.run(Thread.java:1589) ~[?:?]
+2022-11-02 09:53:23.118 ERROR 39306 --- [http-nio-8080-exec-4] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.handleException(GlobalExceptionHandler.java:160) ::: request error!! method:POST uri:/user/login/employee
+2022-11-02 09:53:50.044 INFO  39532 --- [background-preinit] org.hibernate.validator.internal.util.Version.<clinit>(Version.java:21) ::: HV000001: Hibernate Validator 6.2.3.Final
+2022-11-02 09:53:50.060 INFO  39532 --- [main] org.springframework.boot.StartupInfoLogger.logStarting(StartupInfoLogger.java:55) ::: Starting LianChuangjieApplication using Java 19.0.1 on ITX with PID 39532 (/home/wang/Project/LianChuangJie/springboot/target/classes started by wang in /home/wang/Project/LianChuangJie/springboot)
+2022-11-02 09:53:50.062 INFO  39532 --- [main] org.springframework.boot.SpringApplication.logStartupProfileInfo(SpringApplication.java:640) ::: The following 1 profile is active: "dev"
+2022-11-02 09:53:50.377 INFO  39532 --- [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate.multipleStoresDetected(RepositoryConfigurationDelegate.java:262) ::: Multiple Spring Data modules found, entering strict repository configuration mode
+2022-11-02 09:53:50.379 INFO  39532 --- [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:132) ::: Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2022-11-02 09:53:50.394 INFO  39532 --- [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:201) ::: Finished Spring Data repository scanning in 9 ms. Found 0 Redis repository interfaces.
+2022-11-02 09:53:50.703 INFO  39532 --- [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:108) ::: Tomcat initialized with port(s): 8080 (http)
+2022-11-02 09:53:50.707 INFO  39532 --- [main] org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) ::: Initializing ProtocolHandler ["http-nio-8080"]
+2022-11-02 09:53:50.707 INFO  39532 --- [main] org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) ::: Starting service [Tomcat]
+2022-11-02 09:53:50.707 INFO  39532 --- [main] org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) ::: Starting Servlet engine: [Apache Tomcat/9.0.65]
+2022-11-02 09:53:50.743 INFO  39532 --- [main] org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) ::: Initializing Spring embedded WebApplicationContext
+2022-11-02 09:53:50.743 INFO  39532 --- [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.prepareWebApplicationContext(ServletWebServerApplicationContext.java:292) ::: Root WebApplicationContext: initialization completed in 663 ms
+2022-11-02 09:53:50.889 WARN  39532 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.BomSubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:50.902 WARN  39532 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.BrandEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:50.912 WARN  39532 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Clientele.ClienteleClientLevelEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:50.921 WARN  39532 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Clientele.ClienteleEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:50.928 WARN  39532 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Clientele.ClienteleGroupEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:50.951 WARN  39532 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Clientele.ClienteleSupplierLevelEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:50.959 WARN  39532 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Clientele.ClienteleEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:50.966 WARN  39532 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.CompanyDepartmentEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:50.974 WARN  39532 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.CompanyLetterheadEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:50.990 WARN  39532 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.CurVat.CurrencyEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:51.011 WARN  39532 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Enquiry.EnquiryBuyerEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:51.041 WARN  39532 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Enquiry.EnquirySubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:51.050 WARN  39532 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.ExchangeRateEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:51.060 WARN  39532 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.PurchaseOrderMainEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:51.067 WARN  39532 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.PurchaseOrderSubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:51.079 WARN  39532 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.QuotationEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:51.088 WARN  39532 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.SalesOrderMainEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:51.095 WARN  39532 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.SalesOrderSubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:51.113 WARN  39532 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.StockBatchEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:51.120 WARN  39532 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.StockListMainEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:51.126 WARN  39532 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.StockListSubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:51.141 WARN  39532 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.StockPrice.StockPriceEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:51.146 WARN  39532 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.StockQuantityEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:51.160 WARN  39532 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Enquiry.EnquirySubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:51.165 WARN  39532 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Enquiry.EnquirySubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:51.172 WARN  39532 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.PurchaseOrderSubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:51.178 WARN  39532 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.QuotationEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:51.185 WARN  39532 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.SalesOrderSubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:51.196 WARN  39532 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.StockQuantityEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 09:53:51.747 WARN  39532 --- [main] org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration.getOrDeducePassword(UserDetailsServiceAutoConfiguration.java:88) ::: 
+
+Using generated security password: 3b87be27-37ad-4e85-8f90-e92b8f0966c9
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2022-11-02 09:53:51.795 INFO  39532 --- [main] org.springframework.security.web.DefaultSecurityFilterChain.<init>(DefaultSecurityFilterChain.java:55) ::: Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@4331be30, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5cd71ee2, org.springframework.security.web.context.SecurityContextPersistenceFilter@3dec79f8, org.springframework.security.web.header.HeaderWriterFilter@3573e19d, org.springframework.security.web.authentication.logout.LogoutFilter@27fc0217, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@14b26e90, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@11309dd4, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3dad535f, org.springframework.security.web.session.SessionManagementFilter@33eab2e8, org.springframework.security.web.access.ExceptionTranslationFilter@5eee3da9, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@5cd701e4]
+2022-11-02 09:53:52.150 INFO  39532 --- [main] org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) ::: Starting ProtocolHandler ["http-nio-8080"]
+2022-11-02 09:53:52.189 INFO  39532 --- [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:220) ::: Tomcat started on port(s): 8080 (http) with context path ''
+2022-11-02 09:53:52.224 INFO  39532 --- [main] org.springframework.boot.StartupInfoLogger.logStarted(StartupInfoLogger.java:61) ::: Started LianChuangjieApplication in 2.372 seconds (JVM running for 2.721)
+2022-11-02 09:54:17.524 INFO  39532 --- [http-nio-8080-exec-1] org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) ::: Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-11-02 09:54:17.525 INFO  39532 --- [http-nio-8080-exec-1] org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:525) ::: Initializing Servlet 'dispatcherServlet'
+2022-11-02 09:54:17.526 INFO  39532 --- [http-nio-8080-exec-1] org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:547) ::: Completed initialization in 1 ms
+2022-11-02 09:54:17.546 ERROR 39532 --- [http-nio-8080-exec-1] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/error
+2022-11-02 09:54:17.702 ERROR 39532 --- [http-nio-8080-exec-2] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/error
+2022-11-02 09:54:17.702 ERROR 39532 --- [http-nio-8080-exec-3] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/home/todo
+2022-11-02 09:54:23.732 INFO  39532 --- [http-nio-8080-exec-4] com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:110) ::: HikariPool-1 - Starting...
+2022-11-02 09:54:23.891 INFO  39532 --- [http-nio-8080-exec-4] com.zaxxer.hikari.pool.PoolBase.getAndSetNetworkTimeout(PoolBase.java:541) ::: HikariPool-1 - Driver does not support get/set network timeout for connections. (null)
+2022-11-02 09:54:23.948 INFO  39532 --- [http-nio-8080-exec-4] com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:123) ::: HikariPool-1 - Start completed.
+2022-11-02 10:04:13.759 INFO  39532 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource.close(HikariDataSource.java:350) ::: HikariPool-1 - Shutdown initiated...
+2022-11-02 10:04:13.761 INFO  39532 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource.close(HikariDataSource.java:352) ::: HikariPool-1 - Shutdown completed.
+2022-11-02 10:04:16.013 INFO  40921 --- [background-preinit] org.hibernate.validator.internal.util.Version.<clinit>(Version.java:21) ::: HV000001: Hibernate Validator 6.2.3.Final
+2022-11-02 10:04:16.027 INFO  40921 --- [main] org.springframework.boot.StartupInfoLogger.logStarting(StartupInfoLogger.java:55) ::: Starting LianChuangjieApplication using Java 19.0.1 on ITX with PID 40921 (/home/wang/Project/LianChuangJie/springboot/target/classes started by wang in /home/wang/Project/LianChuangJie/springboot)
+2022-11-02 10:04:16.029 INFO  40921 --- [main] org.springframework.boot.SpringApplication.logStartupProfileInfo(SpringApplication.java:640) ::: The following 1 profile is active: "dev"
+2022-11-02 10:04:16.355 INFO  40921 --- [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate.multipleStoresDetected(RepositoryConfigurationDelegate.java:262) ::: Multiple Spring Data modules found, entering strict repository configuration mode
+2022-11-02 10:04:16.357 INFO  40921 --- [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:132) ::: Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2022-11-02 10:04:16.372 INFO  40921 --- [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:201) ::: Finished Spring Data repository scanning in 9 ms. Found 0 Redis repository interfaces.
+2022-11-02 10:04:16.691 INFO  40921 --- [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:108) ::: Tomcat initialized with port(s): 8080 (http)
+2022-11-02 10:04:16.697 INFO  40921 --- [main] org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) ::: Initializing ProtocolHandler ["http-nio-8080"]
+2022-11-02 10:04:16.697 INFO  40921 --- [main] org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) ::: Starting service [Tomcat]
+2022-11-02 10:04:16.698 INFO  40921 --- [main] org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) ::: Starting Servlet engine: [Apache Tomcat/9.0.65]
+2022-11-02 10:04:16.741 INFO  40921 --- [main] org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) ::: Initializing Spring embedded WebApplicationContext
+2022-11-02 10:04:16.741 INFO  40921 --- [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.prepareWebApplicationContext(ServletWebServerApplicationContext.java:292) ::: Root WebApplicationContext: initialization completed in 693 ms
+2022-11-02 10:04:16.917 WARN  40921 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.BomSubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 10:04:16.947 WARN  40921 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.BrandEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 10:04:16.970 WARN  40921 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Clientele.ClienteleClientLevelEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 10:04:16.999 WARN  40921 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Clientele.ClienteleEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 10:04:17.027 WARN  40921 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Clientele.ClienteleGroupEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 10:04:17.142 WARN  40921 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Clientele.ClienteleSupplierLevelEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 10:04:17.185 WARN  40921 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Clientele.ClienteleEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 10:04:17.214 WARN  40921 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.CompanyDepartmentEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 10:04:17.264 WARN  40921 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.CompanyLetterheadEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 10:04:17.297 WARN  40921 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.CurVat.CurrencyEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 10:04:17.345 WARN  40921 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Enquiry.EnquiryBuyerEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 10:04:17.386 WARN  40921 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Enquiry.EnquirySubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 10:04:17.402 WARN  40921 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.ExchangeRateEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 10:04:17.416 WARN  40921 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.PurchaseOrderMainEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 10:04:17.425 WARN  40921 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.PurchaseOrderSubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 10:04:17.447 WARN  40921 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.QuotationEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 10:04:17.457 WARN  40921 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.SalesOrderMainEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 10:04:17.466 WARN  40921 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.SalesOrderSubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 10:04:17.490 WARN  40921 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.StockBatchEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 10:04:17.501 WARN  40921 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.StockListMainEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 10:04:17.509 WARN  40921 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.StockListSubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 10:04:17.522 WARN  40921 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.StockPrice.StockPriceEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 10:04:17.529 WARN  40921 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.StockQuantityEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 10:04:17.543 WARN  40921 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Enquiry.EnquirySubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 10:04:17.549 WARN  40921 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Enquiry.EnquirySubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 10:04:17.557 WARN  40921 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.PurchaseOrderSubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 10:04:17.564 WARN  40921 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.QuotationEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 10:04:17.571 WARN  40921 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.SalesOrderSubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 10:04:17.584 WARN  40921 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.StockQuantityEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-02 10:04:18.180 WARN  40921 --- [main] org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration.getOrDeducePassword(UserDetailsServiceAutoConfiguration.java:88) ::: 
+
+Using generated security password: 63ecfc40-53f4-455c-b5a1-21b1ef50b28a
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2022-11-02 10:04:18.228 INFO  40921 --- [main] org.springframework.security.web.DefaultSecurityFilterChain.<init>(DefaultSecurityFilterChain.java:55) ::: Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@5f67181f, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1169fdfd, org.springframework.security.web.context.SecurityContextPersistenceFilter@7eefaca0, org.springframework.security.web.header.HeaderWriterFilter@7544260a, org.springframework.security.web.authentication.logout.LogoutFilter@47eae91d, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@33eab2e8, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2c154508, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@75add13c, org.springframework.security.web.session.SessionManagementFilter@27b490de, org.springframework.security.web.access.ExceptionTranslationFilter@2375a976, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@41f40dfa]
+2022-11-02 10:04:18.467 INFO  40921 --- [main] org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) ::: Starting ProtocolHandler ["http-nio-8080"]
+2022-11-02 10:04:18.474 INFO  40921 --- [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:220) ::: Tomcat started on port(s): 8080 (http) with context path ''
+2022-11-02 10:04:18.480 INFO  40921 --- [main] org.springframework.boot.StartupInfoLogger.logStarted(StartupInfoLogger.java:61) ::: Started LianChuangjieApplication in 2.642 seconds (JVM running for 2.985)
+2022-11-02 10:04:21.928 INFO  40921 --- [http-nio-8080-exec-1] org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) ::: Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-11-02 10:04:21.929 INFO  40921 --- [http-nio-8080-exec-1] org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:525) ::: Initializing Servlet 'dispatcherServlet'
+2022-11-02 10:04:21.929 INFO  40921 --- [http-nio-8080-exec-1] org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:547) ::: Completed initialization in 0 ms
+2022-11-02 10:04:21.944 ERROR 40921 --- [http-nio-8080-exec-1] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/stock/price
+2022-11-02 10:04:28.120 INFO  40921 --- [http-nio-8080-exec-2] com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:110) ::: HikariPool-1 - Starting...
+2022-11-02 10:04:28.281 INFO  40921 --- [http-nio-8080-exec-2] com.zaxxer.hikari.pool.PoolBase.getAndSetNetworkTimeout(PoolBase.java:541) ::: HikariPool-1 - Driver does not support get/set network timeout for connections. (null)
+2022-11-02 10:04:28.335 INFO  40921 --- [http-nio-8080-exec-2] com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:123) ::: HikariPool-1 - Start completed.

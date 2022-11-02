@@ -1,4 +1,4 @@
-package com.lianchuangjie.lianchuangjie.controller;
+package com.lianchuangjie.lianchuangjie.controller.Common;
 
 import com.lianchuangjie.lianchuangjie.config.Authentication;
 import com.lianchuangjie.lianchuangjie.service.BrandService;
@@ -14,7 +14,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/brand")
 public class BrandController {
     @Resource
     BrandService brandService;
@@ -24,7 +24,7 @@ public class BrandController {
      * @param ownerCode 采购员编号
      * @return List<BrandItemVO>
      */
-    @GetMapping("brand")
+    @GetMapping("owner")
     @Authentication(buyer = true)
     public Result<List<BrandItemVO>> getBuyersBrandController(
             @RequestParam(defaultValue = "#{null}", value = "OwnerCode") Long ownerCode
@@ -32,5 +32,14 @@ public class BrandController {
         if (ownerCode == null) ownerCode = SessionUtil.getUser().getUserSign();
         List<BrandItemVO> list = brandService.list(ownerCode);
         return Result.success(list, "success");
+    }
+
+    @GetMapping("/suggestion")
+    @Authentication(buyer = true, sale = true)
+    public Result<List<BrandItemVO>> getBrandSuggestionController(
+            @RequestParam(defaultValue = "#{null}", value = "Brand") String brand
+    ) {
+        List<BrandItemVO> list = brandService.containList(brand);
+        return Result.success(list, "Success");
     }
 }

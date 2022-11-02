@@ -1,0 +1,3 @@
+2022-11-01 22:33:04.305 ERROR 5668 --- [http-nio-8080-exec-2] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/error
+2022-11-01 22:33:04.458 ERROR 5668 --- [http-nio-8080-exec-4] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/home/todo
+2022-11-01 22:33:04.459 ERROR 5668 --- [http-nio-8080-exec-3] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/error

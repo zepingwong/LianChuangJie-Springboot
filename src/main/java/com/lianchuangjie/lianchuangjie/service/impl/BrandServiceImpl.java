@@ -23,4 +23,8 @@ public class BrandServiceImpl extends ServiceImpl<BrandMapper, BrandEntity> impl
     public List<BrandItemVO> all(String brand) {
         return brandMapper.selectAll(brand);
     }
+    @Override
+    public List<BrandItemVO> containList(String brand) {
+        return brandMapper.selectAll(brand);
+    }
 }

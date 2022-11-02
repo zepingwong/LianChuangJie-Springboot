@@ -25,4 +25,6 @@ public interface BrandService extends IService<BrandEntity> {
      * @date 9/4/2022
      */
     List<BrandItemVO> all(String brand);
+    // 搜索建议
+    List<BrandItemVO> containList(String brand);
 }

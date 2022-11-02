@@ -1,0 +1,9 @@
+2022-11-01 22:20:48.555 INFO  5668 --- [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate.multipleStoresDetected(RepositoryConfigurationDelegate.java:262) ::: Multiple Spring Data modules found, entering strict repository configuration mode
+2022-11-01 22:20:48.557 INFO  5668 --- [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:132) ::: Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2022-11-01 22:20:48.571 INFO  5668 --- [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:201) ::: Finished Spring Data repository scanning in 8 ms. Found 0 Redis repository interfaces.
+2022-11-01 22:20:48.925 INFO  5668 --- [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:108) ::: Tomcat initialized with port(s): 8080 (http)
+2022-11-01 22:20:48.932 INFO  5668 --- [main] org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) ::: Initializing ProtocolHandler ["http-nio-8080"]
+2022-11-01 22:20:48.933 INFO  5668 --- [main] org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) ::: Starting service [Tomcat]
+2022-11-01 22:20:48.933 INFO  5668 --- [main] org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) ::: Starting Servlet engine: [Apache Tomcat/9.0.65]
+2022-11-01 22:20:48.993 INFO  5668 --- [main] org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) ::: Initializing Spring embedded WebApplicationContext
+2022-11-01 22:20:48.993 INFO  5668 --- [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.prepareWebApplicationContext(ServletWebServerApplicationContext.java:292) ::: Root WebApplicationContext: initialization completed in 6821 ms
