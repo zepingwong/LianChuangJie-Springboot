@@ -1,3 +1,0 @@
-2022-11-02 09:53:05.229 INFO  39306 --- [main] org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) ::: Starting ProtocolHandler ["http-nio-8080"]
-2022-11-02 09:53:05.236 INFO  39306 --- [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:220) ::: Tomcat started on port(s): 8080 (http) with context path ''
-2022-11-02 09:53:05.242 INFO  39306 --- [main] org.springframework.boot.StartupInfoLogger.logStarted(StartupInfoLogger.java:61) ::: Started LianChuangjieApplication in 2.197 seconds (JVM running for 2.513)
