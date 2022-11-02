@@ -142,12 +142,12 @@
                 MAX ( T.DocDate ) AS DocDate
             FROM (
             SELECT
-                T_OPOR1.Dscription,
-                T_OPOR.DocDate,
-                T_OPOR1.U_Brand,
-                T_OPOR1.U_Batch
-                FROM T_OPOR1
-                LEFT JOIN T_OPOR ON T_OPOR.DocEntry = T_OPOR1.DocEntry
+                T_ORDR1.Dscription,
+                T_ORDR.DocDate,
+                T_ORDR1.U_Brand,
+                T_ORDR1.U_Batch
+                FROM T_ORDR1
+                LEFT JOIN T_ORDR ON T_ORDR.DocEntry = T_ORDR1.DocEntry
             ) T
             WHERE T.Dscription IN (
                 SELECT ItemName
