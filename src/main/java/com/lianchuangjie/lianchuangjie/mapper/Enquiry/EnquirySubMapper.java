@@ -48,7 +48,7 @@ public interface EnquirySubMapper extends BaseMapper<EnquirySubEntity> {
      * @email zepingwong@gmail.com
      * @date 9/19/2022
      */
-    IPage<EnquirySubVO> selectList(IPage<EnquirySubVO> page, @Param("sc") EnquirySubSearchDTO enquirySIbSearchDTO);
+    IPage<EnquirySubVO> selectList(IPage<EnquirySubVO> page, @Param("sc") EnquirySubSearchDTO enquirySubSearchDTO);
 
     Boolean clear(@Param("DocEntry") Long docEntry, @Param("LineNum") Long lineNum);
 

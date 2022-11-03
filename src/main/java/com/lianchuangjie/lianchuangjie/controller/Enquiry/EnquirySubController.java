@@ -33,6 +33,8 @@ public class EnquirySubController extends BaseController {
     @Authentication(sale = true)
     public Result<Page<EnquirySubVO>> enquirySubController(
             @RequestParam(defaultValue = "#{null}", value = "DocEntry") Long docEntry,
+            @RequestParam(defaultValue = "#{null}", value = "Modle") String modle,
+            @RequestParam(defaultValue = "#{null}", value = "Brand") String brand,
             @RequestParam(defaultValue = "#{null}", value = "page") Integer page,
             @RequestParam(defaultValue = "#{null}", value = "size") Integer size
     ) {
@@ -42,6 +44,8 @@ public class EnquirySubController extends BaseController {
         searchCondition.setOwnerCode(userSign);
         searchCondition.setPage(page);
         searchCondition.setSize(size);
+        searchCondition.setBrand(brand);
+        searchCondition.setModle(modle);
         Page<EnquirySubVO> list = enquirySubService.list(searchCondition);
         return Result.success(list, "Success");
     }

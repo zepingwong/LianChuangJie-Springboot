@@ -22,4 +22,8 @@ public class EnquirySubSearchDTO {
     private Integer page;
     @JsonProperty("size")
     private Integer size;
+    @JsonProperty("Modle")
+    private String modle;
+    @JsonProperty("Brand")
+    private String brand;
 }
