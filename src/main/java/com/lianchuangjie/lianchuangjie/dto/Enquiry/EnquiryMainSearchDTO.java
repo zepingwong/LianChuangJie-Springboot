@@ -39,8 +39,11 @@ public class EnquiryMainSearchDTO {
     private Date invalidDateEnd;
     // 发送时间上限
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date createDateStart;
+    private Date inquiryDateStart;
     // 发送时间下限
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date createDateEnd;
+    private Date inquiryDateEnd;
+    // 询价来源
+    @JsonProperty("U_SourceType")
+    private String uSourceType;
 }

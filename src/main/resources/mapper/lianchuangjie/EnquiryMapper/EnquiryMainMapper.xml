@@ -27,7 +27,7 @@
                  T0.ExpDate, InquiryDate, T0.DeptCode, TransType, Branchs, Attachment, CardCode, CardName, Remark,
                  U_Buyer, U_ComCode, U_Delivery, U_DocCur, U_DocType, U_ItemCode, U_OrderType, U_PrjCode, U_SlpCode,
                  U_UrgentType, U_VatGroup, U_Industries, PrjCode, U_UserName, U_DeptName, U_CusLevel, U_CusGroupCode,
-                 U_CusIndustries, U_SaleLevel, U_UserCode1, U_UserCode2, U_Region, U_DomainName, U_CntctCode,
+                 U_CusIndustries, U_SaleLevel, U_UserCode1, U_UserCode2, U_Region, U_DomainName, U_CntctCode, U_ToClient,
                  U_CardStatus, U_ShortCode, U_State, U_New, U_SourceType, U_TransaPlace, U_FromCompany, U_RecipientName, U_RecipientTel, U_SenderTel, U_SenderName, U_FreightPayment, U_PaymentMethod
     </select>
     <select id="selectMaxDocEntry" resultType="java.lang.Long">
@@ -48,63 +48,66 @@
         SELECT TOP (@PageSize) *
         FROM (
             SELECT
-                ROW_NUMBER()OVER(ORDER BY T_ICIN.CreateDate DESC) AS ROWNUMBER,
-                T_ICIN.CardName, /*客户名称*/
-                T_ICIN.DocEntry, /*询价单编号*/
+                ROW_NUMBER()OVER(ORDER BY MainTable.CreateDate DESC) AS ROWNUMBER,
+                MainTable.*,
                 COUNT ( U_ICIN1.LineNum ) AS 'EnquireSum', /*询价单总行数*/
                 SUM(IIF(U_ICIN1.PriceAfVAT IS NOT NULL, 1, 0)) AS 'EnquireComplete', /*报价完成行数*/
-                T_ICIN.U_State, /*处理情况*/
-                T_ICIN.U_New, /*更新情况*/
-                T_ICIN.U_SourceType, /*询价来源*/
-                T_ICIN.CreateDate, /*发送时间*/
                 MIN(U_ICIN1.ExpDate) AS 'InvalidDateMin', /*最早失效时间*/
                 MAX(U_ICIN1.ExpDate) AS 'InvalidDateMax', /*最晚失效时间*/
                 (
-                    (SELECT COUNT(*) FROM T_ICIN1 WHERE T_ICIN1.U_Status = 'Y' AND T_ICIN1.DocEntry = T_ICIN.DocEntry) +
-                    (SELECT COUNT(*) FROM U_ICIN11 WHERE U_ICIN11.U_Status = 'Y' AND U_ICIN11.DocEntry = T_ICIN.DocEntry)
+                    (SELECT COUNT(*) FROM T_ICIN1 WHERE T_ICIN1.U_Status = 'Y' AND T_ICIN1.DocEntry = MainTable.DocEntry) +
+                    (SELECT COUNT(*) FROM U_ICIN11 WHERE U_ICIN11.U_Status = 'Y' AND U_ICIN11.DocEntry = MainTable.DocEntry)
                 ) AS 'PurchaseReply' /*采购回复次数来自两张表*/
-            FROM T_ICIN
-            LEFT JOIN U_ICIN1 ON T_ICIN.DocEntry = U_ICIN1.DocEntry
+            FROM (
+                SELECT
+                    T_ICIN.CardName, /*客户名称*/
+                    T_ICIN.DocEntry, /*询价单编号*/
+                    T_ICIN.UserSign, /*用户编号*/
+                    T_ICIN.OwnerCode, /*用户编号*/
+                    T_ICIN.U_State, /*处理情况*/
+                    T_ICIN.U_New, /*更新情况*/
+                    T_ICIN.DeptCode, /*部门代码*/
+                    T_ICIN.U_SourceType, /*询价来源*/
+                    T_ICIN.CreateDate /*发送时间*/
+                FROM T_ICIN
+                <where>
+                    T_ICIN.DocStatus = 'O' /*O表示有效、Q表示无效*/
+                    <if test="
+                    sc.cardCode!=null">AND T_ICIN.CardCode = #{sc.cardCode}
+                    </if>
+                    <if test="
+                    sc.uState!=null">AND T_ICIN.U_State = #{sc.uState}
+                    </if>
+                    <if test="sc.InquiryDateStart!=null">
+                        AND T_ICIN.CreateDate &gt;= #{sc.inquiryDateStart}
+                    </if>
+                    <if test="sc.InquiryDateEnd!=null">
+                        AND T_ICIN.CreateDate &lt; #{sc.inquiryDateEnd}
+                    </if>
+                    <if test="sc.invalidDateStart!=null">
+                        AND T_ICIN.CreateDate &gt;= #{sc.invalidDateStart}
+                    </if>
+                    <if test="sc.invalidDateEnd!=null">
+                        AND T_ICIN.CreateDate &lt; #{sc.invalidDateEnd}
+                    </if>
+                    <if test="sc.uSourceType != null">
+                        AND T_ICIN.U_SourceType = #{sc.uSourceType}
+                    </if>
+                </where>
+            ) MainTable
             LEFT JOIN (
                 SELECT DeptCode
                 FROM T_OUDL
                 WHERE UserSign = @UserSign
-            ) T3 ON T_ICIN.DeptCode = T3.DeptCode
-            <where>
-                T_ICIN.DocStatus = 'O' /*O表示有效、Q表示无效*/
-                <if test="sc.cardCode!=null">
-                    AND T_ICIN.CardCode = #{sc.cardCode}
-                </if>
-                <if test="sc.uState!=null">
-                    AND T_ICIN.U_State = #{sc.uState}
-                </if>
-                <if test="sc.createDateStart!=null">
-                    AND T_ICIN.CreateDate &gt;= #{sc.createDateStart}
-                </if>
-                <if test="sc.createDateEnd!=null">
-                    AND T_ICIN.CreateDate &lt; #{sc.createDateEnd}
-                </if>
-                <if test="sc.invalidDateStart!=null">
-                    AND T_ICIN.CreateDate &gt;= #{sc.invalidDateStart}
-                </if>
-                <if test="sc.invalidDateEnd!=null">
-                    AND T_ICIN.CreateDate &lt; #{sc.invalidDateEnd}
-                </if>
-                <if test="sc.ownerCode!=null">
-                    AND T_ICIN.OwnerCode = #{sc.ownerCode}
-                </if>
-                AND (
-                    @DataPur = 'ALL' /*可看所有*/
-                    OR (@DataPur = 'Dept' AND ISNULL(T3.DeptCode, '') != '') /*判断当前用户可看本部门数据，如部门主任*/
-                    OR (@DataPur = 'Self' AND (T_ICIN.UserSign = @UserSign OR T_ICIN.OwnerCode = @UserSign)) /*销售员本人*/
-                )
-            </where>
-            GROUP BY T_ICIN.DocEntry, UserSign, OwnerCode, DocStatus, CreateDate, UpdateTime, T_ICIN.ExpDate, InquiryDate,
-            T_ICIN.DeptCode, TransType, Branchs, Attachment, CardCode, CardName, Remark, T_ICIN.U_Buyer, T_ICIN.U_ComCode,
-            T_ICIN.U_Delivery, U_DocCur, U_DocType, T_ICIN.U_ItemCode, U_OrderType, U_PrjCode, T_ICIN.U_SlpCode,
-            U_UrgentType, T_ICIN.U_VatGroup, T_ICIN.U_Industries, PrjCode, U_UserName, U_DeptName, U_CusLevel,
-            U_CusGroupCode, U_CusIndustries, T_ICIN.U_SaleLevel, U_UserCode1, U_UserCode2, U_Region, U_DomainName,
-            U_CntctCode, T_ICIN.U_CardStatus, T_ICIN.U_ShortCode, U_State, U_New, U_SourceType, U_TransaPlace
+            ) T3 ON T3.DeptCode = MainTable.DeptCode
+            LEFT JOIN U_ICIN1 ON MainTable.DocEntry = U_ICIN1.DocEntry
+            WHERE (
+                @DataPur = 'ALL' /*可看所有*/
+                OR (@DataPur = 'Dept' AND ISNULL(T3.DeptCode, '') != '') /*判断当前用户可看本部门数据，如部门主任*/
+                OR (@DataPur = 'Self' AND (MainTable.UserSign = @UserSign OR MainTable.OwnerCode = @UserSign)) /*销售员本人*/
+            )
+            GROUP BY MainTable.CreateDate, MainTable.CardName, MainTable.DocEntry, MainTable.UserSign, MainTable.OwnerCode,
+                     MainTable.U_State, MainTable.U_New, MainTable.DeptCode, MainTable.U_SourceType
         ) T
         WHERE T.ROWNUMBER > (@CurrentPage - 1) * @PageSize
         ORDER BY T.CreateDate DESC
@@ -118,49 +121,58 @@
         SELECT @DataPur = [dbo].[UF_DataPurview] ( @UserSign, @BaseFormID ); /*判断权限*/
         SELECT COUNT(*)
         FROM (
-            SELECT T_ICIN.DocEntry
-            FROM T_ICIN
-            LEFT JOIN U_ICIN1 ON T_ICIN.DocEntry = U_ICIN1.DocEntry
+            SELECT
+                ROW_NUMBER()OVER(ORDER BY MainTable.CreateDate DESC) AS ROWNUMBER
+            FROM (
+                SELECT
+                    T_ICIN.CardName, /*客户名称*/
+                    T_ICIN.DocEntry, /*询价单编号*/
+                    T_ICIN.UserSign, /*用户编号*/
+                    T_ICIN.OwnerCode, /*用户编号*/
+                    T_ICIN.U_State, /*处理情况*/
+                    T_ICIN.U_New, /*更新情况*/
+                    T_ICIN.DeptCode, /*部门代码*/
+                    T_ICIN.U_SourceType, /*询价来源*/
+                    T_ICIN.CreateDate /*发送时间*/
+                FROM T_ICIN
+                <where>
+                    T_ICIN.DocStatus = 'O' /*O表示有效、Q表示无效*/
+                    <if test="
+                            sc.cardCode!=null">AND T_ICIN.CardCode = #{sc.cardCode}
+                    </if>
+                    <if test="
+                            sc.uState!=null">AND T_ICIN.U_State = #{sc.uState}
+                    </if>
+                    <if test="sc.InquiryDateStart!=null">
+                        AND T_ICIN.CreateDate &gt;= #{sc.inquiryDateStart}
+                    </if>
+                    <if test="sc.InquiryDateEnd!=null">
+                        AND T_ICIN.CreateDate &lt; #{sc.inquiryDateEnd}
+                    </if>
+                    <if test="sc.invalidDateStart!=null">
+                        AND T_ICIN.CreateDate &gt;= #{sc.invalidDateStart}
+                    </if>
+                    <if test="sc.invalidDateEnd!=null">
+                        AND T_ICIN.CreateDate &lt; #{sc.invalidDateEnd}
+                    </if>
+                    <if test="sc.uSourceType != null">
+                        AND T_ICIN.U_SourceType = #{sc.uSourceType}
+                    </if>
+                </where>
+            ) MainTable
             LEFT JOIN (
                 SELECT DeptCode
                 FROM T_OUDL
                 WHERE UserSign = @UserSign
-            ) T3 ON T_ICIN.DeptCode = T3.DeptCode
-            <where>
-                T_ICIN.DocStatus = 'O' /*O表示有效、Q表示无效*/
-                <if test="sc.cardCode!=null">
-                    AND T_ICIN.CardCode = #{sc.cardCode}
-                </if>
-                <if test="sc.uState!=null">
-                    AND T_ICIN.U_State = #{sc.uState}
-                </if>
-                <if test="sc.createDateStart!=null">
-                    AND T_ICIN.CreateDate &gt;= #{sc.createDateStart}
-                </if>
-                <if test="sc.createDateEnd!=null">
-                    AND T_ICIN.CreateDate &lt; #{sc.createDateEnd}
-                </if>
-                <if test="sc.invalidDateStart!=null">
-                    AND T_ICIN.CreateDate &gt;= #{sc.invalidDateStart}
-                </if>
-                <if test="sc.invalidDateEnd!=null">
-                    AND T_ICIN.CreateDate &lt; #{sc.invalidDateEnd}
-                </if>
-                <if test="sc.ownerCode!=null">
-                    AND T_ICIN.OwnerCode = #{sc.ownerCode}
-                </if>
-                AND (
-                    @DataPur = 'ALL' /*可看所有*/
-                    OR (@DataPur = 'Dept' AND ISNULL(T3.DeptCode, '') != '') /*判断当前用户可看本部门数据，如部门主任*/
-                    OR (@DataPur = 'Self' AND (T_ICIN.UserSign = @UserSign OR T_ICIN.OwnerCode = @UserSign)) /*销售员本人*/
-                )
-            </where>
-            GROUP BY T_ICIN.DocEntry, UserSign, OwnerCode, DocStatus, CreateDate, UpdateTime, T_ICIN.ExpDate, InquiryDate,
-            T_ICIN.DeptCode, TransType, Branchs, Attachment, CardCode, CardName, Remark, T_ICIN.U_Buyer, T_ICIN.U_ComCode,
-            T_ICIN.U_Delivery, U_DocCur, U_DocType, T_ICIN.U_ItemCode, U_OrderType, U_PrjCode, T_ICIN.U_SlpCode,
-            U_UrgentType, T_ICIN.U_VatGroup, T_ICIN.U_Industries, PrjCode, U_UserName, U_DeptName, U_CusLevel,
-            U_CusGroupCode, U_CusIndustries, T_ICIN.U_SaleLevel, U_UserCode1, U_UserCode2, U_Region, U_DomainName,
-            U_CntctCode, T_ICIN.U_CardStatus, T_ICIN.U_ShortCode, U_State, U_New, U_SourceType, U_TransaPlace
+            ) T3 ON T3.DeptCode = MainTable.DeptCode
+            LEFT JOIN U_ICIN1 ON MainTable.DocEntry = U_ICIN1.DocEntry
+            WHERE (
+                @DataPur = 'ALL' /*可看所有*/
+                OR (@DataPur = 'Dept' AND ISNULL(T3.DeptCode, '') != '') /*判断当前用户可看本部门数据，如部门主任*/
+                OR (@DataPur = 'Self' AND (MainTable.UserSign = @UserSign OR MainTable.OwnerCode = @UserSign)) /*销售员本人*/
+            )
+            GROUP BY MainTable.CreateDate, MainTable.CardName, MainTable.DocEntry, MainTable.UserSign, MainTable.OwnerCode,
+            MainTable.U_State, MainTable.U_New, MainTable.DeptCode, MainTable.U_SourceType
         ) T
     </select>
 </mapper>

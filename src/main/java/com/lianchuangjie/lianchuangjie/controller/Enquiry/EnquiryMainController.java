@@ -42,9 +42,10 @@ public class EnquiryMainController extends BaseController {
             @RequestParam(defaultValue = "#{null}", value = "size") Integer size, // 每页显示条数
             @RequestParam(defaultValue = "#{null}", value = "InvalidDateStart") Date invalidDateStart,
             @RequestParam(defaultValue = "#{null}", value = "InvalidDateEnd") Date invalidDateEnd, // 失效时间范围
-            @RequestParam(defaultValue = "#{null}", value = "CreateDateStart") Date createDateStart,
-            @RequestParam(defaultValue = "#{null}", value = "CreateDateEnd") Date createDateEnd, // 发送时间范围
+            @RequestParam(defaultValue = "#{null}", value = "InquiryDateStart") Date inquiryDateStart,
+            @RequestParam(defaultValue = "#{null}", value = "InquiryDateEnd") Date inquiryDateEnd, // 发送时间范围
             @RequestParam(defaultValue = "#{null}", value = "CardCode") String cardCode, // 询价单位代码
+            @RequestParam(defaultValue = "#{null}", value = "U_SourceType") String uSourceType, // 询价来源
             @RequestParam(defaultValue = "#{null}", value = "State") Integer state // 状态
     ) {
         EnquiryMainSearchDTO searchCondition = new EnquiryMainSearchDTO();
@@ -54,8 +55,9 @@ public class EnquiryMainController extends BaseController {
         searchCondition.setUState(state);
         searchCondition.setInvalidDateStart(invalidDateStart);
         searchCondition.setInvalidDateEnd(invalidDateEnd);
-        searchCondition.setCreateDateStart(createDateStart);
-        searchCondition.setCreateDateEnd(createDateEnd);
+        searchCondition.setInquiryDateStart(inquiryDateStart);
+        searchCondition.setInquiryDateEnd(inquiryDateEnd);
+        searchCondition.setUSourceType(uSourceType);
         searchCondition.setOwnerCode(SessionUtil.getUser().getUserSign());
         Page<EnquiryMainItemVO> pages = enquiryMainService.getList(searchCondition);
         return Result.success(pages);
