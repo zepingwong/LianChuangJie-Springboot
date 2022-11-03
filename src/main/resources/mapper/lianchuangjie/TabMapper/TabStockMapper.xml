@@ -116,55 +116,58 @@
         SELECT
             COUNT(*)
         FROM (
-                 SELECT MdAbsEntry, SUM ( Quantity ) AS Quantity FROM T_OBTQ GROUP BY MdAbsEntry
-             ) T
-                 INNER JOIN T_OBTN ON T.MdAbsEntry = T_OBTN.AbsEntry
-                 LEFT JOIN (
-            SELECT TOP ( 1 ) *
-            FROM kc_now
-            WHERE Modify = 'Y'
-              AND ConfirmDate IS NOT NULL
-              AND ItemName = #{sc.modle}
-            ORDER BY ConfirmDate DESC
-        ) _first ON _first.ItemName = T_OBTN.ItemName
-                 LEFT JOIN (
-            SELECT TOP ( 1 ) *
-            FROM (
-                     SELECT
-                         ROW_NUMBER ( ) OVER ( ORDER BY T.ConfirmDate DESC ) AS 'LineNum',
-                         *
+                 SELECT
+                     ROW_NUMBER() OVER (ORDER BY T_OBTN.ItemName DESC)                          AS ROWNUMBER
+                 FROM (SELECT MdAbsEntry, SUM(Quantity) AS Quantity FROM T_OBTQ GROUP BY MdAbsEntry) T
+                          INNER JOIN T_OBTN ON T.MdAbsEntry = T_OBTN.AbsEntry
+                          INNER JOIN T_OITM ON T_OBTN.ItemCode = T_OITM.ItemCode
+                          LEFT JOIN (
+                     SELECT TOP (1) *
+                     FROM kc_now
+                     WHERE Modify = 'Y'
+                       AND ConfirmDate IS NOT NULL
+                       AND ItemName = #{sc.modle}
+                     ORDER BY ConfirmDate DESC
+                 ) _first ON _first.ItemName = T_OBTN.ItemName
+                          LEFT JOIN (
+                     SELECT TOP (1) *
                      FROM (
-                              SELECT DISTINCT
-                                  ConfirmDate,
-                                  kc_price_final,
-                                  ItemName
-                              FROM kc_now
-                              WHERE Modify = 'Y'
-                                AND ConfirmDate IS NOT NULL
-                                AND ItemName =  #{sc.modle}
-                          ) T
-                 ) TT
-            WHERE TT.LineNum > 1
-        ) _Second ON _Second.ItemName = T_OBTN.ItemName
-                 LEFT JOIN (
-            SELECT TOP ( 1 ) *
-            FROM (
-                     SELECT
-                         ROW_NUMBER ( ) OVER ( ORDER BY T.ConfirmDate DESC ) AS 'LineNum',
-                         *
-                     FROM  (
-                               SELECT DISTINCT
-                                   ConfirmDate, kc_price_final, ItemName
-                               FROM kc_now
-                               WHERE Modify = 'Y'
-                                 AND ConfirmDate IS NOT NULL
-                                 AND ItemName =  #{sc.modle}
-                           ) T
-                 ) TT
-            WHERE TT.LineNum > 2
-        ) _Third ON _Third.ItemName = T_OBTN.ItemName
-        WHERE
-            T_OBTN.ItemName = #{sc.modle}
+                              SELECT
+                                  ROW_NUMBER() OVER ( ORDER BY T.ConfirmDate DESC ) AS 'LineNum',
+                                  *
+                              FROM (
+                                       SELECT DISTINCT
+                                           ConfirmDate,
+                                           kc_price_final,
+                                           ItemName
+                                       FROM kc_now
+                                       WHERE Modify = 'Y'
+                                         AND ConfirmDate IS NOT NULL
+                                         AND ItemName = #{sc.modle}) T) TT
+                     WHERE TT.LineNum > 1
+                 ) _Second ON _Second.ItemName = T_OBTN.ItemName
+                          LEFT JOIN (
+                     SELECT TOP (1) *
+                     FROM (
+                              SELECT
+                                  ROW_NUMBER() OVER ( ORDER BY T.ConfirmDate DESC ) AS 'LineNum',
+                                  *
+                              FROM (
+                                       SELECT DISTINCT
+                                           ConfirmDate,
+                                           kc_price_final,
+                                           ItemName
+                                       FROM kc_now
+                                       WHERE Modify = 'Y'
+                                         AND ConfirmDate IS NOT NULL
+                                         AND ItemName = #{sc.modle}
+                                   ) T
+                          ) TT
+                     WHERE TT.LineNum > 2
+                 ) _Third ON _Third.ItemName = T_OBTN.ItemName
+                 WHERE T_OBTN.ItemName = #{sc.modle}
+                   AND T.Quantity > 0
+        ) T
     </select>
     <select id="selectQuotationTabList" resultType="com.lianchuangjie.lianchuangjie.vo.Quotation.TabQuotationStockVO">
         SELECT
