@@ -86,8 +86,9 @@
                         WHERE Modify = 'Y'
                         AND ConfirmDate IS NOT NULL
                         AND ItemName = #{sc.modle}) T) TT
-                    WHERE TT.LineNum > 1) _Second ON _Second.ItemName = T_OBTN.ItemName
-                    LEFT JOIN (
+                    WHERE TT.LineNum > 1
+            ) _Second ON _Second.ItemName = T_OBTN.ItemName
+            LEFT JOIN (
                         SELECT TOP (1) *
                         FROM (
                             SELECT
@@ -105,8 +106,10 @@
                             ) T
                         ) TT
                         WHERE TT.LineNum > 2
-                    ) _Third ON _Third.ItemName = T_OBTN.ItemName
-              WHERE T_OBTN.ItemName = #{sc.modle}) T1
+            ) _Third ON _Third.ItemName = T_OBTN.ItemName
+            WHERE T_OBTN.ItemName = #{sc.modle}
+            AND T.Quantity > 0
+        ) T1
         WHERE T1.ROWNUMBER > (@CurrentPage - 1) * @PageSize
     </select>
     <select id="countStockPriceTabList" resultType="java.lang.Integer">

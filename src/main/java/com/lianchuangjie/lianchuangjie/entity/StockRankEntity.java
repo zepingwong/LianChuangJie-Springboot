@@ -135,6 +135,30 @@ public class StockRankEntity {
     @TableField(value = "TrgetCustomersRank")
     private BigDecimal trgetCustomersRank;
     /**
+     * @description 成单次数
+     */
+    // 距今1个月
+    @TableField(value = "TrgetQtyFirst")
+    private Integer trgetQtyFirst;
+    // 距今2个月
+    @TableField(value = "TrgetQtySecond")
+    private Integer trgetQtySecond;
+    // 距今3个月
+    @TableField(value = "TrgetQtyThird")
+    private Integer trgetQtyThird;
+    // 距今9-12个月
+    @TableField(value = "TrgetQtyFourth")
+    private Integer trgetQtyFourth;
+    // 近1年
+    @TableField(value = "TrgetQty")
+    private Integer trgetQty;
+    // 得分
+    @TableField(value = "TrgetQtyScore")
+    private BigDecimal trgetQtyScore;
+    // 排名
+    @TableField(value = "TrgetQtyRank")
+    private BigDecimal trgetQtyRank;
+    /**
      * @description 销售数量
      */
     // 距今1个月

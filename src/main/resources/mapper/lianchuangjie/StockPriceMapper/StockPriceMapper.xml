@@ -123,6 +123,7 @@
                 MAX ( ConfirmDate ) AS ConfirmDate
                 FROM kc_now
                 WHERE Modify = 'Y'
+                AND kc_price_final IS NOT NULL
                 GROUP BY ItemName, Brand, Batch
             ) LastDate
             LEFT JOIN kc_now
