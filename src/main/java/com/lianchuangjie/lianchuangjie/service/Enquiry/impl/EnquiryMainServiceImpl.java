@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
 import com.lianchuangjie.lianchuangjie.dto.Enquiry.EnquiryMainSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.Enquiry.EnquiryMainEntity;
-import com.lianchuangjie.lianchuangjie.exception.Business.ResponseEnum;
+import com.lianchuangjie.lianchuangjie.exception.Enquiry.EnquiryError;
 import com.lianchuangjie.lianchuangjie.mapper.Enquiry.EnquiryMainMapper;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquiryMainService;
 import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
@@ -28,20 +28,20 @@ public class EnquiryMainServiceImpl extends ServiceImpl<EnquiryMainMapper, Enqui
         QueryWrapper<EnquiryMainEntity> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("DocEntry", docEntry);
         // 判断询价单是否存在
-        ResponseEnum.ISNULL.assertIsFalse(
+        EnquiryError.ISNULL.assertIsFalse(
                 enquiryMainMapper.exists(queryWrapper),
                 "编号为" + docEntry + "的询价单不存在"
         );
         Long userSign = SessionUtil.getUser().getUserSign();
         EnquiryMainEntity enquiryMainEntity = enquiryMainMapper.selectByDocEntry(docEntry, userSign);
         // 判断权限
-        ResponseEnum.HAS_NO_AUTHENTICATION.assertNotNull(
+        EnquiryError.HAS_NO_AUTHENTICATION.assertNotNull(
                 enquiryMainEntity,
                 "您没有权限查看编号为" + docEntry + "的询价单"
         );
-        EnquiryMainInfoVO enquiryMain = new EnquiryMainInfoVO();
-        BeanUtils.copyProperties(enquiryMainEntity, enquiryMain);
-        return enquiryMain;
+        EnquiryMainInfoVO enquiryMainInfoVO = new EnquiryMainInfoVO();
+        BeanUtils.copyProperties(enquiryMainEntity, enquiryMainInfoVO);
+        return enquiryMainInfoVO;
     }
 
     @Override

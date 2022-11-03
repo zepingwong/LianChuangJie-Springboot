@@ -40,8 +40,8 @@ public class EnquiryMainItemVO {
     @JsonProperty("PurchaseReply")
     private Long purchaseReply;
     // 询价来源 _ICIN.SourceType
-    @JsonProperty("SourceType")
-    private String sourceType;
+    @JsonProperty("U_SourceType")
+    private String uSourceType;
     // 失效时间上限 InvalidDateMax
     @JsonProperty("InvalidDateMax")
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")

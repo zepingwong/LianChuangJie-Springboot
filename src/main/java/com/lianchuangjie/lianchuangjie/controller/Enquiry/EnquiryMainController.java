@@ -25,8 +25,8 @@ public class EnquiryMainController extends BaseController {
      * @param size             size 每页显示条数
      * @param invalidDateStart invalidDateStart 失效日期开始时间
      * @param invalidDateEnd   invalidDateEnd 失效日期结束时间
-     * @param createDateStart  createDateStart 发送日期开始时间
-     * @param createDateEnd    createDateEnd 发送日期结束时间
+     * @param inquiryDateStart  createDateStart 发送日期开始时间
+     * @param inquiryDateEnd    createDateEnd 发送日期结束时间
      * @param cardCode         cardCode 询价单位代码
      * @param state            state 处理情况
      * @return Result

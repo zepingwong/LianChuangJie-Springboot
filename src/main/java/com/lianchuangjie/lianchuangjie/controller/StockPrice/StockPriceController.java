@@ -72,23 +72,6 @@ public class StockPriceController extends BaseController {
         Page<StockPriceVO> pages = stockPriceService.list(stockPriceSearchDTO);
         return Result.success(pages, "Success");
     }
-
-    /**
-     * @return Result
-     * @description 库存定价专员可以查看所有的型号
-     * @author WANG Zeping
-     * @email zepingwong@gmail.com
-     * @date 9/4/2022
-     */
-    @GetMapping("/price/brand")
-    @Authentication(buyer = true)
-    public Result<List<BrandItemVO>> getBrandListController(
-            @RequestParam(defaultValue = "#{null}", value = "Brand") String brand
-    ) {
-        List<BrandItemVO> list = brandService.all(brand);
-        return Result.success(list, "Success");
-    }
-
     /**
      * @param stockPriceOKDTO stockPriceOKDTO
      * @return Result

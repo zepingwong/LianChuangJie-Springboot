@@ -12,23 +12,35 @@
                        T_OVTG.Rate          AS 'U_VatRate',
                        MAX(U_ICIN1.ExpDate) AS 'InvalidDateMax',
                        Min(U_ICIN1.ExpDate) AS 'InvalidDateMin'
-        FROM T_ICIN T0
+        FROM (
+            SELECT
+                DocEntry,
+                UserSign,
+                OwnerCode,
+                U_UserName, /*销售员姓名*/
+                DeptCode,
+                U_DocCur, /*交易货币*/
+                U_TransaPlace, /*交易地点*/
+                U_DeptName, /*销售部门名称*/
+                CardName, /*客户名称*/
+                CardCode, /*客户编号*/
+                U_CusGroupCode, /*客户性质*/
+                U_CusLevel, /*客户等级名称*/
+                U_DomainName, /*客户行业领域名称*/
+                U_VatGroup
+            FROM T_ICIN WHERE DocEntry = #{DocEntry}
+        ) T0
         LEFT JOIN T_OVTG ON T_OVTG.Code = T0.U_VatGroup
         LEFT JOIN (SELECT DeptCode FROM T_OUDL WHERE UserSign = #{UserSign}) T2 ON T0.DeptCode = T2.DeptCode
         LEFT JOIN U_ICIN1 ON U_ICIN1.DocEntry = T0.DocEntry
-        WHERE T0.DocEntry = #{DocEntry}
         AND (
             @DataPur = 'ALL' /*可看所有*/
-            OR T0.OwnerCode = #{UserSign}
-            OR T0.UserSign = #{UserSign} /*仅看自己，销售员或者制单人 等于 当前登录用户*/
+            OR T0.OwnerCode = #{UserSign} OR T0.UserSign = #{UserSign} /*仅看自己，销售员或者制单人 等于 当前登录用户*/
             OR (@DataPur = 'Dept' AND ISNULL(T2.DeptCode, '') != '') /*可看本部门，当前登录用户所属部门 包括 当前订单的所属部门*/
         )
-        GROUP BY T_OVTG.Name, T_OVTG.Rate, T0.DocEntry, UserSign, OwnerCode, DocStatus, CreateDate, UpdateTime,
-                 T0.ExpDate, InquiryDate, T0.DeptCode, TransType, Branchs, Attachment, CardCode, CardName, Remark,
-                 U_Buyer, U_ComCode, U_Delivery, U_DocCur, U_DocType, U_ItemCode, U_OrderType, U_PrjCode, U_SlpCode,
-                 U_UrgentType, U_VatGroup, U_Industries, PrjCode, U_UserName, U_DeptName, U_CusLevel, U_CusGroupCode,
-                 U_CusIndustries, U_SaleLevel, U_UserCode1, U_UserCode2, U_Region, U_DomainName, U_CntctCode, U_ToClient,
-                 U_CardStatus, U_ShortCode, U_State, U_New, U_SourceType, U_TransaPlace, U_FromCompany, U_RecipientName, U_RecipientTel, U_SenderTel, U_SenderName, U_FreightPayment, U_PaymentMethod
+        GROUP BY T0.DocEntry, T0.UserSign, T0.OwnerCode, T0.U_UserName, T0.DeptCode, T0.U_TransaPlace,T0.U_DeptName,
+                 T0.CardName, T0.CardCode, T0.U_CusGroupCode, T0.U_CusLevel, T0.U_DomainName,T0. U_VatGroup, T0.U_DocCur,
+                 T_OVTG.Name, T_OVTG.Rate
     </select>
     <select id="selectMaxDocEntry" resultType="java.lang.Long">
         SELECT MAX(DocEntry)
