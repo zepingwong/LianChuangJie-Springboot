@@ -62,4 +62,7 @@ public class EnquiryMainInfoVO {
     // @description 税率税点 T_OVTG.Rate
     @JsonProperty("U_VatRate")
     private BigDecimal uVatRate;
+    // U_SourceType 询价来源
+    @JsonProperty("U_SourceType")
+    private String uSourceType;
 }

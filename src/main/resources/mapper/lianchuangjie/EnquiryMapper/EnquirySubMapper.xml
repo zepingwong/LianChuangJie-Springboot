@@ -77,9 +77,9 @@
                 U_ICIN1.QuoBrand, /*报价品牌*/
                 U_ICIN1.SuoQuantity /*报价数量*/
             FROM U_ICIN1
-            LEFT JOIN T_ICIN ON U_ICIN1.DocEntry = T_ICIN.DocEntry
-            WHERE U_ICIN1.DocEntry = #{sc.docEntry} AND T_ICIN.OwnerCode = #{sc.ownerCode}
+            WHERE U_ICIN1.DocEntry = #{sc.docEntry}
         ) Enquiry
+        LEFT JOIN T_ICIN ON Enquiry.DocEntry = T_ICIN.DocEntry
         LEFT JOIN (
             SELECT
                 T.*,
