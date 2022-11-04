@@ -1,9 +1,11 @@
-package com.lianchuangjie.lianchuangjie.controller;
+package com.lianchuangjie.lianchuangjie.controller.Clientele;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lianchuangjie.lianchuangjie.config.Authentication;
+import com.lianchuangjie.lianchuangjie.dto.Clientele.ClienteleSearchDTO;
 import com.lianchuangjie.lianchuangjie.service.Clientele.*;
 import com.lianchuangjie.lianchuangjie.utils.Result;
+import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
 import com.lianchuangjie.lianchuangjie.vo.*;
 import com.lianchuangjie.lianchuangjie.vo.Clientele.ClienteleGroupVO;
 import com.lianchuangjie.lianchuangjie.vo.Clientele.ClienteleIndustryVO;
@@ -19,10 +21,6 @@ import java.util.Objects;
 @RequestMapping("/clientele")
 public class ClienteleController {
     @Resource
-    ClientService clientService;
-    @Resource
-    SupplierService supplierService;
-    @Resource
     ClientLevelService clientLevelService;
     @Resource
     SupplierLevelService supplierLevelService;
@@ -32,74 +30,6 @@ public class ClienteleController {
     RegionService regionService;
     @Resource
     IndustryService industryService;
-
-    /**
-     * @param CardName CardName
-     * @return Result
-     * @description 获取客户列表
-     * @author WANG Zeping
-     * @email zepingwong@gmail.com
-     * @date 08/11/2022
-     */
-    @GetMapping("/client")
-    @Authentication(sale = true)
-    public Result<List<ClienteleVO>> getClientListController(
-            @RequestParam(defaultValue = "#{null}", value = "CardName") String CardName
-    ) {
-        List<ClienteleVO> list = clientService.list(CardName);
-        return Result.success(list, "success");
-    }
-
-    /**
-     * @param CardCode CardCode
-     * @return Result
-     * @description 获取单个客户信息
-     * @author WANG Zeping
-     * @email zepingwong@gmail.com
-     * @date 08/11/2022
-     */
-    @GetMapping("/client/{CardCode}")
-    @Authentication(sale = true)
-    public Result<ClienteleVO> getClientInfoController(
-            @PathVariable String CardCode
-    ) {
-        ClienteleVO clienteleClientInfoVO = clientService.getOne(CardCode);
-        return Result.success(clienteleClientInfoVO, "success");
-    }
-
-    /**
-     * @param CardName CardName
-     * @return Result
-     * @description 获取供应商列表
-     * @author WANG Zeping
-     * @email zepingwong@gmail.com
-     * @date 08/11/2022
-     */
-    @GetMapping("/supplier")
-    @Authentication(buyer = true)
-    public Result<List<ClienteleVO>> getSupplierListController(
-            @RequestParam(defaultValue = "#{null}", value = "CardName") String CardName
-    ) {
-        List<ClienteleVO> list = supplierService.list(CardName);
-        return Result.success(list, "success");
-    }
-
-    /**
-     * @param CardCode CardCode
-     * @return Result
-     * @description 获取单个供应商信息
-     * @author WANG Zeping
-     * @email zepingwong@gmail.com
-     * @date 08/11/2022
-     */
-    @GetMapping("/supplier/{CardCode}")
-    @Authentication(buyer = true)
-    public Result<ClienteleVO> getSupplierInfoController(
-            @PathVariable String CardCode
-    ) {
-        ClienteleVO clienteleClientInfo = supplierService.getOne(CardCode);
-        return Result.success(clienteleClientInfo, "success");
-    }
 
     /**
      * @param Type Type

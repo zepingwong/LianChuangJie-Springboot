@@ -7,8 +7,8 @@
         DECLARE @BaseFormID BIGINT;
         DECLARE @DftDept NVARCHAR(20);
         SELECT TOP 1 @BaseFormID = TransType FROM T_OCRD WHERE CardType = 'S';
-        SELECT @DataPur = [dbo].[UF_DataPurview](${UserSign}, @BaseFormID);/*判断权限*/
-        SELECT @DftDept = DftDept FROM T_OUSI WHERE UserSign = ${UserSign}; /*获取当前用户默认部门*/
+        SELECT @DataPur = [dbo].[UF_DataPurview](#{sc.userSign}, @BaseFormID);/*判断权限*/
+        SELECT @DftDept = DftDept FROM T_OUSI WHERE UserSign = #{sc.userSign}; /*获取当前用户默认部门*/
         SELECT
             T0.CardCode,
             T0.CardName
@@ -16,33 +16,36 @@
         LEFT JOIN (
             SELECT DeptCode
             FROM T_OUDL
-            WHERE UserSign = ${UserSign}
+            WHERE UserSign = #{sc.userSign}
         ) T1 ON T0.DeptCode = T1.DeptCode
         LEFT JOIN (
             SELECT COL AS DeptCode
-            FROM UF_SPLIT((SELECT ReadCus FROM U_PUR1 WHERE OwnerCode = ${UserSign}), ',')
+            FROM UF_SPLIT((SELECT ReadCus FROM U_PUR1 WHERE OwnerCode = #{sc.userSign}), ',')
         ) T2 ON T0.DeptCode = T2.DeptCode
         LEFT JOIN (
             SELECT COL AS DeptCode
-            FROM UF_SPLIT((SELECT ReadCus1 FROM U_PUR1 WHERE OwnerCode = ${UserSign}), ',')
+            FROM UF_SPLIT((SELECT ReadCus1 FROM U_PUR1 WHERE OwnerCode = #{sc.userSign}), ',')
         ) T3 ON T0.DeptCode = T3.DeptCode
         LEFT JOIN (
             SELECT Col AS GroupCode1
-            FROM UF_SPLIT((SELECT ReadGroupCode FROM U_PUR1 WHERE OwnerCode = ${UserSign}), ',')
+            FROM UF_SPLIT((SELECT ReadGroupCode FROM U_PUR1 WHERE OwnerCode = #{sc.userSign}), ',')
         ) T4 ON T0.GroupCode = T4.GroupCode1
         <where>
-            <if test="CardName != null">
-                AND T0.CardName LIKE CONCAT('%', #{CardName}, '%')
+            <if test="sc.cardName != null">
+                AND T0.CardName LIKE CONCAT('%', #{sc.cardName}, '%')
+            </if>
+            <if test="sc.cardCode != null">
+                AND T0.CardCode = #{sc.cardCode}
             </if>
             AND T0.CardType = 'S'
             AND T0.U_DocStatus != 'C' /*非锁定状态*/
             AND ISNULL(T0.U_BlackList, 'N') = 'N' /*非黑名单*/
             AND (
-            @DataPur = 'ALL' /*看所有*/
-            OR T0.OwnerCode = ${UserSign} /*采购员本人*/
-            OR ISNULL(T2.DeptCode, '') != '' /*可看其他部门的所有供应商 如：海外一组的成员，可以看整个海外组+现货组的所有供应商*/
-            OR (ISNULL(T3.DeptCode, '') != '' AND ISNULL(T4.GroupCode1, 0) > 0) /*可看其他部门的部分供应商，如海外一组的成员，仅可以看如大中华组的贸易商、库存分销商*/
-            OR (@DataPur = 'Dept' AND ISNULL(T1.DeptCode, '') != '') /*可看本部分*/
+                @DataPur = 'ALL' /*看所有*/
+                OR T0.OwnerCode = #{sc.userSign} /*采购员本人*/
+                OR ISNULL(T2.DeptCode, '') != '' /*可看其他部门的所有供应商 如：海外一组的成员，可以看整个海外组+现货组的所有供应商*/
+                OR (ISNULL(T3.DeptCode, '') != '' AND ISNULL(T4.GroupCode1, 0) > 0) /*可看其他部门的部分供应商，如海外一组的成员，仅可以看如大中华组的贸易商、库存分销商*/
+                OR (@DataPur = 'Dept' AND ISNULL(T1.DeptCode, '') != '') /*可看本部分*/
             )
         </where>
     </select>

@@ -1,6 +1,7 @@
 package com.lianchuangjie.lianchuangjie.service.Clientele.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.lianchuangjie.lianchuangjie.dto.Clientele.ClienteleSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.Clientele.ClienteleEntity;
 import com.lianchuangjie.lianchuangjie.mapper.ClienteleClientMapper;
 import com.lianchuangjie.lianchuangjie.service.Clientele.ClientService;
@@ -15,8 +16,8 @@ public class ClientServiceImpl extends ServiceImpl<ClienteleClientMapper, Client
     @Resource
     ClienteleClientMapper clienteleClientMapper;
     @Override
-    public List<ClienteleVO> list(String CardName) {
-        return clienteleClientMapper.selectList(CardName, SessionUtil.getUser().getUserSign());
+    public List<ClienteleVO> list(ClienteleSearchDTO clienteleSearchDTO) {
+        return clienteleClientMapper.selectList(clienteleSearchDTO);
     }
 
     @Override
