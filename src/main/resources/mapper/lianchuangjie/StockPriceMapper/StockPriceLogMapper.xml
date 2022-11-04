@@ -3,5 +3,20 @@
 <mapper namespace="com.lianchuangjie.lianchuangjie.mapper.StockPrice.StockPriceLogMapper">
     <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.StockPrice.StockPriceLogVO">
         SELECT * FROM U_SPAL
+        <where>
+            1 = 1
+            <if test="sc.timeStart != null">
+                AND StartTime >= #{sc.timeStart}
+            </if>
+            <if test="sc.timeEnd != null">
+                AND StartTime &lt; #{sc.timeEnd}
+            </if>
+            <if test="sc.triggerType != null">
+                AND TriggerType = #{sc.triggerType}
+            </if>
+            <if test="sc.triggerName != null">
+                AND TriggerName = #{sc.triggerName}
+            </if>
+        </where>
     </select>
 </mapper>
