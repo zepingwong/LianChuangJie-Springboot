@@ -57,3 +57,410 @@ This generated password is for development use only. Your security configuration
 2022-11-02 11:05:30.910 INFO  47869 --- [http-nio-8080-exec-2] com.zaxxer.hikari.pool.PoolBase.getAndSetNetworkTimeout(PoolBase.java:541) ::: HikariPool-1 - Driver does not support get/set network timeout for connections. (null)
 2022-11-02 11:05:30.965 INFO  47869 --- [http-nio-8080-exec-2] com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:123) ::: HikariPool-1 - Start completed.
 2022-11-02 11:05:35.792 ERROR 47869 --- [http-nio-8080-exec-5] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.handleException(GlobalExceptionHandler.java:160) ::: request error!! method:GET uri:/tab/stockprice/origin
+2022-11-05 07:54:05.793 INFO  10038 --- [background-preinit] org.hibernate.validator.internal.util.Version.<clinit>(Version.java:21) ::: HV000001: Hibernate Validator 6.2.3.Final
+2022-11-05 07:54:07.807 INFO  10038 --- [main] org.springframework.boot.StartupInfoLogger.logStarting(StartupInfoLogger.java:55) ::: Starting LianChuangjieApplication using Java 19.0.1 on ITX with PID 10038 (/home/wang/Project/LianChuangJie/springboot/target/classes started by wang in /home/wang/Project/LianChuangJie/springboot)
+2022-11-05 07:54:07.944 INFO  10038 --- [main] org.springframework.boot.SpringApplication.logStartupProfileInfo(SpringApplication.java:640) ::: The following 1 profile is active: "dev"
+2022-11-05 07:54:34.262 INFO  10038 --- [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate.multipleStoresDetected(RepositoryConfigurationDelegate.java:262) ::: Multiple Spring Data modules found, entering strict repository configuration mode
+2022-11-05 07:54:34.271 INFO  10038 --- [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:132) ::: Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2022-11-05 07:54:34.719 INFO  10038 --- [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:201) ::: Finished Spring Data repository scanning in 58 ms. Found 0 Redis repository interfaces.
+2022-11-05 07:54:41.408 INFO  10038 --- [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:108) ::: Tomcat initialized with port(s): 8080 (http)
+2022-11-05 07:54:41.417 INFO  10038 --- [main] org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) ::: Initializing ProtocolHandler ["http-nio-8080"]
+2022-11-05 07:54:41.418 INFO  10038 --- [main] org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) ::: Starting service [Tomcat]
+2022-11-05 07:54:41.418 INFO  10038 --- [main] org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) ::: Starting Servlet engine: [Apache Tomcat/9.0.65]
+2022-11-05 07:54:42.695 INFO  10038 --- [main] org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) ::: Initializing Spring embedded WebApplicationContext
+2022-11-05 07:54:42.695 INFO  10038 --- [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.prepareWebApplicationContext(ServletWebServerApplicationContext.java:292) ::: Root WebApplicationContext: initialization completed in 34264 ms
+2022-11-05 07:54:46.957 WARN  10038 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.BomSubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 07:54:47.012 WARN  10038 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.BrandEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 07:54:47.062 WARN  10038 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Clientele.ClienteleClientLevelEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 07:54:47.075 WARN  10038 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Clientele.ClienteleEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 07:54:47.100 WARN  10038 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Clientele.ClienteleGroupEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 07:54:47.175 WARN  10038 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Clientele.ClienteleSupplierLevelEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 07:54:47.185 WARN  10038 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Clientele.ClienteleEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 07:54:47.215 WARN  10038 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.CompanyDepartmentEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 07:54:47.303 WARN  10038 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.CompanyLetterheadEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 07:54:47.357 WARN  10038 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.CurVat.CurrencyEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 07:54:47.447 WARN  10038 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Enquiry.EnquiryBuyerEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 07:54:47.596 WARN  10038 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Enquiry.EnquirySubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 07:54:47.637 WARN  10038 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.ExchangeRateEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 07:54:47.733 WARN  10038 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.PurchaseOrderMainEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 07:54:47.758 WARN  10038 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.PurchaseOrderSubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 07:54:47.817 WARN  10038 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.QuotationEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 07:54:47.842 WARN  10038 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.SalesOrderMainEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 07:54:47.859 WARN  10038 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.SalesOrderSubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 07:54:47.955 WARN  10038 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.StockBatchEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 07:54:47.974 WARN  10038 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.StockListMainEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 07:54:47.992 WARN  10038 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.StockListSubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 07:54:48.036 WARN  10038 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.StockPrice.StockPriceEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 07:54:48.070 WARN  10038 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.StockQuantityEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 07:54:48.187 WARN  10038 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Enquiry.EnquirySubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 07:54:48.203 WARN  10038 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Enquiry.EnquirySubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 07:54:48.231 WARN  10038 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.PurchaseOrderSubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 07:54:48.249 WARN  10038 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.QuotationEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 07:54:48.297 WARN  10038 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.SalesOrderSubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 07:54:48.333 WARN  10038 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.StockQuantityEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 07:54:52.455 WARN  10038 --- [main] org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration.getOrDeducePassword(UserDetailsServiceAutoConfiguration.java:88) ::: 
+
+Using generated security password: 3641e181-a256-4de5-b0e2-34c2d0c7d08f
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2022-11-05 07:54:53.042 INFO  10038 --- [main] org.springframework.security.web.DefaultSecurityFilterChain.<init>(DefaultSecurityFilterChain.java:55) ::: Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@52eca410, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@63d0e8d, org.springframework.security.web.context.SecurityContextPersistenceFilter@8b1202a, org.springframework.security.web.header.HeaderWriterFilter@33eab2e8, org.springframework.security.web.authentication.logout.LogoutFilter@f2becb2, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@57839834, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3355b8ff, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@69a76b74, org.springframework.security.web.session.SessionManagementFilter@160546b1, org.springframework.security.web.access.ExceptionTranslationFilter@7eefaca0, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@450d10cb]
+2022-11-05 07:54:54.843 INFO  10038 --- [main] org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) ::: Starting ProtocolHandler ["http-nio-8080"]
+2022-11-05 07:54:55.034 INFO  10038 --- [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:220) ::: Tomcat started on port(s): 8080 (http) with context path ''
+2022-11-05 07:54:55.090 INFO  10038 --- [main] org.springframework.boot.StartupInfoLogger.logStarted(StartupInfoLogger.java:61) ::: Started LianChuangjieApplication in 59.69 seconds (JVM running for 74.705)
+2022-11-05 07:56:19.444 INFO  10038 --- [http-nio-8080-exec-1] org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) ::: Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-11-05 07:56:19.445 INFO  10038 --- [http-nio-8080-exec-1] org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:525) ::: Initializing Servlet 'dispatcherServlet'
+2022-11-05 07:56:19.446 INFO  10038 --- [http-nio-8080-exec-1] org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:547) ::: Completed initialization in 1 ms
+2022-11-05 07:56:19.461 ERROR 10038 --- [http-nio-8080-exec-1] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/home/todo
+2022-11-05 08:02:40.210 ERROR 10038 --- [http-nio-8080-exec-2] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/home/todo
+2022-11-05 09:48:27.210 INFO  10038 --- [http-nio-8080-exec-3] com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:110) ::: HikariPool-1 - Starting...
+2022-11-05 09:48:27.451 INFO  10038 --- [http-nio-8080-exec-3] com.zaxxer.hikari.pool.PoolBase.getAndSetNetworkTimeout(PoolBase.java:541) ::: HikariPool-1 - Driver does not support get/set network timeout for connections. (null)
+2022-11-05 09:48:27.501 INFO  10038 --- [http-nio-8080-exec-3] com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:123) ::: HikariPool-1 - Start completed.
+2022-11-05 09:51:22.512 ERROR 10038 --- [http-nio-8080-exec-5] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/enquiry/main
+2022-11-05 09:51:32.950 ERROR 10038 --- [http-nio-8080-exec-8] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.handleServletException(GlobalExceptionHandler.java:115) ::: Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; nested exception is java.lang.NumberFormatException: For input string: "NaN"
+org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; nested exception is java.lang.NumberFormatException: For input string: "NaN"
+	at org.springframework.web.method.annotation.AbstractNamedValueMethodArgumentResolver.resolveArgument(AbstractNamedValueMethodArgumentResolver.java:133) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:122) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.springframework.web.method.support.InvocableHandlerMethod.getMethodArgumentValues(InvocableHandlerMethod.java:179) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:146) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1070) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:963) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:655) ~[tomcat-embed-core-9.0.65.jar:4.0.FR]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764) ~[tomcat-embed-core-9.0.65.jar:4.0.FR]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-embed-websocket-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:327) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:115) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:81) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:122) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:116) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:126) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:81) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:109) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:149) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:103) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:89) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:112) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:82) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:55) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:211) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:183) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:354) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:267) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:890) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1789) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at java.lang.Thread.run(Thread.java:1589) ~[?:?]
+Caused by: java.lang.NumberFormatException: For input string: "NaN"
+	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:67) ~[?:?]
+	at java.lang.Long.parseLong(Long.java:708) ~[?:?]
+	at java.lang.Long.valueOf(Long.java:1156) ~[?:?]
+	at org.springframework.util.NumberUtils.parseNumber(NumberUtils.java:214) ~[spring-core-5.3.22.jar:5.3.22]
+	at org.springframework.beans.propertyeditors.CustomNumberEditor.setAsText(CustomNumberEditor.java:115) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.TypeConverterDelegate.doConvertTextValue(TypeConverterDelegate.java:429) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.TypeConverterDelegate.doConvertValue(TypeConverterDelegate.java:402) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.TypeConverterDelegate.convertIfNecessary(TypeConverterDelegate.java:155) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.TypeConverterSupport.convertIfNecessary(TypeConverterSupport.java:73) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.TypeConverterSupport.convertIfNecessary(TypeConverterSupport.java:53) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.validation.DataBinder.convertIfNecessary(DataBinder.java:729) ~[spring-context-5.3.22.jar:5.3.22]
+	at org.springframework.web.method.annotation.AbstractNamedValueMethodArgumentResolver.resolveArgument(AbstractNamedValueMethodArgumentResolver.java:125) ~[spring-web-5.3.22.jar:5.3.22]
+	... 77 more
+2022-11-05 09:51:32.964 ERROR 10038 --- [http-nio-8080-exec-9] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.handleServletException(GlobalExceptionHandler.java:115) ::: Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; nested exception is java.lang.NumberFormatException: For input string: "NaN"
+org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; nested exception is java.lang.NumberFormatException: For input string: "NaN"
+	at org.springframework.web.method.annotation.AbstractNamedValueMethodArgumentResolver.resolveArgument(AbstractNamedValueMethodArgumentResolver.java:133) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:122) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.springframework.web.method.support.InvocableHandlerMethod.getMethodArgumentValues(InvocableHandlerMethod.java:179) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:146) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1070) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:963) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:655) ~[tomcat-embed-core-9.0.65.jar:4.0.FR]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764) ~[tomcat-embed-core-9.0.65.jar:4.0.FR]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-embed-websocket-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:327) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:115) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:81) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:122) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:116) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:126) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:81) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:109) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:149) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:103) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:89) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:112) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:82) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:55) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:211) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:183) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:354) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:267) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:890) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1789) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at java.lang.Thread.run(Thread.java:1589) ~[?:?]
+Caused by: java.lang.NumberFormatException: For input string: "NaN"
+	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:67) ~[?:?]
+	at java.lang.Long.parseLong(Long.java:708) ~[?:?]
+	at java.lang.Long.valueOf(Long.java:1156) ~[?:?]
+	at org.springframework.util.NumberUtils.parseNumber(NumberUtils.java:214) ~[spring-core-5.3.22.jar:5.3.22]
+	at org.springframework.beans.propertyeditors.CustomNumberEditor.setAsText(CustomNumberEditor.java:115) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.TypeConverterDelegate.doConvertTextValue(TypeConverterDelegate.java:429) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.TypeConverterDelegate.doConvertValue(TypeConverterDelegate.java:402) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.TypeConverterDelegate.convertIfNecessary(TypeConverterDelegate.java:155) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.TypeConverterSupport.convertIfNecessary(TypeConverterSupport.java:73) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.beans.TypeConverterSupport.convertIfNecessary(TypeConverterSupport.java:53) ~[spring-beans-5.3.23.jar:5.3.23]
+	at org.springframework.validation.DataBinder.convertIfNecessary(DataBinder.java:729) ~[spring-context-5.3.22.jar:5.3.22]
+	at org.springframework.web.method.annotation.AbstractNamedValueMethodArgumentResolver.resolveArgument(AbstractNamedValueMethodArgumentResolver.java:125) ~[spring-web-5.3.22.jar:5.3.22]
+	... 77 more
+2022-11-05 09:53:29.463 ERROR 10038 --- [http-nio-8080-exec-6] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/enquiry/main/209403
+2022-11-05 09:55:02.953 ERROR 10038 --- [http-nio-8080-exec-3] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/clientele/industry
+2022-11-05 09:55:16.892 ERROR 10038 --- [http-nio-8080-exec-6] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/tab/enquiry/sales
+2022-11-05 09:55:55.186 ERROR 10038 --- [http-nio-8080-exec-7] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/enquiry/sub
+2022-11-05 09:57:30.632 ERROR 10038 --- [http-nio-8080-exec-4] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/clientele/level
+2022-11-05 09:57:33.707 ERROR 10038 --- [http-nio-8080-exec-10] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/tab/enquiry/available
+2022-11-05 09:59:16.586 ERROR 10038 --- [http-nio-8080-exec-9] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/error
+2022-11-05 10:00:55.845 ERROR 10038 --- [http-nio-8080-exec-8] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/tab/enquiry/quote
+2022-11-05 10:03:06.168 ERROR 10038 --- [http-nio-8080-exec-2] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/clientele/group
+2022-11-05 10:03:17.365 ERROR 10038 --- [http-nio-8080-exec-3] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/tab/enquiry/purchase
+2022-11-05 10:03:28.056 ERROR 10038 --- [http-nio-8080-exec-10] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/tab/enquiry/stock
+2022-11-05 10:03:30.294 ERROR 10038 --- [http-nio-8080-exec-9] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/tab/enquiry/purchase
+2022-11-05 10:06:08.274 ERROR 10038 --- [http-nio-8080-exec-8] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/enquiry/main/NaN
+2022-11-05 10:07:21.646 ERROR 10038 --- [http-nio-8080-exec-2] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/enquiry/main/NaN
+2022-11-05 10:08:56.439 ERROR 10038 --- [http-nio-8080-exec-3] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/clientele/parentregion
+2022-11-05 10:09:18.370 ERROR 10038 --- [http-nio-8080-exec-5] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/enquiry/sub
+2022-11-05 10:18:41.530 ERROR 10038 --- [http-nio-8080-exec-3] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/clientele/client
+2022-11-05 10:20:11.130 ERROR 10038 --- [http-nio-8080-exec-5] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/tab/enquiry/needs
+2022-11-05 10:22:07.520 ERROR 10038 --- [http-nio-8080-exec-1] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/modle/suggestion
+2022-11-05 10:22:41.510 ERROR 10038 --- [http-nio-8080-exec-10] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/modle/suggestion
+2022-11-05 10:26:40.627 ERROR 10038 --- [http-nio-8080-exec-9] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.handleServletException(GlobalExceptionHandler.java:115) ::: Request method 'GET' not supported
+org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' not supported
+	at org.springframework.web.servlet.mvc.method.RequestMappingInfoHandlerMapping.handleNoMatch(RequestMappingInfoHandlerMapping.java:253) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.lookupHandlerMethod(AbstractHandlerMethodMapping.java:442) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.getHandlerInternal(AbstractHandlerMethodMapping.java:383) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.mvc.method.RequestMappingInfoHandlerMapping.getHandlerInternal(RequestMappingInfoHandlerMapping.java:125) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.mvc.method.RequestMappingInfoHandlerMapping.getHandlerInternal(RequestMappingInfoHandlerMapping.java:67) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.handler.AbstractHandlerMapping.getHandler(AbstractHandlerMapping.java:498) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.DispatcherServlet.getHandler(DispatcherServlet.java:1264) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1046) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:963) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:655) ~[tomcat-embed-core-9.0.65.jar:4.0.FR]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883) ~[spring-webmvc-5.3.22.jar:5.3.22]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:764) ~[tomcat-embed-core-9.0.65.jar:4.0.FR]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-embed-websocket-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:327) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:115) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:81) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:122) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:116) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:126) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:81) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:109) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:149) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:103) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:89) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:112) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:82) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:55) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:211) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:183) ~[spring-security-web-5.7.2.jar:5.7.2]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:354) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:267) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.22.jar:5.3.22]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:197) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:135) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:360) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:890) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1789) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
+	at java.lang.Thread.run(Thread.java:1589) ~[?:?]
+2022-11-05 11:02:10.556 INFO  75898 --- [background-preinit] org.hibernate.validator.internal.util.Version.<clinit>(Version.java:21) ::: HV000001: Hibernate Validator 6.2.3.Final
+2022-11-05 11:02:10.571 INFO  75898 --- [main] org.springframework.boot.StartupInfoLogger.logStarting(StartupInfoLogger.java:55) ::: Starting LianChuangjieApplication using Java 19.0.1 on ITX with PID 75898 (/home/wang/Project/LianChuangJie/springboot/target/classes started by wang in /home/wang/Project/LianChuangJie/springboot)
+2022-11-05 11:02:10.573 INFO  75898 --- [main] org.springframework.boot.SpringApplication.logStartupProfileInfo(SpringApplication.java:640) ::: The following 1 profile is active: "dev"
+2022-11-05 11:02:10.885 INFO  75898 --- [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate.multipleStoresDetected(RepositoryConfigurationDelegate.java:262) ::: Multiple Spring Data modules found, entering strict repository configuration mode
+2022-11-05 11:02:10.887 INFO  75898 --- [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:132) ::: Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2022-11-05 11:02:10.902 INFO  75898 --- [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(RepositoryConfigurationDelegate.java:201) ::: Finished Spring Data repository scanning in 9 ms. Found 0 Redis repository interfaces.
+2022-11-05 11:02:11.245 INFO  75898 --- [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:108) ::: Tomcat initialized with port(s): 8080 (http)
+2022-11-05 11:02:11.250 INFO  75898 --- [main] org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) ::: Initializing ProtocolHandler ["http-nio-8080"]
+2022-11-05 11:02:11.250 INFO  75898 --- [main] org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) ::: Starting service [Tomcat]
+2022-11-05 11:02:11.250 INFO  75898 --- [main] org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) ::: Starting Servlet engine: [Apache Tomcat/9.0.65]
+2022-11-05 11:02:11.286 INFO  75898 --- [main] org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) ::: Initializing Spring embedded WebApplicationContext
+2022-11-05 11:02:11.287 INFO  75898 --- [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.prepareWebApplicationContext(ServletWebServerApplicationContext.java:292) ::: Root WebApplicationContext: initialization completed in 696 ms
+2022-11-05 11:02:11.434 WARN  75898 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.BomSubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 11:02:11.446 WARN  75898 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.BrandEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 11:02:11.456 WARN  75898 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Clientele.ClienteleClientLevelEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 11:02:11.465 WARN  75898 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Clientele.ClienteleEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 11:02:11.473 WARN  75898 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Clientele.ClienteleGroupEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 11:02:11.497 WARN  75898 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Clientele.ClienteleSupplierLevelEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 11:02:11.504 WARN  75898 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Clientele.ClienteleEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 11:02:11.511 WARN  75898 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.CompanyDepartmentEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 11:02:11.517 WARN  75898 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.CompanyLetterheadEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 11:02:11.531 WARN  75898 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.CurVat.CurrencyEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 11:02:11.550 WARN  75898 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Enquiry.EnquiryBuyerEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 11:02:11.574 WARN  75898 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Enquiry.EnquirySubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 11:02:11.581 WARN  75898 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.ExchangeRateEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 11:02:11.590 WARN  75898 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.PurchaseOrderMainEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 11:02:11.596 WARN  75898 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.PurchaseOrderSubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 11:02:11.608 WARN  75898 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.QuotationEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 11:02:11.616 WARN  75898 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.SalesOrderMainEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 11:02:11.623 WARN  75898 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.SalesOrderSubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 11:02:11.640 WARN  75898 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.StockBatchEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 11:02:11.646 WARN  75898 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.StockListMainEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 11:02:11.652 WARN  75898 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.StockListSubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 11:02:11.669 WARN  75898 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.StockPrice.StockPriceEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 11:02:11.677 WARN  75898 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.StockQuantityEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 11:02:11.695 WARN  75898 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Enquiry.EnquirySubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 11:02:11.703 WARN  75898 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.Enquiry.EnquirySubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 11:02:11.712 WARN  75898 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.PurchaseOrderSubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 11:02:11.720 WARN  75898 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.QuotationEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 11:02:11.730 WARN  75898 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.SalesOrderSubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 11:02:11.747 WARN  75898 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.StockQuantityEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2022-11-05 11:02:12.297 WARN  75898 --- [main] org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration.getOrDeducePassword(UserDetailsServiceAutoConfiguration.java:88) ::: 
+
+Using generated security password: 98399bb5-b91e-4987-854f-e94cd1d8cf42
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2022-11-05 11:02:12.344 INFO  75898 --- [main] org.springframework.security.web.DefaultSecurityFilterChain.<init>(DefaultSecurityFilterChain.java:55) ::: Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@1dd443c1, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2aafa84f, org.springframework.security.web.context.SecurityContextPersistenceFilter@3355b8ff, org.springframework.security.web.header.HeaderWriterFilter@3dec79f8, org.springframework.security.web.authentication.logout.LogoutFilter@6b3b4f37, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@68f9e807, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@23708f14, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@448892f1, org.springframework.security.web.session.SessionManagementFilter@8b1202a, org.springframework.security.web.access.ExceptionTranslationFilter@34bf66af, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@48f4f03e]
+2022-11-05 11:02:12.580 INFO  75898 --- [main] org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) ::: Starting ProtocolHandler ["http-nio-8080"]
+2022-11-05 11:02:12.587 INFO  75898 --- [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:220) ::: Tomcat started on port(s): 8080 (http) with context path ''
+2022-11-05 11:02:12.593 INFO  75898 --- [main] org.springframework.boot.StartupInfoLogger.logStarted(StartupInfoLogger.java:61) ::: Started LianChuangjieApplication in 2.226 seconds (JVM running for 2.554)
+2022-11-05 11:04:41.089 INFO  75898 --- [http-nio-8080-exec-1] org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) ::: Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-11-05 11:04:41.090 INFO  75898 --- [http-nio-8080-exec-1] org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:525) ::: Initializing Servlet 'dispatcherServlet'
+2022-11-05 11:04:41.091 INFO  75898 --- [http-nio-8080-exec-1] org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:547) ::: Completed initialization in 1 ms
+2022-11-05 11:04:41.117 ERROR 75898 --- [http-nio-8080-exec-1] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/error
+2022-11-05 11:04:41.769 ERROR 75898 --- [http-nio-8080-exec-4] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/clientele/parentregion
+2022-11-05 11:04:41.769 ERROR 75898 --- [http-nio-8080-exec-3] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/clientele/level
+2022-11-05 11:04:41.770 ERROR 75898 --- [http-nio-8080-exec-2] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/curvat/config
+2022-11-05 11:04:41.782 ERROR 75898 --- [http-nio-8080-exec-5] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/clientele/group
+2022-11-05 11:04:41.784 ERROR 75898 --- [http-nio-8080-exec-6] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/clientele/industry

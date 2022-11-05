@@ -1,0 +1,2 @@
+2022-11-05 07:54:42.695 INFO  10038 --- [main] org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) ::: Initializing Spring embedded WebApplicationContext
+2022-11-05 07:54:42.695 INFO  10038 --- [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.prepareWebApplicationContext(ServletWebServerApplicationContext.java:292) ::: Root WebApplicationContext: initialization completed in 34264 ms

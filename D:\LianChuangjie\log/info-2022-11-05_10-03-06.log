@@ -1,0 +1,1 @@
+2022-11-05 10:03:06.168 ERROR 10038 --- [http-nio-8080-exec-2] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/clientele/group

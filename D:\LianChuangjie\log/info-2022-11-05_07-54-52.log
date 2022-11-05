@@ -1,0 +1,6 @@
+2022-11-05 07:54:52.455 WARN  10038 --- [main] org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration.getOrDeducePassword(UserDetailsServiceAutoConfiguration.java:88) ::: 
+
+Using generated security password: 3641e181-a256-4de5-b0e2-34c2d0c7d08f
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
