@@ -5,6 +5,7 @@ import com.lianchuangjie.lianchuangjie.entity.BrandEntity;
 import com.lianchuangjie.lianchuangjie.mapper.BrandMapper;
 import com.lianchuangjie.lianchuangjie.service.BrandService;
 import com.lianchuangjie.lianchuangjie.vo.BrandItemVO;
+import com.lianchuangjie.lianchuangjie.vo.EnquiryBuyerItemVO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -26,5 +27,10 @@ public class BrandServiceImpl extends ServiceImpl<BrandMapper, BrandEntity> impl
     @Override
     public List<BrandItemVO> containList(String brand) {
         return brandMapper.selectAll(brand);
+    }
+
+    @Override
+    public List<EnquiryBuyerItemVO> getBuyers(String brand) {
+        return brandMapper.selectBuyers(brand);
     }
 }

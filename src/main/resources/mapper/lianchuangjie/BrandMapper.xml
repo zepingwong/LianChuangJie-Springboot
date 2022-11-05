@@ -11,4 +11,14 @@
         FROM U_OBRA
         WHERE Name LIKE CONCAT('%', #{Brand}, '%')
     </select>
+    <select id="selectBuyers" resultType="com.lianchuangjie.lianchuangjie.vo.EnquiryBuyerItemVO">
+        SELECT
+            U_PUR2.OwnerCode AS 'UserSign',
+            T_OUSI.UserName
+        FROM
+            U_PUR2
+        LEFT JOIN T_OUSI ON T_OUSI.UserSign = U_PUR2.OwnerCode
+        WHERE
+            U_PUR2.Brand = #{Brand}
+    </select>
 </mapper>

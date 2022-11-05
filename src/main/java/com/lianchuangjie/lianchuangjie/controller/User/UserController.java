@@ -73,9 +73,14 @@ public class UserController {
      */
     @GetMapping("/{id}")
     public Result<UserInfoVO> getUserInfoController(@PathVariable String id) {
-        UserEntity userEntity = userInfoService.getOne(id);
         UserInfoVO userInfoVO = new UserInfoVO();
-        BeanUtils.copyProperties(userEntity, userInfoVO);
+        UserEntity user;
+        if (id.equals("0") | Integer.parseInt(id) == 0) {
+            user = SessionUtil.getUser();
+        } else {
+            user = userInfoService.getOne(id);
+        }
+        BeanUtils.copyProperties(user, userInfoVO);
         return Result.success(userInfoVO);
     }
 }
