@@ -1,1 +1,0 @@
-2022-11-05 07:54:46.957 WARN  10038 --- [main] com.baomidou.mybatisplus.core.injector.DefaultSqlInjector.getMethodList(DefaultSqlInjector.java:56) ::: class com.lianchuangjie.lianchuangjie.entity.BomSubEntity ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.

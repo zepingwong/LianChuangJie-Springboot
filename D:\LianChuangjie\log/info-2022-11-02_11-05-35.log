@@ -1,1 +1,0 @@
-2022-11-02 11:05:35.792 ERROR 47869 --- [http-nio-8080-exec-5] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.handleException(GlobalExceptionHandler.java:160) ::: request error!! method:GET uri:/tab/stockprice/origin

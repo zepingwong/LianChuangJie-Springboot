@@ -1,1 +1,0 @@
-2022-11-05 10:22:07.520 ERROR 10038 --- [http-nio-8080-exec-1] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/modle/suggestion

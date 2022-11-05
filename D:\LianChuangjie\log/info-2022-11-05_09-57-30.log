@@ -1,1 +1,0 @@
-2022-11-05 09:57:30.632 ERROR 10038 --- [http-nio-8080-exec-4] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/clientele/level

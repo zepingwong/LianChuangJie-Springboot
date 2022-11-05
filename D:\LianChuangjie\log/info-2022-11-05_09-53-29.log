@@ -1,1 +1,0 @@
-2022-11-05 09:53:29.463 ERROR 10038 --- [http-nio-8080-exec-6] com.lianchuangjie.lianchuangjie.exception.GlobalExceptionHandler.exception(GlobalExceptionHandler.java:65) ::: request error!! method:GET uri:/enquiry/main/209403
