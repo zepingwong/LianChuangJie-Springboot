@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lianchuangjie.lianchuangjie.mapper.Enquiry.EnquiryBomMatchMapper">
+    <select id="query" resultType="com.lianchuangjie.lianchuangjie.vo.Enquiry.EnquiryMatchItemVO">
+        DECLARE @DocEntry INT; /*询价单编号*/
+        DECLARE @DeptCode VARCHAR(255); /*销售部门*/
+        DECLARE @SlpCode INT; /*销售员*/
+        SET @DeptCode = #{DeptCode};
+        SET @DocEntry = #{DocEntry};
+        SET @SlpCode = #{UserSign};
+        SELECT
+            ROW_NUMBER() OVER ( ORDER BY TT.ItemId ) AS 'LineNum',
+            TT.*
+        FROM (
+                 SELECT
+                     ClientNeeds.Brand, /*客户需求品牌*/
+                     ClientNeeds.Modle, /*客户需求型号*/
+                     ClientNeeds.DemandQty, /*客户需求数量*/
+                     ClientNeeds.LineNum                            AS 'ItemId', /*客户需求内部行号*/
+                     ClientNeeds.DemandTag, /*客户需求型号和品牌对应TAG*/
+                     ClientNeeds.CurRemark, /*客户备注*/
+                     SDADA_2.QuoBrand, /*匹配品牌*/
+                     SDADA_2.TAG, /*匹配TAG*/
+                     SDADA_2.sno, /*匹配型号*/
+                     SDADA_2.package                                AS 'Package', /*封装*/
+                     SDADA_2.spq, /*spq*/
+                     SDADA_2.ECCN, /*ECCN*/
+                     StockQuantity.Quantity, /*库存数量*/
+                     ProposedPrice.PrePrice, /*参考价格*/
+                     ProposedPrice.PrePrice * ClientNeeds.DemandQty AS 'TotalPrice', /*预估总价*/
+                     /*
+                         1. 客户需求Tag为空表示未匹配到
+                         2. 只有匹配型号和品牌都与客户需求一致时才是“完全匹配”
+                         3. 品牌相同Tag相同型号不同为关联型号
+                     */
+                     (
+                         CASE
+                             WHEN ClientNeeds.DemandTag IS NULL THEN N'未匹配到'
+                             WHEN SDADA_2.QuoBrand = ClientNeeds.Brand AND SDADA_2.sno = ClientNeeds.Modle THEN N'完全匹配'
+                             WHEN SDADA_2.QuoBrand = ClientNeeds.Brand AND ClientNeeds.DemandTag = SDADA_2.TAG THEN N'关联型号'
+                             END
+                         )
+                                                                    AS 'Match', /*匹配情况*/
+                     /*
+                         1. 未匹配到的默认走采购报价（B），但是不需要匹配出采购员
+                         2. 需求数量小于库存数量则销售直接定价（C）
+                         3. 预估总价大于1000走采购报价（B），预估总价为null的视为无穷大
+                         4. 其他的为云汉报价（E）
+                     */
+                     (
+                         CASE
+                             WHEN ClientNeeds.DemandTag IS NULL THEN 'B'
+                             WHEN ClientNeeds.DemandQty &lt; StockQuantity.Quantity THEN 'C'
+                             WHEN ProposedPrice.PrePrice * ClientNeeds.DemandQty > 1000 OR ProposedPrice.PrePrice * ClientNeeds.DemandQty IS NULL THEN 'B'
+                             ELSE 'E'
+                             END
+                         )                                          AS 'Status', /*询价情况*/
+                     (
+                         CASE
+                             /*完全匹配到的且需要采购报价的，匹配对应的采购员*/
+                             WHEN (ProposedPrice.PrePrice * ClientNeeds.DemandQty > 1000 OR ProposedPrice.PrePrice * ClientNeeds.DemandQty IS NULL) AND (ClientNeeds.DemandTag IS NOT NULL) THEN (
+                                 /*匹配到的采购员格式为：采购员编号1:采购员姓名1,采购员编号2:采购员姓名2...*/
+                                 SELECT CAST(CAST(BuyerInfo.UserSign AS VARCHAR) + ':' + BuyerInfo.UserName AS VARCHAR) + ','
+                                 FROM T_OUSI BuyerInfo /*采购员信息表*/
+                                          LEFT JOIN U_PUR1 U_PUR1 ON U_PUR1.OwnerCode = BuyerInfo.UserSign
+                                          LEFT JOIN U_PUR2 U_PUR2 ON U_PUR2.OwnerCode = BuyerInfo.UserSign
+                                          LEFT JOIN U_PUR9 U_PUR9 ON U_PUR9.OwnerCode = BuyerInfo.UserSign
+                                 WHERE BuyerInfo.U_IsBuyer = 'Y'
+                                   AND U_PUR2.Brand LIKE CONCAT('%', SDADA_2.QuoBrand, '%')
+                                     /*
+                                         1. 如果U_PUR1.IsSale为Y值，那么需要关联表U_PUR9确认负责的销售列表；
+                                         2. 如果U_PUR1.IsSale为N值，那么只需参考字段 DeptCode-负责报价的销售部门；
+                                     */
+                                   AND (
+                                         (U_PUR9.SlpCode = @SlpCode AND U_PUR1.IsSale = 'Y')
+                                         OR (U_PUR1.IsSale = 'N' AND ',' + LTRIM(RTRIM(REPLACE(U_PUR1.DeptCode, ' ', ''))) + ',' LIKE CONCAT('%,', @DeptCode, ',%'))
+                                     )
+                                     /*
+                                         1. 采购权限内是否包含该品牌该型号的ECCN码
+                                         2. 采购ECCN码为空或为null时表示该采购不受ECCN码限制
+                                     */
+                                   AND (
+                                                 ',' + LTRIM(RTRIM(REPLACE(U_PUR1.ECCN, ' ', ''))) + ',' LIKE CONCAT('%', SDADA_2.ECCN, '%') OR U_PUR1.ECCN = '' OR U_PUR1.ECCN IS NULL
+                                     )
+                                     /*
+                                         1. 预估总价高于采购询价起点时转发给该采购
+                                         2. 采购询价起点为0或null表示该采购不受价格限制
+                                     */
+                                   AND (
+                                         U_PUR1.StartTotal IS NULL
+                                         OR U_PUR1.StartTotal &lt; (ProposedPrice.PrePrice * ClientNeeds.DemandQty)
+                                     )
+                                 GROUP BY BuyerInfo.UserSign, BuyerInfo.UserName
+                                 FOR XML PATH ( '' )
+                             )
+                             /*未匹配到, 选择该型号的所有采购*/
+                             WHEN (ClientNeeds.Brand IS NOT NULL) THEN (
+                                    /*匹配到的采购员格式为：采购员编号1:采购员姓名1,采购员编号2:采购员姓名2...*/
+                                    SELECT CAST(CAST(BuyerInfo.UserSign AS VARCHAR) + ':' + BuyerInfo.UserName AS VARCHAR) + ','
+                                    FROM T_OUSI BuyerInfo /*采购员信息表*/
+                                    LEFT JOIN U_PUR2 ON U_PUR2.OwnerCode = BuyerInfo.UserSign
+                                    WHERE U_PUR2.Brand = ClientNeeds.Brand
+                                    GROUP BY BuyerInfo.UserSign, BuyerInfo.UserName
+                                    FOR XML PATH ( '' )
+                             )
+                             END
+                         )                                          AS Buyer /*匹配采购员*/
+                     /*根据客户上传BOM单编号获取客户需求*/
+                 FROM (
+                          SELECT
+                              U_BOM11.*,
+                              SDADA.TAG AS 'DemandTag' /*客户需求型号和品牌确定的Tag*/
+                          FROM U_BOM11
+                                   LEFT JOIN SDADA ON Brand = QuoBrand AND Modle = SDADA.sno /*根据客户需求和品牌关联标准型号库，获取Tag*/
+                          WHERE DocEntry = @DocEntry
+                      ) ClientNeeds
+                          LEFT JOIN SDADA SDADA_2 ON SDADA_2.TAG = ClientNeeds.DemandTag /*根据打标情况匹配出关联型号*/
+                          LEFT JOIN U_OPRI ProposedPrice ON ProposedPrice.ItemName = ClientNeeds.Modle /*参考价格表*/
+                          LEFT JOIN (
+                     SELECT
+                         T_OBTN.ItemName,
+                         SUM(T.Quantity - T_OBTN.U_LockQty) AS Quantity
+                     FROM (
+                              SELECT
+                                  MdAbsEntry,
+                                  SUM(Quantity) AS Quantity
+                              FROM T_OBTQ GROUP BY MdAbsEntry
+                          ) T
+                              INNER JOIN T_OBTN ON T.MdAbsEntry = T_OBTN.AbsEntry
+                     GROUP BY ItemName
+                 ) StockQuantity ON StockQuantity.ItemName = SDADA_2.sno /*库存数量*/
+                 GROUP BY
+                     ClientNeeds.Brand,
+                     SDADA_2.ECCN,
+                     SDADA_2.spq,
+                     SDADA_2.QuoBrand,
+                     ClientNeeds.Modle,
+                     ClientNeeds.DemandQty,
+                     ClientNeeds.LineNum,
+                     ClientNeeds.DemandTag,
+                     SDADA_2.TAG,
+                     ProposedPrice.PrePrice,
+                     SDADA_2.sno,
+                     StockQuantity.Quantity,
+                     ClientNeeds.CurRemark, SDADA_2.package
+             ) TT
+        ORDER BY TT.ItemId, TT.Match DESC /*按照客户上传的BOM单内部行号进行排序，关联型号在完全匹配型号下面*/
+    </select>
+</mapper>

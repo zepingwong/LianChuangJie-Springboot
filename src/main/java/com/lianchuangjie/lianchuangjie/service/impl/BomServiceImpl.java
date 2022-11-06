@@ -53,19 +53,6 @@ public class BomServiceImpl implements BomService {
     ClienteleRegionMapper clienteleRegionMapper;
 
     @Override
-    public BomQueryResVO list(Long docEntry) {
-        BomQueryResVO bomQueryRes = new BomQueryResVO();
-        Long userSign = SessionUtil.getUser().getUserSign();
-        QueryWrapper<UserEntity> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("UserSign", userSign);
-        UserEntity user = userMapper.selectOne(queryWrapper);
-        List<BomQueryItemVO> list = bomQueryMapper.queryBom(docEntry, user.getDftDept(), userSign);
-        bomQueryRes.setBomQueryItemList(list);
-        bomQueryRes.setTotalSize(list.size());
-        return bomQueryRes;
-    }
-
-    @Override
     public BomUploadResVO upload(MultipartFile file) {
         // 返回数据类型
         BomUploadResVO bomUploadResVO = new BomUploadResVO();

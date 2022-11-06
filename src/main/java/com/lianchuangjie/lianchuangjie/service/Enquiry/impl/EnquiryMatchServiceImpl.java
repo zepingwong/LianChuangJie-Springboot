@@ -9,6 +9,7 @@ import com.lianchuangjie.lianchuangjie.entity.Enquiry.EnquirySubEntity;
 import com.lianchuangjie.lianchuangjie.entity.UserEntity;
 import com.lianchuangjie.lianchuangjie.exception.Enquiry.EnquiryError;
 import com.lianchuangjie.lianchuangjie.mapper.Enquiry.EnquiryBatchMatchMapper;
+import com.lianchuangjie.lianchuangjie.mapper.Enquiry.EnquiryBomMatchMapper;
 import com.lianchuangjie.lianchuangjie.mapper.Enquiry.EnquiryMainMapper;
 import com.lianchuangjie.lianchuangjie.mapper.Enquiry.EnquirySingleMatchMapper;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquiryMainService;
@@ -29,11 +30,14 @@ public class EnquiryMatchServiceImpl implements EnquiryMatchService {
     @Resource
     EnquirySingleMatchMapper enquirySingleMatchMapper;
     @Resource
+    EnquiryBatchMatchMapper enquiryBatchMatchMapper;
+    @Resource
+    EnquiryBomMatchMapper enquiryBomMatchMapper;
+    @Resource
     EnquiryMainMapper enquiryMainMapper;
     @Resource
     EnquiryMainService enquiryMainService;
-    @Resource
-    EnquiryBatchMatchMapper enquiryBatchMatchMapper;
+
     @Resource
     EnquirySubService enquirySubService;
 
@@ -55,6 +59,12 @@ public class EnquiryMatchServiceImpl implements EnquiryMatchService {
     public List<EnquiryMatchItemVO> queryBatch(List<EnquirySingleQueryDTO> enquirySingleQueryDTOList) {
         UserEntity user = SessionUtil.getUser();
         return enquiryBatchMatchMapper.query(enquirySingleQueryDTOList, user.getDftDept(), user.getUserSign());
+    }
+
+    @Override
+    public List<EnquiryMatchItemVO> queryBom(Long docEntry) {
+        UserEntity user = SessionUtil.getUser();
+        return enquiryBomMatchMapper.query(docEntry, user.getDftDept(), user.getUserSign());
     }
 
     @Override

@@ -8,16 +8,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface BomService {
     /**
-     * @param docEntry docEntry
-     * @return BomQueryResVO
-     * @description BOM单匹配解析
-     * @author WANG Zeping
-     * @email zepingwong@gmail.com
-     * @date 8/28/2022
-     */
-    BomQueryResVO list(Long docEntry);
-
-    /**
      * @param file file
      * @return BomUploadResVO
      * @description 上传Bom单

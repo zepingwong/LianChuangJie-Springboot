@@ -45,22 +45,6 @@ public class EnquiryBomController {
         BomUploadResVO result = bomService.upload(file);
         return Result.success(result);
     }
-
-    /**
-     * @param docEntry docEntry
-     * @return Result
-     * @description 根据 BOM 单编号批量询价
-     * @author WANG Zeping
-     * @email zepingwong@gmail.com
-     * @date 8/24/2022
-     */
-    @GetMapping("query")
-    @Authentication(sale = true)
-    public Result<BomQueryResVO> queryBomController(@RequestParam(defaultValue = "#{null}", value = "DocEntry") Long docEntry) {
-        BomQueryResVO result = bomService.list(docEntry);
-        return Result.success(result, "Success");
-    }
-
     /**
      * @param bomQuerySaveDTO bomQuerySaveDTO
      * @param request         request
