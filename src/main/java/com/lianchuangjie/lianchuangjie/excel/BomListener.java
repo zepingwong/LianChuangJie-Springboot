@@ -36,8 +36,14 @@ public class BomListener extends AnalysisEventListener<Map<Integer, String>> {
     private Boolean startRead = false;
     // 型号列索引
     private Integer modleIndex;
+    public Integer getModleIndex() {
+        return modleIndex;
+    }
     // 品牌列索引
     private Integer brandIndex;
+    public Integer getBrandIndex() {
+        return brandIndex;
+    }
     // 数量列索引
     private Integer quantityIndex;
     // 备注列索引
@@ -91,9 +97,8 @@ public class BomListener extends AnalysisEventListener<Map<Integer, String>> {
             quantityList.add(Integer.valueOf(dataMap.get(quantityIndex) == null ? "0" : dataMap.get(quantityIndex)));
             BomSubEntity item = new BomSubEntity();
             item.setLineNum(lineNum);
-            if (brandIndex != null) {
-                item.setBrand(dataMap.get(brandIndex).replaceAll(REGEX_ALL_BRACKETS, ""));
-            }
+            item.setBrand(dataMap.get(brandIndex).replaceAll(REGEX_ALL_BRACKETS, "")); // 品牌去除特殊字符
+            item.setModle(dataMap.get(modleIndex).replaceAll(REGEX_ALL_BRACKETS, "")); // 型号去除特殊字符
             item.setDemandQty(new BigDecimal(dataMap.get(quantityIndex) == null ? "0" : dataMap.get(quantityIndex)));
             item.setModle(dataMap.get(modleIndex));
             item.setCurRemark(dataMap.get(remarkIndex));
@@ -107,6 +112,12 @@ public class BomListener extends AnalysisEventListener<Map<Integer, String>> {
                 }
                 map.put(title, value);
             }
+            // 增加一个行号
+            map.put("行号", lineNum.toString());
+            // 增加一列 用于标准化品牌
+            map.put("标准化品牌", item.getBrand());
+            // 增加一列 用于标准化型号
+            map.put("标准化型号", item.getModle());
             lineNum += 1;
             dataList.add(map);
         }
@@ -119,6 +130,9 @@ public class BomListener extends AnalysisEventListener<Map<Integer, String>> {
                 String title = titleMap.get(key);
                 titleList.add(title);
             }
+            titleList.add("标准化品牌");
+            titleList.add("标准号型号");
+            titleList.add("行号");
         }
     }
 

@@ -20,6 +20,12 @@ public class BomUploadResVO {
     // BOM单编号
     @JsonProperty("DocEntry")
     private Long docEntry;
+    // 型号列索引
+    @JsonProperty("ModleIndex")
+    private Integer modleIndex;
+    // 品牌列索引
+    @JsonProperty("BrandIndex")
+    private Integer brandIndex;
     // BOM单标题列表
     @JsonProperty("TitleList")
     private List<String> titleList;

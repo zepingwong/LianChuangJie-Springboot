@@ -1,7 +1,6 @@
 package com.lianchuangjie.lianchuangjie.service.impl;
 
 import com.alibaba.excel.EasyExcel;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lianchuangjie.lianchuangjie.dto.BomQueryMainDTO;
 import com.lianchuangjie.lianchuangjie.dto.BomQuerySaveDTO;
 import com.lianchuangjie.lianchuangjie.dto.BomQuerySubDTO;
@@ -12,13 +11,12 @@ import com.lianchuangjie.lianchuangjie.entity.Enquiry.EnquirySubEntity;
 import com.lianchuangjie.lianchuangjie.excel.BomListener;
 import com.lianchuangjie.lianchuangjie.exception.Business.ResponseEnum;
 import com.lianchuangjie.lianchuangjie.mapper.*;
+import com.lianchuangjie.lianchuangjie.mapper.Enquiry.BomHeadDicMapper;
 import com.lianchuangjie.lianchuangjie.mapper.Enquiry.EnquiryMainMapper;
 import com.lianchuangjie.lianchuangjie.service.*;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquiryMainService;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquirySubService;
 import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
-import com.lianchuangjie.lianchuangjie.vo.BomQueryItemVO;
-import com.lianchuangjie.lianchuangjie.vo.BomQueryResVO;
 import com.lianchuangjie.lianchuangjie.vo.BomUploadResVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -33,10 +31,6 @@ import java.util.Objects;
 
 @Service
 public class BomServiceImpl implements BomService {
-    @Resource
-    BomQueryMapper bomQueryMapper;
-    @Resource
-    UserMapper userMapper;
     @Resource
     BomHeadDicMapper bomHeadDicMapper;
     @Resource
@@ -78,6 +72,10 @@ public class BomServiceImpl implements BomService {
             // 主表信息保存后，BomMainEntity产生DocEntry
             Long docEntry = bomMainEntity.getDocEntry();
             bomUploadResVO.setDocEntry(docEntry);
+            // 型号列索引
+            bomUploadResVO.setModleIndex(listener.getModleIndex());
+            // 品牌列索引
+            bomUploadResVO.setBrandIndex(listener.getBrandIndex());
             // 保存Bom单子表信息
             bomSubList.forEach(bomSubEntity -> bomSubEntity.setDocEntry(docEntry));
             bomSubService.saveBatch(bomSubList);
@@ -113,7 +111,7 @@ public class BomServiceImpl implements BomService {
         for (BomQuerySubDTO item : list) {
             EnquirySubEntity enquirySubEntity = new EnquirySubEntity();
             BeanUtils.copyProperties(item, enquirySubEntity);
-            if (!Objects.equals(item.getMatch(), "未匹配到")) {
+            if (item.getModle() != null) {
                 // 设置询价单编号与主表相同
                 enquirySubEntity.setDocEntry(docEntry);
                 // LineNum 连续编号

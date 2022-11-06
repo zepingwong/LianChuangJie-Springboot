@@ -1,6 +1,7 @@
 package com.lianchuangjie.lianchuangjie.service;
 
 import com.lianchuangjie.lianchuangjie.dto.BomQuerySaveDTO;
+import com.lianchuangjie.lianchuangjie.dto.Enquiry.EnquiryBomUpdateDTO;
 import com.lianchuangjie.lianchuangjie.entity.UserEntity;
 import com.lianchuangjie.lianchuangjie.vo.BomQueryResVO;
 import com.lianchuangjie.lianchuangjie.vo.BomUploadResVO;

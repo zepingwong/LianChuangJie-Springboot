@@ -2,9 +2,11 @@ package com.lianchuangjie.lianchuangjie.controller.Enquiry;
 
 import com.lianchuangjie.lianchuangjie.config.Authentication;
 import com.lianchuangjie.lianchuangjie.dto.BomQuerySaveDTO;
+import com.lianchuangjie.lianchuangjie.dto.Enquiry.EnquiryBomUpdateDTO;
 import com.lianchuangjie.lianchuangjie.entity.UserEntity;
 import com.lianchuangjie.lianchuangjie.exception.Business.ResponseEnum;
 import com.lianchuangjie.lianchuangjie.service.BomService;
+import com.lianchuangjie.lianchuangjie.service.BomSubService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
 import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
 import com.lianchuangjie.lianchuangjie.vo.BomQueryResVO;
@@ -33,6 +35,8 @@ import java.nio.charset.StandardCharsets;
 public class EnquiryBomController {
     @Resource
     BomService bomService;
+    @Resource
+    BomSubService bomSubService;
 
     /**
      * @param file BOM单
@@ -45,6 +49,7 @@ public class EnquiryBomController {
         BomUploadResVO result = bomService.upload(file);
         return Result.success(result);
     }
+
     /**
      * @param bomQuerySaveDTO bomQuerySaveDTO
      * @param request         request
@@ -59,6 +64,23 @@ public class EnquiryBomController {
     public Result<Boolean> saveQueryController(@RequestBody @Valid BomQuerySaveDTO bomQuerySaveDTO, HttpServletRequest request) {
         UserEntity user = SessionUtil.getUser();
         Boolean res = bomService.save(bomQuerySaveDTO, user);
+        return Result.success(res, "Success");
+    }
+
+    /**
+     * @param enquiryBomUpdateDTO enquiryBomUpdateDTO
+     * @return Result
+     * @description 更新Bom单一行
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 11/6/2022
+     */
+    @PatchMapping("update")
+    @Authentication(sale = true)
+    public Result<Boolean> updateBomController(
+            @RequestBody @Valid EnquiryBomUpdateDTO enquiryBomUpdateDTO
+    ) {
+        Boolean res = bomSubService.updateOne(enquiryBomUpdateDTO);
         return Result.success(res, "Success");
     }
 
