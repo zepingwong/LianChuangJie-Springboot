@@ -34,16 +34,6 @@ public class EnquirySubServiceImpl extends ServiceImpl<EnquirySubMapper, Enquiry
     public Page<EnquirySubVO> list(EnquirySubSearchDTO searchCondition) {
         Page<EnquirySubVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
         enquirySubMapper.selectList(page, searchCondition);
-        //        JSONObject json = new JSONObject();
-        //        json.put("data", list);
-        //        String res;
-        //        try {
-        //            res = HttpUtil.jsonPost(address + "main", null, json);
-        //            JSONObject object = JSONObject.parseObject(res);
-        //            return JSON.parseArray(object.getString("data"), EnquirySubVO.class);
-        //        } catch (IOException e) {
-        //            throw new RuntimeException(e);
-        //        }
         return page;
     }
 
