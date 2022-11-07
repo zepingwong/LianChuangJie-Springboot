@@ -69,7 +69,6 @@ public class StockPriceAlgorithmServiceImpl implements StockPriceAlgorithmServic
             JSONObject json = new JSONObject();
             json.put("data", list);
             res = HttpUtil.jsonPost(address + "model_predict_a_day", null, json);
-            System.out.println(res);
             if (res != null) {
                 stringRedisTemplate.opsForValue().set("StockPrice", "0");
             }
