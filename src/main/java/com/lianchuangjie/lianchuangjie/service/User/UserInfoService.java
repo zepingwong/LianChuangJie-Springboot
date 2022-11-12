@@ -1,7 +1,7 @@
 package com.lianchuangjie.lianchuangjie.service.User;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.lianchuangjie.lianchuangjie.entity.UserEntity;
+import com.lianchuangjie.lianchuangjie.entity.User.UserEntity;
 
 public interface UserInfoService extends IService<UserEntity> {
     /**

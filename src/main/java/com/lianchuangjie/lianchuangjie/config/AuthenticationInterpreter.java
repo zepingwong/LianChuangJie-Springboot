@@ -1,7 +1,7 @@
 package com.lianchuangjie.lianchuangjie.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.lianchuangjie.lianchuangjie.entity.UserEntity;
+import com.lianchuangjie.lianchuangjie.entity.User.UserEntity;
 import com.lianchuangjie.lianchuangjie.exception.Business.ResponseEnum;
 import com.lianchuangjie.lianchuangjie.utils.AuthUtil;
 import com.lianchuangjie.lianchuangjie.utils.SessionUtil;

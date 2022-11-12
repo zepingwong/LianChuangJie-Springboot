@@ -2,9 +2,9 @@ package com.lianchuangjie.lianchuangjie.service.Enquiry.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lianchuangjie.lianchuangjie.entity.Enquiry.EnquiryBuyerEntity;
-import com.lianchuangjie.lianchuangjie.entity.UserEntity;
+import com.lianchuangjie.lianchuangjie.entity.User.UserEntity;
 import com.lianchuangjie.lianchuangjie.mapper.Enquiry.EnquiryBuyerMapper;
-import com.lianchuangjie.lianchuangjie.mapper.UserMapper;
+import com.lianchuangjie.lianchuangjie.mapper.User.UserMapper;
 import com.lianchuangjie.lianchuangjie.dto.Enquiry.EnquiryBuyerSearchDTO;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquiryBuyerService;
 import com.lianchuangjie.lianchuangjie.utils.SessionUtil;

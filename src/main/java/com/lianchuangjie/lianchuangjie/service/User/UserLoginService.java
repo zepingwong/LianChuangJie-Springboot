@@ -1,7 +1,7 @@
 package com.lianchuangjie.lianchuangjie.service.User;
 
 import com.lianchuangjie.lianchuangjie.dto.EmployeeLoginDTO;
-import com.lianchuangjie.lianchuangjie.entity.UserEntity;
+import com.lianchuangjie.lianchuangjie.entity.User.UserEntity;
 
 public interface UserLoginService {
     /**

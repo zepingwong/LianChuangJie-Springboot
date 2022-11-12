@@ -2,9 +2,9 @@ package com.lianchuangjie.lianchuangjie.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lianchuangjie.lianchuangjie.dto.Enquiry.EnquirySingleQueryDTO;
-import com.lianchuangjie.lianchuangjie.entity.UserEntity;
+import com.lianchuangjie.lianchuangjie.entity.User.UserEntity;
 import com.lianchuangjie.lianchuangjie.mapper.Enquiry.BomQueryMapper;
-import com.lianchuangjie.lianchuangjie.mapper.UserMapper;
+import com.lianchuangjie.lianchuangjie.mapper.User.UserMapper;
 import com.lianchuangjie.lianchuangjie.service.QueryService;
 import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
 import com.lianchuangjie.lianchuangjie.vo.BomQueryItemVO;

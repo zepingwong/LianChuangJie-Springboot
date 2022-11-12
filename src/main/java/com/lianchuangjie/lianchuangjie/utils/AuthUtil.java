@@ -2,7 +2,7 @@ package com.lianchuangjie.lianchuangjie.utils;
 
 
 import com.lianchuangjie.lianchuangjie.config.Authentication;
-import com.lianchuangjie.lianchuangjie.entity.UserEntity;
+import com.lianchuangjie.lianchuangjie.entity.User.UserEntity;
 
 import java.util.Objects;
 /**

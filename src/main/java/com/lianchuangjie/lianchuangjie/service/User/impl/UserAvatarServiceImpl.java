@@ -1,8 +1,8 @@
 package com.lianchuangjie.lianchuangjie.service.User.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.lianchuangjie.lianchuangjie.entity.UserEntity;
-import com.lianchuangjie.lianchuangjie.mapper.UserMapper;
+import com.lianchuangjie.lianchuangjie.entity.User.UserEntity;
+import com.lianchuangjie.lianchuangjie.mapper.User.UserMapper;
 import com.lianchuangjie.lianchuangjie.service.User.UserAvatarService;
 import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
 import org.springframework.beans.factory.annotation.Value;

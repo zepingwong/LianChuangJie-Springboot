@@ -2,9 +2,9 @@ package com.lianchuangjie.lianchuangjie.service.User.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lianchuangjie.lianchuangjie.dto.EmployeeLoginDTO;
-import com.lianchuangjie.lianchuangjie.entity.UserEntity;
+import com.lianchuangjie.lianchuangjie.entity.User.UserEntity;
 import com.lianchuangjie.lianchuangjie.exception.Login.LoginError;
-import com.lianchuangjie.lianchuangjie.mapper.UserMapper;
+import com.lianchuangjie.lianchuangjie.mapper.User.UserMapper;
 import com.lianchuangjie.lianchuangjie.service.User.UserLoginService;
 import com.lianchuangjie.lianchuangjie.utils.SecurityUtil;
 import org.springframework.stereotype.Service;

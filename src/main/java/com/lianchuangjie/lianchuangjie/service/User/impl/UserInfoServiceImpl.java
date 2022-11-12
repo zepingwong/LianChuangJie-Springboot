@@ -2,8 +2,8 @@ package com.lianchuangjie.lianchuangjie.service.User.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.lianchuangjie.lianchuangjie.entity.UserEntity;
-import com.lianchuangjie.lianchuangjie.mapper.UserMapper;
+import com.lianchuangjie.lianchuangjie.entity.User.UserEntity;
+import com.lianchuangjie.lianchuangjie.mapper.User.UserMapper;
 import com.lianchuangjie.lianchuangjie.service.User.UserInfoService;
 import org.springframework.stereotype.Service;
 

@@ -1,6 +1,6 @@
 package com.lianchuangjie.lianchuangjie.dto.StockPrice;
 
-import com.lianchuangjie.lianchuangjie.entity.UserEntity;
+import com.lianchuangjie.lianchuangjie.entity.User.UserEntity;
 import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
