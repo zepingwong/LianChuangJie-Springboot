@@ -8,7 +8,7 @@ import com.lianchuangjie.lianchuangjie.exception.Business.ResponseEnum;
 import com.lianchuangjie.lianchuangjie.service.BomService;
 import com.lianchuangjie.lianchuangjie.service.BomSubService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
-import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
+import com.lianchuangjie.lianchuangjie.utils.ContextUtil;
 import com.lianchuangjie.lianchuangjie.vo.BomUploadResVO;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpHeaders;
@@ -61,7 +61,7 @@ public class EnquiryBomController {
     @PostMapping("save")
     @Authentication(sale = true)
     public Result<Boolean> saveQueryController(@RequestBody @Valid BomQuerySaveDTO bomQuerySaveDTO, HttpServletRequest request) {
-        UserEntity user = SessionUtil.getUser();
+        UserEntity user = ContextUtil.getUser();
         Boolean res = bomService.save(bomQuerySaveDTO, user);
         return Result.success(res, "Success");
     }

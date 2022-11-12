@@ -17,7 +17,7 @@ import com.lianchuangjie.lianchuangjie.mapper.Enquiry.EnquiryMainMapper;
 import com.lianchuangjie.lianchuangjie.service.*;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquiryMainService;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquirySubService;
-import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
+import com.lianchuangjie.lianchuangjie.utils.ContextUtil;
 import com.lianchuangjie.lianchuangjie.vo.BomUploadResVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -68,7 +68,7 @@ public class BomServiceImpl implements BomService {
             // 保存Bom单主表信息
             BomMainEntity bomMainEntity = new BomMainEntity();
             bomMainEntity.setFileName(fileName);
-            bomMainEntity.setOwnerCode(SessionUtil.getUser().getUserSign());
+            bomMainEntity.setOwnerCode(ContextUtil.getUser().getUserSign());
             bomMainService.save(bomMainEntity);
             // 主表信息保存后，BomMainEntity产生DocEntry
             Long docEntry = bomMainEntity.getDocEntry();

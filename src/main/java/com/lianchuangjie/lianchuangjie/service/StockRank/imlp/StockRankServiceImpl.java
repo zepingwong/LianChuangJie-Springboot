@@ -1,9 +1,9 @@
-package com.lianchuangjie.lianchuangjie.service.impl;
+package com.lianchuangjie.lianchuangjie.service.StockRank.imlp;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.lianchuangjie.lianchuangjie.entity.StockRankEntity;
+import com.lianchuangjie.lianchuangjie.entity.StockRank.StockRankEntity;
 import com.lianchuangjie.lianchuangjie.mapper.StockRankMapper;
-import com.lianchuangjie.lianchuangjie.service.StockRankService;
+import com.lianchuangjie.lianchuangjie.service.StockRank.StockRankService;
 import org.springframework.stereotype.Service;
 
 @Service

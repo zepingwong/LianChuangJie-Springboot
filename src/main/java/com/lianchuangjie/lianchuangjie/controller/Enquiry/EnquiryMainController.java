@@ -6,7 +6,7 @@ import com.lianchuangjie.lianchuangjie.controller.BaseController;
 import com.lianchuangjie.lianchuangjie.dto.Enquiry.EnquiryMainSearchDTO;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquiryMainService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
-import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
+import com.lianchuangjie.lianchuangjie.utils.ContextUtil;
 import com.lianchuangjie.lianchuangjie.vo.Enquiry.EnquiryMainInfoVO;
 import com.lianchuangjie.lianchuangjie.vo.Enquiry.EnquiryMainItemVO;
 import org.springframework.web.bind.annotation.*;
@@ -58,7 +58,7 @@ public class EnquiryMainController extends BaseController {
         searchCondition.setInquiryDateStart(inquiryDateStart);
         searchCondition.setInquiryDateEnd(inquiryDateEnd);
         searchCondition.setUSourceType(uSourceType);
-        searchCondition.setOwnerCode(SessionUtil.getUser().getUserSign());
+        searchCondition.setOwnerCode(ContextUtil.getUser().getUserSign());
         Page<EnquiryMainItemVO> pages = enquiryMainService.getList(searchCondition);
         return Result.success(pages);
     }

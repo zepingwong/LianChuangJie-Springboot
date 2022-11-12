@@ -3,7 +3,7 @@ package com.lianchuangjie.lianchuangjie.dto.StockPrice;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
+import com.lianchuangjie.lianchuangjie.utils.ContextUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -56,5 +56,5 @@ public class StockPriceOKDTO {
     private Date confirmDate;
     @JsonProperty("Modify")
     private String modify;
-    private Long userSign = SessionUtil.getUser().getUserSign();
+    private Long userSign = ContextUtil.getUser().getUserSign();
 }

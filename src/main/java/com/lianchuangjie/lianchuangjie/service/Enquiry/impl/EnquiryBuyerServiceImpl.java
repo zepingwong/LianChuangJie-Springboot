@@ -7,7 +7,7 @@ import com.lianchuangjie.lianchuangjie.mapper.Enquiry.EnquiryBuyerMapper;
 import com.lianchuangjie.lianchuangjie.mapper.User.UserMapper;
 import com.lianchuangjie.lianchuangjie.dto.Enquiry.EnquiryBuyerSearchDTO;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquiryBuyerService;
-import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
+import com.lianchuangjie.lianchuangjie.utils.ContextUtil;
 import com.lianchuangjie.lianchuangjie.vo.EnquiryBuyerItemVO;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +25,7 @@ public class EnquiryBuyerServiceImpl extends ServiceImpl<EnquiryBuyerMapper, Enq
     public List<EnquiryBuyerItemVO> list(EnquiryBuyerSearchDTO enquiryBuyerSearchDTO) {
         UserEntity user;
         if (enquiryBuyerSearchDTO.getSlpCode() == null) {
-            user = SessionUtil.getUser();
+            user = ContextUtil.getUser();
             enquiryBuyerSearchDTO.setSlpCode(user.getUserSign());
         } else {
             user = userMapper.selectById(enquiryBuyerSearchDTO.getSlpCode());

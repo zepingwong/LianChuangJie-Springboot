@@ -7,7 +7,7 @@ import com.lianchuangjie.lianchuangjie.exception.Business.ResponseEnum;
 import com.lianchuangjie.lianchuangjie.mapper.User.UserMapper;
 import com.lianchuangjie.lianchuangjie.service.User.UserPasswordService;
 import com.lianchuangjie.lianchuangjie.utils.SecurityUtil;
-import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
+import com.lianchuangjie.lianchuangjie.utils.ContextUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -18,7 +18,7 @@ public class UserPasswordServiceImpl extends ServiceImpl<UserMapper, UserEntity>
     UserMapper userMapper;
     @Override
     public Boolean setUserPassword(UserPasswordDTO userPasswordDTO) {
-        UserEntity user = userMapper.selectById(SessionUtil.getUser().getUserSign());
+        UserEntity user = userMapper.selectById(ContextUtil.getUser().getUserSign());
         Boolean match = SecurityUtil.matchesPassword(userPasswordDTO.getOldPassword(), user.getUPasswordWeb());
         ResponseEnum.PASSWORD_ERROR.assertIsFalse(match, "原密码错误"); // 原密码错误
         ResponseEnum.FAILURE.assertNotEqual(userPasswordDTO.getConfirmPassword(), userPasswordDTO.getNewPassword()); // 两次密码不一致

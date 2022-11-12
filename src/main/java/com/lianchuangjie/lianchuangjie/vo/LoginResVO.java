@@ -17,4 +17,6 @@ public class LoginResVO {
     // 用户编号 T_OUSI.UserSign
     @JsonProperty("info")
     private UserInfoVO info;
+    @JsonProperty("token")
+    private String token;
 }

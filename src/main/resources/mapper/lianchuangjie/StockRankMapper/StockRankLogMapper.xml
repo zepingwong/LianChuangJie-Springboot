@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lianchuangjie.lianchuangjie.mapper.StockRank.StockRankLogMapper">
+
+    <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.StockRank.StockRankLogVO">
+        SELECT * FROM U_SRAL
+        <where>
+            1 = 1
+            <if test="sc.timeStart != null">
+                AND StartTime >= #{sc.timeStart}
+            </if>
+            <if test="sc.timeEnd != null">
+                AND StartTime &lt; #{sc.timeEnd}
+            </if>
+            <if test="sc.triggerType != null">
+                AND TriggerType = #{sc.triggerType}
+            </if>
+            <if test="sc.triggerName != null">
+                AND TriggerName = #{sc.triggerName}
+            </if>
+        </where>
+    </select>
+</mapper>

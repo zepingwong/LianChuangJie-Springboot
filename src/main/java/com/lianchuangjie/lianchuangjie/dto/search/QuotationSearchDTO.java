@@ -1,6 +1,6 @@
 package com.lianchuangjie.lianchuangjie.dto.search;
 
-import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
+import com.lianchuangjie.lianchuangjie.utils.ContextUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,7 +30,7 @@ public class QuotationSearchDTO {
      */
     private Long uBuyer;
     public void setUBuyer(Long ownerCode) {
-        this.uBuyer = ownerCode != null ? ownerCode : SessionUtil.getUser().getUserSign();
+        this.uBuyer = ownerCode != null ? ownerCode : ContextUtil.getUser().getUserSign();
     }
     /**
      * @description 需求型号 Modle

@@ -6,7 +6,7 @@ import com.lianchuangjie.lianchuangjie.entity.User.UserEntity;
 import com.lianchuangjie.lianchuangjie.mapper.Enquiry.BomQueryMapper;
 import com.lianchuangjie.lianchuangjie.mapper.User.UserMapper;
 import com.lianchuangjie.lianchuangjie.service.QueryService;
-import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
+import com.lianchuangjie.lianchuangjie.utils.ContextUtil;
 import com.lianchuangjie.lianchuangjie.vo.BomQueryItemVO;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +21,7 @@ public class QueryServiceImpl implements QueryService {
     UserMapper userMapper;
     
     private void setUserInfo(EnquirySingleQueryDTO enquirySingleQueryDTO) {
-        Long userSign = SessionUtil.getUser().getUserSign();
+        Long userSign = ContextUtil.getUser().getUserSign();
         QueryWrapper<UserEntity> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("UserSign", userSign);
         UserEntity user = userMapper.selectOne(queryWrapper);

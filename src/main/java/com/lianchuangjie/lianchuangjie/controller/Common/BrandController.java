@@ -3,7 +3,7 @@ package com.lianchuangjie.lianchuangjie.controller.Common;
 import com.lianchuangjie.lianchuangjie.config.Authentication;
 import com.lianchuangjie.lianchuangjie.service.BrandService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
-import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
+import com.lianchuangjie.lianchuangjie.utils.ContextUtil;
 import com.lianchuangjie.lianchuangjie.vo.BrandItemVO;
 import com.lianchuangjie.lianchuangjie.vo.EnquiryBuyerItemVO;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,7 +31,7 @@ public class BrandController {
     public Result<List<BrandItemVO>> getBuyersBrandController(
             @RequestParam(defaultValue = "#{null}", value = "OwnerCode") Long ownerCode
     ) {
-        if (ownerCode == null) ownerCode = SessionUtil.getUser().getUserSign();
+        if (ownerCode == null) ownerCode = ContextUtil.getUser().getUserSign();
         List<BrandItemVO> list = brandService.list(ownerCode);
         return Result.success(list, "success");
     }

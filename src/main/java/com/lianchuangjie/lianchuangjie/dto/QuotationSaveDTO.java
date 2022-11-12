@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.lianchuangjie.lianchuangjie.entity.User.UserEntity;
-import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
+import com.lianchuangjie.lianchuangjie.utils.ContextUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -194,7 +194,7 @@ public class QuotationSaveDTO {
     /**
      * 采购员信息
      */
-    UserEntity user = SessionUtil.getUser();
+    UserEntity user = ContextUtil.getUser();
     // 采购员编号
     private Long uBuyer = user.getUserSign();
     private String userName = user.getUserName();

@@ -1,7 +1,7 @@
 package com.lianchuangjie.lianchuangjie.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
+import com.lianchuangjie.lianchuangjie.utils.ContextUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,5 +28,5 @@ public class UserPasswordDTO {
     @JsonProperty("ConfirmPassword")
     private String confirmPassword;
     // UserSign 用户编号
-    private Long userSign = SessionUtil.getUser().getUserSign();
+    private Long userSign = ContextUtil.getUser().getUserSign();
 }

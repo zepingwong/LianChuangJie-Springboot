@@ -5,7 +5,7 @@ import com.lianchuangjie.lianchuangjie.entity.User.UserEntity;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-public class SessionUtil {
+public class ContextUtil {
 
     public static  <T> void setSession(HttpServletRequest request, String SessionName, T SessionValue) {
         HttpSession session = request.getSession();

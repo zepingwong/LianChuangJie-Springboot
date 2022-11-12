@@ -14,8 +14,7 @@ import com.lianchuangjie.lianchuangjie.service.QuotationService;
 import com.lianchuangjie.lianchuangjie.service.StockPrice.StockPriceService;
 import com.lianchuangjie.lianchuangjie.utils.HttpUtil;
 import com.lianchuangjie.lianchuangjie.utils.Result;
-import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
-import com.lianchuangjie.lianchuangjie.vo.BrandItemVO;
+import com.lianchuangjie.lianchuangjie.utils.ContextUtil;
 import com.lianchuangjie.lianchuangjie.vo.StockPrice.StockPriceVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -105,7 +104,7 @@ public class StockPriceController extends BaseController {
         // T_ICIN1.LineNum表示报价次数
         queryWrapper.eq("DocEntry", 0);
         quotationEntity.setLineNum(quotationService.count(queryWrapper) + 1);
-        quotationEntity.setUBuyer(SessionUtil.getUser().getUserSign()); // 采购员编号
+        quotationEntity.setUBuyer(ContextUtil.getUser().getUserSign()); // 采购员编号
         quotationEntity.setUStatus("Y");
         Boolean res = quotationService.save(quotationEntity);
         if (res) {

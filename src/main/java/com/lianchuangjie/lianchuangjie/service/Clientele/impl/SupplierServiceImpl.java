@@ -5,7 +5,7 @@ import com.lianchuangjie.lianchuangjie.dto.Clientele.ClienteleSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.Clientele.ClienteleEntity;
 import com.lianchuangjie.lianchuangjie.mapper.ClienteleSupplierMapper;
 import com.lianchuangjie.lianchuangjie.service.Clientele.SupplierService;
-import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
+import com.lianchuangjie.lianchuangjie.utils.ContextUtil;
 import com.lianchuangjie.lianchuangjie.vo.Clientele.ClienteleVO;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +24,6 @@ public class SupplierServiceImpl extends ServiceImpl<ClienteleSupplierMapper, Cl
 
     @Override
     public ClienteleVO getOne(String CardCode) {
-        return clienteleSupplierMapper.selectOne(CardCode, SessionUtil.getUser().getUserSign());
+        return clienteleSupplierMapper.selectOne(CardCode, ContextUtil.getUser().getUserSign());
     }
 }

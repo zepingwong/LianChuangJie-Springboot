@@ -7,7 +7,7 @@ import com.lianchuangjie.lianchuangjie.mapper.HomeToDoMapper;
 import com.lianchuangjie.lianchuangjie.mapper.StockPrice.StockPriceMapper;
 import com.lianchuangjie.lianchuangjie.service.HomeToDoService;
 import com.lianchuangjie.lianchuangjie.service.StockPrice.StockPriceService;
-import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
+import com.lianchuangjie.lianchuangjie.utils.ContextUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -30,7 +30,7 @@ public class HomeToDoServiceImpl implements HomeToDoService {
     @Override
     public Map<String, Long> getToDoNum(HttpServletRequest request) {
         Map<String, Long> map = new HashMap<>();
-        UserEntity user = SessionUtil.getUser();
+        UserEntity user = ContextUtil.getUser();
         if (Objects.equals(user.getUIsSale(), "Y")) {
             map.put("Enquiry", homeToDoMapper.countEnquiry(user.getUserSign()));
         }

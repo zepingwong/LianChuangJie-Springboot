@@ -1,7 +1,7 @@
 package com.lianchuangjie.lianchuangjie.dto.search;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
+import com.lianchuangjie.lianchuangjie.utils.ContextUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,7 +33,7 @@ public class TabSearchDTO {
      */
     private Long userSign;
     public Long getUserSign() {
-        return SessionUtil.getUser().getUserSign();
+        return ContextUtil.getUser().getUserSign();
     }
     /**
      * @description 需求型号数组 Modle

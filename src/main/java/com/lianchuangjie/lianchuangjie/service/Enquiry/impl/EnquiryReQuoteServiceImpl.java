@@ -12,7 +12,7 @@ import com.lianchuangjie.lianchuangjie.mapper.Enquiry.EnquirySubMapper;
 import com.lianchuangjie.lianchuangjie.mapper.QuotationMapper;
 import com.lianchuangjie.lianchuangjie.mapper.User.UserMapper;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquiryReQuoteService;
-import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
+import com.lianchuangjie.lianchuangjie.utils.ContextUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -36,10 +36,10 @@ public class EnquiryReQuoteServiceImpl extends ServiceImpl<EnquirySubMapper, Enq
         selectEnquirySubEntity.eq("LineNum", enquiryReQuoteDTO.getLineNum());
         EnquirySubEntity enquirySubEntity = enquirySubMapper.selectOne(selectEnquirySubEntity);
         // 需求主表
-        EnquiryMainEntity enquiryMainEntity = enquiryMainMapper.selectByDocEntry(enquiryReQuoteDTO.getDocEntry(), SessionUtil.getUser().getUserSign());
+        EnquiryMainEntity enquiryMainEntity = enquiryMainMapper.selectByDocEntry(enquiryReQuoteDTO.getDocEntry(), ContextUtil.getUser().getUserSign());
         // 该货源的采购员
         QueryWrapper<UserEntity> selectUserEntity = new QueryWrapper<>();
-        selectUserEntity.eq("UserSign", SessionUtil.getUser().getUserSign());
+        selectUserEntity.eq("UserSign", ContextUtil.getUser().getUserSign());
         UserEntity userEntity = userMapper.selectOne(selectUserEntity);
         /*
          * 1. 判断当前询价单是否已经发送给该货源对应的采购

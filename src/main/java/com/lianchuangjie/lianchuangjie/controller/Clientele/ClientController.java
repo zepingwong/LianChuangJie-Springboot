@@ -4,7 +4,7 @@ import com.lianchuangjie.lianchuangjie.config.Authentication;
 import com.lianchuangjie.lianchuangjie.dto.Clientele.ClienteleSearchDTO;
 import com.lianchuangjie.lianchuangjie.service.Clientele.ClientService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
-import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
+import com.lianchuangjie.lianchuangjie.utils.ContextUtil;
 import com.lianchuangjie.lianchuangjie.vo.Clientele.ClienteleVO;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,7 +34,7 @@ public class ClientController {
         ClienteleSearchDTO clienteleSearchDTO = new ClienteleSearchDTO();
         clienteleSearchDTO.setCardName(cardName);
         clienteleSearchDTO.setCardCode(cardCode);
-        clienteleSearchDTO.setUserSign(SessionUtil.getUser().getUserSign());
+        clienteleSearchDTO.setUserSign(ContextUtil.getUser().getUserSign());
         List<ClienteleVO> list = clientService.list(clienteleSearchDTO);
         return Result.success(list, "success");
     }

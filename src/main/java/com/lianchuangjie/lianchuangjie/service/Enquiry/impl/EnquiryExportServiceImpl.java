@@ -5,7 +5,7 @@ import com.lianchuangjie.lianchuangjie.entity.Enquiry.EnquiryMainEntity;
 import com.lianchuangjie.lianchuangjie.mapper.Enquiry.EnquiryMainMapper;
 import com.lianchuangjie.lianchuangjie.mapper.Enquiry.EnquirySubMapper;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquiryExportService;
-import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
+import com.lianchuangjie.lianchuangjie.utils.ContextUtil;
 import com.lianchuangjie.lianchuangjie.vo.EnquiryExportDataVO;
 import com.lianchuangjie.lianchuangjie.vo.EnquiryExportHeadVO;
 import com.lianchuangjie.lianchuangjie.vo.EnquiryExportItemVO;
@@ -23,7 +23,7 @@ public class EnquiryExportServiceImpl implements EnquiryExportService {
 
     @Override
     public EnquiryExportDataVO list(Long docEntry) {
-        EnquiryMainEntity enquiryMainEntity = enquiryMainMapper.selectByDocEntry(docEntry, SessionUtil.getUser().getUserSign());
+        EnquiryMainEntity enquiryMainEntity = enquiryMainMapper.selectByDocEntry(docEntry, ContextUtil.getUser().getUserSign());
         /*
          * 1. 报价单导出次数 +1
          * 2. 要判断报价单导出次数是否为 null
@@ -40,7 +40,7 @@ public class EnquiryExportServiceImpl implements EnquiryExportService {
         // 查询条件
         EnquirySubSearchDTO enquirySubSearchDTO = new EnquirySubSearchDTO();
         enquirySubSearchDTO.setDocEntry(docEntry);
-        enquirySubSearchDTO.setOwnerCode(SessionUtil.getUser().getUserSign());
+        enquirySubSearchDTO.setOwnerCode(ContextUtil.getUser().getUserSign());
         // 表头
         EnquiryExportHeadVO enquiryExportHeadVO = enquirySubMapper.head(enquirySubSearchDTO);
         enquiryExportHeadVO.setSubject("报价");

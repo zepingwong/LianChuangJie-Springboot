@@ -7,7 +7,7 @@ import com.lianchuangjie.lianchuangjie.dto.Enquiry.EnquirySaveItemDTO;
 import com.lianchuangjie.lianchuangjie.dto.Enquiry.EnquirySubSearchDTO;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquirySubService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
-import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
+import com.lianchuangjie.lianchuangjie.utils.ContextUtil;
 import com.lianchuangjie.lianchuangjie.vo.Enquiry.EnquirySubVO;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,7 +40,7 @@ public class EnquirySubController extends BaseController {
     ) {
         EnquirySubSearchDTO searchCondition = new EnquirySubSearchDTO();
         searchCondition.setDocEntry(docEntry);
-        Long userSign = SessionUtil.getUser().getUserSign();
+        Long userSign = ContextUtil.getUser().getUserSign();
         searchCondition.setOwnerCode(userSign);
         searchCondition.setPage(page);
         searchCondition.setSize(size);

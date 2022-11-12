@@ -4,7 +4,7 @@ import com.lianchuangjie.lianchuangjie.entity.User.UserEntity;
 import com.lianchuangjie.lianchuangjie.service.User.UserAvatarService;
 import com.lianchuangjie.lianchuangjie.service.User.UserInfoService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
-import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
+import com.lianchuangjie.lianchuangjie.utils.ContextUtil;
 import com.lianchuangjie.lianchuangjie.vo.UserInfoVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.validation.annotation.Validated;
@@ -37,7 +37,7 @@ public class UserInfoController {
         UserInfoVO userInfoVO = new UserInfoVO();
         UserEntity user;
         if (id.equals("0") | Integer.parseInt(id) == 0) {
-            user = SessionUtil.getUser();
+            user = ContextUtil.getUser();
         } else {
             user = userInfoService.getOne(id);
         }

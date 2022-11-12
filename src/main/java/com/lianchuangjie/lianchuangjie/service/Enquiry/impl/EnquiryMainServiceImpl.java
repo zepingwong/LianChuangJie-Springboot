@@ -10,7 +10,7 @@ import com.lianchuangjie.lianchuangjie.entity.Enquiry.EnquiryMainEntity;
 import com.lianchuangjie.lianchuangjie.exception.Enquiry.EnquiryError;
 import com.lianchuangjie.lianchuangjie.mapper.Enquiry.EnquiryMainMapper;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquiryMainService;
-import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
+import com.lianchuangjie.lianchuangjie.utils.ContextUtil;
 import com.lianchuangjie.lianchuangjie.vo.Enquiry.EnquiryMainInfoVO;
 import com.lianchuangjie.lianchuangjie.vo.Enquiry.EnquiryMainItemVO;
 import org.springframework.beans.BeanUtils;
@@ -32,7 +32,7 @@ public class EnquiryMainServiceImpl extends ServiceImpl<EnquiryMainMapper, Enqui
                 enquiryMainMapper.exists(queryWrapper),
                 "编号为" + docEntry + "的询价单不存在"
         );
-        Long userSign = SessionUtil.getUser().getUserSign();
+        Long userSign = ContextUtil.getUser().getUserSign();
         EnquiryMainEntity enquiryMainEntity = enquiryMainMapper.selectByDocEntry(docEntry, userSign);
         // 判断权限
         EnquiryError.HAS_NO_AUTHENTICATION.assertNotNull(

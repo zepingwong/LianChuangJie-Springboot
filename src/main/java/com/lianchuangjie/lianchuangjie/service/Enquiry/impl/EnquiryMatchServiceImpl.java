@@ -15,7 +15,7 @@ import com.lianchuangjie.lianchuangjie.mapper.Enquiry.EnquirySingleMatchMapper;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquiryMainService;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquiryMatchService;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquirySubService;
-import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
+import com.lianchuangjie.lianchuangjie.utils.ContextUtil;
 import com.lianchuangjie.lianchuangjie.vo.Enquiry.EnquiryMatchItemVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -42,7 +42,7 @@ public class EnquiryMatchServiceImpl implements EnquiryMatchService {
     EnquirySubService enquirySubService;
 
     private void setUserInfo(EnquirySingleQueryDTO enquirySingleQueryDTO) {
-        UserEntity user = SessionUtil.getUser();
+        UserEntity user = ContextUtil.getUser();
         enquirySingleQueryDTO.setSlpCode(user.getUserSign());
         enquirySingleQueryDTO.setDeptCode(user.getDftDept());
     }
@@ -57,20 +57,20 @@ public class EnquiryMatchServiceImpl implements EnquiryMatchService {
 
     @Override
     public List<EnquiryMatchItemVO> queryBatch(List<EnquirySingleQueryDTO> enquirySingleQueryDTOList) {
-        UserEntity user = SessionUtil.getUser();
+        UserEntity user = ContextUtil.getUser();
         return enquiryBatchMatchMapper.query(enquirySingleQueryDTOList, user.getDftDept(), user.getUserSign());
     }
 
     @Override
     public List<EnquiryMatchItemVO> queryBom(Long docEntry) {
-        UserEntity user = SessionUtil.getUser();
+        UserEntity user = ContextUtil.getUser();
         return enquiryBomMatchMapper.query(docEntry, user.getDftDept(), user.getUserSign());
     }
 
     @Override
     public Boolean save(EnquiryMatchSaveDTO enquiryMatchSaveDTO) {
         // 销售员
-        UserEntity user = SessionUtil.getUser();
+        UserEntity user = ContextUtil.getUser();
         EnquiryMatchHeadDTO enquiryMatchHead = enquiryMatchSaveDTO.getEnquiryMatchHead();
         EnquiryMainEntity enquiryMainEntity = new EnquiryMainEntity();
         BeanUtils.copyProperties(enquiryMatchHead, enquiryMainEntity);

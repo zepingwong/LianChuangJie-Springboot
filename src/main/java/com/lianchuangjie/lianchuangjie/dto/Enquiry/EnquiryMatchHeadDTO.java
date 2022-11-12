@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.lianchuangjie.lianchuangjie.entity.User.UserEntity;
-import com.lianchuangjie.lianchuangjie.utils.SessionUtil;
+import com.lianchuangjie.lianchuangjie.utils.ContextUtil;
 import com.lianchuangjie.lianchuangjie.utils.validate.NotEqual;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,7 +19,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class EnquiryMatchHeadDTO {
-    private UserEntity user = SessionUtil.getUser();
+    private UserEntity user = ContextUtil.getUser();
     // 交易地点 T_ICIN.U_TransaPlace
     @NotNull(message = "交易地点不能为空")
     @JsonProperty("U_TransaPlace")
