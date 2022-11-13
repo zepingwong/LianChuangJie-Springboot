@@ -240,12 +240,12 @@
         ON T_OBTQ.MdAbsEntry = T_OBTN.AbsEntry /*库存数量表，通过批次和型号代码关联*/
         AND T_OBTQ.ItemCode = T_OBTN.ItemCode
         LEFT JOIN (
-        /*通过物料编码字段 匹配 T_OITM（物料主数据表）的品牌*/
-        SELECT
-        T0.ItemName,
-        IIF(ISNULL(T1.U_QuoBrand,'') = '', T1.U_Brand, T1.U_QuoBrand) AS Brand
-        FROM T_OBTN T0
-        INNER JOIN T_OITM T1 ON T0.ItemCode = T1.ItemCode
+            /*通过物料编码字段 匹配 T_OITM（物料主数据表）的品牌*/
+            SELECT
+            T0.ItemName,
+            IIF(ISNULL(T1.U_QuoBrand,'') = '', T1.U_Brand, T1.U_QuoBrand) AS Brand
+            FROM T_OBTN T0
+            INNER JOIN T_OITM T1 ON T0.ItemCode = T1.ItemCode
         ) Brand ON Brand.ItemName = T_OBTN.ItemName
         WHERE T_OBTN.ItemName IN (
         SELECT SDADA_1.sno

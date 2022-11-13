@@ -3,8 +3,41 @@
 <mapper namespace="com.lianchuangjie.lianchuangjie.mapper.StockRank.StockRankMapper">
     <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.StockRank.StockRankVO">
         SELECT
-            *
+            U_StockRank.*,
+            StockQuantity.Quantity,
+            OpenQuantity.OpenQty
         FROM U_StockRank
+        LEFT JOIN (
+            SELECT
+                T_OBTN.ItemName,
+                SUM(T.Quantity - T_OBTN.U_LockQty) AS Quantity
+            FROM (
+                SELECT
+                    MdAbsEntry,
+                    SUM(Quantity) AS Quantity
+                FROM T_OBTQ
+                GROUP BY MdAbsEntry
+            ) T
+            INNER JOIN T_OBTN ON T.MdAbsEntry = T_OBTN.AbsEntry
+            GROUP BY ItemName
+        ) StockQuantity ON StockQuantity.ItemName = U_StockRank.Modle
+        LEFT JOIN (
+            SELECT
+                T_OPOR1.U_ItemName,
+                T_OPOR1.U_Brand,
+                SUM(T_OPOR1.OpenQty) AS OpenQty
+            FROM T_OPOR1
+            GROUP BY T_OPOR1.U_ItemName, U_Brand
+        ) OpenQuantity ON OpenQuantity.U_ItemName = U_StockRank.Modle AND OpenQuantity.U_Brand = U_StockRank.Brand
         ORDER BY U_StockRank.TotalScore DESC
+    </select>
+    <select id="selectPurchasePrice" resultType="java.math.BigDecimal">
+        SELECT PPriceAFVAT
+        FROM U_OIVL
+        WHERE BaseName = N'采购入库'
+        AND DATEDIFF(MONTH , DocDate, GETDATE()) &lt;= 2
+        <if test="modle != null">
+            AND ItemName = #{modle}
+        </if>
     </select>
 </mapper>

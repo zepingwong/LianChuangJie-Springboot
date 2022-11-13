@@ -22,6 +22,12 @@ public class StockRankVO {
     // 型号
     @JsonProperty("Modle")
     private String modle;
+    // 库存数量
+    @JsonProperty("Quantity")
+    private BigDecimal quantity;
+    // 在途数量
+    @JsonProperty("OpenQty")
+    private BigDecimal openQty;
     /**
      * 01.询价频次
      */
@@ -181,6 +187,14 @@ public class StockRankVO {
     // 销售总额得分
     @JsonProperty("SumSaleMoneyScore")
     private BigDecimal sumSaleMoneyScore;
+    @JsonProperty("SumSaleMoneyFirst")
+    private BigDecimal sumSaleMoneyFirst;
+    @JsonProperty("SumSaleMoneySecond")
+    private BigDecimal sumSaleMoneySecond;
+    @JsonProperty("SumSaleMoneyThird")
+    private BigDecimal sumSaleMoneyThird;
+    @JsonProperty("SumSaleMoneyForth")
+    private BigDecimal sumSaleMoneyForth;
     /**
      * 11.采购总额
      */

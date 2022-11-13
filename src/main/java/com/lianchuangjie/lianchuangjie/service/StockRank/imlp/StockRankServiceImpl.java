@@ -10,15 +10,23 @@ import com.lianchuangjie.lianchuangjie.vo.StockRank.StockRankVO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
+import java.util.List;
 
 @Service
 public class StockRankServiceImpl extends ServiceImpl<StockRankMapper, StockRankEntity> implements StockRankService {
     @Resource
     StockRankMapper stockRankMapper;
+
     @Override
     public Page<StockRankVO> list(StockRankSearchDTO searchCondition) {
         Page<StockRankVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
         stockRankMapper.selectList(page, searchCondition);
         return page;
+    }
+
+    @Override
+    public List<BigDecimal> purchasePriceList(String modle) {
+        return stockRankMapper.selectPurchasePrice(modle);
     }
 }

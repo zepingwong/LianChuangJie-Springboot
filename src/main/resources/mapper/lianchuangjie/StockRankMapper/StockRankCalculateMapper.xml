@@ -77,6 +77,10 @@
         InitRank.SumSaleMoney, /*10.近一年销售总额*/
         ROW_NUMBER() OVER(ORDER BY InitRank.SumSaleMoney DESC) as SumSaleMoneyRank, /*近一年销售总额排名*/
         NULL AS SumSaleMoneyScore, /*销售总额得分*/
+        InitRank.SumSaleMoneyFirst,
+        InitRank.SumSaleMoneySecond,
+        InitRank.SumSaleMoneyThird,
+        InitRank.SumSaleMoneyForth,
         InitRank.SumPurchaseMoney, /*11.近一年采购总额*/
         InitRank.SumPurchaseMoneyRank, /*近一年采购总额排名*/
         NULL AS SumPurchaseMoneyScore, /*采购总额得分*/
@@ -917,8 +921,8 @@
         SumPurchaseQuantity * 0.0124 +
         PurchaseFrequencyScore * 0.0326 +
         SumSaleMoneyScore * 0.0303 +
-        SumPurchaseMoneyScore * 0.0167
-        -- + BrandScore * 0.0567
+        SumPurchaseMoneyScore * 0.0167+
+        BrandScore * 0.0567
 
 
     </update>

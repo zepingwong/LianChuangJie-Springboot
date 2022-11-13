@@ -9,8 +9,30 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 @Mapper
 @Repository
 public interface StockRankMapper extends BaseMapper<StockRankEntity> {
-    IPage<StockRankVO> selectList(IPage<StockRankVO> page , @Param("sc") StockRankSearchDTO stockRankSearchDTO);
+    /**
+     * @param page               page
+     * @param stockRankSearchDTO stockRankSearchDTO
+     * @return IPage
+     * @description 获取库存定价列表
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 11/13/2022
+     */
+    IPage<StockRankVO> selectList(IPage<StockRankVO> page, @Param("sc") StockRankSearchDTO stockRankSearchDTO);
+
+    /**
+     * @param modle modle
+     * @return List
+     * @description 获取采购成本价格走势
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 11/13/2022
+     */
+    List<BigDecimal> selectPurchasePrice(@Param("modle") String modle);
 }
