@@ -10,7 +10,8 @@ import com.lianchuangjie.lianchuangjie.vo.Quotation.TabQuotationSalesOrderVO;
 import com.lianchuangjie.lianchuangjie.vo.StockPrice.TabStockPriceEnquiryVO;
 import com.lianchuangjie.lianchuangjie.vo.StockPrice.TabStockPriceNeedsVO;
 import com.lianchuangjie.lianchuangjie.vo.StockPrice.TabStockPriceQuoteVO;
-import com.lianchuangjie.lianchuangjie.vo.StockPrice.TabStockPriceZNLVO;
+import com.lianchuangjie.lianchuangjie.vo.StockRank.TabStockRankSdadaVO;
+import com.lianchuangjie.lianchuangjie.vo.StockRank.TabStockRankZNLVO;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,9 +34,10 @@ public class TabStockRankController {
     TabZhengNengLiangService tabZhengNengLiangService;
     @Resource
     TabSalesOrderService tabSalesOrderService;
-
     @Resource
     TabQuotationService tabQuotationService;
+    @Resource
+    TabSdadaService tabSdadaService;
 
     /**
      * @param page  page
@@ -49,21 +51,44 @@ public class TabStockRankController {
      */
     @GetMapping("/stockrank/znl")
     @Authentication(sale = true, buyer = true)
-    public Result<Page<TabStockPriceZNLVO>> getStockPriceZnl(@RequestParam(defaultValue = "1", value = "page") Integer page, @RequestParam(defaultValue = "10", value = "size") Integer size, @RequestParam(defaultValue = "#{null}", value = "Modle") String modle) {
+    public Result<Page<TabStockRankZNLVO>> getStockPriceZnl(@RequestParam(defaultValue = "1", value = "page") Integer page, @RequestParam(defaultValue = "10", value = "size") Integer size, @RequestParam(defaultValue = "#{null}", value = "Modle") String modle) {
         TabSearchDTO tabSearchDTO = new TabSearchDTO();
         tabSearchDTO.setPage(page);
         tabSearchDTO.setSize(size);
         tabSearchDTO.setModle(modle);
-        Page<TabStockPriceZNLVO> res = tabZhengNengLiangService.stockPriceTabList(tabSearchDTO);
+        Page<TabStockRankZNLVO> res = tabZhengNengLiangService.stockRankTabList(tabSearchDTO);
         return Result.success(res);
     }
-
+    /**
+     * @param page  page 页码
+     * @param size  size 每页显示数量
+     * @param modle modle 型号
+     * @return Result
+     * @description 标准型号-单个型号
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 8/20/2022
+     */
+    @GetMapping("/quote/sdada")
+    @Authentication(sale = true, buyer = true)
+    public Result<Page<TabStockRankSdadaVO>> getStandardDataOne(
+            @RequestParam(defaultValue = "1", value = "page") Integer page,
+            @RequestParam(defaultValue = "10", value = "size") Integer size,
+            @RequestParam(defaultValue = "#{null}", value = "Modle") String modle
+    ) {
+        TabSearchDTO tabSearchDTO = new TabSearchDTO();
+        tabSearchDTO.setPage(page);
+        tabSearchDTO.setSize(size);
+        tabSearchDTO.setModle(modle);
+        Page<TabStockRankSdadaVO> res = tabSdadaService.stockRankTabList(tabSearchDTO);
+        return Result.success(res);
+    }
     /**
      * @param page  page
      * @param size  size
      * @param modle modle
      * @return Result
-     * @description 库存定价-客户需求Tab
+     * @description 库存排名-客户需求Tab
      * @author WANG Zeping
      * @email zepingwong@gmail.com
      * @date 9/4/2022
@@ -88,7 +113,7 @@ public class TabStockRankController {
      * @param size  size
      * @param modle modle
      * @return Result
-     * @description 库存定价-销售订单TAB
+     * @description 库存排名-销售订单TAB
      * @author WANG Zeping
      * @email zepingwong@gmail.com
      * @date 9/4/2022
@@ -109,7 +134,7 @@ public class TabStockRankController {
      * @param size  size
      * @param modle modle
      * @return Result
-     * @description 库存定价-采购订单TAB
+     * @description 库存排名-采购订单TAB
      * @author WANG Zeping
      * @email zepingwong@gmail.com
      * @date 9/4/2022
@@ -130,7 +155,7 @@ public class TabStockRankController {
      * @param size  size
      * @param modle modle
      * @return Result
-     * @description 库存定价-销售报价TAB
+     * @description 库存排名-销售报价TAB
      * @author WANG Zeping
      * @email zepingwong@gmail.com
      * @date 9/4/2022
@@ -157,7 +182,7 @@ public class TabStockRankController {
      * @param size  size
      * @param modle modle
      * @return Result
-     * @description 库存定价-采购报价TAB
+     * @description 库存排名-采购报价TAB
      * @author WANG Zeping
      * @email zepingwong@gmail.com
      * @date 9/4/2022

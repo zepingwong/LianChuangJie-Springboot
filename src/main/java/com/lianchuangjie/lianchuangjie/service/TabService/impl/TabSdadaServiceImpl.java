@@ -8,6 +8,7 @@ import com.lianchuangjie.lianchuangjie.mapper.TabMapper.TabSdadaMapper;
 import com.lianchuangjie.lianchuangjie.service.TabService.TabSdadaService;
 import com.lianchuangjie.lianchuangjie.vo.Quotation.TabQuotationSdadaVO;
 import com.lianchuangjie.lianchuangjie.vo.Search.TabSearchSdadaVO;
+import com.lianchuangjie.lianchuangjie.vo.StockRank.TabStockRankSdadaVO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -22,6 +23,14 @@ public class TabSdadaServiceImpl extends ServiceImpl<TabSdadaMapper, SdadaEntity
         Page<TabQuotationSdadaVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
         page.setOptimizeCountSql(false);
         tabSdadaMapper.selectQuotationSdadaTab(page, searchCondition.getModleList());
+        return page;
+    }
+
+    @Override
+    public Page<TabStockRankSdadaVO> stockRankTabList(TabSearchDTO searchCondition) {
+        Page<TabStockRankSdadaVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
+        page.setOptimizeCountSql(false);
+        tabSdadaMapper.selectStockRankSdadaTab(page, searchCondition.getModleList());
         return page;
     }
 

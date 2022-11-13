@@ -8,6 +8,7 @@ import com.lianchuangjie.lianchuangjie.mapper.TabMapper.TabZhengNengLiangMapper;
 import com.lianchuangjie.lianchuangjie.mapper.ZhengNengLiangSubMapper;
 import com.lianchuangjie.lianchuangjie.service.TabService.TabZhengNengLiangService;
 import com.lianchuangjie.lianchuangjie.vo.StockPrice.TabStockPriceZNLVO;
+import com.lianchuangjie.lianchuangjie.vo.StockRank.TabStockRankZNLVO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -21,6 +22,13 @@ public class TabZhengNengLiangServiceImpl extends ServiceImpl<ZhengNengLiangSubM
     public Page<TabStockPriceZNLVO> stockPriceTabList(TabSearchDTO searchCondition) {
         Page<TabStockPriceZNLVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
         tabZhengNengLiangMapper.selectStockPriceTabList(page, searchCondition);
+        return page;
+    }
+
+    @Override
+    public Page<TabStockRankZNLVO> stockRankTabList(TabSearchDTO searchCondition) {
+        Page<TabStockRankZNLVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
+        tabZhengNengLiangMapper.selectStockRankTabList(page, searchCondition);
         return page;
     }
 }

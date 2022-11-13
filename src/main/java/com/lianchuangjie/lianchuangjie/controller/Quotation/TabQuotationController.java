@@ -156,6 +156,16 @@ public class TabQuotationController {
         Page<TabQuotationPurchaseOrderVO> pages = tabPurchaseOrderService.quotationTabList(tabSearchDTO);
         return Result.success(pages, "Success");
     }
+    /**
+     * @param page  page 页码
+     * @param size  size 每页显示数量
+     * @param modle modle 型号
+     * @return Result
+     * @description 标准型号-单个型号
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 8/20/2022
+     */
     @GetMapping("/quote/sdada")
     @Authentication(sale = true, buyer = true)
     public Result<Page<TabQuotationSdadaVO>> getStandardDataOne(@RequestParam(defaultValue = "1", value = "page") Integer page, @RequestParam(defaultValue = "10", value = "size") Integer size, @RequestParam(defaultValue = "#{null}", value = "Modle") String modle) {
