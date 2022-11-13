@@ -28,18 +28,38 @@
         InitRank.InquiryFrequency, /*01.近一年加权询价频次*/
         ROW_NUMBER() OVER(ORDER BY InitRank.InquiryFrequency DESC) as InquiryFrequencyRank, /*加权询价频次排名*/
         NULL AS InquiryFrequencyScore, /*加权询价频次得分*/
+        InitRank.InquiryFrequencyFirst,
+        InitRank.InquiryFrequencySecond,
+        InitRank.InquiryFrequencyThird,
+        InitRank.InquiryFrequencyForth,
         InitRank.InquiryCustomers, /*02.加权询价客户数*/
         ROW_NUMBER() OVER(ORDER BY InitRank.InquiryCustomers DESC) as InquiryCustomersRank, /*加权询价客户数排名*/
         NULL AS InquiryCustomersScore, /*加权询价客户数得分*/
+        InitRank.InquiryCustomersFirst,
+        InitRank.InquiryCustomersSecond,
+        InitRank.InquiryCustomersThird,
+        InitRank.InquiryCustomersForth,
         InitRank.OrderCustomers, /*03.近一年加权订单客户数量*/
         ROW_NUMBER() OVER(ORDER BY InitRank.OrderCustomers DESC) as OrderCustomersRank, /*加权订单客户数量排名*/
         NULL AS OrderCustomersScore, /*加权订单客户数量得分*/
+        InitRank.OrderCustomersFirst,
+        InitRank.OrderCustomersSecond,
+        InitRank.OrderCustomersThird,
+        InitRank.OrderCustomersForth,
         InitRank.DeliveryFrequency, /*04.近一年加权交货单频次*/
         ROW_NUMBER() OVER(ORDER BY InitRank.DeliveryFrequency DESC) as DeliveryFrequencyRank, /*近一年加权交货单频次排名*/
         NULL AS DeliveryFrequencyScore, /*加权交货单频次得分*/
+        InitRank.DeliveryFrequencyFirst,
+        InitRank.DeliveryFrequencySecond,
+        InitRank.DeliveryFrequencyThird,
+        InitRank.DeliveryFrequencyForth,
         InitRank.DeliveryQuantity, /*05.近一年加权销售总数*/
         ROW_NUMBER() OVER(ORDER BY InitRank.DeliveryQuantity DESC) as DeliveryQuantityRank, /*近一年加权销售总数排名*/
         NULL AS DeliveryQuantityScore, /*加权销售总数得分*/
+        InitRank.DeliveryQuantityFirst,
+        InitRank.DeliveryQuantitySecond,
+        InitRank.DeliveryQuantityThird,
+        InitRank.DeliveryQuantityForth,
         InitRank.AverageProfit, /*06.近一年平均利润率*/
         ROW_NUMBER() OVER(ORDER BY InitRank.AverageProfit DESC) as AverageProfitRank, /*近一年平均利润率排名*/
         NULL AS AverageProfitScore, /*近一年平均利润率得分*/
