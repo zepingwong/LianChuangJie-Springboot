@@ -10,6 +10,7 @@ import com.lianchuangjie.lianchuangjie.service.TabService.TabStockService;
 import com.lianchuangjie.lianchuangjie.vo.Enquiry.TabEnquiryStockVO;
 import com.lianchuangjie.lianchuangjie.vo.Quotation.TabQuotationStockVO;
 import com.lianchuangjie.lianchuangjie.vo.StockPrice.TabStockPriceOriginVO;
+import com.lianchuangjie.lianchuangjie.vo.StockRank.TabStockRankStockVO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -41,6 +42,13 @@ public class TabStockServiceImpl extends ServiceImpl<TabStockMapper, StockQuanti
     public Page<TabQuotationStockVO> quotationTabList(TabSearchDTO searchCondition) {
         Page<TabQuotationStockVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
         tabStockMapper.selectQuotationTabList(page, searchCondition);
+        return page;
+    }
+
+    @Override
+    public Page<TabStockRankStockVO> stockRankTabList(TabSearchDTO searchCondition) {
+        Page<TabStockRankStockVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
+        tabStockMapper.selectStockRankTabList(page, searchCondition);
         return page;
     }
 }

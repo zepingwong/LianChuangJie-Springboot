@@ -5,13 +5,8 @@ import com.lianchuangjie.lianchuangjie.config.Authentication;
 import com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO;
 import com.lianchuangjie.lianchuangjie.service.TabService.*;
 import com.lianchuangjie.lianchuangjie.utils.Result;
-import com.lianchuangjie.lianchuangjie.vo.StockPrice.TabStockPriceEnquiryVO;
 import com.lianchuangjie.lianchuangjie.vo.StockPrice.TabStockPriceNeedsVO;
-import com.lianchuangjie.lianchuangjie.vo.StockPrice.TabStockPriceQuoteVO;
-import com.lianchuangjie.lianchuangjie.vo.StockRank.TabStockRankPurchaseOrderVO;
-import com.lianchuangjie.lianchuangjie.vo.StockRank.TabStockRankSalesOrderVO;
-import com.lianchuangjie.lianchuangjie.vo.StockRank.TabStockRankSdadaVO;
-import com.lianchuangjie.lianchuangjie.vo.StockRank.TabStockRankZNLVO;
+import com.lianchuangjie.lianchuangjie.vo.StockRank.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,9 +30,9 @@ public class TabStockRankController {
     @Resource
     TabSalesOrderService tabSalesOrderService;
     @Resource
-    TabQuotationService tabQuotationService;
-    @Resource
     TabSdadaService tabSdadaService;
+    @Resource
+    TabStockService tabStockService;
 
     /**
      * @param page  page
@@ -69,7 +64,7 @@ public class TabStockRankController {
      * @email zepingwong@gmail.com
      * @date 8/20/2022
      */
-    @GetMapping("/quote/sdada")
+    @GetMapping("/stockrank/sdada")
     @Authentication(sale = true, buyer = true)
     public Result<Page<TabStockRankSdadaVO>> getStandardDataOne(
             @RequestParam(defaultValue = "1", value = "page") Integer page,
@@ -82,6 +77,30 @@ public class TabStockRankController {
         tabSearchDTO.setModle(modle);
         Page<TabStockRankSdadaVO> res = tabSdadaService.stockRankTabList(tabSearchDTO);
         return Result.success(res);
+    }
+    /**
+     * @param page  page 页码
+     * @param size  size 每页显示数量
+     * @param modle modle 型号
+     * @return Result
+     * @description 库存情况-单个型号
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 8/19/2022
+     */
+    @GetMapping("/stockrank/stock")
+    @Authentication(buyer = true)
+    public Result<Page<TabStockRankStockVO>> getStocksListController(
+            @RequestParam(defaultValue = "#{null}", value = "page") Integer page,
+            @RequestParam(defaultValue = "#{null}", value = "size") Integer size,
+            @RequestParam(defaultValue = "#{null}", value = "Modle") String modle
+    ) {
+        TabSearchDTO tabSearchDTO = new TabSearchDTO();
+        tabSearchDTO.setPage(page);
+        tabSearchDTO.setSize(size);
+        tabSearchDTO.setModle(modle);
+        Page<TabStockRankStockVO> pages = tabStockService.stockRankTabList(tabSearchDTO);
+        return Result.success(pages, "Success");
     }
     /**
      * @param page  page
@@ -147,52 +166,6 @@ public class TabStockRankController {
         tabSearchDTO.setSize(size);
         tabSearchDTO.setModle(modle);
         Page<TabStockRankPurchaseOrderVO> pages = tabPurchaseOrderService.stockRankTabList(tabSearchDTO);
-        return Result.success(pages, "Success");
-    }
-
-    /**
-     * @param page  page
-     * @param size  size
-     * @param modle modle
-     * @return Result
-     * @description 库存排名-销售报价TAB
-     * @author WANG Zeping
-     * @email zepingwong@gmail.com
-     * @date 9/4/2022
-     */
-    @GetMapping("/stockrank/enquiry")
-    @Authentication(buyer = true)
-    public Result<Page<TabStockPriceEnquiryVO>> getEnquiryListController(
-            @RequestParam(defaultValue = "#{null}", value = "page") Integer page,
-            @RequestParam(defaultValue = "#{null}", value = "size") Integer size,
-            @RequestParam(defaultValue = "#{null}", value = "Modle") String modle
-    ) {
-        TabSearchDTO tabSearchDTO = new TabSearchDTO();
-        tabSearchDTO.setPage(page);
-        tabSearchDTO.setSize(size);
-        tabSearchDTO.setModle(modle);
-        Page<TabStockPriceEnquiryVO> pages = tabEnquiryService.stockPriceTabList(tabSearchDTO);
-        return Result.success(pages, "Success");
-    }
-
-    /**
-     * @param page  page
-     * @param size  size
-     * @param modle modle
-     * @return Result
-     * @description 库存排名-采购报价TAB
-     * @author WANG Zeping
-     * @email zepingwong@gmail.com
-     * @date 9/4/2022
-     */
-    @GetMapping("/stockrank/quote")
-    @Authentication(buyer = true)
-    public Result<Page<TabStockPriceQuoteVO>> getQuoteListController(@RequestParam(defaultValue = "#{null}", value = "page") Integer page, @RequestParam(defaultValue = "#{null}", value = "size") Integer size, @RequestParam(defaultValue = "#{null}", value = "Modle") String modle) {
-        TabSearchDTO tabSearchDTO = new TabSearchDTO();
-        tabSearchDTO.setPage(page);
-        tabSearchDTO.setSize(size);
-        tabSearchDTO.setModle(modle);
-        Page<TabStockPriceQuoteVO> pages = tabQuotationService.stockPriceTabList(tabSearchDTO);
         return Result.success(pages, "Success");
     }
 }
