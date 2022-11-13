@@ -11,11 +11,13 @@
             <if test="sc.timeEnd != null">
                 AND StartTime &lt; #{sc.timeEnd}
             </if>
-            <if test="sc.triggerType != null">
-                AND TriggerType = #{sc.triggerType}
+            <if test="sc.triggerTypeList != null">
+                AND TriggerType IN
+                <foreach collection="sc.triggerTypeList " item="item" open="(" separator="," close=")" index="index">'${item}'</foreach>
             </if>
-            <if test="sc.triggerName != null">
-                AND TriggerName = #{sc.triggerName}
+            <if test="sc.triggerNameList != null">
+                AND TriggerName IN
+                <foreach collection="sc.triggerNameList " item="item" open="(" separator="," close=")" index="index">'${item}'</foreach>
             </if>
         </where>
     </select>

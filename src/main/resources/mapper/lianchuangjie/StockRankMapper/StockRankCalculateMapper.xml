@@ -58,6 +58,8 @@
         InitRank.SumPurchaseMoney, /*11.近一年采购总额*/
         InitRank.SumPurchaseMoneyRank, /*近一年采购总额排名*/
         NULL AS SumPurchaseMoneyScore, /*采购总额得分*/
+        InitRank.BrandScore, /*12.品牌得分*/
+        ROW_NUMBER() OVER(ORDER BY InitRank.BrandScore DESC) as BrandScoreRank, /*品牌得分排名*/
         NULL AS ToTalScore /*总分*/
         INTO U_StockRank
         FROM (
@@ -179,10 +181,21 @@
 
         /*11.采购总额*/
         ISNULL(Purchase.SumMoney, 0) AS SumPurchaseMoney, /*近一年采购总额*/
-        ROW_NUMBER() OVER(ORDER BY Purchase.SumMoney DESC) as SumPurchaseMoneyRank /*近一年销售总额排名*/
+        ROW_NUMBER() OVER(ORDER BY Purchase.SumMoney DESC) as SumPurchaseMoneyRank, /*近一年销售总额排名*/
 
         /*12.品牌得分*/
-
+        ISNULL(BrandPurchase.SumMoney, 0) AS BrandSumPurchaseMoney, /*品牌总采购额*/
+        ISNULL(BrandPurchase.SumQuantity, 0) AS BrandSumPurchaseQuantity, /*品牌总采购数量*/
+        ISNULL(BrandPurchase.Suppliers, 0) AS BrandSumPurchaseSuppliers, /*品牌供应商数量*/
+        ISNULL(BrandSale.Customers, 0) AS BrandSumSaleCustomers, /*销售客户数量*/
+        ISNULL(BrandModle.ModleCount, 0) AS BrandModleCount, /*所属型号数量*/
+        (
+        ISNULL(BrandPurchase.SumMoney, 0) * 0.34 +
+        ISNULL(BrandPurchase.SumQuantity, 0) * 0.34 +
+        ISNULL(BrandSale.Customers, 0) * 0.178 +
+        ISNULL(BrandPurchase.Suppliers, 0) * 0.099 +
+        ISNULL(BrandModle.ModleCount, 0) * 0.043
+        ) BrandScore
 
         FROM (
         /*近一年询报价业务所涉及的品牌、型号*/
@@ -491,6 +504,41 @@
         OIVL.Brand,
         OIVL.ItemName
         ) Purchase ON Purchase.Brand = T.Brand AND Purchase.Modle = T.Modle
+
+        LEFT JOIN (
+        SELECT
+        Brand,
+        SUM(Quantity * U_OIVL.PPriceAFVAT) AS SumMoney,
+        SUM(Quantity) AS SumQuantity,
+        COUNT(DISTINCT CardCode) AS Suppliers
+        FROM U_OIVL
+        WHERE BaseName = N'采购入库'
+        AND DATEDIFF(MONTH ,U_OIVL.DocDate, GETDATE( )) &lt; 12
+        GROUP BY Brand
+        ) BrandPurchase ON BrandPurchase.Brand = T.Brand
+
+        LEFT JOIN (
+        SELECT
+        Brand,
+        SUM(Quantity * U_OIVL.SPriceAFVAT * ExchangeRate.Rate) AS SumMoney,
+        SUM(Quantity) AS SumQuantity,
+        COUNT (DISTINCT CardCode) AS Customers
+        FROM U_OIVL
+        LEFT JOIN #ExchangeRate ExchangeRate ON ExchangeRate.Currency = U_OIVL.SCurrency
+        WHERE BaseName = N'交货单'
+        AND DATEDIFF(MONTH ,U_OIVL.DocDate, GETDATE( )) &lt; 12
+        GROUP BY Brand
+        ) BrandSale ON BrandSale.Brand = T.Brand
+
+        LEFT JOIN (
+        SELECT
+        Brand,
+        COUNT(DISTINCT U_OIVL.ItemName) AS ModleCount
+        FROM U_OIVL
+        WHERE BaseName IN ( N'交货单', N'采购入库')
+        AND DATEDIFF(MONTH ,U_OIVL.DocDate, GETDATE( )) &lt; 12
+        GROUP BY Brand
+        ) BrandModle ON BrandModle.Brand = T.Brand
         ) InitRank
 
         DROP TABLE #ExchangeRate
@@ -512,7 +560,7 @@
         SET InquiryFrequencyScore = IIF (
         @MIN_InquiryFrequency != @MAX_InquiryFrequency,
         (InquiryFrequency - @MIN_InquiryFrequency) / (@MAX_InquiryFrequency - @MIN_InquiryFrequency) * 8 + 2,
-        0
+        1
         )
         WHERE InquiryFrequencyRank &lt;= @Total * 0.091799
 
@@ -521,16 +569,15 @@
         @MIN_InquiryFrequency = MIN(InquiryFrequency),
         @MAX_InquiryFrequency = MAX(InquiryFrequency)
         FROM U_StockRank
-        WHERE InquiryFrequencyRank > @Total * (1- 0.091799)
+        WHERE InquiryFrequencyRank > @Total * 0.091799
 
         UPDATE U_StockRank
         SET InquiryFrequencyScore = IIF (
         @MIN_InquiryFrequency != @MAX_InquiryFrequency,
         (InquiryFrequency - @MIN_InquiryFrequency) / (@MAX_InquiryFrequency - @MIN_InquiryFrequency) * 0.99 + 1,
-        0
+        1
         )
-        WHERE InquiryFrequencyRank > @Total * (1- 0.091799)
-
+        WHERE InquiryFrequencyRank > @Total * 0.091799
 
         /*询价客户数赋分*/
         DECLARE @MIN_InquiryCustomers INT
@@ -545,9 +592,8 @@
         SET InquiryCustomersScore = IIF(
         @MAX_InquiryCustomers != @MIN_InquiryCustomers,
         (InquiryCustomers - @MIN_InquiryCustomers) / (@MAX_InquiryCustomers - @MIN_InquiryCustomers) * 9 + 1,
-        0
+        1
         )
-
 
         /*订单客户数赋分*/
         DECLARE @MIN_OrderCustomers INT
@@ -562,7 +608,7 @@
         SET OrderCustomersScore = IIF(
         @MAX_OrderCustomers != @MIN_OrderCustomers,
         (OrderCustomers - @MIN_OrderCustomers) / (@MAX_OrderCustomers - @MIN_OrderCustomers) * 9 + 1,
-        0
+        1
         )
 
         /*交货单频次赋分*/
@@ -579,7 +625,7 @@
         SET DeliveryFrequencyScore = IIF(
         @MAX_DeliveryFrequency != @MIN_DeliveryFrequency,
         (DeliveryFrequency - @MIN_DeliveryFrequency) / (@MAX_DeliveryFrequency - @MIN_DeliveryFrequency) * 2 + 8,
-        0
+        1
         )
         WHERE DeliveryFrequencyRank &lt;= @Total * 0.001
 
@@ -588,16 +634,15 @@
         @MIN_DeliveryFrequency = MIN(DeliveryFrequency),
         @MAX_DeliveryFrequency = MAX(DeliveryFrequency)
         FROM U_StockRank
-        WHERE DeliveryFrequencyRank > @Total * (1- 0.001)
+        WHERE DeliveryFrequencyRank > @Total * 0.001
 
         UPDATE U_StockRank
         SET DeliveryFrequencyScore = IIF(
         @MAX_DeliveryFrequency != @MIN_DeliveryFrequency,
         (DeliveryFrequency - @MIN_DeliveryFrequency) / (@MAX_DeliveryFrequency - @MIN_DeliveryFrequency) * 7 + 1,
-        0
+        1
         )
-        WHERE DeliveryFrequencyRank > @Total * (1- 0.001)
-
+        WHERE DeliveryFrequencyRank > @Total * 0.001
 
         /*销售数量赋分*/
         DECLARE @MIN_DeliveryQuantity INT
@@ -613,7 +658,7 @@
         SET DeliveryQuantityScore = IIF(
         @MAX_DeliveryQuantity != @MIN_DeliveryQuantity,
         (DeliveryQuantity - @MIN_DeliveryQuantity) / (@MAX_DeliveryQuantity - @MIN_DeliveryQuantity) * 8 + 2,
-        0
+        1
         )
         WHERE DeliveryQuantityRank &lt;= @Total * 0.007
 
@@ -622,15 +667,15 @@
         @MIN_DeliveryQuantity = MIN(DeliveryQuantity),
         @MAX_DeliveryQuantity = MAX(DeliveryQuantity)
         FROM U_StockRank
-        WHERE DeliveryQuantityRank > @Total * (1- 0.007)
+        WHERE DeliveryQuantityRank > @Total * 0.007
 
         UPDATE U_StockRank
         SET DeliveryQuantityScore = IIF(
         @MAX_DeliveryQuantity != @MIN_DeliveryQuantity,
         (DeliveryQuantity - @MIN_DeliveryQuantity) / (@MAX_DeliveryQuantity - @MIN_DeliveryQuantity) * 7 + 1,
-        0
+        1
         )
-        WHERE DeliveryQuantityRank > @Total * (1- 0.007)
+        WHERE DeliveryQuantityRank > @Total * 0.007
 
         /*平均利润率赋分*/
         DECLARE @MAX_AverageProfit DECIMAL
@@ -662,7 +707,7 @@
         SET AverageProfitScore =  IIF(
         @MAX_AverageProfit != @MIN_AverageProfit,
         (AverageProfit - @MIN_AverageProfit) / (@MAX_AverageProfit - @MIN_AverageProfit) * 5 + 2,
-        0
+        1
         )
         WHERE AverageProfit &lt;= 1
         AND AverageProfit >= 0
@@ -677,7 +722,7 @@
         SET AverageProfitScore = IIF(
         @MAX_AverageProfit != @MIN_AverageProfit,
         (AverageProfit - @MIN_AverageProfit) / (@MAX_AverageProfit - @MIN_AverageProfit) + 1,
-        0
+        1
         )
         WHERE AverageProfit &lt; 0
 
@@ -719,7 +764,7 @@
         SET SumPurchaseQuantity = IIF(
         @MAX_SumPurchaseQuantity != @MIN_SumPurchaseQuantity,
         (SumPurchaseQuantity - @MIN_SumPurchaseQuantity) / (@MAX_SumPurchaseQuantity - @MIN_SumPurchaseQuantity) *2 + 8,
-        0
+        1
         )
         WHERE SumPurchaseQuantityRank &lt;= @Total * 0.00781
 
@@ -735,7 +780,7 @@
         SET SumPurchaseQuantity = IIF(
         @MAX_SumPurchaseQuantity != @MIN_SumPurchaseQuantity,
         (SumPurchaseQuantity - @MIN_SumPurchaseQuantity) / (@MAX_SumPurchaseQuantity - @MIN_SumPurchaseQuantity) * 7 + 1,
-        0
+        1
         )
         WHERE SumPurchaseQuantityRank > @Total * 0.00781
 
@@ -753,7 +798,7 @@
         SET PurchaseFrequencyScore = IIF(
         @MAX_PurchaseFrequency != @MIN_PurchaseFrequency,
         (PurchaseFrequency - @MIN_PurchaseFrequency) / (@MAX_PurchaseFrequency - @MIN_PurchaseFrequency) * 8 + 2,
-        0
+        1
         )
         WHERE PurchaseFrequencyRank &lt;= @Total * 0.001
 
@@ -762,15 +807,15 @@
         @MIN_PurchaseFrequency = MIN(PurchaseFrequency),
         @MAX_PurchaseFrequency = MAX(PurchaseFrequency)
         FROM U_StockRank
-        WHERE PurchaseFrequencyRank > @Total * (1- 0.001)
+        WHERE PurchaseFrequencyRank > @Total * 0.001
 
         UPDATE U_StockRank
         SET PurchaseFrequencyScore = IIF(
         @MAX_PurchaseFrequency != @MIN_PurchaseFrequency,
         (PurchaseFrequency - @MIN_PurchaseFrequency) / (@MAX_PurchaseFrequency - @MIN_PurchaseFrequency) * 7 + 1,
-        0
+        1
         )
-        WHERE PurchaseFrequencyRank > @Total * (1- 0.001)
+        WHERE PurchaseFrequencyRank > @Total * 0.001
 
         /*销售总额赋分*/
         DECLARE @MIN_SumSaleMoney INT
@@ -786,7 +831,7 @@
         SET SumSaleMoneyScore = IIF(
         @MAX_SumSaleMoney != @MIN_SumSaleMoney,
         (SumSaleMoney - @MIN_SumSaleMoney) / (@MAX_SumSaleMoney - @MIN_SumSaleMoney) * 2 + 8,
-        0
+        1
         )
         WHERE SumSaleMoneyRank &lt;= @Total * 0.004
 
@@ -795,15 +840,15 @@
         @MIN_SumSaleMoney = MIN(SumSaleMoney),
         @MAX_SumSaleMoney = MAX(SumSaleMoney)
         FROM U_StockRank
-        WHERE SumSaleMoneyRank > @Total * (1- 0.004)
+        WHERE SumSaleMoneyRank > @Total * 0.004
 
         UPDATE U_StockRank
         SET SumSaleMoneyScore = IIF(
         @MAX_SumSaleMoney != @MIN_SumSaleMoney,
         (SumSaleMoney - @MIN_SumSaleMoney) / (@MAX_SumSaleMoney - @MIN_SumSaleMoney) * 7 + 1,
-        0
+        1
         )
-        WHERE SumSaleMoneyRank > @Total * (1- 0.004)
+        WHERE SumSaleMoneyRank > @Total * 0.004
 
         /*采购总额赋分*/
         DECLARE @MIN_SumPurchaseMoney INT
@@ -819,7 +864,7 @@
         SET SumPurchaseMoneyScore = IIF(
         @MAX_SumPurchaseMoney != @MIN_SumPurchaseMoney,
         (SumPurchaseMoney - @MIN_SumPurchaseMoney) / (@MAX_SumPurchaseMoney - @MIN_SumPurchaseMoney) * 2 + 8,
-        0
+        1
         )
         WHERE SumPurchaseMoneyRank &lt;= @Total * 0.00254
 
@@ -828,15 +873,15 @@
         @MIN_SumPurchaseMoney = MIN(SumPurchaseMoney),
         @MAX_SumPurchaseMoney = MAX(SumPurchaseMoney)
         FROM U_StockRank
-        WHERE SumPurchaseMoneyRank > @Total * (1- 0.00254)
+        WHERE SumPurchaseMoneyRank > @Total * 0.00254
 
         UPDATE U_StockRank
         SET SumPurchaseMoneyScore = IIF(
         @MAX_SumPurchaseMoney != @MIN_SumPurchaseMoney,
         (SumPurchaseMoney - @MIN_SumPurchaseMoney) / (@MAX_SumPurchaseMoney - @MIN_SumPurchaseMoney) * 7 + 1,
-        0
+        1
         )
-        WHERE SumPurchaseMoneyRank > @Total * (1- 0.00254)
+        WHERE SumPurchaseMoneyRank > @Total * 0.00254
 
         UPDATE U_StockRank
         SET ToTalScore =
@@ -850,7 +895,9 @@
         SumPurchaseQuantity * 0.0124 +
         PurchaseFrequencyScore * 0.0326 +
         SumSaleMoneyScore * 0.0303 +
-        SumPurchaseMoneyScore * 0.0167
+        SumPurchaseMoneyScore * 0.0167 +
+        BrandScore * 0.0567
+
 
     </update>
 </mapper>

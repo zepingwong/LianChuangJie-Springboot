@@ -4,7 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -20,6 +22,14 @@ public class StockPriceLogSearchDTO {
     private Date timeEnd;
     // 事件类型
     private String triggerName;
+    private List<String> triggerNameList;
+    public List<String> getTriggerNameList() {
+        return Arrays.asList(triggerName.split(","));
+    }
     // 触发方式
     private String triggerType;
+    private List<String> triggerTypeList;
+    public List<String> getTriggerTypeList() {
+        return Arrays.asList(triggerType.split(","));
+    }
 }
