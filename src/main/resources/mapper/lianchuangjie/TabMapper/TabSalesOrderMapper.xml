@@ -501,4 +501,39 @@
             )
         )
     </select>
+    <select id="selectStockRankTabList"
+            resultType="com.lianchuangjie.lianchuangjie.vo.StockRank.TabStockRankSalesOrderVO">
+        SELECT
+            T_ORDR.DocDate, /*订单日期*/
+            T_ICIN.U_UserName, /*销售员*/
+            T_ICIN.U_DeptName, /*销售部门名称*/
+            T_ICIN.U_CusGroupCode, /*客户类型*/
+            T_ICIN.U_CusLevel, /*客户等级*/
+            T_ICIN.U_DomainName, /*客户行业*/
+            U_ICIN1.Secrecy, /*是否保密*/
+            U_ICIN1.QuoModle, /*型号*/
+            U_ICIN1.QuoBrand, /*品牌*/
+            U_ICIN1.SuoYear, /*批次*/
+            T_ORDR1.Quantity, /*订单数量*/
+            T_ORDR1.OpenQty, /*未交数量*/
+            T_ORDR1.U_ECCN, /*ECCN*/
+            T_ORDR1.U_Currency, /*币种*/
+            T_ORDR1.U_VatGroup, /*税率*/
+            T_ORDR1.U_PriceAfVAT, /*单价*/
+            T_ORDR1.ShipDate, /*交货日期*/
+            T_ORDR1.U_Remark /*备注*/
+        FROM T_ORDR1
+                 LEFT JOIN T_ORDR ON T_ORDR.DocEntry = T_ORDR1.DocEntry
+                 LEFT JOIN T_ICIN ON T_ORDR1.U_BaseEntry = T_ICIN.DocEntry
+                 LEFT JOIN U_ICIN1 ON T_ORDR1.U_BaseEntry = U_ICIN1.DocEntry AND T_ORDR1.U_BaseLine = U_ICIN1.LineNum
+        WHERE T_ORDR1.Dscription IN (
+            SELECT SDADA_1.sno
+            FROM SDADA SDADA_1
+            WHERE SDADA_1.TAG IN (
+                SELECT SDADA.TAG
+                FROM SDADA
+                WHERE SDADA.sno = #{sc.Modle}
+            )
+        )
+    </select>
 </mapper>

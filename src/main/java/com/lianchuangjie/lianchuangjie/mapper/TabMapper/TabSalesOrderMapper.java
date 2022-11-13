@@ -8,6 +8,7 @@ import com.lianchuangjie.lianchuangjie.vo.Enquiry.TabEnquirySalesOrderVO;
 import com.lianchuangjie.lianchuangjie.vo.Quotation.TabQuotationSalesOrderVO;
 import com.lianchuangjie.lianchuangjie.vo.Search.TabSearchSalesOrderVO;
 import com.lianchuangjie.lianchuangjie.vo.StockPrice.TabStockPriceSalesOrderVO;
+import com.lianchuangjie.lianchuangjie.vo.StockRank.TabStockRankSalesOrderVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -26,6 +27,23 @@ public interface TabSalesOrderMapper extends BaseMapper<SalesOrderSubEntity> {
      * @date 8/21/2022
      */
     IPage<TabStockPriceSalesOrderVO> selectStockPriceTabList(IPage<TabStockPriceSalesOrderVO> page, @Param("sc") TabSearchDTO searchCondition);
+    /**
+     * @param searchCondition searchCondition
+     * @return List
+     * @description 库存排名页面-销售订单List
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 8/21/2022
+     */
+    IPage<TabStockRankSalesOrderVO> selectStockRankTabList(IPage<TabStockRankSalesOrderVO> page, @Param("sc") TabSearchDTO searchCondition);
+    /**
+     * @param searchCondition searchCondition
+     * @return List
+     * @description 采购报价页面-销售订单List
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 8/21/2022
+     */
     IPage<TabQuotationSalesOrderVO> selectQuotationTabList(IPage<TabQuotationSalesOrderVO> page, @Param("sc") TabSearchDTO searchCondition);
     /**
      * @param searchCondition searchCondition

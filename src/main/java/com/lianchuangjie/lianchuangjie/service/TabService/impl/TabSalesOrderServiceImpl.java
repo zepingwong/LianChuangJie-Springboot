@@ -11,6 +11,7 @@ import com.lianchuangjie.lianchuangjie.vo.Enquiry.TabEnquirySalesOrderVO;
 import com.lianchuangjie.lianchuangjie.vo.Quotation.TabQuotationSalesOrderVO;
 import com.lianchuangjie.lianchuangjie.vo.StockPrice.TabStockPriceSalesOrderVO;
 import com.lianchuangjie.lianchuangjie.vo.Search.TabSearchSalesOrderVO;
+import com.lianchuangjie.lianchuangjie.vo.StockRank.TabStockRankSalesOrderVO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -50,6 +51,14 @@ public class TabSalesOrderServiceImpl extends ServiceImpl<TabSalesOrderMapper, S
         page.addOrder(OrderItem.desc("T_ORDR.DocDate"));
         page.setRecords(tabSalesOrderMapper.selectSearchTabList(searchCondition));
         page.setTotal(tabSalesOrderMapper.countEnquiryTabList(searchCondition));
+        return page;
+    }
+
+    @Override
+    public Page<TabStockRankSalesOrderVO> stockRankTabList(TabSearchDTO searchCondition) {
+        Page<TabStockRankSalesOrderVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
+        page.addOrder(OrderItem.desc("T_ORDR.DocDate"));
+        tabSalesOrderMapper.selectStockRankTabList(page, searchCondition);
         return page;
     }
 }

@@ -5,11 +5,11 @@ import com.lianchuangjie.lianchuangjie.config.Authentication;
 import com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO;
 import com.lianchuangjie.lianchuangjie.service.TabService.*;
 import com.lianchuangjie.lianchuangjie.utils.Result;
-import com.lianchuangjie.lianchuangjie.vo.Quotation.TabQuotationPurchaseOrderVO;
-import com.lianchuangjie.lianchuangjie.vo.Quotation.TabQuotationSalesOrderVO;
 import com.lianchuangjie.lianchuangjie.vo.StockPrice.TabStockPriceEnquiryVO;
 import com.lianchuangjie.lianchuangjie.vo.StockPrice.TabStockPriceNeedsVO;
 import com.lianchuangjie.lianchuangjie.vo.StockPrice.TabStockPriceQuoteVO;
+import com.lianchuangjie.lianchuangjie.vo.StockRank.TabStockRankPurchaseOrderVO;
+import com.lianchuangjie.lianchuangjie.vo.StockRank.TabStockRankSalesOrderVO;
 import com.lianchuangjie.lianchuangjie.vo.StockRank.TabStockRankSdadaVO;
 import com.lianchuangjie.lianchuangjie.vo.StockRank.TabStockRankZNLVO;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -120,12 +120,12 @@ public class TabStockRankController {
      */
     @GetMapping("/stockrank/sales")
     @Authentication(buyer = true)
-    public Result<Page<TabQuotationSalesOrderVO>> getSalesListController(@RequestParam(defaultValue = "#{null}", value = "page") Integer page, @RequestParam(defaultValue = "#{null}", value = "size") Integer size, @RequestParam(defaultValue = "#{null}", value = "Modle") String modle) {
+    public Result<Page<TabStockRankSalesOrderVO>> getSalesListController(@RequestParam(defaultValue = "#{null}", value = "page") Integer page, @RequestParam(defaultValue = "#{null}", value = "size") Integer size, @RequestParam(defaultValue = "#{null}", value = "Modle") String modle) {
         TabSearchDTO tabSearchDTO = new TabSearchDTO();
         tabSearchDTO.setPage(page);
         tabSearchDTO.setSize(size);
         tabSearchDTO.setModle(modle);
-        Page<TabQuotationSalesOrderVO> pages = tabSalesOrderService.quotationTabList(tabSearchDTO);
+        Page<TabStockRankSalesOrderVO> pages = tabSalesOrderService.stockRankTabList(tabSearchDTO);
         return Result.success(pages, "Success");
     }
 
@@ -141,12 +141,12 @@ public class TabStockRankController {
      */
     @GetMapping("/stockrank/purchase")
     @Authentication(buyer = true)
-    public Result<Page<TabQuotationPurchaseOrderVO>> getPurchaseListController(@RequestParam(defaultValue = "#{null}", value = "page") Integer page, @RequestParam(defaultValue = "#{null}", value = "size") Integer size, @RequestParam(defaultValue = "#{null}", value = "Modle") String modle) {
+    public Result<Page<TabStockRankPurchaseOrderVO>> getPurchaseListController(@RequestParam(defaultValue = "#{null}", value = "page") Integer page, @RequestParam(defaultValue = "#{null}", value = "size") Integer size, @RequestParam(defaultValue = "#{null}", value = "Modle") String modle) {
         TabSearchDTO tabSearchDTO = new TabSearchDTO();
         tabSearchDTO.setPage(page);
         tabSearchDTO.setSize(size);
         tabSearchDTO.setModle(modle);
-        Page<TabQuotationPurchaseOrderVO> pages = tabPurchaseOrderService.quotationTabList(tabSearchDTO);
+        Page<TabStockRankPurchaseOrderVO> pages = tabPurchaseOrderService.stockRankTabList(tabSearchDTO);
         return Result.success(pages, "Success");
     }
 
@@ -171,8 +171,6 @@ public class TabStockRankController {
         tabSearchDTO.setPage(page);
         tabSearchDTO.setSize(size);
         tabSearchDTO.setModle(modle);
-        System.out.println("**********************************************");
-        System.out.println(tabEnquiryService.stockPriceTabList(tabSearchDTO));
         Page<TabStockPriceEnquiryVO> pages = tabEnquiryService.stockPriceTabList(tabSearchDTO);
         return Result.success(pages, "Success");
     }

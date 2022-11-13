@@ -6,7 +6,6 @@ import com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO;
 import com.lianchuangjie.lianchuangjie.service.StockPrice.StockPriceService;
 import com.lianchuangjie.lianchuangjie.service.TabService.*;
 import com.lianchuangjie.lianchuangjie.utils.Result;
-import com.lianchuangjie.lianchuangjie.vo.Quotation.TabQuotationPurchaseOrderVO;
 import com.lianchuangjie.lianchuangjie.vo.StockPrice.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -158,12 +157,12 @@ public class TabStockPriceController {
      */
     @GetMapping("/stockprice/purchase")
     @Authentication(buyer = true)
-    public Result<Page<TabQuotationPurchaseOrderVO>> getPurchaseListController(@RequestParam(defaultValue = "#{null}", value = "page") Integer page, @RequestParam(defaultValue = "#{null}", value = "size") Integer size, @RequestParam(defaultValue = "#{null}", value = "Modle") String modle) {
+    public Result<Page<TabStockPricePurchaseOrderVO>> getPurchaseListController(@RequestParam(defaultValue = "#{null}", value = "page") Integer page, @RequestParam(defaultValue = "#{null}", value = "size") Integer size, @RequestParam(defaultValue = "#{null}", value = "Modle") String modle) {
         TabSearchDTO tabSearchDTO = new TabSearchDTO();
         tabSearchDTO.setPage(page);
         tabSearchDTO.setSize(size);
         tabSearchDTO.setModle(modle);
-        Page<TabQuotationPurchaseOrderVO> pages = tabPurchaseOrderService.quotationTabList(tabSearchDTO);
+        Page<TabStockPricePurchaseOrderVO> pages = tabPurchaseOrderService.stockPriceTabList(tabSearchDTO);
         return Result.success(pages, "Success");
     }
 
@@ -188,8 +187,6 @@ public class TabStockPriceController {
         tabSearchDTO.setPage(page);
         tabSearchDTO.setSize(size);
         tabSearchDTO.setModle(modle);
-        System.out.println("**********************************************");
-        System.out.println(tabEnquiryService.stockPriceTabList(tabSearchDTO));
         Page<TabStockPriceEnquiryVO> pages = tabEnquiryService.stockPriceTabList(tabSearchDTO);
         return Result.success(pages, "Success");
     }

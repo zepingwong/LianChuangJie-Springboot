@@ -10,6 +10,8 @@ import com.lianchuangjie.lianchuangjie.service.TabService.TabPurchaseOrderServic
 import com.lianchuangjie.lianchuangjie.vo.Enquiry.TabEnquiryPurchaseOrderVO;
 import com.lianchuangjie.lianchuangjie.vo.Quotation.TabQuotationPurchaseOrderVO;
 import com.lianchuangjie.lianchuangjie.vo.Search.TabSearchPurchaseOrderVO;
+import com.lianchuangjie.lianchuangjie.vo.StockPrice.TabStockPricePurchaseOrderVO;
+import com.lianchuangjie.lianchuangjie.vo.StockRank.TabStockRankPurchaseOrderVO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -23,6 +25,24 @@ public class TabPurchaseOrderServiceImpl extends ServiceImpl<TabPurchaseOrderMap
     public Page<TabQuotationPurchaseOrderVO> quotationTabList(TabSearchDTO searchCondition) {
         Page<TabQuotationPurchaseOrderVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
         page.setRecords(tabPurchaseOrderMapper.selectQuotationTabList(searchCondition));
+        page.setTotal(tabPurchaseOrderMapper.countQuotationTabList(searchCondition));
+        page.addOrder(OrderItem.desc("T_OPOR.DocDate"));
+        return page;
+    }
+
+    @Override
+    public Page<TabStockPricePurchaseOrderVO> stockPriceTabList(TabSearchDTO searchCondition) {
+        Page<TabStockPricePurchaseOrderVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
+        page.setRecords(tabPurchaseOrderMapper.selectStockPriceTabList(searchCondition));
+        page.setTotal(tabPurchaseOrderMapper.countQuotationTabList(searchCondition));
+        page.addOrder(OrderItem.desc("T_OPOR.DocDate"));
+        return page;
+    }
+
+    @Override
+    public Page<TabStockRankPurchaseOrderVO> stockRankTabList(TabSearchDTO searchCondition) {
+        Page<TabStockRankPurchaseOrderVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
+        page.setRecords(tabPurchaseOrderMapper.selectStockRankTabList(searchCondition));
         page.setTotal(tabPurchaseOrderMapper.countQuotationTabList(searchCondition));
         page.addOrder(OrderItem.desc("T_OPOR.DocDate"));
         return page;
