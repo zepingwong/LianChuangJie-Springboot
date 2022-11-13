@@ -1,4 +1,4 @@
-package com.lianchuangjie.lianchuangjie.vo.StockPrice;
+package com.lianchuangjie.lianchuangjie.vo.StockRank;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -8,10 +8,11 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.Date;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TabStockPriceSalesOrderVO {
+public class TabStockRankSalesOrderVO {
     /**
      * @description 订单日期 DocDate
      * @resource T_ORDR.DocDate
