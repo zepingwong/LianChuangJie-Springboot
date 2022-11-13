@@ -205,6 +205,6 @@ public class StockRankVO {
     /**
      * 总分
      */
-    @JsonProperty("ToTalScore")
-    private BigDecimal toTalScore;
+    @JsonProperty("TotalScore")
+    private BigDecimal totalScore;
 }

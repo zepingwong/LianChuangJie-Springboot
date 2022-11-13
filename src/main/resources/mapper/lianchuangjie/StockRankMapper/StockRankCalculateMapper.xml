@@ -25,6 +25,8 @@
         DROP TABLE U_StockRank
         SELECT
         -- COUNT(*)
+        InitRank.Brand,
+        InitRank.Modle,
         InitRank.InquiryFrequency, /*01.近一年加权询价频次*/
         ROW_NUMBER() OVER(ORDER BY InitRank.InquiryFrequency DESC) as InquiryFrequencyRank, /*加权询价频次排名*/
         NULL AS InquiryFrequencyScore, /*加权询价频次得分*/
@@ -80,7 +82,7 @@
         NULL AS SumPurchaseMoneyScore, /*采购总额得分*/
         InitRank.BrandScore, /*12.品牌得分*/
         ROW_NUMBER() OVER(ORDER BY InitRank.BrandScore DESC) as BrandScoreRank, /*品牌得分排名*/
-        NULL AS ToTalScore /*总分*/
+        NULL AS TotalScore /*总分*/
         INTO U_StockRank
         FROM (
         SELECT
@@ -904,7 +906,7 @@
         WHERE SumPurchaseMoneyRank > @Total * 0.00254
 
         UPDATE U_StockRank
-        SET ToTalScore =
+        SET TotalScore =
         InquiryFrequencyScore * 0.369 +
         InquiryCustomersScore  * 0.0528 +
         OrderCustomersScore * 0.0648 +
