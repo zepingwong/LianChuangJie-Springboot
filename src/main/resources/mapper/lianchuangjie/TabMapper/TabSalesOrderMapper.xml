@@ -497,7 +497,7 @@
             WHERE SDADA_1.TAG IN (
                 SELECT SDADA.TAG
                 FROM SDADA
-                WHERE SDADA.sno = #{sc.Modle}
+                WHERE SDADA.sno = #{sc.modle}
             )
         )
     </select>
@@ -532,7 +532,7 @@
             WHERE SDADA_1.TAG IN (
                 SELECT SDADA.TAG
                 FROM SDADA
-                WHERE SDADA.sno = #{sc.Modle}
+                WHERE SDADA.sno = #{sc.modle}
             )
         )
     </select>
