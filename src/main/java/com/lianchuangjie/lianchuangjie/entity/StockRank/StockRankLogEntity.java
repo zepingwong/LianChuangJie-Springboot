@@ -14,16 +14,31 @@ import java.util.Date;
 @NoArgsConstructor
 @TableName("U_SRAL")
 public class StockRankLogEntity {
+    // 编号
     @TableId(value = "DocEntry", type = IdType.AUTO)
     private Long docEntry;
+    // 事件名称
     @TableField(value = "TriggerName")
-    private String triggerName;
+    private String triggerName = "库存排名";
+    // 触发方式 手动触发/定时任务
     @TableField(value = "TriggerType")
-    String triggerType;
+    private String triggerType;
+    // 开始事件
     @TableField(value = "StartTime")
-    Date startTime;
+    private Date startTime = new Date();
+    // 结束事件
     @TableField(value = "EndTime")
-    Date endTime;
+    private Date endTime;
+    // 运行结果 1 成功 0 失败
     @TableField(value = "Result")
-    Integer result;
+    private Integer result;
+    // 算法运行时间
+    @TableField(value = "RunTime")
+    private Long runTime;
+    public Long getRunTime() {
+        if (startTime != null & endTime != null) {
+            return  (endTime.getTime() -startTime.getTime())/ 1000;
+        }
+        return 0L;
+    }
 }

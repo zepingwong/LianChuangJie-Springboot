@@ -26,7 +26,7 @@ public class StockRankAlgorithmController {
     @GetMapping("/rank/calculate")
     @Authentication(buyer = true)
     public Result<Boolean> recalculateController() {
-        Boolean res = stockRankAlgorithmService.calculate("手动更新");
+        Boolean res = stockRankAlgorithmService.calculate("手动触发");
         return Result.success(res, "更新成功");
     }
 }

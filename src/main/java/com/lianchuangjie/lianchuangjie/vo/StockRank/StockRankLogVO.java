@@ -14,18 +14,27 @@ import java.util.Date;
 @NoArgsConstructor
 @Accessors(chain = true)
 public class StockRankLogVO {
+    // 编号
     @JsonProperty("DocEntry")
-    Long docEntry;
+    private Long docEntry;
+    // 事件名称
     @JsonProperty("TriggerName")
     private String triggerName;
+    // 触发方式
     @JsonProperty("TriggerType")
-    String triggerType;
+    private String triggerType;
+    // 开始时间
     @JsonProperty("StartTime")
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    Date startTime;
+    private Date startTime;
+    // 结束时间
     @JsonProperty("EndTime")
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    Date endTime;
+    private Date endTime;
+    // 执行结果
     @JsonProperty("Result")
-    Integer result;
+    private Integer result;
+    // 运行时间
+    @JsonProperty("RunTime")
+    private Long runTime;
 }

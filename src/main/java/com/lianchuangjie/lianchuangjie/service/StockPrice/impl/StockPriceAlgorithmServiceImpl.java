@@ -29,7 +29,6 @@ public class StockPriceAlgorithmServiceImpl implements StockPriceAlgorithmServic
     public Boolean calculateOneDayService(String triggerType) {
         String state = stringRedisTemplate.opsForValue().get("StockPrice");
         StockPriceLogEntity stockPriceLogEntity = new StockPriceLogEntity();
-        stockPriceLogEntity.setStartTime(new Date());
         stockPriceLogEntity.setTriggerType(triggerType);
         stockPriceLogEntity.setTriggerName("定价计算");
         String res;
@@ -41,18 +40,19 @@ public class StockPriceAlgorithmServiceImpl implements StockPriceAlgorithmServic
             JSONObject json = new JSONObject();
             json.put("data", "one_day");
             res = HttpUtil.jsonPost(address + "model_predict_one_day", null, json);
+            // 算法执行成功
             if (res != null) {
                 stringRedisTemplate.opsForValue().set("StockPrice", "0");
-                stockPriceLogEntity.setEndTime(new Date());
                 stockPriceLogEntity.setResult(1);
-                stockPriceLogMapper.insert(stockPriceLogEntity);
             }
         } catch (IOException e) {
+            // 接口调用失败
             stringRedisTemplate.opsForValue().set("StockPrice", "0");
-            stockPriceLogEntity.setEndTime(new Date());
-            stockPriceLogEntity.setResult(1);
-            stockPriceLogMapper.insert(stockPriceLogEntity);
+            stockPriceLogEntity.setResult(0);
             throw new RuntimeException(e);
+        } finally {
+            stockPriceLogEntity.setEndTime(new Date());
+            stockPriceLogMapper.insert(stockPriceLogEntity);
         }
         return true;
     }
@@ -83,7 +83,6 @@ public class StockPriceAlgorithmServiceImpl implements StockPriceAlgorithmServic
     public Boolean trainService(String triggerType) {
         String state = stringRedisTemplate.opsForValue().get("StockPrice");
         StockPriceLogEntity stockPriceLogEntity = new StockPriceLogEntity();
-        stockPriceLogEntity.setStartTime(new Date());
         stockPriceLogEntity.setTriggerType(triggerType);
         stockPriceLogEntity.setTriggerName("模型训练");
         String res;
@@ -96,17 +95,16 @@ public class StockPriceAlgorithmServiceImpl implements StockPriceAlgorithmServic
             json.put("data", "modle_train");
             res = HttpUtil.jsonPost(address + "model_train", null, json);
             if (res != null) {
-                stringRedisTemplate.opsForValue().set("StockPrice", "0");
-                stockPriceLogEntity.setEndTime(new Date());
                 stockPriceLogEntity.setResult(1);
-                stockPriceLogMapper.insert(stockPriceLogEntity);
             }
         } catch (IOException e) {
+            stockPriceLogEntity.setResult(0);
+            throw new RuntimeException(e);
+        } finally {
+            // 缓存状态复位
             stringRedisTemplate.opsForValue().set("StockPrice", "0");
             stockPriceLogEntity.setEndTime(new Date());
-            stockPriceLogEntity.setResult(1);
             stockPriceLogMapper.insert(stockPriceLogEntity);
-            throw new RuntimeException(e);
         }
         return true;
     }
