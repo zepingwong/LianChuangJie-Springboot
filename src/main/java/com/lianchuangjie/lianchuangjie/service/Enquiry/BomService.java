@@ -1,4 +1,4 @@
-package com.lianchuangjie.lianchuangjie.service;
+package com.lianchuangjie.lianchuangjie.service.Enquiry;
 
 import com.lianchuangjie.lianchuangjie.dto.BomQuerySaveDTO;
 import com.lianchuangjie.lianchuangjie.entity.User.UserEntity;

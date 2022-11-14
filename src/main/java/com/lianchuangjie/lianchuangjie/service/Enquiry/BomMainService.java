@@ -1,4 +1,4 @@
-package com.lianchuangjie.lianchuangjie.service;
+package com.lianchuangjie.lianchuangjie.service.Enquiry;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
