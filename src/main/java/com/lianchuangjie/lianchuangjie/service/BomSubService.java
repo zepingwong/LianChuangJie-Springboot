@@ -2,7 +2,7 @@ package com.lianchuangjie.lianchuangjie.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lianchuangjie.lianchuangjie.dto.Enquiry.EnquiryBomUpdateDTO;
-import com.lianchuangjie.lianchuangjie.entity.BomSubEntity;
+import com.lianchuangjie.lianchuangjie.entity.Enquiry.BomSubEntity;
 
 public interface BomSubService extends IService<BomSubEntity> {
     /**

@@ -1,15 +1,19 @@
 package com.lianchuangjie.lianchuangjie.controller.Enquiry;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lianchuangjie.lianchuangjie.config.Authentication;
 import com.lianchuangjie.lianchuangjie.dto.BomQuerySaveDTO;
+import com.lianchuangjie.lianchuangjie.dto.Enquiry.BomMainSearchDTO;
 import com.lianchuangjie.lianchuangjie.dto.Enquiry.EnquiryBomUpdateDTO;
 import com.lianchuangjie.lianchuangjie.entity.User.UserEntity;
 import com.lianchuangjie.lianchuangjie.exception.Business.ResponseEnum;
+import com.lianchuangjie.lianchuangjie.service.BomMainService;
 import com.lianchuangjie.lianchuangjie.service.BomService;
 import com.lianchuangjie.lianchuangjie.service.BomSubService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
 import com.lianchuangjie.lianchuangjie.utils.ContextUtil;
 import com.lianchuangjie.lianchuangjie.vo.BomUploadResVO;
+import com.lianchuangjie.lianchuangjie.vo.Enquiry.BomMainVO;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -36,6 +40,9 @@ public class EnquiryBomController {
     BomService bomService;
     @Resource
     BomSubService bomSubService;
+    @Resource
+    BomMainService bomMainService;
+
 
     /**
      * @param file BOM单
@@ -90,7 +97,7 @@ public class EnquiryBomController {
      * @email zepingwong@gmail.com
      * @date 9/29/2022
      */
-    @GetMapping(value = "/download", produces = "application/ms-excel")
+    @GetMapping(value = "download", produces = "application/ms-excel")
     @Authentication(sale = true)
     public ResponseEntity<byte[]> downloadTemplate(HttpServletResponse response) throws IOException {
         ClassPathResource resource = new ClassPathResource(File.separator + "templates" + File.separator + "BOM样例-Unibetter.xlsx");
@@ -117,5 +124,15 @@ public class EnquiryBomController {
         } catch (IOException e) {
             throw ResponseEnum.DOWNLOAD_ERROR.newException(e.getMessage());
         }
+    }
+    @GetMapping(value = "list")
+    @Authentication(sale = true)
+    public Result<Page<BomMainVO>> getBomMainListController (
+            @RequestParam(defaultValue = "#{null}", value = "page") Integer page, // 页码
+            @RequestParam(defaultValue = "#{null}", value = "size") Integer size // 每页显示条数
+    ) {
+        BomMainSearchDTO bomMainSearchDTO = new BomMainSearchDTO(page, size);
+        Page<BomMainVO> pages = bomMainService.list(bomMainSearchDTO);
+        return Result.success(pages, "Success");
     }
 }

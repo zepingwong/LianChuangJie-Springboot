@@ -2,4 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lianchuangjie.lianchuangjie.mapper.Enquiry.BomMainMapper">
 
+    <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.Enquiry.BomMainVO">
+        SELECT U_BOM.*,
+               T_OUSI.UserName
+        FROM U_BOM
+                 LEFT JOIN T_OUSI ON U_BOM.OwnerCode = T_OUSI.UserSign
+    </select>
 </mapper>
