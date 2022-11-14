@@ -25,8 +25,17 @@
                     WHEN T_ICIN1.U_Status = 'U' THEN N'已更新'
                     END
             )              AS 'QuoState', /*询价状态：是否已询价*/
-            N'采购报价' AS 'Resource' /*货源类型*/
+            N'采购报价' AS 'Resource', /*货源类型*/
+            T_ICIN.CardCode, /*客户代码*/
+            T_ICIN.U_CusGroupCode, /*客户类型*/
+            T_ICIN.U_Region, /*客户地区*/
+            T_ICIN.U_DomainName, /*客户行业*/
+            U_ICIN1.UrgentType, /*紧急程度*/
+            U_ICIN1.Secrecy, /*是否保密*/
+            U_ICIN1.KeyPoint /*重要程度*/
         FROM T_ICIN1
+        LEFT JOIN T_ICIN ON T_ICIN.DocEntry = #{sc.docEntry}
+        LEFT JOIN U_ICIN1 ON U_ICIN1.DocEntry = #{sc.docEntry} AND U_ICIN1.LineNum = #{sc.lineNum}
         LEFT JOIN T_OUSI ON T_ICIN1.U_Buyer = T_OUSI.UserSign
         LEFT JOIN (
             SELECT

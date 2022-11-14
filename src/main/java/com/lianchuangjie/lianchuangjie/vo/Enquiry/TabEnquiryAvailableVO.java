@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
+import org.apache.poi.hpsf.Decimal;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -109,4 +110,24 @@ public class TabEnquiryAvailableVO {
             return null;
         }
     }
+    /**
+     * 推荐报价算法需要的字段
+     */
+    // 需求数量
+    private Decimal demandQty;
+    // 客户代码
+    private String cardCode;
+    // 客户等级
+    private String uCusLevel;
+    // 客户类型
+    private String uCusGroupCode;
+    // 客户行业
+    private String uDomainName;
+    // 紧急程度
+    private String urgentType;
+    // 是否保密
+    private String secrecy;
+    // 重要程度
+    private String keyPoint;
+
 }

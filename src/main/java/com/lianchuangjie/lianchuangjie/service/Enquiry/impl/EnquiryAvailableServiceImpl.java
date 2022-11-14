@@ -30,6 +30,7 @@ public class EnquiryAvailableServiceImpl implements EnquiryAvailableService {
         try {
             res = HttpUtil.jsonPost(address + "main", null, json);
             JSONObject object = JSONObject.parseObject(res);
+            System.out.println(JSON.parseArray(object.getString("data")));
             page.setRecords(JSON.parseArray(object.getString("data"), TabEnquiryAvailableVO.class));
         } catch (IOException e) {
             throw new RuntimeException(e);

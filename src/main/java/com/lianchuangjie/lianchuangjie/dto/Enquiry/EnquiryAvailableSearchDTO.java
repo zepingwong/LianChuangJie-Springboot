@@ -26,4 +26,6 @@ public class EnquiryAvailableSearchDTO {
     private String modle;
     // 单据编号
     private Long docEntry;
+    // 行号
+    private Long lineNum;
 }

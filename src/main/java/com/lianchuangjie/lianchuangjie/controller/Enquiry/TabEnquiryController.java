@@ -143,13 +143,15 @@ public class TabEnquiryController {
             @RequestParam(defaultValue = "#{null}", value = "page") Integer page,
             @RequestParam(defaultValue = "#{null}", value = "size") Integer size,
             @RequestParam(defaultValue = "#{null}", value = "Modle") String modle,
-            @RequestParam(defaultValue = "#{null}", value = "DocEntry") Long docEntry
+            @RequestParam(defaultValue = "#{null}", value = "DocEntry") Long docEntry,
+            @RequestParam(defaultValue = "#{null}", value = "LineNum") Long lineNum
     ) {
         EnquiryAvailableSearchDTO tabSearchDTO = new EnquiryAvailableSearchDTO();
         tabSearchDTO.setPage(page);
         tabSearchDTO.setSize(size);
         tabSearchDTO.setModle(modle);
         tabSearchDTO.setDocEntry(docEntry);
+        tabSearchDTO.setLineNum(lineNum);
         Page<TabEnquiryAvailableVO> pages = enquiryAvailableService.list(tabSearchDTO);
         return Result.success(pages, "成功");
     }
