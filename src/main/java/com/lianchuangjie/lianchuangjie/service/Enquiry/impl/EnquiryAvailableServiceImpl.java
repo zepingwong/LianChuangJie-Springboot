@@ -26,9 +26,10 @@ public class EnquiryAvailableServiceImpl implements EnquiryAvailableService {
         enquiryAvailableMapper.selectList(page, searchCondition);
         JSONObject json = new JSONObject();
         json.put("data", page.getRecords());
+        System.out.println(json);
         String res;
         try {
-            res = HttpUtil.jsonPost(address + "main", null, json);
+            res = HttpUtil.jsonPost(address + "reco_price", null, json);
             JSONObject object = JSONObject.parseObject(res);
             System.out.println(JSON.parseArray(object.getString("data")));
             page.setRecords(JSON.parseArray(object.getString("data"), TabEnquiryAvailableVO.class));

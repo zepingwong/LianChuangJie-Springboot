@@ -113,21 +113,35 @@ public class TabEnquiryAvailableVO {
     /**
      * 推荐报价算法需要的字段
      */
+    // 需求型号
+    @JsonProperty("Modle")
+    private String modle;
+    // 需求品牌
+    @JsonProperty("Brand")
+    private String brand;
     // 需求数量
+    @JsonProperty("DemandQty")
     private Decimal demandQty;
     // 客户代码
+    @JsonProperty("CardCode")
     private String cardCode;
     // 客户等级
+    @JsonProperty("U_CusLevel")
     private String uCusLevel;
     // 客户类型
+    @JsonProperty("U_CusGroupCode")
     private String uCusGroupCode;
     // 客户行业
+    @JsonProperty("U_DomainName")
     private String uDomainName;
     // 紧急程度
+    @JsonProperty("UrgentType")
     private String urgentType;
     // 是否保密
+    @JsonProperty("Secrecy")
     private String secrecy;
     // 重要程度
+    @JsonProperty("KeyPoint")
     private String keyPoint;
 
 }

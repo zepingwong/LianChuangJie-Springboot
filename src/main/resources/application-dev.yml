@@ -57,7 +57,7 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 # 测试环境算法地址
-algorithm_address: 'http://192.168.16.174:5585/'
+algorithm_address: 'http://152.136.120.86:5585/'
 
 debug: false
 

@@ -11,6 +11,7 @@
             T_ICIN1.U_QuoDelivery, /*报价交期*/
             T_ICIN1.U_QuoYear, /*报价批次*/
             T_ICIN1.U_QuoQty, /*报价数量*/
+            T_ICIN1.U_QuoPrice, /*供方报价*/
             T_ICIN1.U_Buyer, /*采购员编号*/
             T_ICIN1.U_QuoDate, /*报价日期*/
             T_OUSI.UserName AS 'BuyerName', /*采购员姓名*/
@@ -32,6 +33,9 @@
             T_ICIN.U_DomainName, /*客户行业*/
             U_ICIN1.UrgentType, /*紧急程度*/
             U_ICIN1.Secrecy, /*是否保密*/
+            U_ICIN1.Modle, /*需求型号*/
+            U_ICIN1.Brand, /*需求品牌*/
+            U_ICIN1.DemandQty, /*需求数量*/
             U_ICIN1.KeyPoint /*重要程度*/
         FROM T_ICIN1
         LEFT JOIN T_ICIN ON T_ICIN.DocEntry = #{sc.docEntry}
