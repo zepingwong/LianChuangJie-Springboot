@@ -4,17 +4,19 @@ import com.alibaba.excel.EasyExcel;
 import com.lianchuangjie.lianchuangjie.dto.BomQueryMainDTO;
 import com.lianchuangjie.lianchuangjie.dto.BomQuerySaveDTO;
 import com.lianchuangjie.lianchuangjie.dto.BomQuerySubDTO;
-import com.lianchuangjie.lianchuangjie.entity.*;
+import com.lianchuangjie.lianchuangjie.entity.BomMainEntity;
+import com.lianchuangjie.lianchuangjie.entity.BomSubEntity;
 import com.lianchuangjie.lianchuangjie.entity.Clientele.ClienteleRegionEntity;
 import com.lianchuangjie.lianchuangjie.entity.Enquiry.EnquiryMainEntity;
 import com.lianchuangjie.lianchuangjie.entity.Enquiry.EnquirySubEntity;
 import com.lianchuangjie.lianchuangjie.entity.User.UserEntity;
 import com.lianchuangjie.lianchuangjie.excel.BomListener;
 import com.lianchuangjie.lianchuangjie.exception.Business.ResponseEnum;
-import com.lianchuangjie.lianchuangjie.mapper.*;
-import com.lianchuangjie.lianchuangjie.mapper.Enquiry.BomHeadDicMapper;
+import com.lianchuangjie.lianchuangjie.mapper.ClienteleRegionMapper;
 import com.lianchuangjie.lianchuangjie.mapper.Enquiry.EnquiryMainMapper;
-import com.lianchuangjie.lianchuangjie.service.*;
+import com.lianchuangjie.lianchuangjie.service.BomMainService;
+import com.lianchuangjie.lianchuangjie.service.BomService;
+import com.lianchuangjie.lianchuangjie.service.BomSubService;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquiryMainService;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquirySubService;
 import com.lianchuangjie.lianchuangjie.utils.ContextUtil;
@@ -32,8 +34,6 @@ import java.util.Objects;
 
 @Service
 public class BomServiceImpl implements BomService {
-    @Resource
-    BomHeadDicMapper bomHeadDicMapper;
     @Resource
     BomMainService bomMainService;
     @Resource
@@ -58,8 +58,9 @@ public class BomServiceImpl implements BomService {
         ResponseEnum.VALID_ERROR.assertIsFalse((fileName.endsWith(".xls") || fileName.endsWith(".xlsx")), "文件格式错误");
         List<Map<String, String>> bomList;
         try {
-            BomListener listener = new BomListener(bomHeadDicMapper.selectById(1));
+            BomListener listener = new BomListener();
             EasyExcel.read(file.getInputStream(), listener).sheet().doRead();
+            System.out.println(listener);
             bomList = listener.getDataList();
             List<String> titleList = listener.getTitleList();
             List<BomSubEntity> bomSubList = listener.getBomSubList();

@@ -28,5 +28,14 @@ public interface SdadaService extends IService<SdadaEntity> {
      * @date 8/21/2022
      */
     List<SdadaVO> relatedList(String modle);
+
+    /**
+     * @param sdadaSearchDTO sdadaSearchDTO
+     * @return Page
+     * @description 获取标准型号列表
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 11/14/2022
+     */
     Page<SdadaVO> list(SdadaSearchDTO sdadaSearchDTO);
 }
