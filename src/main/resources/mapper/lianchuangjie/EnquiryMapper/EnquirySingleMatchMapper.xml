@@ -35,11 +35,8 @@
             (
                 CASE
                     /*完全匹配到的且需要采购报价的，匹配对应的采购员*/
-                    WHEN SDADA.TAG IS NULL THEN ''
                     WHEN (
                         U_OPRI.PrePrice * @DemandQty > 1000
-                        OR U_OPRI.PrePrice * @DemandQty IS NULL
-                        OR U_OPRI.PrePrice * @DemandQty = 0
                     ) THEN (
                         /*匹配到的采购员格式为：采购员编号1:采购员姓名1,采购员编号2:采购员姓名2...*/
                         SELECT CAST(CAST(BuyerInfo.UserSign AS VARCHAR) + ':' + BuyerInfo.UserName AS VARCHAR) + ','
@@ -74,6 +71,16 @@
                             OR U_OPRI.PrePrice * @DemandQty = 0
                             OR U_OPRI.PrePrice * @DemandQty IS NULL
                         )
+                        GROUP BY BuyerInfo.UserSign, BuyerInfo.UserName
+                        FOR XML PATH ( '' )
+                    )
+                    /*未匹配到, 选择该品牌的所有采购*/
+                    ELSE (
+                        /*匹配到的采购员格式为：采购员编号1:采购员姓名1,采购员编号2:采购员姓名2...*/
+                        SELECT CAST(CAST(BuyerInfo.UserSign AS VARCHAR) + ':' + BuyerInfo.UserName AS VARCHAR) + ','
+                        FROM T_OUSI BuyerInfo /*采购员信息表*/
+                        LEFT JOIN U_PUR2 ON U_PUR2.OwnerCode = BuyerInfo.UserSign
+                        WHERE U_PUR2.Brand = IIF(#{sc.brand} IS NULL, SDADA.QuoBrand, #{sc.brand})
                         GROUP BY BuyerInfo.UserSign, BuyerInfo.UserName
                         FOR XML PATH ( '' )
                     )

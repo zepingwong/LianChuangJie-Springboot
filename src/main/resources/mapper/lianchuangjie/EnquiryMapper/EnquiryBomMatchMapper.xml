@@ -93,7 +93,7 @@
                                  GROUP BY BuyerInfo.UserSign, BuyerInfo.UserName
                                  FOR XML PATH ( '' )
                              )
-                             /*未匹配到, 选择该型号的所有采购*/
+                             /*未匹配到, 选择该品牌的所有采购*/
                              WHEN (ClientNeeds.Brand IS NOT NULL) THEN (
                                     /*匹配到的采购员格式为：采购员编号1:采购员姓名1,采购员编号2:采购员姓名2...*/
                                     SELECT CAST(CAST(BuyerInfo.UserSign AS VARCHAR) + ':' + BuyerInfo.UserName AS VARCHAR) + ','
