@@ -36,6 +36,8 @@
             U_ICIN1.Modle, /*需求型号*/
             U_ICIN1.Brand, /*需求品牌*/
             U_ICIN1.DemandQty, /*需求数量*/
+            U_ICIN1.ECCN, /*ECCN*/
+            Exchange.Rate AS ExchangeRate,
             U_ICIN1.KeyPoint /*重要程度*/
         FROM T_ICIN1
         LEFT JOIN T_ICIN ON T_ICIN.DocEntry = #{sc.docEntry}
@@ -56,6 +58,23 @@
                 ) AS 'Code'
             FROM T_OCDP
         ) BuyerDept ON T_OUSI.DftDept = BuyerDept.DeptCode /*采购部门*/
+        LEFT JOIN (
+            SELECT
+                T_ORTT.Currency,
+                T_ORTT.Rate
+            FROM (
+                     SELECT
+                         Currency,
+                         MAX(RateDate) AS RateDate
+                     FROM T_ORTT
+                     GROUP BY Currency
+                 ) T
+                     LEFT JOIN T_ORTT ON T_ORTT.Currency = T.Currency AND T_ORTT.RateDate = T.RateDate
+            UNION ALL
+            SELECT
+                'RMB' AS 'Currency',
+                1.000000 AS 'Rate'
+        ) Exchange ON Exchange.Currency = T_ICIN1.U_QuoCurr
         WHERE U_QuoModle IN (
             SELECT SDADA_1.sno
             FROM SDADA SDADA_1

@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
-import org.apache.poi.hpsf.Decimal;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -69,11 +68,20 @@ public class TabEnquiryAvailableVO {
 
 
     // 成单率
-    @JsonProperty("TransactionRate")
-    private BigDecimal transactionRate;
-    public BigDecimal getTransactionRate() {
-        if (transactionRate != null) {
-            return transactionRate.setScale(2, RoundingMode.HALF_UP).multiply(BigDecimal.valueOf(100));
+    @JsonProperty("TransactionRate1")
+    private BigDecimal transactionRate1;
+    public BigDecimal getTransactionRate1() {
+        if (transactionRate1 != null) {
+            return transactionRate1.setScale(2, RoundingMode.HALF_UP).multiply(BigDecimal.valueOf(100));
+        } else {
+            return null;
+        }
+    }
+    @JsonProperty("TransactionRate2")
+    private BigDecimal transactionRate2;
+    public BigDecimal getTransactionRate2() {
+        if (transactionRate2 != null) {
+            return transactionRate2.setScale(2, RoundingMode.HALF_UP).multiply(BigDecimal.valueOf(100));
         } else {
             return null;
         }
@@ -84,18 +92,31 @@ public class TabEnquiryAvailableVO {
     // 最低利润率
     @JsonProperty("MinProfitMargin")
     private BigDecimal minProfitMargin;
-    // 利润率
-    @JsonProperty("ProfitMargin")
-    private BigDecimal profitMargin;
+    // 利润率1
+    @JsonProperty("ProfitMargin1")
+    private BigDecimal profitMargin1;
+    // 利润率2
+    @JsonProperty("ProfitMargin2")
+    private BigDecimal profitMargin2;
     // 供方报价
     @JsonProperty("U_QuoPrice")
     private BigDecimal uQuoPrice;
     // 推荐报价 RecoPrice
-    @JsonProperty("RecoPrice")
-    private BigDecimal recoPrice;
-    public BigDecimal getRecoPrice() {
-        if (profitMargin != null & uQuoPrice != null & exchangeRate != null) {
-            return uQuoPrice.multiply(profitMargin).add(uQuoPrice).multiply(exchangeRate).setScale(2, RoundingMode.HALF_UP); // 汇率转换
+    @JsonProperty("RecoPrice1")
+    private BigDecimal recoPrice1;
+    public BigDecimal getRecoPrice1() {
+        if (profitMargin1 != null & uQuoPrice != null & exchangeRate != null) {
+            return uQuoPrice.multiply(profitMargin1).add(uQuoPrice).multiply(exchangeRate).setScale(2, RoundingMode.HALF_UP); // 汇率转换
+        } else {
+            return null;
+        }
+    }
+    // 推荐报价 RecoPrice
+    @JsonProperty("RecoPrice2")
+    private BigDecimal recoPrice2;
+    public BigDecimal getRecoPrice2() {
+        if (profitMargin2 != null & uQuoPrice != null & exchangeRate != null) {
+            return uQuoPrice.multiply(profitMargin2).add(uQuoPrice).multiply(exchangeRate).setScale(2, RoundingMode.HALF_UP); // 汇率转换
         } else {
             return null;
         }
@@ -104,7 +125,7 @@ public class TabEnquiryAvailableVO {
     @JsonProperty("MinQuoPrice")
     private BigDecimal minQuoPrice;
     public BigDecimal getMinQuoPrice() {
-        if (minProfitMargin != null & uQuoPrice != null) {
+        if (minProfitMargin != null & uQuoPrice != null & exchangeRate != null) {
             return uQuoPrice.multiply(minProfitMargin).add(uQuoPrice).multiply(exchangeRate).setScale(2, RoundingMode.HALF_UP); // 汇率转换
         } else {
             return null;
@@ -121,7 +142,7 @@ public class TabEnquiryAvailableVO {
     private String brand;
     // 需求数量
     @JsonProperty("DemandQty")
-    private Decimal demandQty;
+    private BigDecimal demandQty;
     // 客户代码
     @JsonProperty("CardCode")
     private String cardCode;
@@ -143,5 +164,10 @@ public class TabEnquiryAvailableVO {
     // 重要程度
     @JsonProperty("KeyPoint")
     private String keyPoint;
-
+    // 客户地区
+    @JsonProperty("U_Region")
+    private String uRegion;
+    // ECCN
+    @JsonProperty("ECCN")
+    private String eccn;
 }
