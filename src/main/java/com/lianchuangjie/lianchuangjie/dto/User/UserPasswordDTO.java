@@ -1,4 +1,4 @@
-package com.lianchuangjie.lianchuangjie.dto;
+package com.lianchuangjie.lianchuangjie.dto.User;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.lianchuangjie.lianchuangjie.utils.ContextUtil;

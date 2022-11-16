@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("U_BOMHEAD")
+@TableName("U_BOHD")
 public class BomHeadDictEntity {
     @TableId(value = "DocEntry")
     private Long docEntry;

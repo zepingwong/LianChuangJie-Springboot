@@ -1,6 +1,6 @@
 package com.lianchuangjie.lianchuangjie.controller.User;
 
-import com.lianchuangjie.lianchuangjie.dto.UserPasswordDTO;
+import com.lianchuangjie.lianchuangjie.dto.User.UserPasswordDTO;
 import com.lianchuangjie.lianchuangjie.service.User.UserPasswordService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
 import org.springframework.validation.annotation.Validated;

@@ -1,10 +1,10 @@
 package com.lianchuangjie.lianchuangjie.controller.User;
 
-import com.lianchuangjie.lianchuangjie.dto.EmployeeLoginDTO;
+import com.lianchuangjie.lianchuangjie.dto.User.EmployeeLoginDTO;
 import com.lianchuangjie.lianchuangjie.service.User.UserLoginService;
 import com.lianchuangjie.lianchuangjie.service.User.UserLogoutService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
-import com.lianchuangjie.lianchuangjie.vo.LoginResVO;
+import com.lianchuangjie.lianchuangjie.vo.User.LoginResVO;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,8 +29,8 @@ public class LoginController {
      * @date 8/1/2022
      */
     @PostMapping("/login/employee")
-    public Result<LoginResVO> loginController(@RequestBody @Valid EmployeeLoginDTO employee) {
-        LoginResVO loginResVO = userLoginService.employeeLoginService(employee);
+    public Result<LoginResVO> loginController(HttpServletRequest request, @RequestBody @Valid EmployeeLoginDTO employee) {
+        LoginResVO loginResVO = userLoginService.employeeLoginService(employee, request);
         return Result.success(loginResVO);
     }
 

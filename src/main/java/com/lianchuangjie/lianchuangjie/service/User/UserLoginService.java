@@ -1,8 +1,9 @@
 package com.lianchuangjie.lianchuangjie.service.User;
 
-import com.lianchuangjie.lianchuangjie.dto.EmployeeLoginDTO;
-import com.lianchuangjie.lianchuangjie.entity.User.UserEntity;
-import com.lianchuangjie.lianchuangjie.vo.LoginResVO;
+import com.lianchuangjie.lianchuangjie.dto.User.EmployeeLoginDTO;
+import com.lianchuangjie.lianchuangjie.vo.User.LoginResVO;
+
+import javax.servlet.http.HttpServletRequest;
 
 public interface UserLoginService {
     /**
@@ -10,5 +11,5 @@ public interface UserLoginService {
      * @param employee 员工账号、密码
      * @return UserEntity
      */
-    LoginResVO employeeLoginService(EmployeeLoginDTO employee);
+    LoginResVO employeeLoginService(EmployeeLoginDTO employee, HttpServletRequest request);
 }

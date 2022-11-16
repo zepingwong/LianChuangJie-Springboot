@@ -1,4 +1,4 @@
-package com.lianchuangjie.lianchuangjie.vo;
+package com.lianchuangjie.lianchuangjie.vo.User;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -51,4 +51,11 @@ public class UserInfoVO {
     // 初始密码未修改
     @JsonProperty("IsOldPassword")
     private String isOldPassword;
+    // 登录IP
+    @JsonProperty("LoginIP")
+    private String loginIp;
+    // 登录时间
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonProperty("LoginTime")
+    private Date loginTime;
 }

@@ -5,7 +5,7 @@ import com.lianchuangjie.lianchuangjie.service.User.UserAvatarService;
 import com.lianchuangjie.lianchuangjie.service.User.UserInfoService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
 import com.lianchuangjie.lianchuangjie.utils.ContextUtil;
-import com.lianchuangjie.lianchuangjie.vo.UserInfoVO;
+import com.lianchuangjie.lianchuangjie.vo.User.UserInfoVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;

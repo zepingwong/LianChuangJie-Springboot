@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.auth0.jwt.interfaces.Claim;
 import com.lianchuangjie.lianchuangjie.entity.User.UserEntity;
 import com.lianchuangjie.lianchuangjie.exception.Business.ResponseEnum;
+import com.lianchuangjie.lianchuangjie.exception.Token.TokenError;
 import com.lianchuangjie.lianchuangjie.utils.AuthUtil;
 import com.lianchuangjie.lianchuangjie.utils.JWTUtil;
 import com.lianchuangjie.lianchuangjie.utils.ContextUtil;
@@ -31,10 +32,9 @@ public class AuthenticationInterpreter implements HandlerInterceptor {
             @NotNull HttpServletResponse response,
             @NotNull Object handler
     ) {
-        if (!(handler instanceof HandlerMethod)) {
+        if (!(handler instanceof HandlerMethod handlerMethod)) {
             return true;
         }
-        HandlerMethod handlerMethod = (HandlerMethod) handler;
         Method method = handlerMethod.getMethod();
         // 从http请求头获取token
         String token = request.getHeader(HEADER_AUTH);
@@ -43,7 +43,7 @@ public class AuthenticationInterpreter implements HandlerInterceptor {
         Map<String, Claim> claimMap = JWTUtil.verifyToken(token);
         if (!claimMap.get("UserSign").asString().equals("")) {
             // 请求开始将Redis存储的用户信息放入上下文对象
-            UserEntity user = JSONObject.parseObject(redisUtil.getString(token), UserEntity.class);
+            UserEntity user = JSONObject.parseObject(redisUtil.getString("User_" + claimMap.get("UserSign").asString()), UserEntity.class);
             ContextUtil.setUser(user);
             // 如果不设置 @Authentication 注解，则对所有用户放行
             Authentication authentication = method.getAnnotation(Authentication.class);
@@ -55,6 +55,8 @@ public class AuthenticationInterpreter implements HandlerInterceptor {
                 ResponseEnum.HAS_NO_AUTHENTICATION.assertIsFalse(authUtil.checkAuth(user), "无权访问 "+ request.getRequestURI() + " 接口");
             }
             return true;
+        } else {
+            TokenError.TOKEN_ERROR.assertIsTrue(true);
         }
         return false;
     }

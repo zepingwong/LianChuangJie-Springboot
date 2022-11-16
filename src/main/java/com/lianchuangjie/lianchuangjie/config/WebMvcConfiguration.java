@@ -40,7 +40,6 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
                 .addPathPatterns("/**")
                 // 放行的路径
                 .excludePathPatterns("/user/login/**")
-                .excludePathPatterns("/user/logout")
                 .excludePathPatterns("/user/register");
         super.addInterceptors(registry);
     }

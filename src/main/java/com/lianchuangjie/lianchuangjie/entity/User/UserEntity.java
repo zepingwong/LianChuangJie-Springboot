@@ -58,4 +58,9 @@ public class UserEntity {
     // 初始密码未修改
     @TableField(exist = false)
     private String isOldPassword;
+    // 登录IP
+    @TableField(exist = false)
+    private String loginIP;
+    @TableField(exist = false)
+    private Date loginTime;
 }
