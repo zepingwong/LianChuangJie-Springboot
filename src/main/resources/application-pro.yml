@@ -61,9 +61,9 @@ algorithm_address: 'http://192.168.16.174:5582/'
 
 debug: false
 
-localImgPath: /home/dell/www/upload/
+localImgPath: /home/dell/www/upload/images/
 
-networkImgPath: /upload/
+networkImgPath: /upload/images/
 
 staticAccessPath: /upload/**
 

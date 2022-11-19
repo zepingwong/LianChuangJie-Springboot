@@ -25,8 +25,8 @@ public class UserAvatarServiceImpl extends ServiceImpl<UserMapper, UserEntity> i
         try {
             // 存图片
             if (avatar != null && !avatar.equals("")) {
-                avatar = networkImgPath + "avatar/" + Base64Util.generateImage(avatar, localImgPath + "avatar");
                 UserEntity user = ContextUtil.getUser();
+                avatar = networkImgPath + "avatar/" + user.getUserSign() + "_" + Base64Util.generateImage(avatar, localImgPath + "avatar");
                 user.setUAvatar(avatar);
                 userMapper.updateById(user);
             }
