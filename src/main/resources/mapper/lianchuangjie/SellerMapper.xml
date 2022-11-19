@@ -9,4 +9,11 @@
         FROM U_PUR9
         WHERE OwnerCode = #{UserSign}
     </select>
+    <select id="selectContain" resultType="com.lianchuangjie.lianchuangjie.vo.SellerVO">
+        SELECT
+            UserSign AS SlpCode,
+            UserName AS SlpName
+        FROM T_OUSI
+        WHERE UserName LIKE CONCAT('%', #{UserName},'%')
+    </select>
 </mapper>

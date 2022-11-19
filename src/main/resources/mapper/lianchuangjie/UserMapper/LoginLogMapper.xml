@@ -4,7 +4,8 @@
     <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.User.LoginLogVO">
         SELECT
             U_WebLogin.*,
-            T_OUSI.UserName
+            T_OUSI.UserName,
+            T_OUSI.UserCode
         FROM U_WebLogin
         LEFT JOIN T_OUSI ON T_OUSI.UserSign = U_WebLogin.UserSign
     </select>

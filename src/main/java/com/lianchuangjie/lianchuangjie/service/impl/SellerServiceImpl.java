@@ -16,4 +16,9 @@ public class SellerServiceImpl implements SellerService {
     public List<SellerVO> list(Long userSign) {
         return sellerMapper.selectByBuyer(userSign);
     }
+
+    @Override
+    public List<SellerVO> containList(String userName) {
+        return sellerMapper.selectContain(userName);
+    }
 }

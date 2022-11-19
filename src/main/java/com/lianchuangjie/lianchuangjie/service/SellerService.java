@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface SellerService {
     List<SellerVO> list(Long ownerCode);
+    List<SellerVO> containList(String userName);
 }

@@ -6,6 +6,18 @@
         SELECT U_BOM.*,
                T_OUSI.UserName
         FROM U_BOM
-                 LEFT JOIN T_OUSI ON U_BOM.OwnerCode = T_OUSI.UserSign
+        LEFT JOIN T_OUSI ON U_BOM.OwnerCode = T_OUSI.UserSign
+        <where>
+            1=1
+            <if test="sc.ownerCode != null">
+                AND U_BOM.OwnerCode = #{sc.ownerCode}
+            </if>
+            <if test="sc.createTimeStart != null">
+                AND U_BOM.CreateTime > #{sc.createTimeStart}
+            </if>
+            <if test="sc.createTimeEnd != null">
+                AND U_BOM.CreateTime &lt;= #{sc.createTimeEnd}
+            </if>
+        </where>
     </select>
 </mapper>

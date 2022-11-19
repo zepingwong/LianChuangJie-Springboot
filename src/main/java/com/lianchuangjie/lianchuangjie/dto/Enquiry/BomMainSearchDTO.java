@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 /**
  * Bom单上传记录查询条件
@@ -19,4 +20,7 @@ public class BomMainSearchDTO {
     // 每页显示数量 最大值为50
     @NotNull(message = "每页显示数量不能为空")
     private Integer size;
+    private Long ownerCode;
+    private Date createTimeStart;
+    private Date createTimeEnd;
 }

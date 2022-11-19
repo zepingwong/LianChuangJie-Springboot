@@ -9,14 +9,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SdadaSearchDTO {
+    @JsonProperty("page")
+    private Integer page;
+    @JsonProperty("size")
+    private Integer size;
     @JsonProperty("sno")
     private String sno;
     @JsonProperty("QuoBrand")
     private String quoBrand;
     @JsonProperty("FrgnName")
     private String frgnName;
-    @JsonProperty("size")
-    private Integer size;
-    @JsonProperty("page")
-    private Integer page;
+    @JsonProperty("IsTagged")
+    private String isTagged;
 }

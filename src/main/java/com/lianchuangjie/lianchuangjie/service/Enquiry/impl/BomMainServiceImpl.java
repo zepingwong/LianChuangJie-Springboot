@@ -18,6 +18,7 @@ public class BomMainServiceImpl extends ServiceImpl<BomMainMapper, BomMainEntity
     @Override
     public Page<BomMainVO> list(BomMainSearchDTO searchCondition) {
         Page<BomMainVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
+        System.out.println(searchCondition);
         bomMainMapper.selectList(page, searchCondition);
         return page;
     }

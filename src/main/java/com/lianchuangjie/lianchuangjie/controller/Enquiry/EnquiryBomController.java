@@ -2,6 +2,7 @@ package com.lianchuangjie.lianchuangjie.controller.Enquiry;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lianchuangjie.lianchuangjie.config.Authentication;
+import com.lianchuangjie.lianchuangjie.controller.BaseController;
 import com.lianchuangjie.lianchuangjie.dto.BomQuerySaveDTO;
 import com.lianchuangjie.lianchuangjie.dto.Enquiry.BomMainSearchDTO;
 import com.lianchuangjie.lianchuangjie.dto.Enquiry.EnquiryBomUpdateDTO;
@@ -31,11 +32,12 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.Date;
 
 @Validated
 @RestController
 @RequestMapping("/enquiry/bom")
-public class EnquiryBomController {
+public class EnquiryBomController extends BaseController {
     @Resource
     BomService bomService;
     @Resource
@@ -125,13 +127,26 @@ public class EnquiryBomController {
             throw ResponseEnum.DOWNLOAD_ERROR.newException(e.getMessage());
         }
     }
+
+    /**
+     * @param page page
+     * @param size size
+     * @return Result
+     * @description Bom单上传记录
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 11/16/2022
+     */
     @GetMapping(value = "list")
     @Authentication(sale = true)
-    public Result<Page<BomMainVO>> getBomMainListController (
+    public Result<Page<BomMainVO>> getBomMainListController(
             @RequestParam(defaultValue = "#{null}", value = "page") Integer page, // 页码
-            @RequestParam(defaultValue = "#{null}", value = "size") Integer size // 每页显示条数
+            @RequestParam(defaultValue = "#{null}", value = "size") Integer size, // 每页显示条数
+            @RequestParam(defaultValue = "#{null}", value = "OwnerCode") Long ownerCode, // 销售员编号
+            @RequestParam(defaultValue = "#{null}", value = "CreateTimeStart") Date createTimeStart,
+            @RequestParam(defaultValue = "#{null}", value = "CreateTimeEnd") Date createTimeEnd
     ) {
-        BomMainSearchDTO bomMainSearchDTO = new BomMainSearchDTO(page, size);
+        BomMainSearchDTO bomMainSearchDTO = new BomMainSearchDTO(page, size, ownerCode, createTimeStart, createTimeEnd);
         Page<BomMainVO> pages = bomMainService.list(bomMainSearchDTO);
         return Result.success(pages, "Success");
     }

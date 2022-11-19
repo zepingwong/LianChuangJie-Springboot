@@ -32,6 +32,12 @@
             <if test="sc.frgnName != null">
                 AND SDADA.FrngName = #{sc.frgnName}
             </if>
+            <if test='sc.isTagged != null and sc.isTagged.equals("Y")'>
+                AND SDADA.Tag IS NOT NULL
+            </if>
+            <if test='sc.isTagged != null and sc.isTagged.equals("N")'>
+                AND SDADA.Tag IS NULL
+            </if>
         </where>
     </select>
 </mapper>

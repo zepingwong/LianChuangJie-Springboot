@@ -26,6 +26,10 @@ public class LoginLogVO {
     @JsonProperty("LoginTime")
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date loginTime;
+    // 姓名
     @JsonProperty("UserName")
     private String userName;
+    // 用户名
+    @JsonProperty("UserCode")
+    private String userCode;
 }
