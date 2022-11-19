@@ -32,9 +32,10 @@ public class AuthenticationInterpreter implements HandlerInterceptor {
             @NotNull HttpServletResponse response,
             @NotNull Object handler
     ) {
-        if (!(handler instanceof HandlerMethod handlerMethod)) {
+        if (!(handler instanceof HandlerMethod)) {
             return true;
         }
+        HandlerMethod handlerMethod = (HandlerMethod) handler;
         Method method = handlerMethod.getMethod();
         // 从http请求头获取token
         String token = request.getHeader(HEADER_AUTH);
