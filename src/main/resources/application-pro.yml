@@ -61,11 +61,11 @@ algorithm_address: 'http://192.168.16.174:5582/'
 
 debug: false
 
-localImgPath: /home/dell/www/fronten/static/
+localImgPath: /home/dell/www/upload/
 
-networkImgPath: /static/
+networkImgPath: /upload/
 
-staticAccessPath: /static/**
+staticAccessPath: /upload/**
 
 logging:
   config: classpath:log4j2-pro.xml
