@@ -22,13 +22,22 @@ public class BomSubEntity {
     // 型号 Modle
     @TableField(value = "Modle")
     private String modle;
+    // 标准化型号 StandModle
+    @TableField(value = "StandModle")
+    private String standModle;
     // 品牌 Brand
     @TableField(value = "Brand")
     private String brand;
+    // 标准化品牌
+    @TableField(value = "StandBrand")
+    private String standBrand;
     // 需求数量 DemandQty
     @TableField(value = "DemandQty")
     private BigDecimal demandQty;
     // 客户备注 CurRemark
     @TableField(value = "CurRemark")
     private String curRemark;
+    // 状态
+    @TableField(value = "Status")
+    private String status;
 }

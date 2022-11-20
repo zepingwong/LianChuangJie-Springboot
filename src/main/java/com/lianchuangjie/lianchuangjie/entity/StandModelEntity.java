@@ -6,6 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * 根据品牌判断型号是否需要标准化
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

@@ -44,4 +44,8 @@ public class BomExportVO {
      * @description 客户备注 CurRemark
      */
     private String curRemark;
+    /**
+     * @description 标准化结果
+     */
+    private String status;
 }

@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 @Slf4j
 @Component
@@ -35,6 +36,7 @@ public class BomListener extends AnalysisEventListener<Map<Integer, String>> {
     }
     // 去除特殊字符的正则表达式
     public final static String REGEX_ALL_BRACKETS = "<.*?>|\\(.*?\\)|（.*?）|\\[.*?]|【.*?】|\\{.*?}|\\(.*?）|（.*?\\)";
+    private final Pattern pattern = Pattern.compile(REGEX_ALL_BRACKETS);
     private BomHeadDicEntity bomHeadDic;
     // 读取到的数据
     private final List<Map<String, String>> dataList = new ArrayList<>();
@@ -119,8 +121,12 @@ public class BomListener extends AnalysisEventListener<Map<Integer, String>> {
             quantityList.add(Integer.valueOf(dataMap.get(quantityIndex) == null ? "0" : dataMap.get(quantityIndex)));
             BomSubEntity item = new BomSubEntity();
             item.setLineNum(lineNum);
-            item.setModle(handleModle(dataMap));
-            item.setBrand(handleBrand(dataMap));
+            String modle = handleModle(dataMap, item);
+            item.setModle(modle);
+            item.setStandModle(modle);
+            String brand = handleBrand(dataMap, item);
+            item.setBrand(brand);
+            item.setStandBrand(brand);
             item.setDemandQty(new BigDecimal(dataMap.get(quantityIndex) == null ? "0" : dataMap.get(quantityIndex)));
             item.setModle(dataMap.get(modleIndex));
             item.setCurRemark(dataMap.get(remarkIndex));
@@ -193,32 +199,50 @@ public class BomListener extends AnalysisEventListener<Map<Integer, String>> {
     /**
      * @description 处理型号
      */
-    private String handleModle(Map<Integer, String> rowData) {
+    private String handleModle(Map<Integer, String> rowData, BomSubEntity item) {
         if (modleIndex == null) {
             return "型号不能为空";
         }
-        return rowData.get(modleIndex).replaceAll(REGEX_ALL_BRACKETS, ""); // 型号去除特殊字符
+        String modle = rowData.get(modleIndex);
+        if (pattern.matcher(modle).find()) {
+            item.setStatus(item.getStatus() + "系统已去除型号中的特殊字符；");
+            return modle.replaceAll(REGEX_ALL_BRACKETS, ""); // 型号去除特殊字符
+        } else {
+            return modle;
+        }
     }
     /**
      * @description 处理品牌
      */
-    private String handleBrand(Map<Integer, String> rowData) {
+    private String handleBrand(Map<Integer, String> rowData, BomSubEntity item) {
         // 如果BOM单有品牌列
         if (brandIndex != null) {
-            if (rowData.get(brandIndex) != null) {
-                return rowData.get(brandIndex).replaceAll(REGEX_ALL_BRACKETS, ""); // 品牌去除特殊字符
+            String brand = rowData.get(brandIndex);
+            if (brand != null) {
+                if (pattern.matcher(brand).find()) {
+                    item.setStatus(item.getStatus() + "系统已去除品牌中的特殊字符；");
+                    return rowData.get(brandIndex).replaceAll(REGEX_ALL_BRACKETS, ""); // 品牌去除特殊字符
+                } else {
+                    return brand;
+                }
             } else {
                 // 原品牌为空时匹配品牌，如果该型号品牌唯一则返回该品牌否则置空
                 List<SdadaVO> sdadaVOList = bomListener.sdadaMapper.selectContain(rowData.get(modleIndex));
                 if (sdadaVOList.size() == 1) {
+                    item.setStatus(item.getStatus() + "需求品牌为空，系统匹配到该型号对应的品牌；");
                     return sdadaVOList.get(0).getQuoBrand();
+                } else {
+                    item.setStatus(item.getStatus() + "需求品牌为空，系统匹配到该型号对应多个品牌需手动选择；");
                 }
             }
         } else {
-            // 原品牌为空时匹配品牌，如果该型号品牌唯一则返回该品牌否则置空
+            // 如果BOM单没有品牌列
             List<SdadaVO> sdadaVOList = bomListener.sdadaMapper.selectContain(rowData.get(modleIndex));
             if (sdadaVOList.size() == 1) {
+                item.setStatus(item.getStatus() + "无需求品牌列，系统匹配到该型号对应的品牌；");
                 return sdadaVOList.get(0).getQuoBrand();
+            } else {
+                item.setStatus(item.getStatus() + "无需求品牌列，系统匹配到该型号对应多个品牌需手动选择；");
             }
         }
         return "品牌不能为空";

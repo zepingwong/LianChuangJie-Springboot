@@ -11,7 +11,18 @@
         AND DocEntry = #{da.docEntry}
     </update>
     <select id="selectByDocEntry" resultType="com.lianchuangjie.lianchuangjie.vo.Enquiry.BomExportVO">
-        SELECT * FROM U_BOM11
-        WHERE DocEntry = #{docEntry}
+        SELECT
+            U_BOM11.LineNum,
+            U_BOM11.Modle,
+            U_BOM11.StandModle,
+            U_BOM11.Brand,
+            U_BOM11.StandBrand,
+            U_BOM11.DemandQty,
+            U_BOM11.CurRemark,
+            Status + IIF(U_OBRA.IsStand IS NULL, N'品牌错误，需确认品牌名称；', '') AS Status,
+            U_OBRA.IsStand /*型号是否需要标准化*/
+        FROM U_BOM11
+        LEFT JOIN U_OBRA ON U_OBRA.Name = U_BOM11.StandBrand
+        WHERE U_BOM11.DocEntry = #{docEntry}
     </select>
 </mapper>
