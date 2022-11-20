@@ -90,8 +90,8 @@ public class BomListener extends AnalysisEventListener<Map<Integer, String>> {
     // 获取表头索引行列表
     public List<String> getTitleList() {
         List<String> titleList = new ArrayList<>(titleMap.values());
-        titleList.add("标准化品牌");
-        titleList.add("标准号型号");
+        titleList.add("系统预处理品牌");
+        titleList.add("系统预处理型号");
         titleList.add("行号");
         return titleList;
     }
@@ -143,10 +143,10 @@ public class BomListener extends AnalysisEventListener<Map<Integer, String>> {
             }
             // 增加一个行号
             map.put("行号", lineNum.toString());
-            // 增加一列 用于标准化品牌
-            map.put("标准化品牌", item.getBrand());
-            // 增加一列 用于标准化型号
-            map.put("标准化型号", item.getModle());
+            // 增加一列 用于处理品牌
+            map.put("系统预处理品牌", item.getBrand());
+            // 增加一列 用于处理型号
+            map.put("系统预处理型号", item.getModle());
             lineNum += 1;
             dataList.add(map);
         } else if (!startRead && this.isIndexRow(dataMap)) {
@@ -212,7 +212,7 @@ public class BomListener extends AnalysisEventListener<Map<Integer, String>> {
         }
     }
     /**
-     * @description 处理品牌
+     * @description 处理品牌，品牌必须标准化
      */
     private String handleBrand(Map<Integer, String> rowData, BomSubEntity item) {
         // 如果BOM单有品牌列
@@ -245,6 +245,6 @@ public class BomListener extends AnalysisEventListener<Map<Integer, String>> {
                 item.setStatus(item.getStatus() + "无需求品牌列，系统匹配到该型号对应多个品牌需手动选择；");
             }
         }
-        return "品牌不能为空";
+        return "";
     }
 }

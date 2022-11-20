@@ -45,6 +45,10 @@ public class BomExportVO {
      */
     private String curRemark;
     /**
+     * @description 型号是否需要标准化
+     */
+    private String isStand;
+    /**
      * @description 标准化结果
      */
     private String status;
