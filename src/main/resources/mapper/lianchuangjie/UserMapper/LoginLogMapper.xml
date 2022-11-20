@@ -8,5 +8,14 @@
             T_OUSI.UserCode
         FROM U_WebLogin
         LEFT JOIN T_OUSI ON T_OUSI.UserSign = U_WebLogin.UserSign
+        <where>
+            1=1
+            <if test="sc.loginTimeStart != null">
+                AND U_WebLogin.LoginTime >= #{sc.loginTimeStart}
+            </if>
+            <if test="sc.loginTimeEnd != null">
+                AND U_WebLogin.LoginTime &lt; #{sc.loginTimeEnd}
+            </if>
+        </where>
     </select>
 </mapper>

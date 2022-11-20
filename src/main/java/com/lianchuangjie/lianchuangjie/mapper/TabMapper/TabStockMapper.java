@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO;
-import com.lianchuangjie.lianchuangjie.entity.StockQuantityEntity;
+import com.lianchuangjie.lianchuangjie.entity.Stock.StockQuantityEntity;
 import com.lianchuangjie.lianchuangjie.vo.Enquiry.TabEnquiryStockVO;
 import com.lianchuangjie.lianchuangjie.vo.Quotation.TabQuotationStockVO;
 import com.lianchuangjie.lianchuangjie.vo.StockPrice.TabStockPriceOriginVO;

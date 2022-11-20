@@ -60,7 +60,6 @@ public class BomServiceImpl implements BomService {
         try {
             BomListener listener = new BomListener();
             EasyExcel.read(file.getInputStream(), listener).sheet().doRead();
-            System.out.println(listener);
             bomList = listener.getDataList();
             List<String> titleList = listener.getTitleList();
             List<BomSubEntity> bomSubList = listener.getBomSubList();

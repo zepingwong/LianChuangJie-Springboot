@@ -9,7 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class Base64Util {
-    public static String generateImage(String imgStr, String imgDirPath) {
+    public static String generateImage(String imgStr, String imgDirPath, Long userSign) {
         File imgDir=new File(imgDirPath);
         if(!imgDir.exists())
             imgDir.mkdir();
@@ -17,7 +17,7 @@ public class Base64Util {
         String imgExt= imgStr.split(",")[0].split("[/;]")[1];
         imgStr=imgStr.split(",")[1];
 
-        String fileName=UUIDUtil.getUUID()+"."+imgExt;
+        String fileName= userSign.toString() + "_" + UUIDUtil.getUUID()+"."+imgExt;
         String imgFilePath=imgDirPath+"/"+fileName;
         System.out.println(imgFilePath);
         try {

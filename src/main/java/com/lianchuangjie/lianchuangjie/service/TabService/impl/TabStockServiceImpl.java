@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO;
-import com.lianchuangjie.lianchuangjie.entity.StockQuantityEntity;
+import com.lianchuangjie.lianchuangjie.entity.Stock.StockQuantityEntity;
 import com.lianchuangjie.lianchuangjie.mapper.TabMapper.TabStockMapper;
 import com.lianchuangjie.lianchuangjie.service.TabService.TabStockService;
 import com.lianchuangjie.lianchuangjie.vo.Enquiry.TabEnquiryStockVO;
