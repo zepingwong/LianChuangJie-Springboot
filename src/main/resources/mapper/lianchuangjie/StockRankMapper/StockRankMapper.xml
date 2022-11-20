@@ -5,8 +5,38 @@
         SELECT
             U_StockRank.*,
             ISNULL(StockQuantity.Quantity, 0) AS Quantity, /*现有库存数量*/
-            ISNULL(OpenQuantity.OpenQty, 0) AS OpenQty /*在途库存数量*/
+            ISNULL(OpenQuantity.OpenQty, 0) AS OpenQty, /*在途库存数量*/
+            /*（最近三个月贸易商询价数量-最近三个月贸易商成单数量）*0.7+（最近三个月终端客户询价数量-最近三个月终端客户成单数量）*/
+            (ISNULL(InquiryDemandQty1, 0) - ISNULL(ORDR1.SumQuantity, 0)) * 0.7 + (ISNULL(InquiryDemandQty2, 0) - ISNULL(ORDR2.SumQuantity, 0)) +
+                /*近三个月成单数量*/
+            ISNULL(ORDR2.SumQuantity + ORDR1.SumQuantity, 0) AS 'SuggestionQty' /*建议补货数量*/
         FROM U_StockRank
+        LEFT JOIN (
+            SELECT
+                SUM(T_ORDR1.Quantity) AS SumQuantity, /*销售数量*/
+                T_ORDR1.U_Brand,
+                T_ORDR1.U_ItemName
+            FROM T_ORDR1
+            LEFT JOIN T_ORDR ON T_ORDR.DocEntry = T_ORDR1.DocEntry
+            WHERE T_ORDR.U_GroupName IN (N'其它', N'一般贸易商', N'关系型贸易商')
+            AND DATEDIFF(MONTH , T_ORDR.DocDate, GETDATE()) &lt;= 2
+            GROUP BY
+                T_ORDR1.U_Brand,
+                T_ORDR1.U_ItemName
+        ) ORDR1 ON ORDR1.U_Brand = U_StockRank.Brand AND  ORDR1.U_ItemName = U_StockRank.Modle /*贸易商成交数量*/
+        LEFT JOIN (
+            SELECT
+                SUM(T_ORDR1.Quantity) AS SumQuantity, /*销售数量*/
+                T_ORDR1.U_Brand,
+                T_ORDR1.U_ItemName
+            FROM T_ORDR1
+            LEFT JOIN T_ORDR ON T_ORDR.DocEntry = T_ORDR1.DocEntry
+            WHERE T_ORDR.U_GroupName IN (N'其它', N'一般贸易商', N'关系型贸易商')
+            AND DATEDIFF(MONTH , T_ORDR.DocDate, GETDATE()) &lt;= 2
+            GROUP BY
+                T_ORDR1.U_Brand,
+                T_ORDR1.U_ItemName
+        ) ORDR2 ON ORDR2.U_Brand = U_StockRank.Brand AND  ORDR2.U_ItemName = U_StockRank.Modle /*终端客户成交数量*/
         /*现有库存数量*/
         LEFT JOIN (
             SELECT

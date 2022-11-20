@@ -221,4 +221,9 @@ public class StockRankVO {
      */
     @JsonProperty("TotalScore")
     private BigDecimal totalScore;
+    /**
+     * 建议补货数量
+     */
+    @JsonProperty("SuggestionQty")
+    private BigDecimal suggestionQty;
 }
