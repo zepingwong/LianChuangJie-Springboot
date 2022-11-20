@@ -17,7 +17,8 @@ public class SupplierController {
     @Resource
     SupplierService supplierService;
     /**
-     * @param CardName CardName
+     * @param cardName cardName
+     * @param cardCode cardCode
      * @return Result
      * @description 获取供应商列表
      * @author WANG Zeping

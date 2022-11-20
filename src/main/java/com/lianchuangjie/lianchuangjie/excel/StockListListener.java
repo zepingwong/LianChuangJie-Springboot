@@ -53,6 +53,7 @@ public class StockListListener extends AnalysisEventListener<Map<Integer, String
         int index = analysisContext.readRowHolder().getRowIndex();
         log.debug("解析到第{}行数据：{}", index + 1, dataMap);
         StockListSubEntity stockListSubEntity = new StockListSubEntity();
+        stockListSubEntity.setLineNum(Long.parseLong( String.valueOf(index + 1)));
         stockListSubEntity.setBrand(dataMap.get(brandIndex));
         stockListSubEntity.setModle(dataMap.get(modleIndex));
         stockListSubEntity.setYear(dataMap.get(yearIndex));

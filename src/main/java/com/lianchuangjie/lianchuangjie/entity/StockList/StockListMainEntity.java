@@ -1,6 +1,7 @@
 package com.lianchuangjie.lianchuangjie.entity.StockList;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,12 +15,12 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("T_StockList")
+@TableName("U_StockList")
 public class StockListMainEntity {
     /**
      * @description 编号-主键
      */
-    @TableField(value = "DocEntry")
+    @TableId(value = "DocEntry")
     private Long docEntry;
     // 文件名
     @TableField(value = "FileName")
@@ -40,6 +41,6 @@ public class StockListMainEntity {
     @TableField(value = "Level")
     private String level;
     // 供应商性质
-    @TableField(value = "CurGroupName")
-    private String curVatName;
+    @TableField(value = "GroupName")
+    private String groupName;
 }

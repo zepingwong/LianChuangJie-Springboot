@@ -2,4 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lianchuangjie.lianchuangjie.mapper.StockList.StockListMainMapper">
 
+    <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.StockList.StockListMainVO">
+        SELECT U_StockList.*
+        FROM U_StockList
+        <where>
+            1=1
+            <if test="sc.cardCode != null">
+                AND U_StockList.CardCode = #{sc.cardCode}
+            </if>
+            <if test="sc.status != null">
+                AND U_StockList.Status = #{sc.status}
+            </if>
+            <if test="sc.createDateStart != null">
+                AND U_StockList.CreateDate >= #{sc.createDateStart}
+            </if>
+            <if test="sc.createDateStart != null">
+                AND U_StockList.CreateDate &lt; #{sc.createDateEnd}
+            </if>
+        </where>
+    </select>
 </mapper>

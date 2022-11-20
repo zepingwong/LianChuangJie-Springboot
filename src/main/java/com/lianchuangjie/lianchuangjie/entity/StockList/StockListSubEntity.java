@@ -38,7 +38,7 @@ public class StockListSubEntity {
     @TableField(value = "Quantity")
     private BigDecimal quantity;
     // 批次
-    @TableField(value = "year")
+    @TableField(value = "Year")
     private String year;
     // 单价
     @TableField(value = "Price")
