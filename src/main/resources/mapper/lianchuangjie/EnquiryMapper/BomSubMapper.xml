@@ -10,4 +10,8 @@
             LineNum = #{da.lineNum}
         AND DocEntry = #{da.docEntry}
     </update>
+    <select id="selectByDocEntry" resultType="com.lianchuangjie.lianchuangjie.vo.Enquiry.BomExportVO">
+        SELECT * FROM U_BOM11
+        WHERE DocEntry = #{docEntry}
+    </select>
 </mapper>

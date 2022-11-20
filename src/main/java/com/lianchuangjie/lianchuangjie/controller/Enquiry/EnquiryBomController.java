@@ -1,5 +1,9 @@
 package com.lianchuangjie.lianchuangjie.controller.Enquiry;
 
+import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.ExcelWriter;
+import com.alibaba.excel.write.metadata.WriteSheet;
+import com.alibaba.excel.write.metadata.fill.FillConfig;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lianchuangjie.lianchuangjie.config.Authentication;
 import com.lianchuangjie.lianchuangjie.controller.BaseController;
@@ -14,6 +18,7 @@ import com.lianchuangjie.lianchuangjie.service.Enquiry.BomSubService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
 import com.lianchuangjie.lianchuangjie.utils.ContextUtil;
 import com.lianchuangjie.lianchuangjie.vo.BomUploadResVO;
+import com.lianchuangjie.lianchuangjie.vo.Enquiry.BomExportVO;
 import com.lianchuangjie.lianchuangjie.vo.Enquiry.BomMainVO;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpHeaders;
@@ -31,8 +36,10 @@ import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
+import java.util.List;
 
 @Validated
 @RestController
@@ -149,5 +156,44 @@ public class EnquiryBomController extends BaseController {
         BomMainSearchDTO bomMainSearchDTO = new BomMainSearchDTO(page, size, ownerCode, createTimeStart, createTimeEnd);
         Page<BomMainVO> pages = bomMainService.list(bomMainSearchDTO);
         return Result.success(pages, "Success");
+    }
+
+    /**
+     * @param docEntry docEntry
+     * @param response response
+     * @description 导出Bom单标准化结果
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 11/20/2022
+     */
+    @GetMapping("export/{docEntry}")
+    @Authentication(sale = true)
+    public void bomExportController(
+            @PathVariable Long docEntry,
+            HttpServletResponse response
+    ) {
+        try {
+            // 获取导出数据
+            List<BomExportVO> exportData = bomService.export(docEntry);
+            // 获取模板
+            ClassPathResource classPathResource = new ClassPathResource(File.separator + "templates" + File.separator + "Bom单标准化.xlsx");
+            InputStream inputStream = classPathResource.getInputStream();
+            ExcelWriter excelWriter;
+            excelWriter = EasyExcel
+                    .write(response.getOutputStream())
+                    .withTemplate(inputStream)
+                    .build();
+            WriteSheet writeSheet = EasyExcel.writerSheet().build();
+            FillConfig fillConfig = FillConfig.builder().forceNewRow(Boolean.TRUE).build();
+            excelWriter.fill(exportData, fillConfig, writeSheet);
+            String fileName = URLEncoder.encode("Bom单标准化结果" + new Date(), "UTF-8").replaceAll("\\+", "%20");
+            response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            response.setCharacterEncoding("utf-8");
+            response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName + ".xlsx");
+            excelWriter.finish();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw ResponseEnum.DOWNLOAD_ERROR.newException(e.getMessage());
+        }
     }
 }

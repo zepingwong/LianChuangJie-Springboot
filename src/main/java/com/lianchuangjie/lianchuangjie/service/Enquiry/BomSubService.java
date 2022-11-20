@@ -3,6 +3,9 @@ package com.lianchuangjie.lianchuangjie.service.Enquiry;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lianchuangjie.lianchuangjie.dto.Enquiry.EnquiryBomUpdateDTO;
 import com.lianchuangjie.lianchuangjie.entity.Enquiry.BomSubEntity;
+import com.lianchuangjie.lianchuangjie.vo.Enquiry.BomExportVO;
+
+import java.util.List;
 
 public interface BomSubService extends IService<BomSubEntity> {
     /**
@@ -14,4 +17,5 @@ public interface BomSubService extends IService<BomSubEntity> {
      * @date 11/6/2022
      */
     Boolean updateOne(EnquiryBomUpdateDTO enquiryBomUpdateDTO);
+    List<BomExportVO> export(Long docEntry);
 }

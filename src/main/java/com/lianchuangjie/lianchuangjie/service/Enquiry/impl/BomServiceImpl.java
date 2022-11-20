@@ -21,6 +21,7 @@ import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquiryMainService;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquirySubService;
 import com.lianchuangjie.lianchuangjie.utils.ContextUtil;
 import com.lianchuangjie.lianchuangjie.vo.BomUploadResVO;
+import com.lianchuangjie.lianchuangjie.vo.Enquiry.BomExportVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -130,5 +131,10 @@ public class BomServiceImpl implements BomService {
         }
         enquirySubService.saveBatch(saveList);
         return true;
+    }
+
+    @Override
+    public List<BomExportVO> export(Long docEntry) {
+        return bomSubService.export(docEntry);
     }
 }
