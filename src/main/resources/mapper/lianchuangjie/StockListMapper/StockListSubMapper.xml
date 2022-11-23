@@ -11,6 +11,7 @@
             U_StockList1.Year,
             StockQuantity.Quantity AS StockQuantity, /*现有库存数量*/
             LatestStockPrice.kc_price_final, /*最近一次库存定价*/
+            StockRank.DocEntry AS StockRank, /*库存排名*/
             LatestQuotation.U_QuoPrice /*最近一次采购报价*/
         FROM U_StockList1
         LEFT JOIN (
@@ -96,7 +97,7 @@
             SELECT
                 U_StockRank.Modle,
                 U_StockRank.Brand,
-                U_StockRank.TotalScore
+                DocEntry = (SELECT COUNT(*) FROM U_StockRank a WHERE a.TotalScore > U_StockRank.TotalScore) + 1
             FROM U_StockRank
         ) StockRank ON StockRank.Modle = U_StockList1.Modle AND StockRank.Brand = U_StockList1.Brand
         WHERE U_StockList1.DocEntry = #{sc.docEntry}

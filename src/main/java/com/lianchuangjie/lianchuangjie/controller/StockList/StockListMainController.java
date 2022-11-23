@@ -2,6 +2,7 @@ package com.lianchuangjie.lianchuangjie.controller.StockList;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lianchuangjie.lianchuangjie.config.Authentication;
+import com.lianchuangjie.lianchuangjie.controller.BaseController;
 import com.lianchuangjie.lianchuangjie.dto.StockList.StockListMainSearchDTO;
 import com.lianchuangjie.lianchuangjie.service.StockList.StockListMainService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
@@ -18,7 +19,7 @@ import java.util.Date;
 @Validated
 @RestController
 @RequestMapping("/stock")
-public class StockListMainController {
+public class StockListMainController extends BaseController {
     @Resource
     StockListMainService stockListMainService;
 

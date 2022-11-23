@@ -3,6 +3,7 @@
 <mapper namespace="com.lianchuangjie.lianchuangjie.mapper.StockRank.StockRankMapper">
     <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.StockRank.StockRankVO">
         SELECT
+            DocEntry = (SELECT COUNT(*) FROM U_StockRank a WHERE a.TotalScore > T.TotalScore) + 1,
             T.*,
             IIF(T._SuggestionQty &lt; 0, 0, T._SuggestionQty) AS SuggestionQty
         FROM (

@@ -40,4 +40,7 @@ public class StockListSubVO {
     // 现有库存数量
     @JsonProperty("StockQuantity")
     private BigDecimal stockQuantity;
+    // 库存排名
+    @JsonProperty("StockRank")
+    private Long stockRank;
 }
