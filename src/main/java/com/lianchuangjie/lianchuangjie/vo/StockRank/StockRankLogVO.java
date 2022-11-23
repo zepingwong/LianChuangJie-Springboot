@@ -9,6 +9,9 @@ import lombok.experimental.Accessors;
 
 import java.util.Date;
 
+/**
+ * 库存排名日志
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

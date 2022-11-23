@@ -6,6 +6,7 @@ import com.lianchuangjie.lianchuangjie.dto.StockRank.StockRankSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.StockRank.StockRankEntity;
 import com.lianchuangjie.lianchuangjie.mapper.StockRank.StockRankMapper;
 import com.lianchuangjie.lianchuangjie.service.StockRank.StockRankService;
+import com.lianchuangjie.lianchuangjie.vo.StockRank.PurchaseOrderVO;
 import com.lianchuangjie.lianchuangjie.vo.StockRank.StockRankVO;
 import org.springframework.stereotype.Service;
 
@@ -28,5 +29,11 @@ public class StockRankServiceImpl extends ServiceImpl<StockRankMapper, StockRank
     @Override
     public List<BigDecimal> purchasePriceList(String modle) {
         return stockRankMapper.selectPurchasePrice(modle);
+    }
+
+    @Override
+    public List<PurchaseOrderVO> purchaseOrderList(StockRankSearchDTO stockRankSearchDTO) {
+        List<PurchaseOrderVO> list = stockRankMapper.selectPurchaseOrder(stockRankSearchDTO);
+        return list;
     }
 }

@@ -56,7 +56,7 @@ public class PurchaseOrderMainEntity {
     @JsonProperty("DocCur")
     private String docCur;
     /**
-     * @description 销售员编号 OwnerCode
+     * @description 采购员编号 OwnerCode
      */
     @TableField(value = "OwnerCode")
     @JsonProperty("OwnerCode")
