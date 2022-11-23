@@ -75,6 +75,16 @@ public class StockRankController {
         List<BigDecimal> purchasePriceList = stockRankService.purchasePriceList(modle);
         return Result.success(purchasePriceList, "Success");
     }
+
+    /**
+     * @param modle modle
+     * @param brand brand
+     * @return Result
+     * @description 在途库存采购订单列表
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 11/23/2022
+     */
     @GetMapping("/rank/purchase")
     @Authentication(buyer = true)
     public Result<List<PurchaseOrderVO>> getPurchaseOrderController(

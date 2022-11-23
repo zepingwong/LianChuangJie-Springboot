@@ -9,7 +9,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class StockListSearchDTO {
+public class StockListMainSearchDTO {
     // 页码
     private Integer page;
     // 每页显示数量
