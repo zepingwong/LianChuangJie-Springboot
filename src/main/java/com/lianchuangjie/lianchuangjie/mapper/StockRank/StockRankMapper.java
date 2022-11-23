@@ -46,4 +46,14 @@ public interface StockRankMapper extends BaseMapper<StockRankEntity> {
      * @date 11/23/2022
      */
     List<PurchaseOrderVO> selectPurchaseOrder(@Param("sc") StockRankSearchDTO stockRankSearchDTO);
+
+    /**
+     * @param stockRankSearchDTO stockRankSearchDTO
+     * @return StockRankVO
+     * @description 库存排名详情
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 11/24/2022
+     */
+    StockRankVO selectOne(@Param("sc") StockRankSearchDTO stockRankSearchDTO);
 }

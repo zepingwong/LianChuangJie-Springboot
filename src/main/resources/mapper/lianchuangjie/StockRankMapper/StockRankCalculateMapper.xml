@@ -10,7 +10,7 @@
                InitRank.InquiryDemandQty2, /*近3个月终端类型客户询价数量*/
             /*01.询价频次*/
                ROW_NUMBER() OVER (ORDER BY InitRank.InquiryFrequency DESC)    AS InquiryFrequencyRank, /*近1年加权询价频次排名*/
-               NULL                                                           AS InquiryFrequencyScore, /*近1年加权询价频次得分*/
+               CAST(NULL AS DECIMAL(19, 6))                                   AS InquiryFrequencyScore, /*近1年加权询价频次得分*/
                InitRank.InquiryFrequencyFirst1, /*第1个月贸易商类型客户询价频次*/
                InitRank.InquiryFrequencyFirst2, /*第1个月终端类型客户询价频次*/
                InitRank.InquiryFrequencySecond1, /*第2个月贸易商类型客户询价频次*/
@@ -26,7 +26,7 @@
                InitRank.InquiryFrequency, /*近1年加权询价频次*/
             /*02.询价客户数*/
                ROW_NUMBER() OVER (ORDER BY InitRank.InquiryCustomers DESC)    AS InquiryCustomersRank, /*加权询价客户数排名*/
-               NULL                                                           AS InquiryCustomersScore, /*加权询价客户数得分*/
+               CAST(NULL AS DECIMAL(19, 6))                                   AS InquiryCustomersScore, /*加权询价客户数得分*/
                InitRank.InquiryCustomersFirst1, /*第1个月贸易商类型询价客户数*/
                InitRank.InquiryCustomersFirst2, /*第1个月终端类型询价客户数*/
                InitRank.InquiryCustomersSecond1, /*第2个月贸易商类型询价客户数*/
@@ -43,7 +43,7 @@
             /*03.销售订单客户数*/
                InitRank.OrderCustomers,
                ROW_NUMBER() OVER (ORDER BY InitRank.OrderCustomers DESC)      AS OrderCustomersRank, /*近1年加权销售订单客户数排名*/
-               NULL                                                           AS OrderCustomersScore, /*近1年加权销售订单客户数得分*/
+               CAST(NULL AS DECIMAL(19, 6))                                   AS OrderCustomersScore, /*近1年加权销售订单客户数得分*/
                InitRank.OrderCustomersFirst, /*第1个月销售订单客户数*/
                InitRank.OrderCustomersSecond, /*第2个月销售订单客户数*/
                InitRank.OrderCustomersThird, /*第3个月销售订单客户数*/
@@ -51,14 +51,14 @@
                InitRank.DeliveryFrequency, /*近1年销售订单客户数*/
             /*04.销售订单频次*/
                ROW_NUMBER() OVER (ORDER BY InitRank.DeliveryFrequency DESC)   AS DeliveryFrequencyRank, /*近1年加权销售订单频次排名*/
-               NULL                                                           AS DeliveryFrequencyScore, /*近1年加权销售订单频次得分*/
+               CAST(NULL AS DECIMAL(19, 6))                                   AS DeliveryFrequencyScore, /*近1年加权销售订单频次得分*/
                InitRank.DeliveryFrequencyFirst, /*第1个月销售订单频次*/
                InitRank.DeliveryFrequencySecond, /*第2个月销售订单频次*/
                InitRank.DeliveryFrequencyThird, /*第3个月销售订单频次*/
                InitRank.DeliveryFrequencyForth, /*第4-12个月销售订单频次*/
             /*05.销售总数*/
                ROW_NUMBER() OVER (ORDER BY InitRank.DeliveryQuantity DESC)    AS DeliveryQuantityRank, /*近1年加权销售总数排名*/
-               NULL                                                           AS DeliveryQuantityScore, /*加权销售总数得分*/
+               CAST(NULL AS DECIMAL(19, 6))                                   AS DeliveryQuantityScore, /*加权销售总数得分*/
                InitRank.DeliveryQuantity,
                InitRank.DeliveryQuantityFirst,
                InitRank.DeliveryQuantitySecond,
@@ -66,7 +66,7 @@
                InitRank.DeliveryQuantityForth,
             /*06.平均利润率*/
                ROW_NUMBER() OVER (ORDER BY InitRank.AverageProfit DESC)       AS AverageProfitRank, /*近1年平均利润率排名*/
-               NULL                                                           AS AverageProfitScore, /*近1年平均利润率得分*/
+               CAST(NULL AS DECIMAL(19, 6))                                   AS AverageProfitScore, /*近1年平均利润率得分*/
                InitRank.AverageProfit, /*近1年平均利润率*/
             /*07.采购价格*/
                ROW_NUMBER() OVER (ORDER BY InitRank.AveragePPriceAFVAT DESC)  AS AveragePPriceAFVATRank, /*近1年平均采购价格排名*/
@@ -74,15 +74,15 @@
                InitRank.AveragePPriceAFVAT, /*近1年平均采购价格*/
             /*08.采购数量*/
                ROW_NUMBER() OVER (ORDER BY InitRank.SumPurchaseQuantity DESC) AS SumPurchaseQuantityRank, /*近1年采购数量排名*/
-               NULL                                                           AS SumPurchaseQuantityScore, /*近1年采购数量得分*/
+               CAST(NULL AS DECIMAL(19, 6))                                   AS SumPurchaseQuantityScore, /*近1年采购数量得分*/
                InitRank.SumPurchaseQuantity, /*近1年采购数量*/
             /*09.采购频次*/
                ROW_NUMBER() OVER (ORDER BY InitRank.PurchaseFrequency DESC)   AS PurchaseFrequencyRank, /*近1年采购频次排名*/
-               NULL                                                           AS PurchaseFrequencyScore, /*近1年采购总频次得分*/
+               CAST(NULL AS DECIMAL(19, 6))                                   AS PurchaseFrequencyScore, /*近1年采购总频次得分*/
                InitRank.PurchaseFrequency, /*近1年采购频次*/
             /*10.销售总额*/
                ROW_NUMBER() OVER (ORDER BY InitRank.SumSaleMoney DESC)        AS SumSaleMoneyRank, /*近1年销售总额排名*/
-               NULL                                                           AS SumSaleMoneyScore, /*近1年销售总额得分*/
+               CAST(NULL AS DECIMAL(19, 6))                                   AS SumSaleMoneyScore, /*近1年销售总额得分*/
                InitRank.SumSaleMoney, /*近1年销售总额*/
                InitRank.SumSaleMoneyFirst, /*第1个月销售总额*/
                InitRank.SumSaleMoneySecond, /*第2个月销售总额*/
@@ -90,32 +90,32 @@
                InitRank.SumSaleMoneyForth, /*第4-12个月销售总额*/
             /*11.采购总额*/
                ROW_NUMBER() OVER (ORDER BY InitRank.SumPurchaseMoney DESC)    AS SumPurchaseMoneyRank, /*近1年采购总额排名*/
-               NULL                                                           AS SumPurchaseMoneyScore, /*近1年采购总额得分*/
+               CAST(NULL AS DECIMAL(19, 6))                                   AS SumPurchaseMoneyScore, /*近1年采购总额得分*/
                InitRank.SumPurchaseMoney, /*近1年采购总额排名*/
             /*12.品牌得分*/
                ROW_NUMBER() OVER (ORDER BY BrandSumPurchaseMoney DESC)        AS BrandSumPurchaseMoneyRank, /*近1年品牌采购额排名*/
-               NULL                                                           AS BrandSumPurchaseMoneyScore, /*近1年品牌采购额得分*/
+               CAST(NULL AS DECIMAL(19, 6))                                   AS BrandSumPurchaseMoneyScore, /*近1年品牌采购额得分*/
                ISNULL(BrandSumPurchaseMoney, 0)                               AS BrandSumPurchaseMoney, /*近1年品牌采购额*/
 
                ROW_NUMBER() OVER (ORDER BY BrandSumPurchaseQuantity DESC)     AS BrandSumPurchaseQuantityRank, /*近1年品牌采购数量排名*/
-               NULL                                                           AS BrandSumPurchaseQuantityScore, /*近1年品牌采购数量得分*/
+               CAST(NULL AS DECIMAL(19, 6))                                   AS BrandSumPurchaseQuantityScore, /*近1年品牌采购数量得分*/
                ISNULL(BrandSumPurchaseQuantity, 0)                            AS BrandSumPurchaseQuantity, /*近1年品牌采购数量*/
 
                ROW_NUMBER() OVER (ORDER BY BrandSumPurchaseSuppliers DESC)    AS BrandSumPurchaseSuppliersRank, /*近1年品牌供应商数量排名*/
-               NULL                                                           AS BrandSumPurchaseSuppliersScore, /*近1年品牌供应商数量得分*/
+               CAST(NULL AS DECIMAL(19, 6))                                   AS BrandSumPurchaseSuppliersScore, /*近1年品牌供应商数量得分*/
                ISNULL(BrandSumPurchaseSuppliers, 0)                           AS BrandSumPurchaseSuppliers, /*近1年品牌供应商数量*/
 
                ROW_NUMBER() OVER (ORDER BY BrandSumSaleCustomers DESC)        AS BrandSumSaleCustomersRank, /*近1年品牌客户数量排名*/
-               NULL                                                           AS BrandSumSaleCustomersScore, /*近1年品牌客户数量得分*/
+               CAST(NULL AS DECIMAL(19, 6))                                   AS BrandSumSaleCustomersScore, /*近1年品牌客户数量得分*/
                ISNULL(BrandSumSaleCustomers, 0)                               AS BrandSumSaleCustomers, /*近1年品牌客户数量*/
 
                ROW_NUMBER() OVER (ORDER BY BrandModleCount DESC)              AS BrandModleCountRank, /*近1年采购订单品牌所属型号数量排名*/
-               NULL                                                           AS BrandModleCountScore, /*近1年采购订单品牌所属型号数量得分*/
+               CAST(NULL AS DECIMAL(19, 6))                                   AS BrandModleCountScore, /*近1年采购订单品牌所属型号数量得分*/
                ISNULL(BrandModleCount, 0)                                     AS BrandModleCount, /*近1年采购订单品牌所属型号数量*/
-               NULL                                                           AS BrandScore, /*品牌得分*/
+               CAST(NULL AS DECIMAL(19, 6))                                   AS BrandScore, /*品牌得分*/
             /*总分*/
-               NULL                                                           AS TotalScore /*总分*/
-        INTO U_StockRank
+               CAST(NULL AS DECIMAL(19, 6))                                   AS TotalScore /*总分*/
+        INTO #StockRank
 
         FROM (SELECT T.Modle,
                      T.Brand,
@@ -506,18 +506,18 @@
 
         DECLARE @Total INT
         SELECT @Total = COUNT(*)
-        FROM U_StockRank;
+        FROM #StockRank;
 
         /*01.询价频次_赋分*/
-        DECLARE @MIN_InquiryFrequency INT
-        DECLARE @MAX_InquiryFrequency INT
+        DECLARE @MIN_InquiryFrequency DECIMAL(19, 6)
+        DECLARE @MAX_InquiryFrequency DECIMAL(19, 6)
         /*排名前9.1799%*/
         SELECT @MIN_InquiryFrequency = MIN(InquiryFrequency),
                @MAX_InquiryFrequency = MAX(InquiryFrequency)
-        FROM U_StockRank
+        FROM #StockRank
         WHERE InquiryFrequencyRank &lt;= @Total * 0.091799
 
-        UPDATE U_StockRank
+        UPDATE #StockRank
         SET InquiryFrequencyScore = IIF(
                     @MIN_InquiryFrequency != @MAX_InquiryFrequency,
                     (InquiryFrequency - @MIN_InquiryFrequency) / (@MAX_InquiryFrequency - @MIN_InquiryFrequency) * 8 +
@@ -529,10 +529,10 @@
         /*其余*/
         SELECT @MIN_InquiryFrequency = MIN(InquiryFrequency),
                @MAX_InquiryFrequency = MAX(InquiryFrequency)
-        FROM U_StockRank
+        FROM #StockRank
         WHERE InquiryFrequencyRank > @Total * 0.091799
 
-        UPDATE U_StockRank
+        UPDATE #StockRank
         SET InquiryFrequencyScore = IIF(
                     @MIN_InquiryFrequency != @MAX_InquiryFrequency,
                     (InquiryFrequency - @MIN_InquiryFrequency) / (@MAX_InquiryFrequency - @MIN_InquiryFrequency) *
@@ -543,14 +543,14 @@
         WHERE InquiryFrequencyRank > @Total * 0.091799
 
         /*02.询价客户数_赋分*/
-        DECLARE @MIN_InquiryCustomers INT
-        DECLARE @MAX_InquiryCustomers INT
+        DECLARE @MIN_InquiryCustomers DECIMAL(19, 6)
+        DECLARE @MAX_InquiryCustomers DECIMAL(19, 6)
 
         SELECT @MIN_InquiryCustomers = MIN(InquiryCustomers),
                @MAX_InquiryCustomers = MAX(InquiryCustomers)
-        FROM U_StockRank
+        FROM #StockRank
 
-        UPDATE U_StockRank
+        UPDATE #StockRank
         SET InquiryCustomersScore = IIF(
                     @MAX_InquiryCustomers != @MIN_InquiryCustomers,
                     (InquiryCustomers - @MIN_InquiryCustomers) / (@MAX_InquiryCustomers - @MIN_InquiryCustomers) * 9 +
@@ -560,14 +560,14 @@
         WHERE Modle IS NOT NULL
 
         /*03.销售订单客户数_赋分*/
-        DECLARE @MIN_OrderCustomers INT
-        DECLARE @MAX_OrderCustomers INT
+        DECLARE @MIN_OrderCustomers DECIMAL(19, 6)
+        DECLARE @MAX_OrderCustomers DECIMAL(19, 6)
 
         SELECT @MIN_OrderCustomers = MIN(OrderCustomers),
                @MAX_OrderCustomers = MAX(OrderCustomers)
-        FROM U_StockRank
+        FROM #StockRank
 
-        UPDATE U_StockRank
+        UPDATE #StockRank
         SET OrderCustomersScore = IIF(
                     @MAX_OrderCustomers != @MIN_OrderCustomers,
                     (OrderCustomers - @MIN_OrderCustomers) / (@MAX_OrderCustomers - @MIN_OrderCustomers) * 9 +
@@ -577,15 +577,15 @@
         WHERE Modle IS NOT NULL
 
         /*04.销售订单频次_赋分*/
-        DECLARE @MIN_DeliveryFrequency INT
-        DECLARE @MAX_DeliveryFrequency INT
+        DECLARE @MIN_DeliveryFrequency DECIMAL(19, 6)
+        DECLARE @MAX_DeliveryFrequency DECIMAL(19, 6)
         /*排名前0.1%*/
         SELECT @MIN_DeliveryFrequency = MIN(DeliveryFrequency),
                @MAX_DeliveryFrequency = MAX(DeliveryFrequency)
-        FROM U_StockRank
+        FROM #StockRank
         WHERE DeliveryFrequencyRank &lt;= @Total * 0.001
 
-        UPDATE U_StockRank
+        UPDATE #StockRank
         SET DeliveryFrequencyScore = IIF(
                     @MAX_DeliveryFrequency != @MIN_DeliveryFrequency,
                     (DeliveryFrequency - @MIN_DeliveryFrequency) / (@MAX_DeliveryFrequency - @MIN_DeliveryFrequency) *
@@ -598,10 +598,10 @@
         /*其余*/
         SELECT @MIN_DeliveryFrequency = MIN(DeliveryFrequency),
                @MAX_DeliveryFrequency = MAX(DeliveryFrequency)
-        FROM U_StockRank
+        FROM #StockRank
         WHERE DeliveryFrequencyRank > @Total * 0.001
 
-        UPDATE U_StockRank
+        UPDATE #StockRank
         SET DeliveryFrequencyScore = IIF(
                     @MAX_DeliveryFrequency != @MIN_DeliveryFrequency,
                     (DeliveryFrequency - @MIN_DeliveryFrequency) / (@MAX_DeliveryFrequency - @MIN_DeliveryFrequency) *
@@ -612,15 +612,15 @@
         WHERE DeliveryFrequencyRank > @Total * 0.001
 
         /*05.销售数量_赋分*/
-        DECLARE @MIN_DeliveryQuantity INT
-        DECLARE @MAX_DeliveryQuantity INT
+        DECLARE @MIN_DeliveryQuantity DECIMAL(19, 6)
+        DECLARE @MAX_DeliveryQuantity DECIMAL(19, 6)
         /*排名前0.7%*/
         SELECT @MIN_DeliveryQuantity = MIN(DeliveryQuantity),
                @MAX_DeliveryQuantity = MAX(DeliveryQuantity)
-        FROM U_StockRank
+        FROM #StockRank
         WHERE DeliveryQuantityRank &lt;= @Total * 0.007
 
-        UPDATE U_StockRank
+        UPDATE #StockRank
         SET DeliveryQuantityScore = IIF(
                     @MAX_DeliveryQuantity != @MIN_DeliveryQuantity,
                     (DeliveryQuantity - @MIN_DeliveryQuantity) / (@MAX_DeliveryQuantity - @MIN_DeliveryQuantity) * 8 +
@@ -632,10 +632,10 @@
         /*其余*/
         SELECT @MIN_DeliveryQuantity = MIN(DeliveryQuantity),
                @MAX_DeliveryQuantity = MAX(DeliveryQuantity)
-        FROM U_StockRank
+        FROM #StockRank
         WHERE DeliveryQuantityRank > @Total * 0.007
 
-        UPDATE U_StockRank
+        UPDATE #StockRank
         SET DeliveryQuantityScore = IIF(
                     @MAX_DeliveryQuantity != @MIN_DeliveryQuantity,
                     (DeliveryQuantity - @MIN_DeliveryQuantity) / (@MAX_DeliveryQuantity - @MIN_DeliveryQuantity) * 7 +
@@ -651,10 +651,10 @@
         /*利润率大于1*/
         SELECT @MIN_AverageProfit = MIN(AverageProfit),
                @MAX_AverageProfit = MAX(AverageProfit)
-        FROM U_StockRank
+        FROM #StockRank
         WHERE AverageProfit > 1
 
-        UPDATE U_StockRank
+        UPDATE #StockRank
         SET AverageProfitScore = IIF(
                     @MAX_AverageProfit != @MIN_AverageProfit,
                     (AverageProfit - @MIN_AverageProfit) / (@MAX_AverageProfit - @MIN_AverageProfit) * 3 +
@@ -667,11 +667,11 @@
 
         SELECT @MIN_AverageProfit = MIN(AverageProfit),
                @MAX_AverageProfit = MAX(AverageProfit)
-        FROM U_StockRank
+        FROM #StockRank
         WHERE AverageProfit &lt;= 1
           AND AverageProfit >= 0
 
-        UPDATE U_StockRank
+        UPDATE #StockRank
         SET AverageProfitScore = IIF(
                     @MAX_AverageProfit != @MIN_AverageProfit,
                     (AverageProfit - @MIN_AverageProfit) / (@MAX_AverageProfit - @MIN_AverageProfit) * 5 +
@@ -684,10 +684,10 @@
         /*利润率小于零*/
         SELECT @MIN_AverageProfit = MIN(AverageProfit),
                @MAX_AverageProfit = MAX(AverageProfit)
-        FROM U_StockRank
+        FROM #StockRank
         WHERE AverageProfit &lt; 0
 
-        UPDATE U_StockRank
+        UPDATE #StockRank
         SET AverageProfitScore = IIF(
                     @MAX_AverageProfit != @MIN_AverageProfit,
                     (AverageProfit - @MIN_AverageProfit) / (@MAX_AverageProfit - @MIN_AverageProfit) +
@@ -697,35 +697,35 @@
         WHERE AverageProfit &lt; 0
 
         /*0.7采购价格_赋分*/
-        UPDATE U_StockRank
+        UPDATE #StockRank
         SET AveragePPriceAFVATScore = 1 /*采购价格大于17000, 赋1分*/
         WHERE AveragePPriceAFVAT > 17000
 
-        UPDATE U_StockRank
+        UPDATE #StockRank
         SET AveragePPriceAFVATScore = 6 /*13000大于采购价格小于等于17000, 赋6分*/
         WHERE AveragePPriceAFVAT &lt;= 17000
           AND AveragePPriceAFVAT > 13000
 
-        UPDATE U_StockRank
+        UPDATE #StockRank
         SET AveragePPriceAFVATScore = 8 /*8000大于采购价格小于等于13000, 赋6分*/
         WHERE AveragePPriceAFVAT &lt;= 13000
           AND AveragePPriceAFVAT > 8000
 
-        UPDATE U_StockRank
+        UPDATE #StockRank
         SET AveragePPriceAFVATScore = 10 /*采购价格小于等于8000, 赋10分*/
         WHERE AveragePPriceAFVAT &lt;= 8000
 
         /*08.采购数量_赋分*/
-        DECLARE @MIN_SumPurchaseQuantity INT
-        DECLARE @MAX_SumPurchaseQuantity INT
+        DECLARE @MIN_SumPurchaseQuantity DECIMAL(19, 6)
+        DECLARE @MAX_SumPurchaseQuantity DECIMAL(19, 6)
         /*前0.781%*/
 
         SELECT @MIN_SumPurchaseQuantity = MIN(SumPurchaseQuantity),
                @MAX_SumPurchaseQuantity = MAX(SumPurchaseQuantity)
-        FROM U_StockRank
+        FROM #StockRank
         WHERE SumPurchaseQuantityRank &lt;= @Total * 0.00781
 
-        UPDATE U_StockRank
+        UPDATE #StockRank
         SET SumPurchaseQuantityScore = IIF(
                     @MAX_SumPurchaseQuantity != @MIN_SumPurchaseQuantity,
                     (SumPurchaseQuantity - @MIN_SumPurchaseQuantity) /
@@ -739,10 +739,10 @@
 
         SELECT @MIN_SumPurchaseQuantity = MIN(SumPurchaseQuantity),
                @MAX_SumPurchaseQuantity = MAX(SumPurchaseQuantity)
-        FROM U_StockRank
+        FROM #StockRank
         WHERE SumPurchaseQuantityRank > @Total * 0.00781
 
-        UPDATE U_StockRank
+        UPDATE #StockRank
         SET SumPurchaseQuantityScore = IIF(
                     @MAX_SumPurchaseQuantity != @MIN_SumPurchaseQuantity,
                     (SumPurchaseQuantity - @MIN_SumPurchaseQuantity) /
@@ -753,15 +753,15 @@
         WHERE SumPurchaseQuantityRank > @Total * 0.00781
 
         /*09.采购频次_赋分*/
-        DECLARE @MIN_PurchaseFrequency INT
-        DECLARE @MAX_PurchaseFrequency INT
+        DECLARE @MIN_PurchaseFrequency DECIMAL(19, 6)
+        DECLARE @MAX_PurchaseFrequency DECIMAL(19, 6)
         /*排名前0.1%*/
         SELECT @MIN_PurchaseFrequency = MIN(PurchaseFrequency),
                @MAX_PurchaseFrequency = MAX(PurchaseFrequency)
-        FROM U_StockRank
+        FROM #StockRank
         WHERE PurchaseFrequencyRank &lt;= @Total * 0.001
 
-        UPDATE U_StockRank
+        UPDATE #StockRank
         SET PurchaseFrequencyScore = IIF(
                     @MAX_PurchaseFrequency != @MIN_PurchaseFrequency,
                     (PurchaseFrequency - @MIN_PurchaseFrequency) / (@MAX_PurchaseFrequency - @MIN_PurchaseFrequency) *
@@ -774,10 +774,10 @@
         /*其余*/
         SELECT @MIN_PurchaseFrequency = MIN(PurchaseFrequency),
                @MAX_PurchaseFrequency = MAX(PurchaseFrequency)
-        FROM U_StockRank
+        FROM #StockRank
         WHERE PurchaseFrequencyRank > @Total * 0.001
 
-        UPDATE U_StockRank
+        UPDATE #StockRank
         SET PurchaseFrequencyScore = IIF(
                     @MAX_PurchaseFrequency != @MIN_PurchaseFrequency,
                     (PurchaseFrequency - @MIN_PurchaseFrequency) / (@MAX_PurchaseFrequency - @MIN_PurchaseFrequency) *
@@ -788,15 +788,15 @@
         WHERE PurchaseFrequencyRank > @Total * 0.001
 
         /*10.销售总额_赋分*/
-        DECLARE @MIN_SumSaleMoney INT
-        DECLARE @MAX_SumSaleMoney INT
+        DECLARE @MIN_SumSaleMoney DECIMAL(19, 6)
+        DECLARE @MAX_SumSaleMoney DECIMAL(19, 6)
         /*排名前0.4%*/
         SELECT @MIN_SumSaleMoney = MIN(SumSaleMoney),
                @MAX_SumSaleMoney = MAX(SumSaleMoney)
-        FROM U_StockRank
+        FROM #StockRank
         WHERE SumSaleMoneyRank &lt;= @Total * 0.004
 
-        UPDATE U_StockRank
+        UPDATE #StockRank
         SET SumSaleMoneyScore = IIF(
                     @MAX_SumSaleMoney != @MIN_SumSaleMoney,
                     (SumSaleMoney - @MIN_SumSaleMoney) / (@MAX_SumSaleMoney - @MIN_SumSaleMoney) * 2 +
@@ -808,10 +808,10 @@
         /*其余*/
         SELECT @MIN_SumSaleMoney = MIN(SumSaleMoney),
                @MAX_SumSaleMoney = MAX(SumSaleMoney)
-        FROM U_StockRank
+        FROM #StockRank
         WHERE SumSaleMoneyRank > @Total * 0.004
 
-        UPDATE U_StockRank
+        UPDATE #StockRank
         SET SumSaleMoneyScore = IIF(
                     @MAX_SumSaleMoney != @MIN_SumSaleMoney,
                     (SumSaleMoney - @MIN_SumSaleMoney) / (@MAX_SumSaleMoney - @MIN_SumSaleMoney) * 7 + 1, /*其余 赋分1-8分*/
@@ -820,15 +820,15 @@
         WHERE SumSaleMoneyRank > @Total * 0.004
 
         /*11.采购总额_赋分*/
-        DECLARE @MIN_SumPurchaseMoney INT
-        DECLARE @MAX_SumPurchaseMoney INT
+        DECLARE @MIN_SumPurchaseMoney DECIMAL(19, 6)
+        DECLARE @MAX_SumPurchaseMoney DECIMAL(19, 6)
         /*排名前0.254%*/
         SELECT @MIN_SumPurchaseMoney = MIN(SumPurchaseMoney),
                @MAX_SumPurchaseMoney = MAX(SumPurchaseMoney)
-        FROM U_StockRank
+        FROM #StockRank
         WHERE SumPurchaseMoneyRank &lt;= @Total * 0.00254
 
-        UPDATE U_StockRank
+        UPDATE #StockRank
         SET SumPurchaseMoneyScore = IIF(
                     @MAX_SumPurchaseMoney != @MIN_SumPurchaseMoney,
                     (SumPurchaseMoney - @MIN_SumPurchaseMoney) / (@MAX_SumPurchaseMoney - @MIN_SumPurchaseMoney) * 2 +
@@ -840,10 +840,10 @@
         /*其余*/
         SELECT @MIN_SumPurchaseMoney = MIN(SumPurchaseMoney),
                @MAX_SumPurchaseMoney = MAX(SumPurchaseMoney)
-        FROM U_StockRank
+        FROM #StockRank
         WHERE SumPurchaseMoneyRank > @Total * 0.00254
 
-        UPDATE U_StockRank
+        UPDATE #StockRank
         SET SumPurchaseMoneyScore = IIF(
                     @MAX_SumPurchaseMoney != @MIN_SumPurchaseMoney,
                     (SumPurchaseMoney - @MIN_SumPurchaseMoney) / (@MAX_SumPurchaseMoney - @MIN_SumPurchaseMoney) * 7 +
@@ -853,15 +853,15 @@
         WHERE SumPurchaseMoneyRank > @Total * 0.00254
 
         /*品牌供应商数量赋分*/
-        DECLARE @MIN_BrandSumPurchaseSuppliers INT
-        DECLARE @MAX_BrandSumPurchaseSuppliers INT
+        DECLARE @MIN_BrandSumPurchaseSuppliers DECIMAL(19, 6)
+        DECLARE @MAX_BrandSumPurchaseSuppliers DECIMAL(19, 6)
         /*排名前3.2168%*/
         SELECT @MIN_BrandSumPurchaseSuppliers = MIN(BrandSumPurchaseSuppliers),
                @MAX_BrandSumPurchaseSuppliers = MAX(BrandSumPurchaseSuppliers)
-        FROM U_StockRank
+        FROM #StockRank
         WHERE SumPurchaseMoneyRank &lt;= @Total * 0.032168
 
-        UPDATE U_StockRank
+        UPDATE #StockRank
         SET BrandSumPurchaseSuppliersScore = IIF(
                     @MAX_BrandSumPurchaseSuppliers != @MIN_BrandSumPurchaseSuppliers,
                     (BrandSumPurchaseSuppliers - @MIN_BrandSumPurchaseSuppliers) /
@@ -873,10 +873,10 @@
         /*其余*/
         SELECT @MIN_BrandSumPurchaseSuppliers = MIN(BrandSumPurchaseSuppliers),
                @MAX_BrandSumPurchaseSuppliers = MAX(BrandSumPurchaseSuppliers)
-        FROM U_StockRank
+        FROM #StockRank
         WHERE SumPurchaseMoneyRank > @Total * 0.032168
 
-        UPDATE U_StockRank
+        UPDATE #StockRank
         SET BrandSumPurchaseSuppliersScore = IIF(
                     @MAX_BrandSumPurchaseSuppliers != @MIN_BrandSumPurchaseSuppliers,
                     (BrandSumPurchaseSuppliers - @MIN_BrandSumPurchaseSuppliers) /
@@ -886,15 +886,15 @@
         WHERE SumPurchaseMoneyRank > @Total * 0.032168
 
         /*品牌客户赋分*/
-        DECLARE @MIN_BrandSumSaleCustomers INT
-        DECLARE @MAX_BrandSumSaleCustomers INT
+        DECLARE @MIN_BrandSumSaleCustomers DECIMAL(19, 6)
+        DECLARE @MAX_BrandSumSaleCustomers DECIMAL(19, 6)
         /*排名前1.1189%*/
         SELECT @MIN_BrandSumSaleCustomers = MIN(BrandSumSaleCustomers),
                @MAX_BrandSumSaleCustomers = MAX(BrandSumSaleCustomers)
-        FROM U_StockRank
+        FROM #StockRank
         WHERE SumPurchaseMoneyRank &lt;= @Total * 0.011189
 
-        UPDATE U_StockRank
+        UPDATE #StockRank
         SET BrandSumSaleCustomersScore = IIF(
                     @MAX_BrandSumSaleCustomers != @MIN_BrandSumSaleCustomers,
                     (BrandSumSaleCustomers - @MIN_BrandSumSaleCustomers) /
@@ -906,10 +906,10 @@
         /*其余*/
         SELECT @MIN_BrandSumSaleCustomers = MIN(BrandSumSaleCustomers),
                @MAX_BrandSumSaleCustomers = MAX(BrandSumSaleCustomers)
-        FROM U_StockRank
+        FROM #StockRank
         WHERE SumPurchaseMoneyRank > @Total * 0.011189
 
-        UPDATE U_StockRank
+        UPDATE #StockRank
         SET BrandSumSaleCustomersScore = IIF(
                     @MAX_BrandSumSaleCustomers != @MIN_BrandSumSaleCustomers,
                     (BrandSumSaleCustomers - @MIN_BrandSumSaleCustomers) /
@@ -919,15 +919,15 @@
         WHERE SumPurchaseMoneyRank > @Total * 0.011189
 
         /*品牌所属型号赋分*/
-        DECLARE @MIN_BrandModleCount INT
-        DECLARE @MAX_BrandModleCount INT
+        DECLARE @MIN_BrandModleCount DECIMAL(19, 6)
+        DECLARE @MAX_BrandModleCount DECIMAL(19, 6)
         /*排名前1.2587%*/
         SELECT @MIN_BrandModleCount = MIN(BrandModleCount),
                @MAX_BrandModleCount = MAX(BrandModleCount)
-        FROM U_StockRank
+        FROM #StockRank
         WHERE SumPurchaseMoneyRank &lt;= @Total * 0.012587
 
-        UPDATE U_StockRank
+        UPDATE #StockRank
         SET BrandModleCountScore = IIF(
                     @MAX_BrandModleCount != @MIN_BrandModleCount,
                     (BrandModleCount - @MIN_BrandModleCount) / (@MAX_BrandModleCount - @MIN_BrandModleCount) * 2 + 8,
@@ -938,10 +938,10 @@
         /*其余*/
         SELECT @MIN_BrandModleCount = MIN(BrandModleCount),
                @MAX_BrandModleCount = MAX(BrandModleCount)
-        FROM U_StockRank
+        FROM #StockRank
         WHERE SumPurchaseMoneyRank > @Total * 0.012587
 
-        UPDATE U_StockRank
+        UPDATE #StockRank
         SET BrandModleCountScore = IIF(
                     @MAX_BrandModleCount != @MIN_BrandModleCount,
                     (BrandModleCount - @MIN_BrandModleCount) / (@MAX_BrandModleCount - @MIN_BrandModleCount) * 7 + 1,
@@ -950,15 +950,15 @@
         WHERE SumPurchaseMoneyRank > @Total * 0.012587
 
         /*品牌采购总数赋分*/
-        DECLARE @MIN_BrandSumPurchaseQuantity INT
-        DECLARE @MAX_BrandSumPurchaseQuantity INT
+        DECLARE @MIN_BrandSumPurchaseQuantity DECIMAL(19, 6)
+        DECLARE @MAX_BrandSumPurchaseQuantity DECIMAL(19, 6)
         /*排名前3.4965%*/
         SELECT @MIN_BrandSumPurchaseQuantity = MIN(BrandSumPurchaseQuantity),
                @MAX_BrandSumPurchaseQuantity = MAX(BrandSumPurchaseQuantity)
-        FROM U_StockRank
+        FROM #StockRank
         WHERE SumPurchaseMoneyRank &lt;= @Total * 0.034965
 
-        UPDATE U_StockRank
+        UPDATE #StockRank
         SET BrandSumPurchaseQuantityScore = IIF(
                     @MAX_BrandSumPurchaseQuantity != @MIN_BrandSumPurchaseQuantity,
                     (BrandSumPurchaseQuantity - @MIN_BrandSumPurchaseQuantity) /
@@ -970,10 +970,10 @@
         /*其余*/
         SELECT @MIN_BrandSumPurchaseQuantity = MIN(BrandSumPurchaseQuantity),
                @MAX_BrandSumPurchaseQuantity = MAX(BrandSumPurchaseQuantity)
-        FROM U_StockRank
+        FROM #StockRank
         WHERE SumPurchaseMoneyRank > @Total * 0.034965
 
-        UPDATE U_StockRank
+        UPDATE #StockRank
         SET BrandSumPurchaseQuantityScore = IIF(
                     @MAX_BrandSumPurchaseQuantity != @MIN_BrandSumPurchaseQuantity,
                     (BrandSumPurchaseQuantity - @MIN_BrandSumPurchaseQuantity) /
@@ -983,15 +983,15 @@
         WHERE SumPurchaseMoneyRank > @Total * 0.034965
 
         /*品牌采购总额赋分*/
-        DECLARE @MIN_BrandSumPurchaseMoney INT
-        DECLARE @MAX_BrandSumPurchaseMoney INT
+        DECLARE @MIN_BrandSumPurchaseMoney DECIMAL(19, 6)
+        DECLARE @MAX_BrandSumPurchaseMoney DECIMAL(19, 6)
         /*排名前0.8392%*/
         SELECT @MIN_BrandSumPurchaseMoney = MIN(BrandSumPurchaseMoney),
                @MAX_BrandSumPurchaseMoney = MAX(BrandSumPurchaseMoney)
-        FROM U_StockRank
+        FROM #StockRank
         WHERE SumPurchaseMoneyRank &lt;= @Total * 0.008392
 
-        UPDATE U_StockRank
+        UPDATE #StockRank
         SET BrandSumPurchaseMoneyScore = IIF(
                     @MAX_BrandSumPurchaseMoney != @MIN_BrandSumPurchaseMoney,
                     (BrandSumPurchaseMoney - @MIN_BrandSumPurchaseMoney) /
@@ -1003,10 +1003,10 @@
         /*其余*/
         SELECT @MIN_BrandSumPurchaseMoney = MIN(BrandSumPurchaseMoney),
                @MAX_BrandSumPurchaseMoney = MAX(BrandSumPurchaseMoney)
-        FROM U_StockRank
+        FROM #StockRank
         WHERE SumPurchaseMoneyRank > @Total * 0.008392
 
-        UPDATE U_StockRank
+        UPDATE #StockRank
         SET BrandSumPurchaseMoneyScore = IIF(
                     @MAX_BrandSumPurchaseMoney != @MIN_BrandSumPurchaseMoney,
                     (BrandSumPurchaseMoney - @MIN_BrandSumPurchaseMoney) /
@@ -1014,9 +1014,10 @@
                     1
             )
         WHERE SumPurchaseMoneyRank > @Total * 0.008392
+
         /*品牌得分加权*/
         UPDATE
-            U_StockRank
+            #StockRank
         SET BrandScore = ISNULL(BrandSumPurchaseMoneyScore, 0) * 0.340 +
                          ISNULL(BrandSumPurchaseQuantityScore, 0) * 0.340 +
                          ISNULL(BrandSumSaleCustomersScore, 0) * 0.178 +
@@ -1024,7 +1025,7 @@
                          ISNULL(BrandModleCountScore, 0) * 0.043
         WHERE Modle IS NOT NULL
 
-        UPDATE U_StockRank
+        UPDATE #StockRank
         SET ToTalScore =
                         InquiryFrequencyScore * 0.369 +
                         InquiryCustomersScore * 0.0528 +
@@ -1039,5 +1040,11 @@
                         SumPurchaseMoneyScore * 0.0167
         WHERE Modle IS NOT NULL
 
+        SELECT a.*,
+               DocEntry = (SELECT COUNT(*) FROM #StockRank WHERE #StockRank.TotalScore > a.TotalScore) + 1
+        INTO U_StockRank
+        FROM #StockRank a
+
+        DROP TABLE #StockRank
     </update>
 </mapper>

@@ -8,10 +8,7 @@ import com.lianchuangjie.lianchuangjie.utils.Result;
 import com.lianchuangjie.lianchuangjie.vo.StockRank.PurchaseOrderVO;
 import com.lianchuangjie.lianchuangjie.vo.StockRank.StockRankVO;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
@@ -39,7 +36,7 @@ public class StockRankController {
      */
     @GetMapping("/rank")
     @Authentication(buyer = true)
-    public Result<Page<StockRankVO>> getStockRankList(
+    public Result<Page<StockRankVO>> getStockRankListController(
             @RequestParam(defaultValue = "#{null}", value = "page") Integer page,
             @RequestParam(defaultValue = "#{null}", value = "size") Integer size,
             @RequestParam(defaultValue = "#{null}", value = "Modle") String modle,
@@ -53,12 +50,26 @@ public class StockRankController {
                 modle,
                 brand,
                 openQty,
-                suggestionQty
+                suggestionQty,
+                1L
         );
         Page<StockRankVO> pages = stockRankService.list(stockRankSearchDTO);
         return Result.success(pages, "Success");
     }
-
+    @GetMapping("/rank/{docEntry}")
+    @Authentication(buyer = true)
+    public Result<StockRankVO> getStockRankController(
+            @PathVariable Long docEntry,
+            @RequestParam(defaultValue = "#{null}", value = "Modle") String modle,
+            @RequestParam(defaultValue = "#{null}", value = "Brand") String brand
+    ) {
+        StockRankSearchDTO stockRankSearchDTO = new StockRankSearchDTO();
+        stockRankSearchDTO.setModle(modle);
+        stockRankSearchDTO.setBrand(brand);
+        stockRankSearchDTO.setDocEntry(docEntry);
+        StockRankVO stockRankVO = stockRankService.getOne(stockRankSearchDTO);
+        return Result.success(stockRankVO, "Success");
+    }
     /**
      * @param modle modle
      * @return Result

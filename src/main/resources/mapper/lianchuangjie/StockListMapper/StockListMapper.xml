@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lianchuangjie.lianchuangjie.mapper.StockList.StockListMapper">
+
+    <select id="selectPurchasePrice" resultType="java.math.BigDecimal">
+        SELECT PPriceAFVAT
+        FROM U_OIVL
+        WHERE BaseName = N'采购入库'
+        AND DATEDIFF(MONTH , DocDate, GETDATE()) &lt;= 2
+        <if test="modle != null">
+            AND ItemName = #{modle}
+        </if>
+    </select>
+</mapper>

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 @Data
 @AllArgsConstructor
@@ -28,6 +29,9 @@ public class StockRankVO {
     // 在途数量
     @JsonProperty("OpenQty")
     private BigDecimal openQty;
+    // 近3个月询价数量
+    @JsonProperty("InquiryDemandQty")
+    private BigDecimal inquiryDemandQty;
     /**
      * 01.询价频次
      */
@@ -221,6 +225,10 @@ public class StockRankVO {
      */
     @JsonProperty("TotalScore")
     private BigDecimal totalScore;
+    // 四舍五入保留两位小数
+    public BigDecimal getTotalScore() {
+        return totalScore.setScale(2, RoundingMode.HALF_UP);
+    }
     /**
      * 建议补货数量
      */

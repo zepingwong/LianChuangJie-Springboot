@@ -9,12 +9,11 @@ import com.lianchuangjie.lianchuangjie.dto.StockPrice.ReplenishDTO;
 import com.lianchuangjie.lianchuangjie.dto.StockPrice.StockPriceOKDTO;
 import com.lianchuangjie.lianchuangjie.dto.StockPrice.StockPriceSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.QuotationEntity;
-import com.lianchuangjie.lianchuangjie.service.BrandService;
 import com.lianchuangjie.lianchuangjie.service.QuotationService;
 import com.lianchuangjie.lianchuangjie.service.StockPrice.StockPriceService;
+import com.lianchuangjie.lianchuangjie.utils.ContextUtil;
 import com.lianchuangjie.lianchuangjie.utils.HttpUtil;
 import com.lianchuangjie.lianchuangjie.utils.Result;
-import com.lianchuangjie.lianchuangjie.utils.ContextUtil;
 import com.lianchuangjie.lianchuangjie.vo.StockPrice.StockPriceVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,11 +34,27 @@ public class StockPriceController extends BaseController {
     StockPriceService stockPriceService;
     @Resource
     QuotationService quotationService;
-    @Resource
-    BrandService brandService;
     @Value("${algorithm_address}")
     private String address;
 
+    /**
+     * @param page          page
+     * @param size          size
+     * @param typeCode      typeCode
+     * @param brand         brand
+     * @param modle         modle
+     * @param stockDays     stockDays
+     * @param needReplenish needReplenish
+     * @param modify        modify
+     * @param newToday      newToday
+     * @param orderDate     orderDate
+     * @param pricingType   pricingType
+     * @return Result
+     * @description 获取库存定价列表
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 11/23/2022
+     */
     @GetMapping("/price")
     @Authentication(buyer = true)
     public Result<Page<StockPriceVO>> getStockPriceListController(
@@ -71,6 +86,7 @@ public class StockPriceController extends BaseController {
         Page<StockPriceVO> pages = stockPriceService.list(stockPriceSearchDTO);
         return Result.success(pages, "Success");
     }
+
     /**
      * @param stockPriceOKDTO stockPriceOKDTO
      * @return Result
@@ -114,7 +130,7 @@ public class StockPriceController extends BaseController {
                 json.put("data", replenishDTO);
                 response = HttpUtil.jsonPost(address + "model_predict_one_time", null, json);
                 System.out.println(response);
-            }catch (IOException e) {
+            } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
@@ -130,11 +146,12 @@ public class StockPriceController extends BaseController {
      */
     @PutMapping("/price")
     @Authentication(buyer = true)
-    public Result<Boolean> okAllController(@RequestBody @Valid List<StockPriceOKDTO> list ) {
+    public Result<Boolean> okAllController(@RequestBody @Valid List<StockPriceOKDTO> list) {
         stockPriceService.updateALL(list);
         return Result.success(true, "Success");
     }
     // 获取提前定价型号列表
+
     /**
      * @return Result
      * @description 算法调用接口

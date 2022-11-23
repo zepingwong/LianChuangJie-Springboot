@@ -25,6 +25,10 @@ public class StockRankServiceImpl extends ServiceImpl<StockRankMapper, StockRank
         stockRankMapper.selectList(page, searchCondition);
         return page;
     }
+    @Override
+    public StockRankVO getOne(StockRankSearchDTO stockRankSearchDTO) {
+        return stockRankMapper.selectOne(stockRankSearchDTO);
+    }
 
     @Override
     public List<BigDecimal> purchasePriceList(String modle) {
@@ -33,7 +37,6 @@ public class StockRankServiceImpl extends ServiceImpl<StockRankMapper, StockRank
 
     @Override
     public List<PurchaseOrderVO> purchaseOrderList(StockRankSearchDTO stockRankSearchDTO) {
-        List<PurchaseOrderVO> list = stockRankMapper.selectPurchaseOrder(stockRankSearchDTO);
-        return list;
+        return stockRankMapper.selectPurchaseOrder(stockRankSearchDTO);
     }
 }

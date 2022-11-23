@@ -23,4 +23,6 @@ public class StockRankSearchDTO {
     private Integer openQty;
     // 建议补货数量 0-建议补货数为0 1-建议补货数不为0 2-所有值
     private Integer suggestionQty;
+    // 排名
+    private Long docEntry;
 }
