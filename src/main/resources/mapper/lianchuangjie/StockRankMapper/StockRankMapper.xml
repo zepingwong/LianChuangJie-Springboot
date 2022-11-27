@@ -1,44 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lianchuangjie.lianchuangjie.mapper.StockRank.StockRankMapper">
-    <sql id="ORDR1">
-        /*近三个月贸易商成交数量*/
-        SELECT
-            SUM(T_ORDR1.Quantity) AS SumQuantity, /*销售数量*/
-            T_ORDR1.U_Brand,
-            T_ORDR1.Dscription
-        FROM T_ORDR1
-                 LEFT JOIN T_ORDR ON T_ORDR.DocEntry = T_ORDR1.DocEntry
-        WHERE T_ORDR.U_GroupName IN (N'其它', N'一般贸易商', N'关系型贸易商')
-          AND DATEDIFF(MONTH, T_ORDR.DocDate, GETDATE()) &lt;= 2
-        GROUP BY
-            T_ORDR1.U_Brand,
-            T_ORDR1.Dscription
-    </sql>
-    <sql id="ORDR2">
-        /*近三个月终端客户成交数量*/
-        SELECT
-            SUM(T_ORDR1.Quantity) AS SumQuantity, /*销售数量*/
-            T_ORDR1.U_Brand,
-            T_ORDR1.Dscription
-        FROM T_ORDR1
-                 LEFT JOIN T_ORDR ON T_ORDR.DocEntry = T_ORDR1.DocEntry
-        WHERE T_ORDR.U_GroupName IN (N'其它', N'一般贸易商', N'关系型贸易商')
-          AND DATEDIFF(MONTH, T_ORDR.DocDate, GETDATE()) &lt;= 2
-        GROUP BY
-            T_ORDR1.U_Brand,
-            T_ORDR1.Dscription
-    </sql>
-    <sql id="OpenQuantity">
-        SELECT
-            T_OPOR1.Dscription,
-            T_OPOR1.U_Brand,
-            SUM(T_OPOR1.OpenQty) AS OpenQty
-        FROM T_OPOR1
-        WHERE U_AreaType = 2
-          AND LineStatus = 'O'
-        GROUP BY T_OPOR1.Dscription, T_OPOR1.U_Brand
-    </sql>
     <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.StockRank.StockRankVO">
         SELECT
             T.DocEntry, /*排名*/

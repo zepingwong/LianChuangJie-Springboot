@@ -40,6 +40,12 @@ public class StockListSubVO {
     // 现有库存数量
     @JsonProperty("StockQuantity")
     private BigDecimal stockQuantity;
+    // 建议补货数量
+    @JsonProperty("SuggestionQty")
+    private BigDecimal suggestionQty;
+    // 在途库存数量
+    @JsonProperty("OpenQty")
+    private BigDecimal openQty;
     // 库存排名
     @JsonProperty("StockRank")
     private Long stockRank;

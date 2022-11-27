@@ -4,102 +4,152 @@
 
     <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.StockList.StockListSubVO">
         SELECT
-            U_StockList1.Modle,
-            U_StockList1.Brand,
-            U_StockList1.Price,
-            U_StockList1.Quantity,
-            U_StockList1.Year,
-            StockQuantity.Quantity AS StockQuantity, /*现有库存数量*/
-            LatestStockPrice.kc_price_final, /*最近一次库存定价*/
-            StockRank.DocEntry AS StockRank, /*库存排名*/
-            LatestQuotation.U_QuoPrice /*最近一次采购报价*/
-        FROM U_StockList1
-        LEFT JOIN (
-            /*最近一次定价信息*/
-            SELECT DISTINCT
-                kc_now.Brand,
-                kc_now.ItemName,
-                kc_now.kc_price_final,
-                kc_now.ConfirmDate
-            FROM (
-                SELECT
-                     ItemName,
-                     Brand,
-                     MAX ( ConfirmDate ) AS ConfirmDate
-                FROM
-                     kc_now
-                WHERE Modify = 'Y'
-                AND kc_price_final IS NOT NULL
-                GROUP BY
-                     ItemName,
-                     Brand
-            ) LastDate
-            LEFT JOIN kc_now ON kc_now.ItemName = LastDate.ItemName
-            AND LastDate.Brand = kc_now.Brand
-            AND LastDate.ConfirmDate = kc_now.ConfirmDate
-        ) LatestStockPrice ON LatestStockPrice.Brand = U_StockList1.Brand AND LatestStockPrice.ItemName = U_StockList1.Modle
-        LEFT JOIN (
-            /*最近一次采购报价*/
-            SELECT
-                T_ICIN1.Modle,
-                T_ICIN1.Brand,
-                T_ICIN1.U_QuoPrice,
-                T_ICIN1.U_QuoDate
-            FROM (
+            T.*,
+            IIF(T._SuggestionQty &lt; 0, 0, T._SuggestionQty) AS SuggestionQty /*建议补货数量*/
+        FROM (
+                 SELECT
+                     U_StockList1.Modle,
+                     U_StockList1.Brand,
+                     U_StockList1.Price,
+                     U_StockList1.Quantity,
+                     U_StockList1.Year,
+                     ISNULL(StockQuantity.Quantity, 0) AS StockQuantity, /*现有库存数量*/
+                     ISNULL(OpenQuantity.OpenQty, 0) AS OpenQty, /*在途库存数量*/
+                     LatestStockPrice.kc_price_final, /*最近一次库存定价*/
+                     U_StockRank.DocEntry AS StockRank, /*库存排名*/
+                     LatestQuotation.U_QuoPrice, /*最近一次采购报价*/
+                     CEILING(
+                         /*（最近三个月贸易商询价数量-最近三个月贸易商成单数量）*0.7+（最近三个月终端客户询价数量-最近三个月终端客户成单数量）*/
+                                         (ISNULL(InquiryDemandQty1, 0) - ISNULL(ORDR1.SumQuantity, 0)) * 0.7 +
+                                         (ISNULL(InquiryDemandQty2, 0) - ISNULL(ORDR2.SumQuantity, 0)) +
+                                     /*近三个月成单数量*/
+                                         ISNULL(ORDR2.SumQuantity + ORDR1.SumQuantity, 0) -
+                                 /*在途库存数量*/
+                                         ISNULL(OpenQuantity.OpenQty, 0) -
+                                 /*现有库存数量*/
+                                         ISNULL(StockQuantity.Quantity, 0)
+                         ) AS '_SuggestionQty' /*建议补货数量*/
+                 FROM U_StockList1
+                          LEFT JOIN (
+                     /*最近一次定价信息*/
+                     SELECT DISTINCT
+                         kc_now.Brand,
+                         kc_now.ItemName,
+                         kc_now.kc_price_final,
+                         kc_now.ConfirmDate
+                     FROM (
+                              SELECT
+                                  ItemName,
+                                  Brand,
+                                  MAX ( ConfirmDate ) AS ConfirmDate
+                              FROM
+                                  kc_now
+                              WHERE Modify = 'Y'
+                                AND kc_price_final IS NOT NULL
+                              GROUP BY
+                                  ItemName,
+                                  Brand
+                          ) LastDate
+                              LEFT JOIN kc_now ON kc_now.ItemName = LastDate.ItemName
+                         AND LastDate.Brand = kc_now.Brand
+                         AND LastDate.ConfirmDate = kc_now.ConfirmDate
+                 ) LatestStockPrice ON LatestStockPrice.Brand = U_StockList1.Brand AND LatestStockPrice.ItemName = U_StockList1.Modle
+                          LEFT JOIN (
+                     /*最近一次采购报价*/
                      SELECT
-                         MAX(U_QuoDate) AS U_QuoDate,
                          T_ICIN1.Modle,
-                         T_ICIN1.Brand
-                     FROM T_ICIN1
+                         T_ICIN1.Brand,
+                         T_ICIN1.U_QuoPrice,
+                         T_ICIN1.U_QuoDate
+                     FROM (
+                              SELECT
+                                  MAX(U_QuoDate) AS U_QuoDate,
+                                  T_ICIN1.Modle,
+                                  T_ICIN1.Brand
+                              FROM T_ICIN1
+                              WHERE T_ICIN1.U_QuoDate IS NOT NULL
+                                AND T_ICIN1.U_QuoPrice IS NOT NULL
+                              GROUP BY
+                                  T_ICIN1.Modle,
+                                  T_ICIN1.Brand
+                          ) LastDate
+                              LEFT JOIN T_ICIN1 ON LastDate.Brand = T_ICIN1.Brand
+                         AND LastDate.Modle = T_ICIN1.Modle
+                         AND LastDate.U_QuoDate = T_ICIN1.U_QuoDate
                      WHERE T_ICIN1.U_QuoDate IS NOT NULL
                        AND T_ICIN1.U_QuoPrice IS NOT NULL
+                 ) LatestQuotation ON LatestQuotation.Brand = U_StockList1.Brand AND LatestQuotation.Modle = U_StockList1.Modle
+                          LEFT JOIN (
+                     /*各型号品牌现有库存数量*/
+                     SELECT
+                         T_OBTN.ItemName,
+                         StockBrand.Brand,
+                         SUM(
+                                 CASE
+                                     WHEN T.Quantity = 0 THEN 0
+                                     WHEN T.Quantity &lt; T_OBTN.U_LockQty THEN T.Quantity
+                                     ELSE T_OBTN.U_LockQty
+                                     END
+                             ) AS Quantity
+                     FROM (
+                              SELECT
+                                  MdAbsEntry,
+                                  SUM(Quantity) AS Quantity
+                              FROM T_OBTQ
+                              GROUP BY MdAbsEntry
+                          ) T
+                              INNER JOIN T_OBTN ON T.MdAbsEntry = T_OBTN.AbsEntry
+                              LEFT JOIN (
+                         /*通过物料编码字段 匹配 T_OITM（物料主数据表）的品牌*/
+                         SELECT
+                             T_OBTN.ItemName,
+                             IIF(ISNULL(T_OITM.U_QuoBrand, '') = '', T_OITM.U_Brand, T_OITM.U_QuoBrand) AS Brand
+                         FROM T_OBTN
+                                  INNER JOIN T_OITM ON T_OBTN.ItemCode = T_OITM.ItemCode
+                     ) StockBrand ON StockBrand.ItemName = T_OBTN.ItemName
+                     GROUP BY T_OBTN.ItemName, StockBrand.Brand
+                 ) StockQuantity ON StockQuantity.ItemName = U_StockList1.Modle AND StockQuantity.Brand = U_StockList1.Brand
+                          LEFT JOIN (
+                     SELECT
+                         T_OPOR1.Dscription,
+                         T_OPOR1.U_Brand,
+                         SUM(T_OPOR1.OpenQty) AS OpenQty
+                     FROM T_OPOR1
+                     WHERE U_AreaType = 2
+                       AND LineStatus = 'O'
+                     GROUP BY T_OPOR1.Dscription, T_OPOR1.U_Brand
+                 ) OpenQuantity ON OpenQuantity.Dscription = U_StockList1.Modle AND OpenQuantity.U_Brand = U_StockList1.Brand /*在途库存*/
+                          LEFT JOIN U_StockRank ON U_StockRank.Modle = U_StockList1.Modle AND U_StockRank.Brand = U_StockList1.Brand
+                          LEFT JOIN (
+                     /*近三个月贸易商成交数量*/
+                     SELECT
+                         SUM(T_ORDR1.Quantity) AS SumQuantity, /*销售数量*/
+                         T_ORDR1.U_Brand,
+                         T_ORDR1.Dscription
+                     FROM T_ORDR1
+                              LEFT JOIN T_ORDR ON T_ORDR.DocEntry = T_ORDR1.DocEntry
+                     WHERE T_ORDR.U_GroupName IN (N'其它', N'一般贸易商', N'关系型贸易商')
+                       AND DATEDIFF(MONTH, T_ORDR.DocDate, GETDATE()) &lt;= 2
                      GROUP BY
-                         T_ICIN1.Modle,
-                         T_ICIN1.Brand
-                 ) LastDate
-                     LEFT JOIN T_ICIN1 ON LastDate.Brand = T_ICIN1.Brand
-                AND LastDate.Modle = T_ICIN1.Modle
-                AND LastDate.U_QuoDate = T_ICIN1.U_QuoDate
-            WHERE T_ICIN1.U_QuoDate IS NOT NULL
-              AND T_ICIN1.U_QuoPrice IS NOT NULL
-        ) LatestQuotation ON LatestQuotation.Brand = U_StockList1.Brand AND LatestQuotation.Modle = U_StockList1.Modle
-        LEFT JOIN (
-            /*各型号品牌现有库存数量*/
-            SELECT
-                T_OBTN.ItemName,
-                StockBrand.Brand,
-                SUM(
-                    CASE
-                        WHEN T.Quantity = 0 THEN 0
-                        WHEN T.Quantity &lt; T_OBTN.U_LockQty THEN T.Quantity
-                        ELSE T_OBTN.U_LockQty
-                    END
-                ) AS Quantity
-            FROM (
-                SELECT
-                    MdAbsEntry,
-                    SUM(Quantity) AS Quantity
-                FROM T_OBTQ
-                GROUP BY MdAbsEntry
-            ) T
-            INNER JOIN T_OBTN ON T.MdAbsEntry = T_OBTN.AbsEntry
-            LEFT JOIN (
-                /*通过物料编码字段 匹配 T_OITM（物料主数据表）的品牌*/
-                SELECT
-                    T_OBTN.ItemName,
-                    IIF(ISNULL(T_OITM.U_QuoBrand, '') = '', T_OITM.U_Brand, T_OITM.U_QuoBrand) AS Brand
-                FROM T_OBTN
-                INNER JOIN T_OITM ON T_OBTN.ItemCode = T_OITM.ItemCode
-            ) StockBrand ON StockBrand.ItemName = T_OBTN.ItemName
-            GROUP BY T_OBTN.ItemName, StockBrand.Brand
-        ) StockQuantity ON StockQuantity.ItemName = U_StockList1.Modle AND StockQuantity.Brand = U_StockList1.Brand
-        LEFT JOIN (
-            SELECT
-                U_StockRank.Modle,
-                U_StockRank.Brand,
-                DocEntry = (SELECT COUNT(*) FROM U_StockRank a WHERE a.TotalScore > U_StockRank.TotalScore) + 1
-            FROM U_StockRank
-        ) StockRank ON StockRank.Modle = U_StockList1.Modle AND StockRank.Brand = U_StockList1.Brand
-        WHERE U_StockList1.DocEntry = #{sc.docEntry}
+                         T_ORDR1.U_Brand,
+                         T_ORDR1.Dscription
+                 ) ORDR1 ON ORDR1.U_Brand = U_StockList1.Brand AND ORDR1.Dscription = U_StockList1.Modle /*贸易商成交数量*/
+                          LEFT JOIN (
+                     /*近三个月终端客户成交数量*/
+                     SELECT
+                         SUM(T_ORDR1.Quantity) AS SumQuantity, /*销售数量*/
+                         T_ORDR1.U_Brand,
+                         T_ORDR1.Dscription
+                     FROM T_ORDR1
+                              LEFT JOIN T_ORDR ON T_ORDR.DocEntry = T_ORDR1.DocEntry
+                     WHERE T_ORDR.U_GroupName IN (N'其它', N'一般贸易商', N'关系型贸易商')
+                       AND DATEDIFF(MONTH, T_ORDR.DocDate, GETDATE()) &lt;= 2
+                     GROUP BY
+                         T_ORDR1.U_Brand,
+                         T_ORDR1.Dscription
+                 ) ORDR2 ON ORDR2.U_Brand = U_StockList1.Brand AND ORDR2.Dscription = U_StockList1.Modle /*终端客户成交数量*/
+                 WHERE U_StockList1.DocEntry = #{sc.docEntry}
+        ) T
+
     </select>
 </mapper>
