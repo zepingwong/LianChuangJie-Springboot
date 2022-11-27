@@ -15,8 +15,8 @@ import java.math.RoundingMode;
 @Accessors(chain = true)
 public class StockRankVO {
     // 最终排名
-    @JsonProperty("DocEntry")
-    private Long docEntry;
+    @JsonProperty("StockRank")
+    private Long stockRank;
     // 品牌
     @JsonProperty("Brand")
     private String brand;

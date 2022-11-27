@@ -46,4 +46,7 @@ public class StockListSubEntity {
     // 备注
     @TableField(value = "Remark")
     private String remark;
+    // 状态
+    @TableField(value = "Status")
+    private String status;
 }

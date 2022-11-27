@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lianchuangjie.lianchuangjie.mapper.StockList.StockListSubMapper">
+    <update id="complete">
+        UPDATE U_StockList1 SET Status = 'Y'
+        WHERE U_StockList1.LineNum = #{da.lineNum}
+        AND U_StockList1.DocEntry = #{da.docEntry}
+    </update>
 
     <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.StockList.StockListSubVO">
         SELECT
@@ -8,11 +13,13 @@
             IIF(T._SuggestionQty &lt; 0, 0, T._SuggestionQty) AS SuggestionQty /*建议补货数量*/
         FROM (
                  SELECT
-                     U_StockList1.Modle,
-                     U_StockList1.Brand,
-                     U_StockList1.Price,
-                     U_StockList1.Quantity,
-                     U_StockList1.Year,
+                     U_StockList1.DocEntry, /*文档编号*/
+                     U_StockList1.LineNum, /*行号*/
+                     U_StockList1.Modle, /*型号*/
+                     U_StockList1.Brand, /*品牌*/
+                     U_StockList1.Price, /*单价*/
+                     U_StockList1.Quantity, /*数量*/
+                     U_StockList1.Year, /*批次*/
                      ISNULL(StockQuantity.Quantity, 0) AS StockQuantity, /*现有库存数量*/
                      ISNULL(OpenQuantity.OpenQty, 0) AS OpenQty, /*在途库存数量*/
                      LatestStockPrice.kc_price_final, /*最近一次库存定价*/

@@ -13,6 +13,9 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Accessors(chain = true)
 public class StockListSubVO {
+    // 文档编号
+    @JsonProperty("DocEntry")
+    private Long docEntry;
     // 行号
     @JsonProperty("LineNum")
     private Long lineNum;

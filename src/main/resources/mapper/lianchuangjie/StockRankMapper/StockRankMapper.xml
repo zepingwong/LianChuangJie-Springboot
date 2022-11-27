@@ -3,7 +3,7 @@
 <mapper namespace="com.lianchuangjie.lianchuangjie.mapper.StockRank.StockRankMapper">
     <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.StockRank.StockRankVO">
         SELECT
-            T.DocEntry, /*排名*/
+            T.DocEntry AS StockRank, /*排名*/
             T.Modle, /*型号*/
             T.Brand, /*品牌*/
             T.Quantity, /*现有库存数量*/
