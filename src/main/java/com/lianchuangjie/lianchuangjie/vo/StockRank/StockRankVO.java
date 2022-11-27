@@ -227,7 +227,7 @@ public class StockRankVO {
     private BigDecimal totalScore;
     // 四舍五入保留两位小数
     public BigDecimal getTotalScore() {
-        return totalScore.setScale(2, RoundingMode.HALF_UP);
+        return totalScore.setScale(3, RoundingMode.HALF_UP);
     }
     /**
      * 建议补货数量

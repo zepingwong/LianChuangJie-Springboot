@@ -99,7 +99,7 @@
                ISNULL(BrandModleCount, 0)           AS BrandModleCount, /*近1年采购订单品牌所属型号数量*/
                CAST(NULL AS DECIMAL(19, 6))         AS BrandScore, /*品牌得分*/
             /*总分*/
-               CAST(NULL AS DECIMAL(19, 6))         AS TotalScore /*总分*/
+               CAST(NULL AS DECIMAL(19, 3))         AS TotalScore /*总分*/
         INTO #StockRankValue
 
         FROM (SELECT T.Modle,
