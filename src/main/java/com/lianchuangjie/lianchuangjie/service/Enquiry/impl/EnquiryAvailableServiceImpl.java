@@ -24,7 +24,6 @@ public class EnquiryAvailableServiceImpl implements EnquiryAvailableService {
     public Page<TabEnquiryAvailableVO> list(EnquiryAvailableSearchDTO searchCondition) {
         Page<TabEnquiryAvailableVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
         enquiryAvailableMapper.selectList(page, searchCondition);
-        System.out.println(page.getRecords().get(0).getDemandQty());
         JSONObject json = new JSONObject();
         json.put("data", page.getRecords());
         System.out.println(json);
