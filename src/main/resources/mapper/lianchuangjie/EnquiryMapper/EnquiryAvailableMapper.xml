@@ -84,12 +84,12 @@
                 WHERE SDADA.sno = #{sc.modle}
             )
         )
-        AND (
-            /*有效货源*/
-            /*海外组、大中华组2天有效；亚洲组、欧洲组、北美组3天内有效*/
-            (BuyerDept.Code = 1 AND DateDiff(dd, T_ICIN1.U_QuoDate, getdate()) &lt;= 60) OR
-            (BuyerDept.Code = 2 AND DateDiff(dd, T_ICIN1.U_QuoDate, getdate()) &lt;= 60)
-        )
+--         AND (
+--             /*有效货源*/
+--             /*海外组、大中华组2天有效；亚洲组、欧洲组、北美组3天内有效*/
+--             (BuyerDept.Code = 1 AND DateDiff(dd, T_ICIN1.U_QuoDate, getdate()) &lt;= 60) OR
+--             (BuyerDept.Code = 2 AND DateDiff(dd, T_ICIN1.U_QuoDate, getdate()) &lt;= 60)
+--         )
         /*去掉正在确认和已确认的货源*/
         AND T_ICIN1.LineNum NOT IN (
             SELECT U_OriginLine FROM T_ICIN1 WHERE U_OriginLine IS NOT NULL AND DocEntry = #{sc.docEntry}
