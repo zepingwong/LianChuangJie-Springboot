@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lianchuangjie.lianchuangjie.mapper.StockPrice.StockPriceAlgorithmMapper">
+    <select id="yunhan">
+        INSERT INTO U_LIPR1(DocEntry, LineNum, keyword, pro_maf, pro_num, BaseEntry, BaseLine, BaseType, CreateDate,
+                            LIPS, LIPG)
+        SELECT ISNULL((SELECT MAX(DocEntry) FROM U_LIPR1), 0) + 1 AS DocEntry,
+               ROW_NUMBER() OVER ( ORDER BY T0.ItemName,T0.Brand) AS LineNum,
+               LTRIM(Rtrim(T0.ItemName))                          AS keyword,
+               LTRIM(Rtrim(T0.Brand))                             AS pro_maf,
+               CAST(T0.Quantity AS NUMERIC(18, 0))                AS pro_num,
+               0                                                  AS BaseEntry,
+               0                                                  AS BaseLine,
+               0                                                  AS BaseType,
+               GETDATE()                                          AS CreateDate,
+               'Y'                                                AS LIPS,
+               'Y'                                                AS LIPG
+        FROM (select Brand,
+                     ItemName,
+                     sum(Quantity) as Quantity
+              from T_OBTN_Price_avg_test
+              group by Brand, ItemName) T0
+    </select>
+</mapper>

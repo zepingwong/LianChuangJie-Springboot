@@ -2,6 +2,7 @@ package com.lianchuangjie.lianchuangjie.service.StockPrice.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.lianchuangjie.lianchuangjie.entity.StockPrice.StockPriceLogEntity;
+import com.lianchuangjie.lianchuangjie.mapper.StockPrice.StockPriceAlgorithmMapper;
 import com.lianchuangjie.lianchuangjie.mapper.StockPrice.StockPriceLogMapper;
 import com.lianchuangjie.lianchuangjie.service.StockPrice.StockPriceAlgorithmService;
 import com.lianchuangjie.lianchuangjie.utils.HttpUtil;
@@ -20,6 +21,8 @@ import java.util.Objects;
 public class StockPriceAlgorithmServiceImpl implements StockPriceAlgorithmService {
     @Resource
     StockPriceLogMapper stockPriceLogMapper;
+    @Resource
+    StockPriceAlgorithmMapper stockPriceAlgorithmMapper;
     @Resource
     StringRedisTemplate stringRedisTemplate;
     @Value("${algorithm_address}")
@@ -107,5 +110,16 @@ public class StockPriceAlgorithmServiceImpl implements StockPriceAlgorithmServic
             stockPriceLogMapper.insert(stockPriceLogEntity);
         }
         return true;
+    }
+
+    @Override
+    public void yunhan() {
+        StockPriceLogEntity stockPriceLogEntity = new StockPriceLogEntity();
+        stockPriceLogEntity.setTriggerType("定时任务");
+        stockPriceLogEntity.setTriggerName("云汉报价");
+        stockPriceAlgorithmMapper.yunhan();
+        stockPriceLogEntity.setResult(1);
+        stockPriceLogEntity.setEndTime(new Date());
+        stockPriceLogMapper.insert(stockPriceLogEntity);
     }
 }

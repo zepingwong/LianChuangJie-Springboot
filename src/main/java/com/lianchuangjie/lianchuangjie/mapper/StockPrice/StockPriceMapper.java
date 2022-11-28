@@ -18,11 +18,47 @@ import java.util.List;
 @Mapper
 @Repository
 public interface StockPriceMapper extends BaseMapper<StockPriceEntity> {
-    IPage<StockPriceVO> selectList(IPage<StockPriceVO> page ,@Param("sc") StockPriceSearchDTO stockPriceSearchDTO);
-    Boolean update(@Param("da") StockPriceOKDTO stockPriceOKDTO);
-    IPage<TabStockPriceBaseVO> tabList(Page<TabStockPriceBaseVO> page, @Param("sc") TabSearchDTO searchCondition);
     /**
-     * 提前定价列表
+     * @param page                page
+     * @param stockPriceSearchDTO stockPriceSearchDTO
+     * @return IPage
+     * @description 查询列表
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 11/29/2022
+     */
+    IPage<StockPriceVO> selectList(IPage<StockPriceVO> page, @Param("sc") StockPriceSearchDTO stockPriceSearchDTO);
+
+    /**
+     * @param stockPriceOKDTO stockPriceOKDTO
+     * @return Boolean
+     * @description 确认定价
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 10/29/2022
+     */
+
+    Boolean update(@Param("da") StockPriceOKDTO stockPriceOKDTO);
+
+    /**
+     * @param page            page
+     * @param searchCondition searchCondition
+     * @return IPage
+     * @description
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 10/29/2022
+     */
+
+    IPage<TabStockPriceBaseVO> tabList(Page<TabStockPriceBaseVO> page, @Param("sc") TabSearchDTO searchCondition);
+
+    /**
+     * @param modle modle
+     * @return List
+     * @description 提前定价列表
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 10/29/2022
      */
     List<StockPriceVO> inAdvance(@Param("modle") String modle);
 }

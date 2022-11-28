@@ -88,4 +88,6 @@ public class BomQueryMainDTO {
     private String cardCode;
     // 单据重用字段 1表示客户需求 3表示客户长期需求 5表示期货价格需求 6表示竞价需求
     private Integer uDocType=1;
+    @JsonProperty("OwnerCode")
+    private Long ownerCode;
 }

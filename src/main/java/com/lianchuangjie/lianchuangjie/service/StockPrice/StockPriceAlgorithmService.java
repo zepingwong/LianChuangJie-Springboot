@@ -8,4 +8,5 @@ public interface StockPriceAlgorithmService {
     Boolean calculateOneDayService(String triggerType);
     Boolean calculateADayService(List<StockPriceVO> list);
     Boolean trainService(String triggerType);
+    void yunhan();
 }

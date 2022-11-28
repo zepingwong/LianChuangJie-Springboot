@@ -14,4 +14,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface StockPriceLogMapper extends BaseMapper<StockPriceLogEntity> {
     IPage<StockPriceLogVO> selectList(Page<StockPriceLogVO> page, @Param("sc") StockPriceLogSearchDTO stockPriceLogSearchDTO);
+
 }

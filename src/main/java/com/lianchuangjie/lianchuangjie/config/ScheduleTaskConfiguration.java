@@ -23,7 +23,10 @@ public class ScheduleTaskConfiguration {
     private void stockPrice() {
         stockPriceAlgorithmService.calculateOneDayService("定时任务");
     }
-
+    @Scheduled(cron = "0 0 1 * * ?")
+    private void yunhanPrice() {
+        stockPriceAlgorithmService.yunhan();
+    }
     @Scheduled(cron = "0 0 2 * * ?")
     private void updateUInquiry() {
         uInquiryMapper.daily();

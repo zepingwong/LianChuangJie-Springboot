@@ -96,8 +96,8 @@ public class BomServiceImpl implements BomService {
         BeanUtils.copyProperties(bomQueryConsInfo, enquiryMainEntity);
         // 客户简称代码 T_ICIN.U_ShortCode 地区简称-行业名称-性质名称-代码
         enquiryMainEntity.setUShortCode(clienteleRegion.getShortName() + " " + bomQueryConsInfo.getUDomainName() + " " + bomQueryConsInfo.getUCusGroup() + "-" + bomQueryConsInfo.getCardCode().replace("C", ""));
-        enquiryMainEntity.setOwnerCode(user.getUserSign()); // 销售员代码
-        enquiryMainEntity.setUserSign(user.getUserSign()); // 销售员代码
+        enquiryMainEntity.setOwnerCode(bomQueryConsInfo.getOwnerCode()); // 销售员代码
+        enquiryMainEntity.setUserSign(user.getUserSign()); // 制单人代码
         enquiryMainEntity.setUUserName(user.getUserName()); // 销售员名称
         enquiryMainEntity.setDeptCode(user.getDftDept()); // 销售部门代码
         enquiryMainEntity.setUDeptName(user.getDftDeptName()); // 销售部门名称
