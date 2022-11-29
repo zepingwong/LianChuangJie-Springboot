@@ -48,7 +48,7 @@ public class TabEnquiryAvailableVO {
     @JsonProperty("U_QuoLevel")
     private String uQuoLevel;
     // 采购部门名称/货源 T_OCDP.Name
-    @JsonProperty("DeptName")
+    @JsonProperty("Deptname")
     private String deptName;
     // 引用采购报价的采购员姓名 T_OUSI.UserName
     @JsonProperty("BuyerName")
