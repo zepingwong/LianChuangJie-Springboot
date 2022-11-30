@@ -45,9 +45,9 @@
         DECLARE @IsSale VARCHAR(1)
         DECLARE @PageSize INT
         DECLARE @CurrentPage INT
-        SET @PageSize = ${sc.getSize} /*每页显示数量*/
-        SET @CurrentPage = ${sc.getPage} /*当前页码*/
-        SET @UserSign = ${sc.getUserSign}
+        SET @PageSize = ${sc.size} /*每页显示数量*/
+        SET @CurrentPage = ${sc.page} /*当前页码*/
+        SET @UserSign = ${sc.userSign}
         SELECT TOP (1) @BaseFormID = TransType FROM T_ORDR WHERE TransType IS NOT NULL; /*单据类型*/
         SELECT @IsSale = U_IsSale FROM T_OUSI WHERE UserSign = @UserSign; /*判断当前用户是否为销售员*/
         SELECT @DataPur = [dbo].[UF_DataPurview](@UserSign, @BaseFormID); /*判断权限*/
@@ -207,7 +207,7 @@
         DECLARE @DataPur NVARCHAR(10) /*All/Dept/self*/
         DECLARE @BaseFormID BIGINT /*视图编号*/
         DECLARE @IsSale VARCHAR(1)
-        SET @UserSign = ${sc.getUserSign}
+        SET @UserSign = ${sc.userSign}
         SELECT TOP (1) @BaseFormID = TransType FROM T_ORDR WHERE TransType IS NOT NULL; /*单据类型*/
         SELECT @IsSale = U_IsSale FROM T_OUSI WHERE UserSign = @UserSign; /*判断当前用户是否为销售员*/
         SELECT @DataPur = [dbo].[UF_DataPurview](@UserSign, @BaseFormID); /*判断权限*/
@@ -310,9 +310,9 @@
         DECLARE @IsSale VARCHAR(1)
         DECLARE @PageSize INT
         DECLARE @CurrentPage INT
-        SET @PageSize = ${sc.getSize} /*每页显示数量*/
-        SET @CurrentPage = ${sc.getPage} /*当前页码*/
-        SET @UserSign = ${sc.getUserSign}
+        SET @PageSize = ${sc.size} /*每页显示数量*/
+        SET @CurrentPage = ${sc.page} /*当前页码*/
+        SET @UserSign = ${sc.userSign}
         SELECT TOP (1) @BaseFormID = TransType FROM T_ORDR WHERE TransType IS NOT NULL; /*单据类型*/
         SELECT @IsSale = U_IsSale FROM T_OUSI WHERE UserSign = @UserSign; /*判断当前用户是否为销售员*/
         SELECT @DataPur = [dbo].[UF_DataPurview](@UserSign, @BaseFormID); /*判断权限*/

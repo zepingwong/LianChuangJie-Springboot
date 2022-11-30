@@ -7,9 +7,9 @@
         DECLARE @BaseFormID BIGINT /*视图编号*/
         DECLARE @PageSize INT
         DECLARE @CurrentPage INT
-        SET @PageSize = ${sc.getSize} /*每页显示数量*/
-        SET @CurrentPage = ${sc.getPage} /*当前页码*/
-        SET @UserSign = ${sc.getUserSign}
+        SET @PageSize = ${sc.size} /*每页显示数量*/
+        SET @CurrentPage = ${sc.page} /*当前页码*/
+        SET @UserSign = ${sc.userSign}
         SELECT TOP (1) @BaseFormID = TransType
         FROM T_OPOR
         WHERE TransType IS NOT NULL /*单据类型*/

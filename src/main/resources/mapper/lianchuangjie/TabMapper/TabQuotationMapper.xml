@@ -140,9 +140,9 @@
         DECLARE @UserSign    BIGINT
         DECLARE @PageSize    INT
         DECLARE @CurrentPage INT
-        SET @PageSize = ${sc.getSize} /*每页显示数量*/
-        SET @CurrentPage = ${sc.getPage} /*当前页码*/
-        SET @UserSign = ${sc.getUserSign}
+        SET @PageSize = ${sc.size} /*每页显示数量*/
+        SET @CurrentPage = ${sc.page} /*当前页码*/
+        SET @UserSign = ${sc.userSign}
 
         SELECT @FormID = FormID
         FROM T_OUDW

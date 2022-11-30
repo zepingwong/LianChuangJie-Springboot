@@ -1,52 +1,32 @@
 package com.lianchuangjie.lianchuangjie.service.Enquiry.impl;
 
 import com.alibaba.excel.EasyExcel;
-import com.lianchuangjie.lianchuangjie.dto.BomQueryMainDTO;
-import com.lianchuangjie.lianchuangjie.dto.BomQuerySaveDTO;
-import com.lianchuangjie.lianchuangjie.dto.BomQuerySubDTO;
 import com.lianchuangjie.lianchuangjie.entity.Enquiry.BomMainEntity;
 import com.lianchuangjie.lianchuangjie.entity.Enquiry.BomSubEntity;
-import com.lianchuangjie.lianchuangjie.entity.Clientele.ClienteleRegionEntity;
-import com.lianchuangjie.lianchuangjie.entity.Enquiry.EnquiryMainEntity;
-import com.lianchuangjie.lianchuangjie.entity.Enquiry.EnquirySubEntity;
-import com.lianchuangjie.lianchuangjie.entity.User.UserEntity;
 import com.lianchuangjie.lianchuangjie.excel.BomListener;
 import com.lianchuangjie.lianchuangjie.exception.Business.ResponseEnum;
-import com.lianchuangjie.lianchuangjie.mapper.ClienteleRegionMapper;
-import com.lianchuangjie.lianchuangjie.mapper.Enquiry.EnquiryMainMapper;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.BomMainService;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.BomService;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.BomSubService;
-import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquiryMainService;
-import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquirySubService;
 import com.lianchuangjie.lianchuangjie.utils.ContextUtil;
 import com.lianchuangjie.lianchuangjie.vo.BomUploadResVO;
 import com.lianchuangjie.lianchuangjie.vo.Enquiry.BomExportVO;
-import org.springframework.beans.BeanUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
+@Slf4j
 @Service
 public class BomServiceImpl implements BomService {
     @Resource
     BomMainService bomMainService;
     @Resource
     BomSubService bomSubService;
-    @Resource
-    EnquiryMainService enquiryMainService;
-    @Resource
-    EnquiryMainMapper enquiryMainMapper;
-    @Resource
-    EnquirySubService enquirySubService;
-    @Resource
-    ClienteleRegionMapper clienteleRegionMapper;
 
     @Override
     public BomUploadResVO upload(MultipartFile file) {
@@ -86,51 +66,6 @@ public class BomServiceImpl implements BomService {
             throw ResponseEnum.UPLOAD_ERROR.newException("上传错误" + e.getMessage());
         }
         return bomUploadResVO;
-    }
-
-    @Override
-    public Boolean save(BomQuerySaveDTO bomQuerySaveData, UserEntity user) {
-        BomQueryMainDTO bomQueryConsInfo = bomQuerySaveData.getBomQueryMain();
-        ClienteleRegionEntity clienteleRegion = clienteleRegionMapper.selectById(bomQueryConsInfo.getRegionCode());
-        EnquiryMainEntity enquiryMainEntity = new EnquiryMainEntity();
-        BeanUtils.copyProperties(bomQueryConsInfo, enquiryMainEntity);
-        // 客户简称代码 T_ICIN.U_ShortCode 地区简称-行业名称-性质名称-代码
-        enquiryMainEntity.setUShortCode(clienteleRegion.getShortName() + " " + bomQueryConsInfo.getUDomainName() + " " + bomQueryConsInfo.getUCusGroup() + "-" + bomQueryConsInfo.getCardCode().replace("C", ""));
-        enquiryMainEntity.setOwnerCode(bomQueryConsInfo.getOwnerCode()); // 销售员代码
-        enquiryMainEntity.setUserSign(user.getUserSign()); // 制单人代码
-        enquiryMainEntity.setUUserName(user.getUserName()); // 销售员名称
-        enquiryMainEntity.setDeptCode(user.getDftDept()); // 销售部门代码
-        enquiryMainEntity.setUDeptName(user.getDftDeptName()); // 销售部门名称
-        // 询价单编号
-        Long docEntry = enquiryMainMapper.selectMaxDocEntry() + 1;
-        enquiryMainEntity.setDocEntry(docEntry);
-        // 保存询价单主表信息
-        boolean res = enquiryMainService.save(enquiryMainEntity);
-        if (!res) ResponseEnum.FAILURE.assertIsFalse(false);
-        List<BomQuerySubDTO> list = bomQuerySaveData.getBomQuerySubList();
-        List<EnquirySubEntity> saveList = new ArrayList<>();
-        long lineNum = 1;
-        for (BomQuerySubDTO item : list) {
-            EnquirySubEntity enquirySubEntity = new EnquirySubEntity();
-            BeanUtils.copyProperties(item, enquirySubEntity);
-            if (item.getModle() != null) {
-                // 设置询价单编号与主表相同
-                enquirySubEntity.setDocEntry(docEntry);
-                // LineNum 连续编号
-                enquirySubEntity.setLineNum(lineNum);
-                if (Objects.equals(item.getMatch(), "关联型号")) {
-                    // 关联型号 ItemId 相同, 等于该组的第一个LineNum（ItemId 不等于 LineNum）
-                    enquirySubEntity.setItemId(lineNum-1);
-                } else {
-                    // 非关联型号 ItemId 与 LineNum 相同
-                    enquirySubEntity.setItemId(lineNum);
-                }
-                saveList.add(enquirySubEntity);
-                lineNum++;
-            }
-        }
-        enquirySubService.saveBatch(saveList);
-        return true;
     }
 
     @Override

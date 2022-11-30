@@ -37,5 +37,6 @@ public class StockPriceSearchDTO {
     private String newToday;
     // 成单日期
     private Date orderDate;
+    // 用户编号
     private Integer userSign;
 }

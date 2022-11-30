@@ -1,8 +1,6 @@
 package com.lianchuangjie.lianchuangjie.dto.Enquiry;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.lianchuangjie.lianchuangjie.dto.BomQueryMainDTO;
-import com.lianchuangjie.lianchuangjie.dto.BomQuerySubDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,6 +8,9 @@ import lombok.NoArgsConstructor;
 import javax.validation.Valid;
 import java.util.List;
 
+/**
+ * 匹配结果保存
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

@@ -99,7 +99,7 @@ public class BomQuerySubDTO {
     // 是否确认报价
     private String checkIN = "0";
     // 选中的采购
-    @JsonProperty("Buyers")
+    @JsonProperty("Buyer")
     private String buyer;
     @JsonProperty("VatName")
     private String vatName;

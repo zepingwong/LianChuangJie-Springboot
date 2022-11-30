@@ -7,16 +7,13 @@ import com.alibaba.excel.write.metadata.fill.FillConfig;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lianchuangjie.lianchuangjie.config.Authentication;
 import com.lianchuangjie.lianchuangjie.controller.BaseController;
-import com.lianchuangjie.lianchuangjie.dto.BomQuerySaveDTO;
 import com.lianchuangjie.lianchuangjie.dto.Enquiry.BomMainSearchDTO;
 import com.lianchuangjie.lianchuangjie.dto.Enquiry.EnquiryBomUpdateDTO;
-import com.lianchuangjie.lianchuangjie.entity.User.UserEntity;
 import com.lianchuangjie.lianchuangjie.exception.Business.ResponseEnum;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.BomMainService;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.BomService;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.BomSubService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
-import com.lianchuangjie.lianchuangjie.utils.ContextUtil;
 import com.lianchuangjie.lianchuangjie.vo.BomUploadResVO;
 import com.lianchuangjie.lianchuangjie.vo.Enquiry.BomExportVO;
 import com.lianchuangjie.lianchuangjie.vo.Enquiry.BomMainVO;
@@ -30,7 +27,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.File;
@@ -64,24 +60,6 @@ public class EnquiryBomController extends BaseController {
         BomUploadResVO result = bomService.upload(file);
         return Result.success(result);
     }
-
-    /**
-     * @param bomQuerySaveDTO bomQuerySaveDTO
-     * @param request         request
-     * @return Result
-     * @description 保存Bom单解析结果
-     * @author WANG Zeping
-     * @email zepingwong@gmail.com
-     * @date 8/24/2022
-     */
-    @PostMapping("save")
-    @Authentication(sale = true)
-    public Result<Boolean> saveQueryController(@RequestBody @Valid BomQuerySaveDTO bomQuerySaveDTO, HttpServletRequest request) {
-        UserEntity user = ContextUtil.getUser();
-        Boolean res = bomService.save(bomQuerySaveDTO, user);
-        return Result.success(res, "Success");
-    }
-
     /**
      * @param enquiryBomUpdateDTO enquiryBomUpdateDTO
      * @return Result

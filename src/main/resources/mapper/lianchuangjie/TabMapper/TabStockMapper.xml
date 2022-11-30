@@ -36,14 +36,14 @@
             )
         )
         <if test="sc.year">
-            AND T_OBTN.U_Batch = ${sc.getYear} /*批次条件*/
+            AND T_OBTN.U_Batch = ${sc.year} /*批次条件*/
         </if>
     </select>
     <select id="selectStockPriceTabList" resultType="com.lianchuangjie.lianchuangjie.vo.StockPrice.TabStockPriceOriginVO">
         DECLARE @PageSize INT;
         DECLARE @CurrentPage INT;
-        SET @PageSize = ${sc.getSize}; /*每页显示数量*/
-        SET @CurrentPage = ${sc.getPage}; /*当前页码*/
+        SET @PageSize = ${sc.size}; /*每页显示数量*/
+        SET @CurrentPage = ${sc.page}; /*当前页码*/
         SELECT TOP (@PageSize) *
         FROM (
             SELECT
