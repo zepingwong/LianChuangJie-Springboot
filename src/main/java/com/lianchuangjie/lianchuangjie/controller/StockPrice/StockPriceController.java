@@ -85,7 +85,7 @@ public class StockPriceController extends BaseController {
         stockPriceSearchDTO.setModify(modify);
         stockPriceSearchDTO.setNewToday(newToday);
         stockPriceSearchDTO.setOrderDate(orderDate);
-        if (user.getSuperUser().equals("Y")) {
+        if (!user.getSuperUser().equals("Y")) {
             stockPriceSearchDTO.setUserSign(Math.toIntExact(user.getUserSign()));
         }
         Page<StockPriceVO> pages = stockPriceService.list(stockPriceSearchDTO);
