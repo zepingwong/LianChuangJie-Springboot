@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.Enquiry.EnquirySubEntity;
-import com.lianchuangjie.lianchuangjie.mapper.TabMapper.TabClientNeedsMapper;
+import com.lianchuangjie.lianchuangjie.mapper.Tab.TabClientNeedsMapper;
 import com.lianchuangjie.lianchuangjie.service.TabService.TabClientNeedsService;
 import com.lianchuangjie.lianchuangjie.vo.Enquiry.TabEnquiryNeedsVO;
 import com.lianchuangjie.lianchuangjie.vo.Quotation.TabQuotationNeedsVO;

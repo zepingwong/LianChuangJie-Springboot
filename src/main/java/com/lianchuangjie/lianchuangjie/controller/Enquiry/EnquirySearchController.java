@@ -3,19 +3,19 @@ package com.lianchuangjie.lianchuangjie.controller.Enquiry;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lianchuangjie.lianchuangjie.config.Authentication;
 import com.lianchuangjie.lianchuangjie.controller.BaseController;
-import com.lianchuangjie.lianchuangjie.dto.Enquiry.EnquirySingleQueryDTO;
 import com.lianchuangjie.lianchuangjie.dto.Enquiry.EnquiryBuyerSearchDTO;
 import com.lianchuangjie.lianchuangjie.dto.Enquiry.EnquirySearchDTO;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquiryBuyerService;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquirySearchService;
-import com.lianchuangjie.lianchuangjie.service.QueryService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
-import com.lianchuangjie.lianchuangjie.vo.BomQueryItemVO;
 import com.lianchuangjie.lianchuangjie.vo.Enquiry.EnquirySearchResultVO;
 import com.lianchuangjie.lianchuangjie.vo.EnquiryBuyerItemVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
@@ -30,19 +30,9 @@ import java.util.List;
 @RequestMapping("/enquiry")
 public class EnquirySearchController extends BaseController {
     @Resource
-    QueryService queryService;
-    @Resource
     EnquiryBuyerService enquiryBuyerService;
     @Resource
     EnquirySearchService enquirySearchService;
-
-    @PostMapping("/query/related")
-    @Authentication(sale = true)
-    public Result<List<BomQueryItemVO>> queryRelatedController(@RequestBody EnquirySingleQueryDTO enquirySingleQueryDTO) {
-        List<BomQueryItemVO> list = queryService.queryRelated(enquirySingleQueryDTO);
-        return Result.success(list);
-    }
-
     /**
      * 根据品牌查询采购人员
      *

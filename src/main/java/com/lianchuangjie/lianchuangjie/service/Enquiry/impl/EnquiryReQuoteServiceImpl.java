@@ -9,7 +9,7 @@ import com.lianchuangjie.lianchuangjie.entity.QuotationEntity;
 import com.lianchuangjie.lianchuangjie.entity.User.UserEntity;
 import com.lianchuangjie.lianchuangjie.mapper.Enquiry.EnquiryMainMapper;
 import com.lianchuangjie.lianchuangjie.mapper.Enquiry.EnquirySubMapper;
-import com.lianchuangjie.lianchuangjie.mapper.QuotationMapper;
+import com.lianchuangjie.lianchuangjie.mapper.Quotation.QuotationMapper;
 import com.lianchuangjie.lianchuangjie.mapper.User.UserMapper;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquiryReQuoteService;
 import com.lianchuangjie.lianchuangjie.utils.ContextUtil;

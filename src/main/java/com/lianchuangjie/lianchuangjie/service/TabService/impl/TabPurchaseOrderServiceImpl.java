@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.PurchaseOrderSubEntity;
-import com.lianchuangjie.lianchuangjie.mapper.TabMapper.TabPurchaseOrderMapper;
+import com.lianchuangjie.lianchuangjie.mapper.Tab.TabPurchaseOrderMapper;
 import com.lianchuangjie.lianchuangjie.service.TabService.TabPurchaseOrderService;
 import com.lianchuangjie.lianchuangjie.vo.Enquiry.TabEnquiryPurchaseOrderVO;
 import com.lianchuangjie.lianchuangjie.vo.Quotation.TabQuotationPurchaseOrderVO;

@@ -1,6 +1,6 @@
 package com.lianchuangjie.lianchuangjie.service.impl;
 
-import com.lianchuangjie.lianchuangjie.mapper.HomeChartMapper;
+import com.lianchuangjie.lianchuangjie.mapper.Home.HomeChartMapper;
 import com.lianchuangjie.lianchuangjie.service.HomeChartService;
 import org.springframework.stereotype.Service;
 

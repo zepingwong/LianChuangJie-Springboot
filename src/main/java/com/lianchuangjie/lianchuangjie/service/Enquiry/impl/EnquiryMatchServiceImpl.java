@@ -15,8 +15,11 @@ import com.lianchuangjie.lianchuangjie.mapper.Enquiry.EnquirySingleMatchMapper;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquiryMainService;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquiryMatchService;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.EnquirySubService;
+import com.lianchuangjie.lianchuangjie.service.Enquiry.YunHanService;
 import com.lianchuangjie.lianchuangjie.utils.ContextUtil;
+import com.lianchuangjie.lianchuangjie.utils.RedisUtil;
 import com.lianchuangjie.lianchuangjie.vo.Enquiry.EnquiryMatchItemVO;
+import io.netty.util.concurrent.ThreadPerTaskExecutor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -39,9 +42,14 @@ public class EnquiryMatchServiceImpl implements EnquiryMatchService {
     EnquiryMainMapper enquiryMainMapper;
     @Resource
     EnquiryMainService enquiryMainService;
-
     @Resource
     EnquirySubService enquirySubService;
+    @Resource
+    RedisUtil redisUtil;
+    @Resource
+    ThreadPerTaskExecutor threadPerTaskExecutor;
+    @Resource
+    YunHanService yunHanService;
 
     private void setUserInfo(EnquirySingleQueryDTO enquirySingleQueryDTO) {
         UserEntity user = ContextUtil.getUser();
@@ -89,6 +97,9 @@ public class EnquiryMatchServiceImpl implements EnquiryMatchService {
         for (EnquiryMatchItemDTO item : list) {
             EnquirySubEntity enquirySubEntity = new EnquirySubEntity();
             BeanUtils.copyProperties(item, enquirySubEntity);
+            if (item.getStatus().equals("E")) {
+                redisUtil.setString("DocEntry_" + docEntry, item.getBuyer());
+            }
             if (!Objects.equals(item.getMatch(), "未匹配到")) {
                 // 设置询价单编号与主表相同
                 enquirySubEntity.setDocEntry(docEntry);
@@ -110,6 +121,21 @@ public class EnquiryMatchServiceImpl implements EnquiryMatchService {
             }
         }
         enquirySubService.saveBatch(saveList);
+        /*
+         * 云汉报价的先不分发给采购
+         */
+        threadPerTaskExecutor.execute(() -> {
+            log.info("任务开始");
+            try {
+                Thread.sleep(5000);
+                yunHanService.runSendToBuyer();
+                log.info("延时进程执行");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                log.error(e.getMessage());
+            }
+            log.info("任务结束");
+        });
         return true;
     }
 }

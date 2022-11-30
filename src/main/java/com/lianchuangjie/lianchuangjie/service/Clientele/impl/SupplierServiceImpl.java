@@ -3,7 +3,7 @@ package com.lianchuangjie.lianchuangjie.service.Clientele.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lianchuangjie.lianchuangjie.dto.Clientele.ClienteleSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.Clientele.ClienteleEntity;
-import com.lianchuangjie.lianchuangjie.mapper.ClienteleSupplierMapper;
+import com.lianchuangjie.lianchuangjie.mapper.Clientele.ClienteleSupplierMapper;
 import com.lianchuangjie.lianchuangjie.service.Clientele.SupplierService;
 import com.lianchuangjie.lianchuangjie.utils.ContextUtil;
 import com.lianchuangjie.lianchuangjie.vo.Clientele.ClienteleVO;

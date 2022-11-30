@@ -103,6 +103,9 @@ public class EnquiryMatchItemDTO {
     // 选中的采购
     @JsonProperty("Buyer")
     private String buyer;
+    public String getBuyer() {
+        return buyer != null ? buyer : "";
+    }
     @JsonProperty("VatName")
     private String vatName;
     // 品名

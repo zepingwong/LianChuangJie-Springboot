@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lianchuangjie.lianchuangjie.dto.search.TabSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.SdadaEntity;
-import com.lianchuangjie.lianchuangjie.mapper.TabMapper.TabSdadaMapper;
+import com.lianchuangjie.lianchuangjie.mapper.Tab.TabSdadaMapper;
 import com.lianchuangjie.lianchuangjie.service.TabService.TabSdadaService;
 import com.lianchuangjie.lianchuangjie.vo.Quotation.TabQuotationSdadaVO;
 import com.lianchuangjie.lianchuangjie.vo.Search.TabSearchSdadaVO;

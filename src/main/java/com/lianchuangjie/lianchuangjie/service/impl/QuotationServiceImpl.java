@@ -10,7 +10,7 @@ import com.lianchuangjie.lianchuangjie.dto.search.QuotationSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.Enquiry.EnquiryMainEntity;
 import com.lianchuangjie.lianchuangjie.entity.QuotationEntity;
 import com.lianchuangjie.lianchuangjie.mapper.Enquiry.EnquiryMainMapper;
-import com.lianchuangjie.lianchuangjie.mapper.QuotationMapper;
+import com.lianchuangjie.lianchuangjie.mapper.Quotation.QuotationMapper;
 import com.lianchuangjie.lianchuangjie.service.QuotationService;
 import com.lianchuangjie.lianchuangjie.vo.Quotation.QuotationVO;
 import org.springframework.stereotype.Service;

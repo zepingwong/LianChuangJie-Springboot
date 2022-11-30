@@ -3,7 +3,7 @@ package com.lianchuangjie.lianchuangjie.service.Clientele.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lianchuangjie.lianchuangjie.entity.Clientele.ClienteleSupplierLevelEntity;
-import com.lianchuangjie.lianchuangjie.mapper.ClienteleSupplierLevelMapper;
+import com.lianchuangjie.lianchuangjie.mapper.Clientele.ClienteleSupplierLevelMapper;
 import com.lianchuangjie.lianchuangjie.service.Clientele.SupplierLevelService;
 import com.lianchuangjie.lianchuangjie.vo.ClienteleLevelItemVO;
 import org.springframework.stereotype.Service;
