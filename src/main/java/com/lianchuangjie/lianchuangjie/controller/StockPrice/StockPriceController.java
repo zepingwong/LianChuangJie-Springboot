@@ -9,6 +9,7 @@ import com.lianchuangjie.lianchuangjie.dto.StockPrice.ReplenishDTO;
 import com.lianchuangjie.lianchuangjie.dto.StockPrice.StockPriceOKDTO;
 import com.lianchuangjie.lianchuangjie.dto.StockPrice.StockPriceSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.QuotationEntity;
+import com.lianchuangjie.lianchuangjie.entity.User.UserEntity;
 import com.lianchuangjie.lianchuangjie.service.QuotationService;
 import com.lianchuangjie.lianchuangjie.service.StockPrice.StockPriceService;
 import com.lianchuangjie.lianchuangjie.utils.ContextUtil;
@@ -71,6 +72,7 @@ public class StockPriceController extends BaseController {
             @RequestParam(defaultValue = "#{null}", value = "PriceType") Integer pricingType
     ) {
         StockPriceSearchDTO stockPriceSearchDTO = new StockPriceSearchDTO();
+        UserEntity user = ContextUtil.getUser();
         stockPriceSearchDTO.setPage(page);
         stockPriceSearchDTO.setSize(size);
         stockPriceSearchDTO.setBrand(brand);
@@ -83,6 +85,9 @@ public class StockPriceController extends BaseController {
         stockPriceSearchDTO.setModify(modify);
         stockPriceSearchDTO.setNewToday(newToday);
         stockPriceSearchDTO.setOrderDate(orderDate);
+        if (user.getSuperUser().equals("Y")) {
+            stockPriceSearchDTO.setUserSign(Math.toIntExact(user.getUserSign()));
+        }
         Page<StockPriceVO> pages = stockPriceService.list(stockPriceSearchDTO);
         return Result.success(pages, "Success");
     }
