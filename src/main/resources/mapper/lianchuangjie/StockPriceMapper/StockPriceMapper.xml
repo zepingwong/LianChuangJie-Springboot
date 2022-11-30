@@ -100,7 +100,7 @@
                         SELECT 1
                         FROM U_PUR1 T0
                         INNER JOIN U_PUR2 T1 ON T0.OwnerCode= T1.OwnerCode
-                        WHERE T0.IsDJ = 'Y' AND T0.OwnerCode = #{sc.userSign}
+                        WHERE T0.IsDJ = 'Y' AND T0.OwnerCode = ${sc.userSign}
                         AND T1.Brand = kc_now.Brand
                     )
                 </if>
