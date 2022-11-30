@@ -13,5 +13,13 @@ import java.util.List;
 @Mapper
 @Repository
 public interface ClienteleRegionMapper extends BaseMapper<ClienteleRegionEntity> {
+    /**
+     * @param queryWrapper queryWrapper
+     * @return List
+     * @description 获取业务合作伙伴地区
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 9/30/2022
+     */
     List<ClienteleRegionItemVO> selectList(@Param("ew") QueryWrapper<ClienteleRegionItemVO> queryWrapper);
 }

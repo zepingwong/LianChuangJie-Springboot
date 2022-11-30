@@ -12,11 +12,23 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import java.util.List;
 
+/**
+ * 销售员
+ */
 @RestController
 @RequestMapping("/sale")
 public class SaleController {
     @Resource
     SellerService sellerService;
+
+    /**
+     * @param username username
+     * @return Result
+     * @description 销售员搜索建议
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 9/30/2022
+     */
     @GetMapping("/suggestion")
     @Authentication()
     public Result<List<SellerVO>> getSellerSuggestionList(

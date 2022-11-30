@@ -13,5 +13,13 @@ import java.util.List;
 @Mapper
 @Repository
 public interface ClienteleSupplierLevelMapper extends BaseMapper<ClienteleSupplierLevelEntity> {
+    /**
+     * @param queryWrapper queryWrapper
+     * @return List
+     * @description 获取供应商等级列表
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 9/30/2022
+     */
     List<ClienteleLevelItemVO> selectList(@Param("ew") QueryWrapper<ClienteleLevelItemVO> queryWrapper);
 }

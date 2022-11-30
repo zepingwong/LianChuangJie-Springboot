@@ -13,5 +13,13 @@ import java.util.List;
 @Mapper
 @Repository
 public interface ClienteleIndustryMapper extends BaseMapper<ClienteleIndustryEntity> {
+    /**
+     * @param queryWrapper queryWrapper
+     * @return List
+     * @description 查询业务合作伙伴行业
+     * @author WANG Zeping
+     * @email zepingwong@gmail.com
+     * @date 9/30/2022
+     */
     List<ClienteleIndustryVO> selectList(@Param("ew") QueryWrapper<ClienteleIndustryVO> queryWrapper);
 }
