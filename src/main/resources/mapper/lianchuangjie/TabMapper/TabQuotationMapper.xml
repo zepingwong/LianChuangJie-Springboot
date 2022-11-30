@@ -133,8 +133,7 @@
                                                       WHERE SDADA.sno = #{sc.modle}))
           AND T_ICIN1.U_QuoDate IS NOT NULL
     </select>
-    <select id="selectStockPriceTabList"
-            resultType="com.lianchuangjie.lianchuangjie.vo.StockPrice.TabStockPriceQuoteVO">
+    <select id="selectStockPriceTabList" resultType="com.lianchuangjie.lianchuangjie.vo.StockPrice.TabStockPriceQuoteVO">
         DECLARE @FormID BIGINT;
         DECLARE @DataPur VARCHAR(10);
         DECLARE @UserSign    BIGINT
@@ -185,7 +184,7 @@
                                FROM SDADA SDADA_1
                                WHERE SDADA_1.TAG IN (SELECT SDADA.TAG
                                                      FROM SDADA
-                                                     WHERE SDADA.sno = #{sc.modle}))
+                                                     WHERE SDADA.sno =  '${sc.modle}'))
 
 
         SELECT TOP (@PageSize) *
@@ -311,7 +310,7 @@
         DECLARE @FormID BIGINT;
         DECLARE @DataPur VARCHAR(10);
         DECLARE @UserSign    BIGINT
-        SET @UserSign = ${sc.getUserSign}
+        SET @UserSign = ${sc.userSign}
 
         SELECT @FormID = FormID
         FROM T_OUDW
@@ -321,91 +320,88 @@
 
         SELECT *
         INTO #AllQuotation
-        FROM (SELECT T_ICIN1.U_QuoDate, /*报价日期*/
-                     T_ICIN1.U_QuoModle, /*报价型号*/
-                     T_ICIN1.U_QuoBrand, /*报价品牌*/
-                     T_ICIN1.U_CardName, /*供应商名称*/
-                     T_ICIN1.U_SuoDelivery, /*供方交期*/
-                     T_ICIN1.U_QuoGroupCode, /*供应商类型*/
-                     T_ICIN1.U_QuoLevel, /*供应商等级*/
-                     T_ICIN1.U_QuoQty, /*报价数量*/
-                     T_ICIN1.U_QuoYear, /*报价批次*/
-                     T_ICIN1.U_QuoCurr, /*报价货币*/
-                     T_ICIN1.U_QuoPrice, /*供方报价*/
-                     T_ICIN1.U_QuoDelivery, /*报价交期*/
-                     T_ICIN1.U_Buyer, /*采购员*/
-                     T_ICIN1.U_Secrecy, /*保密*/
-                     T_ICIN1.U_QuoVatGroup, /*税率*/
-                     T_ICIN1.U_QuoExplain /*采购备注*/
-              FROM T_ICIN1
-              WHERE T_ICIN1.U_QuoPrice IS NOT NULL
-              UNION ALL
-              SELECT U_ICIN11.U_QuoDate, /*报价日期*/
-                     U_ICIN11.U_QuoModle, /*报价型号*/
-                     U_ICIN11.U_QuoBrand, /*报价品牌*/
-                     U_ICIN11.U_CardName, /*供应商名称*/
-                     U_ICIN11.U_SuoDelivery, /*供方交期*/
-                     U_ICIN11.U_QuoGroupCode, /*供应商类型*/
-                     U_ICIN11.U_QuoLevel, /*供应商等级*/
-                     U_ICIN11.U_QuoQty, /*报价数量*/
-                     U_ICIN11.U_QuoYear, /*报价批次*/
-                     U_ICIN11.U_QuoCurr, /*报价货币*/
-                     U_ICIN11.U_QuoPrice, /*供方报价*/
-                     U_ICIN11.U_QuoDelivery, /*报价交期*/
-                     U_ICIN11.U_Buyer, /*采购员*/
-                     U_ICIN11.U_Secrecy, /*保密*/
-                     U_ICIN11.U_QuoVatGroup, /*税率*/
-                     U_ICIN11.U_QuoExplain /*采购备注*/
-              FROM U_ICIN11
-              WHERE U_ICIN11.U_QuoPrice IS NOT NULL) T
-        WHERE T.U_QuoModle IN (SELECT SDADA_1.sno
-                               FROM SDADA SDADA_1
-                               WHERE SDADA_1.TAG IN (SELECT SDADA.TAG
-                                                     FROM SDADA
-                                                     WHERE SDADA.sno = #{sc.modle}))
+        FROM (
+            SELECT
+                T_ICIN1.U_QuoDate, /*报价日期*/
+                T_ICIN1.U_QuoModle, /*报价型号*/
+                T_ICIN1.U_QuoBrand, /*报价品牌*/
+                T_ICIN1.U_CardName, /*供应商名称*/
+                T_ICIN1.U_SuoDelivery, /*供方交期*/
+                T_ICIN1.U_QuoGroupCode, /*供应商类型*/
+                T_ICIN1.U_QuoLevel, /*供应商等级*/
+                T_ICIN1.U_QuoQty, /*报价数量*/
+                T_ICIN1.U_QuoYear, /*报价批次*/
+                T_ICIN1.U_QuoCurr, /*报价货币*/
+                T_ICIN1.U_QuoPrice, /*供方报价*/
+                T_ICIN1.U_QuoDelivery, /*报价交期*/
+                T_ICIN1.U_Buyer, /*采购员*/
+                T_ICIN1.U_Secrecy, /*保密*/
+                T_ICIN1.U_QuoVatGroup, /*税率*/
+                T_ICIN1.U_QuoExplain /*采购备注*/
+            FROM T_ICIN1
+            <where>
+                T_ICIN1.U_QuoPrice IS NOT NULL
+                <if test="sc.quoDateStart != null">
+                    AND T_ICIN1.U_QuoDate >= #{sc.quoDateStart}
+                </if>
+                <if test="sc.quoDateEnd != null">
+                    AND T_ICIN1.U_QuoDate &lt;= #{sc.quoDateEnd}
+                </if>
+            </where>
+        ) T
+        WHERE T.U_QuoModle IN (
+            SELECT SDADA_1.sno
+            FROM SDADA SDADA_1
+            WHERE SDADA_1.TAG IN (
+                SELECT SDADA.TAG
+                FROM SDADA
+                WHERE SDADA.sno = #{sc.modle}
+            )
+        )
 
         SELECT COUNT(*)
         FROM (
-                 /*权限内的所有*/
-                 SELECT T.U_QuoDate
-                 FROM #AllQuotation T
-                          LEFT JOIN T_OUSI ON T_OUSI.UserSign = T.U_Buyer
-                          LEFT JOIN T_OCDP ON T_OUSI.DftDept = T_OCDP.DeptCode
-                          LEFT JOIN T_OVTG ON T_OVTG.Code = T.U_QuoVatGroup
-                          LEFT JOIN (SELECT DeptCode FROM T_OUDL WHERE UserSign = @UserSign) T3
-                                    ON T_OCDP.DeptCode = T3.DeptCode
-                 WHERE (
-                                   @DataPur = 'ALL' /*可看所有*/
-                               OR (@DataPur = 'Dept' AND ISNULL(T3.DeptCode, '') != '') /*判断当前用户可看本部门数据，如部门主任*/
-                               OR (@DataPur = 'Self' AND T.U_Buyer = @UserSign) /*销售员本人*/
-                           )
-                 UNION ALL
-/*权限外的非保密*/
-                 SELECT T.U_QuoDate
-                 FROM #AllQuotation T
-                          LEFT JOIN T_OUSI ON T_OUSI.UserSign = T.U_Buyer
-                          LEFT JOIN T_OCDP ON T_OUSI.DftDept = T_OCDP.DeptCode
-                          LEFT JOIN T_OVTG ON T_OVTG.Code = T.U_QuoVatGroup
-                          LEFT JOIN (SELECT DeptCode FROM T_OUDL WHERE UserSign = @UserSign) T3
-                                    ON T_OCDP.DeptCode = T3.DeptCode
-                 WHERE NOT EXISTS(
-                         SELECT 1
-                         FROM U_OADM
-                                  LEFT JOIN T_OUSI ON T_OUSI.UserSign = T.U_Buyer
-                                  LEFT JOIN T_OCDP ON T_OUSI.DftDept = T_OCDP.DeptCode
-                                  LEFT JOIN T_OVTG ON T_OVTG.Code = T.U_QuoVatGroup
-                                  LEFT JOIN (SELECT DeptCode FROM T_OUDL WHERE UserSign = @UserSign) T3
-                                            ON T_OCDP.DeptCode = T3.DeptCode
-                         WHERE (
-                                           @DataPur = 'ALL' /*可看所有*/
-                                       OR
-                                           (@DataPur = 'Dept' AND ISNULL(T3.DeptCode, '') != '') /*判断当前用户可看本部门数据，如部门主任*/
-                                       OR (@DataPur = 'Self' AND T.U_Buyer = @UserSign) /*销售员本人*/
-                                   )
-                     )
-                   AND T.U_Secrecy = 'N') TT
-
-
+            /*权限内的所有*/
+            SELECT T.U_QuoDate
+            FROM #AllQuotation T
+            LEFT JOIN T_OUSI ON T_OUSI.UserSign = T.U_Buyer
+            LEFT JOIN T_OCDP ON T_OUSI.DftDept = T_OCDP.DeptCode
+            LEFT JOIN T_OVTG ON T_OVTG.Code = T.U_QuoVatGroup
+            LEFT JOIN (
+                SELECT DeptCode FROM T_OUDL WHERE UserSign = @UserSign
+            ) T3 ON T_OCDP.DeptCode = T3.DeptCode
+            WHERE (
+                @DataPur = 'ALL' /*可看所有*/
+                OR (@DataPur = 'Dept' AND ISNULL(T3.DeptCode, '') != '') /*判断当前用户可看本部门数据，如部门主任*/
+                OR (@DataPur = 'Self' AND T.U_Buyer = @UserSign) /*销售员本人*/
+            )
+            UNION ALL
+            /*权限外的非保密*/
+            SELECT T.U_QuoDate
+            FROM #AllQuotation T
+            LEFT JOIN T_OUSI ON T_OUSI.UserSign = T.U_Buyer
+            LEFT JOIN T_OCDP ON T_OUSI.DftDept = T_OCDP.DeptCode
+            LEFT JOIN T_OVTG ON T_OVTG.Code = T.U_QuoVatGroup
+            LEFT JOIN (
+                SELECT DeptCode FROM T_OUDL WHERE UserSign = @UserSign
+            ) T3 ON T_OCDP.DeptCode = T3.DeptCode
+            WHERE NOT EXISTS(
+                SELECT 1
+                FROM U_OADM
+                LEFT JOIN T_OUSI ON T_OUSI.UserSign = T.U_Buyer
+                LEFT JOIN T_OCDP ON T_OUSI.DftDept = T_OCDP.DeptCode
+                LEFT JOIN T_OVTG ON T_OVTG.Code = T.U_QuoVatGroup
+                LEFT JOIN (
+                    SELECT DeptCode FROM T_OUDL WHERE UserSign = @UserSign
+                ) T3 ON T_OCDP.DeptCode = T3.DeptCode
+                WHERE (
+                    @DataPur = 'ALL' /*可看所有*/
+                    OR (@DataPur = 'Dept' AND ISNULL(T3.DeptCode, '') != '') /*判断当前用户可看本部门数据，如部门主任*/
+                    OR (@DataPur = 'Self' AND T.U_Buyer = @UserSign) /*销售员本人*/
+                )
+            )
+            AND T.U_Secrecy = 'N'
+        ) TT
         DROP TABLE #AllQuotation
     </select>
 </mapper>
