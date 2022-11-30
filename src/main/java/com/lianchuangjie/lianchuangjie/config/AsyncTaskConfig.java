@@ -1,5 +1,6 @@
 package com.lianchuangjie.lianchuangjie.config;
 
+import org.springframework.aop.interceptor.AsyncExecutionAspectSupport;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -10,7 +11,7 @@ import java.util.concurrent.Executor;
 @Configuration
 @EnableAsync
 public class AsyncTaskConfig {
-    @Bean
+    @Bean(name = AsyncExecutionAspectSupport.DEFAULT_TASK_EXECUTOR_BEAN_NAME)
     public Executor taskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         // 核心线程数

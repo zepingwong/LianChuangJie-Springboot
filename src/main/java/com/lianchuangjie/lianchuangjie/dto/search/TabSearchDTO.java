@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -60,4 +61,11 @@ public class TabSearchDTO {
      */
     @JsonProperty("Batch")
     private String batch;
+    /**
+     * 采购报价Tab-报价日期
+     */
+    @JsonProperty("QuoDateStart")
+    private Date quoDateStart;
+    @JsonProperty("QuoDateEnd")
+    private Date quoDateEnd;
 }

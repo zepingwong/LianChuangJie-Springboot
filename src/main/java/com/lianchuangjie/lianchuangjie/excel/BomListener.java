@@ -3,11 +3,10 @@ package com.lianchuangjie.lianchuangjie.excel;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 import com.alibaba.fastjson.JSON;
-import com.lianchuangjie.lianchuangjie.entity.Enquiry.BomHeadDicEntity;
 import com.lianchuangjie.lianchuangjie.entity.Enquiry.BomSubEntity;
 import com.lianchuangjie.lianchuangjie.exception.Enquiry.EnquiryError;
-import com.lianchuangjie.lianchuangjie.mapper.Enquiry.BomHeadDicMapper;
 import com.lianchuangjie.lianchuangjie.mapper.SdadaMapper;
+import com.lianchuangjie.lianchuangjie.service.Enquiry.BomDicService;
 import com.lianchuangjie.lianchuangjie.vo.SdadaVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -27,25 +26,28 @@ public class BomListener extends AnalysisEventListener<Map<Integer, String>> {
     @Resource
     SdadaMapper sdadaMapper;
     @Resource
-    BomHeadDicMapper bomHeadDicMapper;
+    BomDicService bomDicService;
     //声明一个静态变量来存储
     public static BomListener bomListener;
+
     @PostConstruct
-    public  void init(){
+    public void init() {
         bomListener = this;
     }
+
     // 去除特殊字符的正则表达式
     public final static String REGEX_ALL_BRACKETS = "<.*?>|\\(.*?\\)|（.*?）|\\[.*?]|【.*?】|\\{.*?}|\\(.*?）|（.*?\\)";
     private final Pattern pattern = Pattern.compile(REGEX_ALL_BRACKETS);
-    private BomHeadDicEntity bomHeadDic;
+
+    // 型号、品牌、备注、数量字段名字典
+    private List<String> modelNameList;
+    private List<String> brandNameList;
+    private List<String> remarkNameList;
+    private List<String> quantityNameList;
     // 读取到的数据
     private final List<Map<String, String>> dataList = new ArrayList<>();
     // 读取到的型号列表
     private final List<String> modleList = new ArrayList<>();
-    // 读取到的品牌列表
-    private final List<String> brandList = new ArrayList<>();
-    // 数量
-    private final List<Integer> quantityList = new ArrayList<>();
     // BOM单条目
     private final List<BomSubEntity> bomSubList = new ArrayList<>();
     private Long lineNum = Long.parseLong("1");
@@ -53,14 +55,18 @@ public class BomListener extends AnalysisEventListener<Map<Integer, String>> {
     private Boolean startRead = false;
     // 型号列索引
     private Integer modleIndex;
+
     public Integer getModleIndex() {
         return modleIndex;
     }
+
     // 品牌列索引
     private Integer brandIndex;
+
     public Integer getBrandIndex() {
         return brandIndex;
     }
+
     // 数量列索引
     private Integer quantityIndex;
     // 备注列索引
@@ -76,17 +82,10 @@ public class BomListener extends AnalysisEventListener<Map<Integer, String>> {
         return modleList;
     }
 
-    public List<String> getBrandList() {
-        return brandList;
-    }
-
-    public List<Integer> getQuantityList() {
-        return quantityList;
-    }
-
     public List<BomSubEntity> getBomSubList() {
         return bomSubList;
     }
+
     // 获取表头索引行列表
     public List<String> getTitleList() {
         List<String> titleList = new ArrayList<>(titleMap.values());
@@ -95,12 +94,16 @@ public class BomListener extends AnalysisEventListener<Map<Integer, String>> {
         titleList.add("行号");
         return titleList;
     }
+
     // 读取首行数据
     @Override
     public void invokeHeadMap(Map<Integer, String> dataMap, AnalysisContext analysisContext) {
         log.info("解析第一行数据:{}", JSON.toJSONString(dataMap));
         // 加载索引匹配字典
-        this.bomHeadDic = bomListener.bomHeadDicMapper.selectById(1);
+        this.modelNameList = bomListener.bomDicService.getModleNameList();
+        this.brandNameList = bomListener.bomDicService.getBrandNameList();
+        this.remarkNameList = bomListener.bomDicService.getRemarkNameList();
+        this.quantityNameList = bomListener.bomDicService.getQuantityNameList();
         // 如果首行就是索引行
         if (this.isIndexRow(dataMap)) {
             getColumnIndex(dataMap);
@@ -108,6 +111,7 @@ public class BomListener extends AnalysisEventListener<Map<Integer, String>> {
             titleMap = dataMap;
         }
     }
+
     // 读取表格数据
     @Override
     public void invoke(Map<Integer, String> dataMap, AnalysisContext analysisContext) {
@@ -117,8 +121,6 @@ public class BomListener extends AnalysisEventListener<Map<Integer, String>> {
         // 读取有效数据, 如果一直找到索引行了则开始读取表格数据, 否则继续查找标题行
         if (startRead && null != modleIndex) {
             modleList.add(dataMap.get(modleIndex));
-            brandList.add(dataMap.get(brandIndex));
-            quantityList.add(Integer.valueOf(dataMap.get(quantityIndex) == null ? "0" : dataMap.get(quantityIndex)));
             BomSubEntity item = new BomSubEntity();
             item.setLineNum(lineNum);
             String modle = handleModle(dataMap, item);
@@ -163,39 +165,42 @@ public class BomListener extends AnalysisEventListener<Map<Integer, String>> {
 
     /**
      * 判断是否包含型号近义词,如果包含则为索引行
+     *
      * @param sdada sdada
      * @return boolean
      */
     private Boolean isIndexRow(Map<Integer, String> sdada) {
         boolean flag = Boolean.FALSE;
-        for (String modle:bomHeadDic.getModleList()) {
-            flag = sdada.containsValue(modle);
+        for (String modleName : modelNameList) {
+            flag = sdada.containsValue(modleName);
             if (flag) break;
         }
         return flag;
     }
+
     /**
-     * @description 解析列索行, 识别型号、品牌、数量列
      * @param rowIndexRow rowIndexRow
+     * @description 解析列索行, 识别型号、品牌、数量列
      */
     private void getColumnIndex(Map<Integer, String> rowIndexRow) {
         for (Integer key : rowIndexRow.keySet()) {
-            if (bomHeadDic.getModleList().contains(rowIndexRow.get(key))) {
+            if (modelNameList.contains(rowIndexRow.get(key))) {
                 log.debug("Modle->" + rowIndexRow.get(key));
                 modleIndex = key;
-            } else if (bomHeadDic.getBrandList().contains(rowIndexRow.get(key))) {
+            } else if (brandNameList.contains(rowIndexRow.get(key))) {
                 log.debug("Brand->" + rowIndexRow.get(key));
                 brandIndex = key;
-            } else if (bomHeadDic.getQuantityList().contains(rowIndexRow.get(key))) {
+            } else if (quantityNameList.contains(rowIndexRow.get(key))) {
                 log.debug("Quantity->" + rowIndexRow.get(key));
                 quantityIndex = key;
-            } else if (bomHeadDic.getRemarkList().contains(rowIndexRow.get(key))) {
+            } else if (remarkNameList.contains(rowIndexRow.get(key))) {
                 log.debug("Remark->" + rowIndexRow.get(key));
                 remarkIndex = key;
             }
         }
         EnquiryError.VALID_ERROR.assertNotNull(modleIndex, "未识别到型号列");
     }
+
     /**
      * @description 处理型号
      */
@@ -211,6 +216,7 @@ public class BomListener extends AnalysisEventListener<Map<Integer, String>> {
             return modle;
         }
     }
+
     /**
      * @description 处理品牌，品牌必须标准化
      */

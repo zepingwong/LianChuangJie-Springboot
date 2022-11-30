@@ -1,4 +1,4 @@
-package com.lianchuangjie.lianchuangjie.controller;
+package com.lianchuangjie.lianchuangjie.controller.Company;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lianchuangjie.lianchuangjie.config.Authentication;

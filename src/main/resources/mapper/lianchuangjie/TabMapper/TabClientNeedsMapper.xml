@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lianchuangjie.lianchuangjie.mapper.TabMapper.TabClientNeedsMapper">
+<mapper namespace="com.lianchuangjie.lianchuangjie.mapper.Tab.TabClientNeedsMapper">
     <select id="selectSearchTabList" resultType="com.lianchuangjie.lianchuangjie.vo.Search.TabSearchNeedsVO">
         DECLARE @UserSign BIGINT
         DECLARE @DataPur NVARCHAR ( 10 ) /*All/Dept/self*/

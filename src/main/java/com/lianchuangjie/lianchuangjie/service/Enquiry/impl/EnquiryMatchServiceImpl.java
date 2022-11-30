@@ -19,9 +19,11 @@ import com.lianchuangjie.lianchuangjie.service.Enquiry.YunHanService;
 import com.lianchuangjie.lianchuangjie.utils.ContextUtil;
 import com.lianchuangjie.lianchuangjie.utils.RedisUtil;
 import com.lianchuangjie.lianchuangjie.vo.Enquiry.EnquiryMatchItemVO;
-import io.netty.util.concurrent.ThreadPerTaskExecutor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.aop.interceptor.AsyncExecutionAspectSupport;
 import org.springframework.beans.BeanUtils;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -31,6 +33,7 @@ import java.util.Objects;
 
 @Slf4j
 @Service
+@EnableAsync
 public class EnquiryMatchServiceImpl implements EnquiryMatchService {
     @Resource
     EnquirySingleMatchMapper enquirySingleMatchMapper;
@@ -46,8 +49,8 @@ public class EnquiryMatchServiceImpl implements EnquiryMatchService {
     EnquirySubService enquirySubService;
     @Resource
     RedisUtil redisUtil;
-    @Resource
-    ThreadPerTaskExecutor threadPerTaskExecutor;
+    @Resource(name = AsyncExecutionAspectSupport.DEFAULT_TASK_EXECUTOR_BEAN_NAME)
+    ThreadPoolTaskExecutor threadPoolTaskExecutor;
     @Resource
     YunHanService yunHanService;
 
@@ -124,7 +127,7 @@ public class EnquiryMatchServiceImpl implements EnquiryMatchService {
         /*
          * 云汉报价的先不分发给采购
          */
-        threadPerTaskExecutor.execute(() -> {
+        threadPoolTaskExecutor.execute(() -> {
             log.info("任务开始");
             try {
                 Thread.sleep(5000);
