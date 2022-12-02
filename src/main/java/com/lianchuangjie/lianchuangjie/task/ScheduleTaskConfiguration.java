@@ -42,7 +42,7 @@ public class ScheduleTaskConfiguration {
      */
     @Scheduled(cron = "0 0 1 * * ?")
     private void yunhanPrice() {
-        stockPriceAlgorithmService.yunhan();
+//        stockPriceAlgorithmService.yunhan();
     }
 
     /**

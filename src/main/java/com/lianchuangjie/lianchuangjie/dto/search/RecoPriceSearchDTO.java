@@ -8,8 +8,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RecoPriceSearchDTO {
+
     // 型号
     private String modle;
+
     // 品牌
     private String brand;
 }
