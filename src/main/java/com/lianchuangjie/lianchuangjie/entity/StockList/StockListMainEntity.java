@@ -43,4 +43,10 @@ public class StockListMainEntity {
     // 供应商性质
     @TableField(value = "GroupName")
     private String groupName;
+    // 货币类型
+    @TableField(value = "Currency")
+    private String currency;
+    // 税率代码
+    @TableField(value = "VatGroup")
+    private String vatGroup;
 }

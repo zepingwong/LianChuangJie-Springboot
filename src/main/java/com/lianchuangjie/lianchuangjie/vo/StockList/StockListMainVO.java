@@ -42,4 +42,7 @@ public class StockListMainVO {
     // 近两周询价次数
     @JsonProperty("EnquiryCount")
     private BigDecimal enquiryCount;
+    // 交易货币
+    @JsonProperty("CurRate")
+    private String curRate;
 }

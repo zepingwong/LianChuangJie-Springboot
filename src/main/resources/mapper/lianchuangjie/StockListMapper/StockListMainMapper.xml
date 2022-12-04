@@ -10,6 +10,10 @@
             T.CreateDate,
             T.GroupName,
             T.Level,
+            (T.Currency + '+' + T.VatGroup + '+' + CONVERT(VARCHAR, CAST(T_OVTG.Rate AS FLOAT))) AS 'CurVat',
+            T.Currency + '(' + CONVERT(VARCHAR, CAST(T_OVTG.Rate AS FLOAT)) + '%)' AS 'CurRate',
+            T.Currency, /*货币类型*/
+            T.VatGroup, /*汇率代码*/
             StockList1.EnquiryCount,
             StockList1.SQuantity, /*库存数量*/
             SUM(StockList1._SuggestionQty) AS 'SuggestionQty'
@@ -31,6 +35,7 @@
                 </if>
             </where>
         ) T
+        LEFT JOIN T_OVTG ON T_OVTG.Code = T.VatGroup
         LEFT JOIN (
             SELECT
                 U_StockList1.DocEntry,
@@ -135,6 +140,6 @@
                 T_ORDR1.Dscription
             ) ORDR2 ON ORDR2.U_Brand = U_StockRank.Brand AND ORDR2.Dscription = U_StockRank.Modle /*终端客户成交数量*/
         ) StockList1 ON StockList1.DocEntry = T.DocEntry
-        GROUP BY T.DocEntry, T.CardCode, T.CardName, T.CreateDate, T.GroupName, T.Level, StockList1.EnquiryCount, StockList1.SQuantity
+        GROUP BY T.DocEntry, T.CardCode, T.CardName, T.CreateDate, T.GroupName, T.Level, StockList1.EnquiryCount, StockList1.SQuantity, T.Currency, T.VatGroup, T_OVTG.Rate
     </select>
 </mapper>

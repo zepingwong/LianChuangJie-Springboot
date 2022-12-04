@@ -2,6 +2,7 @@ package com.lianchuangjie.lianchuangjie.service.StockList.impl;
 
 
 import com.alibaba.excel.EasyExcel;
+import com.lianchuangjie.lianchuangjie.dto.StockList.SupplierInfoDTO;
 import com.lianchuangjie.lianchuangjie.entity.StockList.StockListMainEntity;
 import com.lianchuangjie.lianchuangjie.entity.StockList.StockListSubEntity;
 import com.lianchuangjie.lianchuangjie.excel.StockListListener;
@@ -32,24 +33,26 @@ public class StockListUploadServiceImpl implements StockListUploadService {
     @Resource
     SupplierService supplierService;
     @Override
-    public void upload(MultipartFile file, String cardCode) {
+    public void upload(MultipartFile file, SupplierInfoDTO supplierInfoDTO) {
         // 文件名
         String fileName = file.getOriginalFilename();
         ResponseEnum.ISNULL.assertNullOrEmpty(fileName, "文件上传错误");
         assert fileName != null;
         ResponseEnum.VALID_ERROR.assertIsFalse((fileName.endsWith(".xls") || fileName.endsWith(".xlsx")), "文件格式错误");
-        ClienteleVO supplierInfo = supplierService.getOne(cardCode);
+        ClienteleVO supplierInfo = supplierService.getOne(supplierInfoDTO.getCardCode());
         try {
             StockListListener listener = new StockListListener();
             EasyExcel.read(file.getInputStream(), listener).sheet().doRead();
             // 保存主表信息
             StockListMainEntity stockListMainEntity = new StockListMainEntity();
-            stockListMainEntity.setCardCode(cardCode); // 供应商代码
+            stockListMainEntity.setCardCode(supplierInfoDTO.getCardCode()); // 供应商代码
             stockListMainEntity.setCardName(supplierInfo.getCardName()); //供应商名称
             stockListMainEntity.setStatus("N"); // 状态 未处理
             stockListMainEntity.setFileName(fileName); // 文件名
             stockListMainEntity.setLevel(supplierInfo.getUCusLevel()); // 供应商等级
             stockListMainEntity.setGroupName(supplierInfo.getUGroupName()); // 供应商类型
+            stockListMainEntity.setCurrency(supplierInfoDTO.getCurrency()); // 货币类型
+            stockListMainEntity.setVatGroup(supplierInfoDTO.getVayGroup()); // 汇率代码
             stockListMainEntity.setCreateDate(new Date()); // 发送时间
             stockListMainService.save(stockListMainEntity);
             log.info("保存库存清单主表成功 {}", stockListMainEntity);

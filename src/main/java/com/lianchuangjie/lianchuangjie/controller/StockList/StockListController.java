@@ -2,6 +2,7 @@ package com.lianchuangjie.lianchuangjie.controller.StockList;
 
 import com.lianchuangjie.lianchuangjie.config.Authentication;
 import com.lianchuangjie.lianchuangjie.controller.BaseController;
+import com.lianchuangjie.lianchuangjie.dto.StockList.SupplierInfoDTO;
 import com.lianchuangjie.lianchuangjie.exception.Business.ResponseEnum;
 import com.lianchuangjie.lianchuangjie.service.StockList.StockListService;
 import com.lianchuangjie.lianchuangjie.service.StockList.StockListUploadService;
@@ -33,15 +34,22 @@ public class StockListController extends BaseController {
      * @email zepingwong@gmail.com
      * @date 11/20/2022
      */
-    @PostMapping("/list/upload/{cardCode}")
+    @PostMapping("/list/upload/{cardCode}/{currency}/{vatGroup}")
     @Authentication(sale = true)
     public Result<BomUploadResVO> uploadBomController(
             @RequestParam("files") MultipartFile file,
-            @PathVariable String cardCode
+            @PathVariable String cardCode,
+            @PathVariable String currency,
+            @PathVariable String vatGroup
     ) {
         // 供应商编号不能为空
         ResponseEnum.ISNULL.assertNotNull(cardCode);
-        stockListUploadService.upload(file, cardCode);
+        SupplierInfoDTO supplierInfoDTO = new SupplierInfoDTO(
+                currency,
+                vatGroup,
+                cardCode
+        );
+        stockListUploadService.upload(file, supplierInfoDTO);
         return Result.success(null);
     }
 
