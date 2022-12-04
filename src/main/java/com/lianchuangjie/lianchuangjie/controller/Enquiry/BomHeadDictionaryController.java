@@ -7,10 +7,7 @@ import com.lianchuangjie.lianchuangjie.service.Enquiry.BomDicService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
 import com.lianchuangjie.lianchuangjie.vo.Enquiry.BomHeadDictVO;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -31,5 +28,10 @@ public class BomHeadDictionaryController {
         BomHeadDictSearchDTO bomHeadDictSearchDTO = new BomHeadDictSearchDTO(page, size, dicKey);
         Page<BomHeadDictVO> pages = bomDicService.getList(bomHeadDictSearchDTO);
         return Result.success(pages, "Success");
+    }
+    @PostMapping("bomdict")
+    @Authentication()
+    public Result<Boolean> addBomDicController() {
+        return Result.success(null);
     }
 }
