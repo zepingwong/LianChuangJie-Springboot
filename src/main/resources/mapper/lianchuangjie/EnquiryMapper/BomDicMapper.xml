@@ -11,8 +11,8 @@
         SELECT * FROM U_BomDic
         <where>
             1=1
-            <if test="sc.key != null">
-                AND U_BomDic.Key = #{sc.key}
+            <if test="sc.dicKey != null">
+                AND U_BomDic.DicKey = #{sc.dicKey}
             </if>
         </where>
     </select>

@@ -11,7 +11,7 @@ import java.math.BigInteger;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("T_OZNL")
+@TableName("U_OZNL")
 public class ZhengNengLiangMainEntity {
     @TableId(value = "DocEntry")
     private BigInteger docEntry;

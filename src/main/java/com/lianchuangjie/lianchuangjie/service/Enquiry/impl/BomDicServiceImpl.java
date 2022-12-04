@@ -21,28 +21,28 @@ public class BomDicServiceImpl extends ServiceImpl<BomDicMapper, BomDicEntity> i
     @Override
     public List<String> getModleNameList() {
         QueryWrapper<String> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("Key", "Modle");
+        queryWrapper.eq("DicKey", "Modle");
         return bomDicMapper.selectNameList(queryWrapper);
     }
 
     @Override
     public List<String> getBrandNameList() {
         QueryWrapper<String> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("Key", "Brand");
+        queryWrapper.eq("DicKey", "Brand");
         return bomDicMapper.selectNameList(queryWrapper);
     }
 
     @Override
     public List<String> getRemarkNameList() {
         QueryWrapper<String> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("Key", "Remark");
+        queryWrapper.eq("DicKey", "Remark");
         return bomDicMapper.selectNameList(queryWrapper);
     }
 
     @Override
     public List<String> getQuantityNameList() {
         QueryWrapper<String> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("Key", "Quantity");
+        queryWrapper.eq("DicKey", "Quantity");
         return bomDicMapper.selectNameList(queryWrapper);
     }
 

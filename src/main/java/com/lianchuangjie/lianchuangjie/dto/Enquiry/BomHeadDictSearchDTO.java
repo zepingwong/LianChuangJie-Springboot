@@ -19,5 +19,5 @@ public class BomHeadDictSearchDTO {
     // 每页显示数量 最大值为50
     @NotNull(message = "每页显示数量不能为空")
     private Integer size;
-    private String key;
+    private String dicKey;
 }
