@@ -26,9 +26,9 @@ public class BomHeadDictionaryController {
     public Result<Page<BomHeadDictVO>> getDictionaryList(
             @RequestParam(defaultValue = "#{null}", value = "page") Integer page, // 页码
             @RequestParam(defaultValue = "#{null}", value = "size") Integer size, // 每页显示条数
-            @RequestParam(defaultValue = "#{null}", value = "Key") String key // 所属key
+            @RequestParam(defaultValue = "#{null}", value = "DicKey") String dicKey // 所属key
     ) {
-        BomHeadDictSearchDTO bomHeadDictSearchDTO = new BomHeadDictSearchDTO(page, size, key);
+        BomHeadDictSearchDTO bomHeadDictSearchDTO = new BomHeadDictSearchDTO(page, size, dicKey);
         Page<BomHeadDictVO> pages = bomDicService.getList(bomHeadDictSearchDTO);
         return Result.success(pages, "Success");
     }
