@@ -13,11 +13,11 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName("U_BomDic")
-public class BomDicEntity {
+public class BomHeadDicEntity {
     @TableId(value = "DocEntry")
     private Long docEntry;
-    @TableField(value = "Key")
-    private String key;
+    @TableField(value = "DicKey")
+    private String dicKey;
     @TableField(value = "Value")
     private String value;
     @TableField(value = "CreateDate")

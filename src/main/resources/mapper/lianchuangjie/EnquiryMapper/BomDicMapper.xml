@@ -10,10 +10,13 @@
     <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.Enquiry.BomHeadDictVO">
         SELECT * FROM U_BomDic
         <where>
-            1=1
+            IsDeleted = 'N'
             <if test="sc.dicKey != null">
                 AND U_BomDic.DicKey = #{sc.dicKey}
             </if>
         </where>
+        ORDER BY
+            U_BomDic.DicKey,
+            U_BomDic.CreateDate DESC
     </select>
 </mapper>

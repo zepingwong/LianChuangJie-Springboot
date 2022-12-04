@@ -1,8 +1,11 @@
 package com.lianchuangjie.lianchuangjie.controller.Enquiry;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lianchuangjie.lianchuangjie.config.Authentication;
+import com.lianchuangjie.lianchuangjie.dto.Enquiry.BomHeadDicDTO;
 import com.lianchuangjie.lianchuangjie.dto.Enquiry.BomHeadDictSearchDTO;
+import com.lianchuangjie.lianchuangjie.entity.Enquiry.BomHeadDicEntity;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.BomDicService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
 import com.lianchuangjie.lianchuangjie.vo.Enquiry.BomHeadDictVO;
@@ -10,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 
 @Validated
 @RestController
@@ -29,9 +33,13 @@ public class BomHeadDictionaryController {
         Page<BomHeadDictVO> pages = bomDicService.getList(bomHeadDictSearchDTO);
         return Result.success(pages, "Success");
     }
+
     @PostMapping("bomdict")
     @Authentication()
-    public Result<Boolean> addBomDicController() {
-        return Result.success(null);
+    public Result<Boolean> addBomDicController(
+            @RequestBody @Valid BomHeadDicDTO bomHeadDicDTO
+    ) {
+        Boolean res = bomDicService.save(bomHeadDicDTO);
+        return Result.success(res, "Success");
     }
 }

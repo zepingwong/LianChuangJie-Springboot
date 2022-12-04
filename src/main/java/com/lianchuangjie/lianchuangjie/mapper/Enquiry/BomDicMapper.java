@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.lianchuangjie.lianchuangjie.dto.Enquiry.BomHeadDictSearchDTO;
-import com.lianchuangjie.lianchuangjie.entity.Enquiry.BomDicEntity;
+import com.lianchuangjie.lianchuangjie.entity.Enquiry.BomHeadDicEntity;
 import com.lianchuangjie.lianchuangjie.vo.Enquiry.BomHeadDictVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -14,7 +14,7 @@ import java.util.List;
 
 @Mapper
 @Repository
-public interface BomDicMapper extends BaseMapper<BomDicEntity> {
+public interface BomDicMapper extends BaseMapper<BomHeadDicEntity> {
     List<String> selectNameList(@Param("ew") QueryWrapper<String> wrapper);
 
     /**
