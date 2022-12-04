@@ -36,12 +36,16 @@ public class StockListSubController {
     public Result<Page<StockListSubVO>> getStockListSubListController(
             @RequestParam(defaultValue = "#{null}", value = "page") Integer page,
             @RequestParam(defaultValue = "#{null}", value = "size") Integer size,
+            @RequestParam(defaultValue = "#{null}", value = "Modle") String modle,
+            @RequestParam(defaultValue = "#{null}", value = "Brand") String brand,
             @PathVariable Long docEntry
     ) {
         StockListSubSearchDTO stockListSubSearchDTO = new StockListSubSearchDTO(
                 page,
                 size,
-                docEntry
+                docEntry,
+                modle,
+                brand
         );
         Page<StockListSubVO> pages = stockListSubService.list(stockListSubSearchDTO);
         return Result.success(pages, "Success");

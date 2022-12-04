@@ -14,4 +14,8 @@ public class StockListSubSearchDTO {
     private Integer size;
     // 库存清单编号
     private Long docEntry;
+    // 型号
+    private String modle;
+    // 品牌
+    private String brand;
 }

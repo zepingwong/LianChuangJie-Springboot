@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: pro
+    active: dev
     
 # 生产环境名称
 ENV_PROD: pro

@@ -6,6 +6,7 @@ import com.lianchuangjie.lianchuangjie.entity.StockList.StockListMainEntity;
 import com.lianchuangjie.lianchuangjie.entity.StockList.StockListSubEntity;
 import com.lianchuangjie.lianchuangjie.excel.StockListListener;
 import com.lianchuangjie.lianchuangjie.exception.Business.ResponseEnum;
+import com.lianchuangjie.lianchuangjie.mapper.StockList.StockListSubMapper;
 import com.lianchuangjie.lianchuangjie.service.Clientele.SupplierService;
 import com.lianchuangjie.lianchuangjie.service.StockList.StockListMainService;
 import com.lianchuangjie.lianchuangjie.service.StockList.StockListSubService;
@@ -26,6 +27,8 @@ public class StockListUploadServiceImpl implements StockListUploadService {
     StockListMainService stockListMainService;
     @Resource
     StockListSubService stockListSubService;
+    @Resource
+    StockListSubMapper stockListSubMapper;
     @Resource
     SupplierService supplierService;
     @Override
@@ -52,8 +55,10 @@ public class StockListUploadServiceImpl implements StockListUploadService {
             log.info("保存库存清单主表成功 {}", stockListMainEntity);
             List<StockListSubEntity> stockListSubEntityList = listener.getStockListSubList();
             stockListSubEntityList.forEach(stockListSubEntity -> stockListSubEntity.setDocEntry(stockListMainEntity.getDocEntry()));
-            // 批量保存
+            // 批量保存子表
             stockListSubService.saveBatch(stockListSubEntityList);
+            // 匹配型号
+            stockListSubMapper.match(stockListMainEntity.getDocEntry());
         } catch (IOException e) {
             e.printStackTrace();
             throw ResponseEnum.UPLOAD_ERROR.newException("上传错误" + e.getMessage());

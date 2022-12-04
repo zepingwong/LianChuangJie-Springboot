@@ -22,6 +22,9 @@ public class StockListSubVO {
     // 型号
     @JsonProperty("Modle")
     private String modle;
+    // 匹配型号
+    @JsonProperty("sno")
+    private String sno;
     // 品牌
     @JsonProperty("Brand")
     private String brand;
@@ -34,6 +37,9 @@ public class StockListSubVO {
     // 批次
     @JsonProperty("Year")
     private String year;
+    // 状态
+    @JsonProperty("Status")
+    private String status;
     // kc_price_final 最近一次库存定价
     @JsonProperty("kc_price_final")
     private BigDecimal kcPriceFinal;
@@ -52,4 +58,10 @@ public class StockListSubVO {
     // 库存排名
     @JsonProperty("StockRank")
     private Long stockRank;
+    // 正能量近30天搜索次数
+    @JsonProperty("SEOQty")
+    private BigDecimal SEOQty;
+    // 备注
+    @JsonProperty("Remark")
+    private String remark;
 }

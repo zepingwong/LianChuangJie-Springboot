@@ -9,6 +9,7 @@ import com.lianchuangjie.lianchuangjie.entity.StockList.StockListSubEntity;
 import com.lianchuangjie.lianchuangjie.vo.StockList.StockListSubVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
 
 @Mapper
@@ -17,4 +18,6 @@ public interface StockListSubMapper extends BaseMapper<StockListSubEntity> {
     IPage<StockListSubVO> selectList(Page<StockListSubVO> page, @Param("sc") StockListSubSearchDTO searchCondition);
 
     Boolean complete(@Param("da") StockListCompleteDTO item);
+    
+    void match(@Param("DocEntry") Long docEntry);
 }
