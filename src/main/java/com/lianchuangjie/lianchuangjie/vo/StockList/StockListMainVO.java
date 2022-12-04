@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
@@ -32,4 +33,13 @@ public class StockListMainVO {
     // 处理情况
     @JsonProperty("Status")
     private String status;
+    // 建议数量
+    @JsonProperty("SuggestionQty")
+    private BigDecimal suggestionQty;
+    // 现有库存数量
+    @JsonProperty("SQuantity")
+    private BigDecimal SQuantity;
+    // 近两周询价次数
+    @JsonProperty("EnquiryCount")
+    private BigDecimal enquiryCount;
 }

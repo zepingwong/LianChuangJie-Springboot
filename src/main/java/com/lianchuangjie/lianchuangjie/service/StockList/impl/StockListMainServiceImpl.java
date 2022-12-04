@@ -19,7 +19,7 @@ public class StockListMainServiceImpl extends ServiceImpl<StockListMainMapper, S
     @Override
     public Page<StockListMainVO> list(StockListMainSearchDTO searchCondition) {
         Page<StockListMainVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
-        page.addOrder(OrderItem.desc("U_StockList.CreateDate"));
+        page.addOrder(OrderItem.desc("T.CreateDate"));
         stockListMainMapper.selectList(page, searchCondition);
         return page;
     }
