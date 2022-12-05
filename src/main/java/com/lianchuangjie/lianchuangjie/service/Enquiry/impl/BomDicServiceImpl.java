@@ -69,4 +69,9 @@ public class BomDicServiceImpl extends ServiceImpl<BomDicMapper, BomHeadDicEntit
         EnquiryError.DUPLICATE_ERROR.assertIsTrue(bomDicMapper.selectCount(queryWrapper) > 0);
         return bomDicMapper.insert(bomHeadDicEntity) == 1;
     }
+
+    @Override
+    public boolean save(BomHeadDicDTO bomHeadDicDTO) {
+        return false;
+    }
 }
