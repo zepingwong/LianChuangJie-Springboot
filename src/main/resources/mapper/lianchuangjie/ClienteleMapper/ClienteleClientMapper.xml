@@ -66,6 +66,7 @@
 
         SELECT
             T0.*,
+            T1.UserName                                                                        AS 'OwnerName', /*销售员姓名*/
             T5.DoMain,/*客户地区名称*/
             T6.Name                                                                            AS 'U_GroupName', /*客户性质名称*/
             T6.U_ShortName                                                                     AS 'U_ShortName', /*客户性质简称*/

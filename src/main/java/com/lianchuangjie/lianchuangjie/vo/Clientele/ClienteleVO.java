@@ -30,6 +30,9 @@ public class ClienteleVO {
     // 业务合作伙伴所属人编号 OwnerCode
     @JsonProperty("OwnerCode")
     private Long ownerCode;
+    // 业务合作伙伴所属人姓名 OwnerName
+    @JsonProperty("OwnerName")
+    private String ownerName;
     // U_Level
     @JsonProperty("U_Level")
     private Integer uLevel;

@@ -120,4 +120,7 @@ public class EnquiryMatchItemDTO {
     // 税率代码
     @JsonProperty("VatGroup")
     private String vatGroup;
+    // 直接定价价格
+    @JsonProperty("PriceAfVAT")
+    private BigDecimal priceAfVAT;
 }

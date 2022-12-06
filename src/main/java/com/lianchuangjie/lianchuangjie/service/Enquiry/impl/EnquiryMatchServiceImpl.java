@@ -103,25 +103,23 @@ public class EnquiryMatchServiceImpl implements EnquiryMatchService {
             if (item.getStatus().equals("E")) {
                 redisUtil.setString("DocEntry_" + docEntry, item.getBuyer());
             }
-            if (!Objects.equals(item.getMatch(), "未匹配到")) {
-                // 设置询价单编号与主表相同
-                enquirySubEntity.setDocEntry(docEntry);
-                // LineNum 连续编号
-                enquirySubEntity.setLineNum(lineNum);
-                if (Objects.equals(item.getMatch(), "关联型号")) {
-                    // 关联型号 ItemId 相同, 等于该组的第一个LineNum（ItemId 不等于 LineNum）
-                    enquirySubEntity.setItemId(lineNum - 1);
-                } else {
-                    // 非关联型号 ItemId 与 LineNum 相同
-                    enquirySubEntity.setItemId(lineNum);
-                }
-                // 如果是老客户,自动标记为重点询价,重点询价说明为 “以前下过单！”,标记重点询价用户为当前销售员
-                if (enquiryMatchHead.getOldCustomer().equals("Y")) {
-                    enquirySubEntity.setKeyUser(user.getUserSign());
-                }
-                saveList.add(enquirySubEntity);
-                lineNum++;
+            // 设置询价单编号与主表相同
+            enquirySubEntity.setDocEntry(docEntry);
+            // LineNum 连续编号
+            enquirySubEntity.setLineNum(lineNum);
+            if (Objects.equals(item.getMatch(), "关联型号")) {
+                // 关联型号 ItemId 相同, 等于该组的第一个LineNum（ItemId 不等于 LineNum）
+                enquirySubEntity.setItemId(lineNum - 1);
+            } else {
+                // 非关联型号 ItemId 与 LineNum 相同
+                enquirySubEntity.setItemId(lineNum);
             }
+            // 如果是老客户,自动标记为重点询价,重点询价说明为 “以前下过单！”,标记重点询价用户为当前销售员
+            if (enquiryMatchHead.getOldCustomer().equals("Y")) {
+                enquirySubEntity.setKeyUser(user.getUserSign());
+            }
+            saveList.add(enquirySubEntity);
+            lineNum++;
         }
         enquirySubService.saveBatch(saveList);
         /*
