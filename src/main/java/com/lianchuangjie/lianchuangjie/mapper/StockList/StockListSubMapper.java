@@ -6,11 +6,14 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lianchuangjie.lianchuangjie.dto.StockList.StockListCompleteDTO;
 import com.lianchuangjie.lianchuangjie.dto.StockList.StockListSubSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.StockList.StockListSubEntity;
+import com.lianchuangjie.lianchuangjie.vo.StockList.StockListExportVO;
 import com.lianchuangjie.lianchuangjie.vo.StockList.StockListSubVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Mapper
 @Repository
@@ -20,4 +23,6 @@ public interface StockListSubMapper extends BaseMapper<StockListSubEntity> {
     Boolean complete(@Param("da") StockListCompleteDTO item);
     
     void match(@Param("DocEntry") Long docEntry);
+
+    List<StockListExportVO> export(@Param("DocEntry") Long docEntry, @Param("type") Integer type);
 }

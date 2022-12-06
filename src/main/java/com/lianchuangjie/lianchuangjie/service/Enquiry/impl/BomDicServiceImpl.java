@@ -58,20 +58,42 @@ public class BomDicServiceImpl extends ServiceImpl<BomDicMapper, BomHeadDicEntit
     }
 
     @Override
-    public boolean add(BomHeadDicDTO bomHeadDicDTO) {
+    public BomHeadDictVO add(BomHeadDicDTO bomHeadDicDTO) {
         BomHeadDicEntity bomHeadDicEntity = new BomHeadDicEntity();
         BeanUtil.copyProperties(bomHeadDicDTO, bomHeadDicEntity);
         bomHeadDicEntity.setCreateDate(new Date());
+        AssertDuplicated(bomHeadDicDTO);
+        BomHeadDictVO bomHeadDictVO = new BomHeadDictVO();
+        if (bomDicMapper.insert(bomHeadDicEntity) == 1) {
+            BeanUtil.copyProperties(bomHeadDicEntity, bomHeadDictVO);
+            return bomHeadDictVO;
+        } else {
+            EnquiryError.SAVE_ERROR.assertIsTrue(true);
+        }
+        return null;
+    }
+
+    @Override
+    public BomHeadDictVO save(BomHeadDicDTO bomHeadDicDTO) {
+        BomHeadDicEntity bomHeadDicEntity = bomDicMapper.selectById(bomHeadDicDTO.getDocEntry());
+        BeanUtil.copyProperties(bomHeadDicDTO, bomHeadDicEntity);
+        bomHeadDicEntity.setUpdateDate(new Date());
+        AssertDuplicated(bomHeadDicDTO);
+        BomHeadDictVO bomHeadDictVO = new BomHeadDictVO();
+        if (bomDicMapper.updateById(bomHeadDicEntity) == 1) {
+            BeanUtil.copyProperties(bomHeadDicEntity, bomHeadDictVO);
+            return bomHeadDictVO;
+        } else {
+            EnquiryError.SAVE_ERROR.assertIsTrue(true);
+        }
+        return null;
+    }
+
+    private void AssertDuplicated(BomHeadDicDTO bomHeadDicDTO) {
         QueryWrapper<BomHeadDicEntity> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("DicKey", bomHeadDicDTO.getDicKey());
         queryWrapper.eq("Value", bomHeadDicDTO.getValue());
         queryWrapper.eq("IsDeleted", "N");
         EnquiryError.DUPLICATE_ERROR.assertIsTrue(bomDicMapper.selectCount(queryWrapper) > 0);
-        return bomDicMapper.insert(bomHeadDicEntity) == 1;
-    }
-
-    @Override
-    public boolean save(BomHeadDicDTO bomHeadDicDTO) {
-        return false;
     }
 }

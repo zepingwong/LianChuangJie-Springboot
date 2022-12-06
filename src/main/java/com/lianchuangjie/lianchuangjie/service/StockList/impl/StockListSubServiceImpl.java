@@ -8,6 +8,7 @@ import com.lianchuangjie.lianchuangjie.dto.StockList.StockListSubSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.StockList.StockListSubEntity;
 import com.lianchuangjie.lianchuangjie.mapper.StockList.StockListSubMapper;
 import com.lianchuangjie.lianchuangjie.service.StockList.StockListSubService;
+import com.lianchuangjie.lianchuangjie.vo.StockList.StockListExportVO;
 import com.lianchuangjie.lianchuangjie.vo.StockList.StockListSubVO;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,7 @@ import java.util.List;
 public class StockListSubServiceImpl extends ServiceImpl<StockListSubMapper, StockListSubEntity> implements StockListSubService {
     @Resource
     StockListSubMapper stockListSubMapper;
+
     @Override
     public Page<StockListSubVO> list(StockListSubSearchDTO searchCondition) {
         Page<StockListSubVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
@@ -32,5 +34,10 @@ public class StockListSubServiceImpl extends ServiceImpl<StockListSubMapper, Sto
             stockListSubMapper.complete(item);
         }
         return null;
+    }
+
+    @Override
+    public List<StockListExportVO> export(Long docEntry, Integer type) {
+        return stockListSubMapper.export(docEntry, type);
     }
 }

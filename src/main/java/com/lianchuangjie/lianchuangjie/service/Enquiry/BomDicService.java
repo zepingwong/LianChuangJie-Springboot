@@ -16,6 +16,6 @@ public interface BomDicService extends IService<BomHeadDicEntity> {
     List<String> getQuantityNameList();
 
     Page<BomHeadDictVO> getList(BomHeadDictSearchDTO bomHeadDictSearchDTO);
-    boolean add(BomHeadDicDTO bomHeadDicDTO);
-    boolean save(BomHeadDicDTO bomHeadDicDTO);
+    BomHeadDictVO add(BomHeadDicDTO bomHeadDicDTO);
+    BomHeadDictVO save(BomHeadDicDTO bomHeadDicDTO);
 }

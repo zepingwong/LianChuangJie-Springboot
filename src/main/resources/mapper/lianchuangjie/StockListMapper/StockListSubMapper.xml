@@ -201,4 +201,11 @@
         ) TT
 
     </select>
+    <select id="export" resultType="com.lianchuangjie.lianchuangjie.vo.StockList.StockListExportVO">
+        SELECT *
+        FROM U_StockList1
+        <where>
+            U_StockList1.DocEntry=${DocEntry}
+        </where>
+    </select>
 </mapper>
