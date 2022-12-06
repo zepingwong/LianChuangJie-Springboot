@@ -23,7 +23,7 @@ public class StockListSubServiceImpl extends ServiceImpl<StockListSubMapper, Sto
     @Override
     public Page<StockListSubVO> list(StockListSubSearchDTO searchCondition) {
         Page<StockListSubVO> page = Page.of(searchCondition.getPage(), searchCondition.getSize());
-        page.addOrder(OrderItem.asc("U_StockList1.LineNum"));
+        page.addOrder(OrderItem.asc("TT.LineNum"));
         stockListSubMapper.selectList(page, searchCondition);
         return page;
     }

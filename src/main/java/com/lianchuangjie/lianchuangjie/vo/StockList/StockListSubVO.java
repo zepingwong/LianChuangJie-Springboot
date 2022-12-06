@@ -43,9 +43,9 @@ public class StockListSubVO {
     // kc_price_final 最近一次库存定价
     @JsonProperty("kc_price_final")
     private BigDecimal kcPriceFinal;
-    // 最近一次采购报价
-    @JsonProperty("U_QuoPrice")
-    private BigDecimal uQuoPrice;
+    // 最近一次采购价
+    @JsonProperty("U_PriceAfVAT")
+    private BigDecimal uPriceAfVAT;
     // 现有库存数量
     @JsonProperty("StockQuantity")
     private BigDecimal stockQuantity;

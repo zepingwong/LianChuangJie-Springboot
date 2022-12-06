@@ -35,7 +35,7 @@
                 ISNULL(OpenQuantity.OpenQty, 0) AS OpenQty, /*在途库存数量*/
                 LatestStockPrice.kc_price_final, /*最近一次库存定价*/
                 U_StockRank.DocEntry AS StockRank, /*库存排名*/
-                LatestQuotation.U_QuoPrice, /*最近一次采购报价*/
+                Round(LatestPurchasePrice.U_PriceAfVAT, 2) AS U_PriceAfVAT, /*最近一次采购价*/
                 CEILING(
                     /*（最近三个月贸易商询价数量-最近三个月贸易商成单数量）*0.7+（最近三个月终端客户询价数量-最近三个月终端客户成单数量）*/
                     (ISNULL(InquiryDemandQty1, 0) - ISNULL(ORDR1.SumQuantity, 0)) * 0.7 +
@@ -52,10 +52,13 @@
                 <where>
                      U_StockList1.DocEntry = ${sc.docEntry}
                     <if test="sc.modle != null">
-                        AND U_StockList1.Modle = #{sc.modle}
+                        AND U_StockList1.Modle LIKE CONCAT ('%', #{sc.modle}, '%')
                     </if>
                     <if test="sc.brand != null">
-                        AND U_StockList1.Brand = #{sc.brand}
+                        AND U_StockList1.Brand LIKE CONCAT ('%', #{sc.brand}, '%')
+                    </if>
+                    <if test="sc.status != null">
+                        AND U_StockList1.Status = #{sc.status}
                     </if>
                 </where>
             ) T
@@ -64,20 +67,20 @@
                 SELECT
                     U_ZNL1.ItemName,
                     U_ZNL1.Brand,
-                    U_ZNL1.SEOQty /*搜索次数（30天内）*/
+                    U_ZNL1.SEOQty
                 FROM (
                     SELECT
-                        MAX ( U_OZNL.CreateDate ) AS CreateDate,
                         U_ZNL1.ItemName,
-                        U_ZNL1.Brand
+                        U_ZNL1.Brand,
+                        MAX(U_ZNL1.DocEntry) AS DocEntry
                     FROM U_ZNL1
-                    LEFT JOIN U_OZNL ON U_OZNL.DocEntry = U_ZNL1.DocEntry
                     GROUP BY
                         U_ZNL1.ItemName,
                         U_ZNL1.Brand
-                ) T
-                LEFT JOIN U_OZNL ON U_OZNL.CreateDate = T.CreateDate
-                LEFT JOIN U_ZNL1 ON U_OZNL.DocEntry = U_ZNL1.DocEntry AND U_ZNL1.ItemName = T.ItemName AND U_ZNL1.Brand = T.Brand
+                ) Latest
+                LEFT JOIN U_ZNL1 ON U_ZNL1.DocEntry = Latest.DocEntry
+                    AND Latest.ItemName = U_ZNL1.ItemName
+                    AND Latest.Brand = U_ZNL1.Brand
             ) ZhengNengLiang ON ZhengNengLiang.ItemName = T.Modle AND ZhengNengLiang.Brand = T.Brand
             /*最近一次定价信息*/
             LEFT JOIN (
@@ -102,31 +105,27 @@
                 AND LastDate.Brand = kc_now.Brand
                 AND LastDate.ConfirmDate = kc_now.ConfirmDate
             ) LatestStockPrice ON LatestStockPrice.Brand = T.Brand AND LatestStockPrice.ItemName = T.Modle
-            /*最近一次采购报价*/
+            /*最近一次采购价*/
             LEFT JOIN (
                 SELECT
-                    T_ICIN1.Modle,
-                    T_ICIN1.Brand,
-                    T_ICIN1.U_QuoPrice,
-                    T_ICIN1.U_QuoDate
+                    T_OPOR1.Dscription,
+                    T_OPOR1.U_Brand,
+                    T_OPOR1.U_PriceAfVAT * T_OPOR.DocRate AS U_PriceAfVAT
                 FROM (
                     SELECT
-                        MAX(U_QuoDate) AS U_QuoDate,
-                        T_ICIN1.Modle,
-                        T_ICIN1.Brand
-                    FROM T_ICIN1
-                    WHERE T_ICIN1.U_QuoDate IS NOT NULL
-                    AND T_ICIN1.U_QuoPrice IS NOT NULL
+                        MAX(DocEntry) AS DocEntry,
+                        U_Brand,
+                        Dscription
+                    FROM T_OPOR1
                     GROUP BY
-                        T_ICIN1.Modle,
-                        T_ICIN1.Brand
-                ) LastDate
-                LEFT JOIN T_ICIN1 ON LastDate.Brand = T_ICIN1.Brand
-                     AND LastDate.Modle = T_ICIN1.Modle
-                     AND LastDate.U_QuoDate = T_ICIN1.U_QuoDate
-                WHERE T_ICIN1.U_QuoDate IS NOT NULL
-                AND T_ICIN1.U_QuoPrice IS NOT NULL
-            ) LatestQuotation ON LatestQuotation.Brand = T.Brand AND LatestQuotation.Modle = T.Modle
+                        U_Brand,
+                        Dscription
+                ) Latest
+                LEFT JOIN T_OPOR ON T_OPOR.DocEntry = Latest.DocEntry
+                LEFT JOIN T_OPOR1 ON Latest.Dscription = T_OPOR1.U_ItemName
+                    AND Latest.U_Brand = T_OPOR1.U_Brand
+                    AND T_OPOR1.DocEntry = Latest.DocEntry
+            ) LatestPurchasePrice ON LatestPurchasePrice.U_Brand = T.Brand AND LatestPurchasePrice.Dscription = T.Modle
             /*各型号品牌现有库存数量*/
             LEFT JOIN (
                 SELECT
@@ -199,7 +198,34 @@
                     T_ORDR1.Dscription
             ) ORDR2 ON ORDR2.U_Brand = T.Brand AND ORDR2.Dscription = T.Modle /*终端客户成交数量*/
         ) TT
-
+        <where>
+            1=1
+            <if test="sc.stockRank != null">
+                AND TT.StockRank &lt;= ${sc.stockRank}
+            </if>
+            <if test="sc.price != null">
+                AND TT.U_PriceAfVAT IS NOT NULL
+                AND TT.Price &lt;= ${sc.price} * TT.U_PriceAfVAT
+            </if>
+            <if test='sc.openQty == "Y"'>
+                AND TT.OpenQty = 0
+            </if>
+            <if test='sc.openQty == "N"'>
+                AND TT.OpenQty > 0
+            </if>
+            <if test='sc.suggestionQty == "Y"'>
+                AND TT.OpenQty = 0
+            </if>
+            <if test='sc.suggestionQty == "N"'>
+                AND TT.OpenQty > 0
+            </if>
+            <if test='sc.popularModle == "Y"'>
+                AND TT.SEOQty >= 500
+            </if>
+            <if test='sc.popularModle == "N"'>
+                AND TT.SEOQty &lt; 500
+            </if>
+    </where>
     </select>
     <select id="export" resultType="com.lianchuangjie.lianchuangjie.vo.StockList.StockListExportVO">
         SELECT *

@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,4 +20,16 @@ public class StockListSubSearchDTO {
     private String modle;
     // 品牌
     private String brand;
+    // 库存排名
+    private Long stockRank;
+    // 供应商报价
+    private BigDecimal price;
+    // 处理情况
+    private String status;
+    // 在途库存
+    private String openQty;
+    // 建议补货数量
+    private String suggestionQty;
+    // 热门料
+    private String popularModle;
 }

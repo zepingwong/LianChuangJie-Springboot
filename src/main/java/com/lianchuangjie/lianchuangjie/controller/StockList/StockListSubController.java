@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.util.Date;
 import java.util.List;
@@ -50,6 +51,12 @@ public class StockListSubController {
             @RequestParam(defaultValue = "#{null}", value = "size") Integer size,
             @RequestParam(defaultValue = "#{null}", value = "Modle") String modle,
             @RequestParam(defaultValue = "#{null}", value = "Brand") String brand,
+            @RequestParam(defaultValue = "#{null}", value = "StockRank") Long stockRank,
+            @RequestParam(defaultValue = "#{null}", value = "Price") BigDecimal price,
+            @RequestParam(defaultValue = "#{null}", value = "Status") String status,
+            @RequestParam(defaultValue = "#{null}", value = "OpenQty") String openQty,
+            @RequestParam(defaultValue = "#{null}", value = "SuggestionQty") String suggestionQty,
+            @RequestParam(defaultValue = "#{null}", value = "PopularModle") String popularModle,
             @PathVariable Long docEntry
     ) {
         StockListSubSearchDTO stockListSubSearchDTO = new StockListSubSearchDTO(
@@ -57,7 +64,13 @@ public class StockListSubController {
                 size,
                 docEntry,
                 modle,
-                brand
+                brand,
+                stockRank,
+                price,
+                status,
+                openQty,
+                suggestionQty,
+                popularModle
         );
         Page<StockListSubVO> pages = stockListSubService.list(stockListSubSearchDTO);
         return Result.success(pages, "Success");
