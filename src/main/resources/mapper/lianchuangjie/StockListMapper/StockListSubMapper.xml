@@ -228,10 +228,187 @@
     </where>
     </select>
     <select id="export" resultType="com.lianchuangjie.lianchuangjie.vo.StockList.StockListExportVO">
-        SELECT *
-        FROM U_StockList1
-        <where>
-            U_StockList1.DocEntry=${DocEntry}
-        </where>
+        SELECT
+            TT.*,
+            IIF(TT._SuggestionQty &lt; 0, 0, TT._SuggestionQty) AS SuggestionQty /*建议补货数量*/
+        FROM (
+            SELECT
+                T.DocEntry, /*文档编号*/
+                T.LineNum, /*行号*/
+                T.Modle, /*型号*/
+                T.Brand, /*品牌*/
+                T.Price, /*单价*/
+                T.Quantity, /*数量*/
+                T.Year, /*批次*/
+                T.Status, /*状态*/
+                T.sno, /*匹配型号*/
+                T.Remark, /*备注*/
+                ISNULL(ZhengNengLiang.SEOQty, 0) AS SEOQty, /*正能量近30天搜索次数*/
+                ISNULL(StockQuantity.Quantity, 0) AS StockQuantity, /*现有库存数量*/
+                ISNULL(OpenQuantity.OpenQty, 0) AS OpenQty, /*在途库存数量*/
+                LatestStockPrice.kc_price_final, /*最近一次库存定价*/
+                U_StockRank.DocEntry AS StockRank, /*库存排名*/
+                Round(LatestPurchasePrice.U_PriceAfVAT, 2) AS U_PriceAfVAT, /*最近一次采购价*/
+                CEILING(
+                /*（最近三个月贸易商询价数量-最近三个月贸易商成单数量）*0.7+（最近三个月终端客户询价数量-最近三个月终端客户成单数量）*/
+                (ISNULL(InquiryDemandQty1, 0) - ISNULL(ORDR1.SumQuantity, 0)) * 0.7 +
+                (ISNULL(InquiryDemandQty2, 0) - ISNULL(ORDR2.SumQuantity, 0)) +
+                /*近三个月成单数量*/
+                ISNULL(ORDR2.SumQuantity + ORDR1.SumQuantity, 0) -
+                /*在途库存数量*/
+                ISNULL(OpenQuantity.OpenQty, 0) -
+                /*现有库存数量*/
+                ISNULL(StockQuantity.Quantity, 0)
+            ) AS '_SuggestionQty' /*建议补货数量*/
+            FROM (
+                SELECT * FROM U_StockList1
+                <where>
+                    U_StockList1.DocEntry = ${DocEntry}
+                    <if test="type == 2">
+                        AND U_StockList1.Status = 'Y'
+                    </if>
+                </where>
+            ) T
+            /*正能量搜索次数*/
+            LEFT JOIN (
+                SELECT
+                    U_ZNL1.ItemName,
+                    U_ZNL1.Brand,
+                    U_ZNL1.SEOQty
+                FROM (
+                    SELECT
+                        U_ZNL1.ItemName,
+                        U_ZNL1.Brand,
+                        MAX(U_ZNL1.DocEntry) AS DocEntry
+                    FROM U_ZNL1
+                    GROUP BY
+                        U_ZNL1.ItemName,
+                        U_ZNL1.Brand
+                ) Latest
+                LEFT JOIN U_ZNL1 ON U_ZNL1.DocEntry = Latest.DocEntry
+                AND Latest.ItemName = U_ZNL1.ItemName
+                AND Latest.Brand = U_ZNL1.Brand
+            ) ZhengNengLiang ON ZhengNengLiang.ItemName = T.Modle AND ZhengNengLiang.Brand = T.Brand
+            /*最近一次定价信息*/
+            LEFT JOIN (
+                SELECT DISTINCT
+                    kc_now.Brand,
+                    kc_now.ItemName,
+                    kc_now.kc_price_final,
+                    kc_now.ConfirmDate
+                FROM (
+                    SELECT
+                        ItemName,
+                        Brand,
+                        MAX ( ConfirmDate ) AS ConfirmDate
+                    FROM kc_now
+                    WHERE Modify = 'Y'
+                    AND kc_price_final IS NOT NULL
+                    GROUP BY
+                        ItemName,
+                        Brand
+                ) LastDate
+                LEFT JOIN kc_now ON kc_now.ItemName = LastDate.ItemName
+                AND LastDate.Brand = kc_now.Brand
+                AND LastDate.ConfirmDate = kc_now.ConfirmDate
+            ) LatestStockPrice ON LatestStockPrice.Brand = T.Brand AND LatestStockPrice.ItemName = T.Modle
+            /*最近一次采购价*/
+            LEFT JOIN (
+                SELECT
+                    T_OPOR1.Dscription,
+                    T_OPOR1.U_Brand,
+                    T_OPOR1.U_PriceAfVAT * T_OPOR.DocRate AS U_PriceAfVAT
+                FROM (
+                    SELECT
+                        MAX(DocEntry) AS DocEntry,
+                        U_Brand,
+                        Dscription
+                    FROM T_OPOR1
+                    GROUP BY
+                        U_Brand,
+                        Dscription
+                ) Latest
+                LEFT JOIN T_OPOR ON T_OPOR.DocEntry = Latest.DocEntry
+                LEFT JOIN T_OPOR1 ON Latest.Dscription = T_OPOR1.U_ItemName
+                AND Latest.U_Brand = T_OPOR1.U_Brand
+                AND T_OPOR1.DocEntry = Latest.DocEntry
+            ) LatestPurchasePrice ON LatestPurchasePrice.U_Brand = T.Brand AND LatestPurchasePrice.Dscription = T.Modle
+            /*各型号品牌现有库存数量*/
+            LEFT JOIN (
+                SELECT
+                    T_OBTN.ItemName,
+                    StockBrand.Brand,
+                SUM(
+                    CASE
+                    WHEN T.Quantity = 0 THEN 0
+                    WHEN T.Quantity &lt; T_OBTN.U_LockQty THEN T.Quantity
+                    ELSE T_OBTN.U_LockQty
+                    END
+                ) AS Quantity
+                FROM (
+                    SELECT
+                        MdAbsEntry,
+                        SUM(Quantity) AS Quantity
+                    FROM T_OBTQ
+                    GROUP BY MdAbsEntry
+                ) T
+                INNER JOIN T_OBTN ON T.MdAbsEntry = T_OBTN.AbsEntry
+                LEFT JOIN (
+                    /*通过物料编码字段 匹配 T_OITM（物料主数据表）的品牌*/
+                    SELECT
+                    T_OBTN.ItemName,
+                    IIF(ISNULL(T_OITM.U_QuoBrand, '') = '', T_OITM.U_Brand, T_OITM.U_QuoBrand) AS Brand
+                    FROM T_OBTN
+                    INNER JOIN T_OITM ON T_OBTN.ItemCode = T_OITM.ItemCode
+                ) StockBrand ON StockBrand.ItemName = T_OBTN.ItemName
+                GROUP BY
+                    T_OBTN.ItemName,
+                    StockBrand.Brand
+            ) StockQuantity ON StockQuantity.ItemName = T.Modle AND StockQuantity.Brand = T.Brand
+            /*在途库存*/
+            LEFT JOIN (
+                SELECT
+                    T_OPOR1.Dscription,
+                    T_OPOR1.U_Brand,
+                    SUM(T_OPOR1.OpenQty) AS OpenQty
+                FROM T_OPOR1
+                WHERE U_AreaType = 2
+                AND LineStatus = 'O'
+                GROUP BY
+                    T_OPOR1.Dscription,
+                    T_OPOR1.U_Brand
+            ) OpenQuantity ON OpenQuantity.Dscription = T.Modle AND OpenQuantity.U_Brand = T.Brand
+            /*库存排名*/
+            LEFT JOIN U_StockRank ON U_StockRank.Modle = T.Modle AND U_StockRank.Brand = T.Brand
+            /*近三个月贸易商成交数量*/
+            LEFT JOIN (
+                SELECT
+                    SUM(T_ORDR1.Quantity) AS SumQuantity, /*销售数量*/
+                    T_ORDR1.U_Brand,
+                    T_ORDR1.Dscription
+                FROM T_ORDR1
+                LEFT JOIN T_ORDR ON T_ORDR.DocEntry = T_ORDR1.DocEntry
+                WHERE T_ORDR.U_GroupName IN (N'其它', N'一般贸易商', N'关系型贸易商')
+                AND DATEDIFF(MONTH, T_ORDR.DocDate, GETDATE()) &lt;= 2
+                GROUP BY
+                    T_ORDR1.U_Brand,
+                    T_ORDR1.Dscription
+            ) ORDR1 ON ORDR1.U_Brand = T.Brand AND ORDR1.Dscription = T.Modle /*贸易商成交数量*/
+            /*近三个月终端客户成交数量*/
+            LEFT JOIN (
+                SELECT
+                    SUM(T_ORDR1.Quantity) AS SumQuantity, /*销售数量*/
+                    T_ORDR1.U_Brand,
+                    T_ORDR1.Dscription
+                FROM T_ORDR1
+                LEFT JOIN T_ORDR ON T_ORDR.DocEntry = T_ORDR1.DocEntry
+                WHERE T_ORDR.U_GroupName IN (N'其它', N'一般贸易商', N'关系型贸易商')
+                AND DATEDIFF(MONTH, T_ORDR.DocDate, GETDATE()) &lt;= 2
+                GROUP BY
+                    T_ORDR1.U_Brand,
+                    T_ORDR1.Dscription
+            ) ORDR2 ON ORDR2.U_Brand = T.Brand AND ORDR2.Dscription = T.Modle /*终端客户成交数量*/
+        ) TT
+        ORDER BY TT.LineNum
     </select>
 </mapper>

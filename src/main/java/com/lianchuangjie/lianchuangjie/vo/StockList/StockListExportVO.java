@@ -31,8 +31,8 @@ public class StockListExportVO {
     private String status;
     // kc_price_final 最近一次库存定价
     private BigDecimal kcPriceFinal;
-    // 最近一次采购报价
-    private BigDecimal uQuoPrice;
+    // 最近一次采购价
+    private BigDecimal uPriceAfVAT;
     // 现有库存数量
     private BigDecimal stockQuantity;
     // 建议补货数量

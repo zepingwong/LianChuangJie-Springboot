@@ -84,17 +84,19 @@ public class StockListSubController {
         Boolean res = stockListSubService.complete(stockListCompleteDTOList);
         return Result.success(res, "Success");
     }
-    @GetMapping("/list/export/{docEntry}")
+
+    @GetMapping("/list/export")
     @Authentication()
     public void stockListExportController(
-            @PathVariable Long docEntry,
+            @RequestParam(defaultValue = "#{null}", value = "DocEntry") Long docEntry,
+            @RequestParam(defaultValue = "#{null}", value = "ExportType") Integer exportType,
             HttpServletResponse response
     ) {
         try {
             // 获取导出数据
-            List<StockListExportVO> exportData = stockListSubService.export(docEntry, 0);
+            List<StockListExportVO> exportData = stockListSubService.export(docEntry, exportType);
             // 获取模板
-            ClassPathResource classPathResource = new ClassPathResource(File.separator + "templates" + File.separator + "Bom单标准化.xlsx");
+            ClassPathResource classPathResource = new ClassPathResource(File.separator + "templates" + File.separator + "库存清单导出模板.xlsx");
             InputStream inputStream = classPathResource.getInputStream();
             ExcelWriter excelWriter;
             excelWriter = EasyExcel
@@ -104,7 +106,7 @@ public class StockListSubController {
             WriteSheet writeSheet = EasyExcel.writerSheet().build();
             FillConfig fillConfig = FillConfig.builder().forceNewRow(Boolean.TRUE).build();
             excelWriter.fill(exportData, fillConfig, writeSheet);
-            String fileName = URLEncoder.encode("Bom单标准化结果" + new Date(), "UTF-8").replaceAll("\\+", "%20");
+            String fileName = URLEncoder.encode("库存清单导出结果" + new Date(), "UTF-8").replaceAll("\\+", "%20");
             response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
             response.setCharacterEncoding("utf-8");
             response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName + ".xlsx");
