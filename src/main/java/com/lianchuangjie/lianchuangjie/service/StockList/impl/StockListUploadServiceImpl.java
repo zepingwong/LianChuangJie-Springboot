@@ -4,12 +4,15 @@ package com.lianchuangjie.lianchuangjie.service.StockList.impl;
 import com.alibaba.excel.EasyExcel;
 import com.lianchuangjie.lianchuangjie.dto.StockList.SupplierInfoDTO;
 import com.lianchuangjie.lianchuangjie.entity.StockList.StockListMainEntity;
+import com.lianchuangjie.lianchuangjie.entity.StockList.StockListRecordEntity;
 import com.lianchuangjie.lianchuangjie.entity.StockList.StockListSubEntity;
 import com.lianchuangjie.lianchuangjie.excel.StockListListener;
 import com.lianchuangjie.lianchuangjie.exception.Business.ResponseEnum;
+import com.lianchuangjie.lianchuangjie.mapper.StockList.StockListRecordMapper;
 import com.lianchuangjie.lianchuangjie.mapper.StockList.StockListSubMapper;
 import com.lianchuangjie.lianchuangjie.service.Clientele.SupplierService;
 import com.lianchuangjie.lianchuangjie.service.StockList.StockListMainService;
+import com.lianchuangjie.lianchuangjie.service.StockList.StockListRecordService;
 import com.lianchuangjie.lianchuangjie.service.StockList.StockListSubService;
 import com.lianchuangjie.lianchuangjie.service.StockList.StockListUploadService;
 import com.lianchuangjie.lianchuangjie.vo.Clientele.ClienteleVO;
@@ -27,9 +30,9 @@ public class StockListUploadServiceImpl implements StockListUploadService {
     @Resource
     StockListMainService stockListMainService;
     @Resource
-    StockListSubService stockListSubService;
+    StockListRecordService stockListRecordService;
     @Resource
-    StockListSubMapper stockListSubMapper;
+    StockListRecordMapper stockListRecordMapper;
     @Resource
     SupplierService supplierService;
     @Override
@@ -56,12 +59,12 @@ public class StockListUploadServiceImpl implements StockListUploadService {
             stockListMainEntity.setCreateDate(new Date()); // 发送时间
             stockListMainService.save(stockListMainEntity);
             log.info("保存库存清单主表成功 {}", stockListMainEntity);
-            List<StockListSubEntity> stockListSubEntityList = listener.getStockListSubList();
+            List<StockListRecordEntity> stockListSubEntityList = listener.getStockListSubList();
             stockListSubEntityList.forEach(stockListSubEntity -> stockListSubEntity.setDocEntry(stockListMainEntity.getDocEntry()));
             // 批量保存子表
-            stockListSubService.saveBatch(stockListSubEntityList);
+            stockListRecordService.saveBatch(stockListSubEntityList);
             // 匹配型号
-            stockListSubMapper.match(stockListMainEntity.getDocEntry());
+            stockListRecordMapper.match(stockListMainEntity.getDocEntry());
         } catch (IOException e) {
             e.printStackTrace();
             throw ResponseEnum.UPLOAD_ERROR.newException("上传错误" + e.getMessage());

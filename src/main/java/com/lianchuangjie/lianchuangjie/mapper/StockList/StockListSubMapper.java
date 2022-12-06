@@ -21,8 +21,6 @@ public interface StockListSubMapper extends BaseMapper<StockListSubEntity> {
     IPage<StockListSubVO> selectList(Page<StockListSubVO> page, @Param("sc") StockListSubSearchDTO searchCondition);
 
     Boolean complete(@Param("da") StockListCompleteDTO item);
-    
-    void match(@Param("DocEntry") Long docEntry);
 
     List<StockListExportVO> export(@Param("DocEntry") Long docEntry, @Param("type") Integer type);
 }

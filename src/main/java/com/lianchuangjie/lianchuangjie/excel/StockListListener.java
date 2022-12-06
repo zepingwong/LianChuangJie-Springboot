@@ -3,7 +3,7 @@ package com.lianchuangjie.lianchuangjie.excel;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 import com.alibaba.fastjson.JSON;
-import com.lianchuangjie.lianchuangjie.entity.StockList.StockListSubEntity;
+import com.lianchuangjie.lianchuangjie.entity.StockList.StockListRecordEntity;
 import com.lianchuangjie.lianchuangjie.exception.StockList.StockListError;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -32,9 +32,9 @@ public class StockListListener extends AnalysisEventListener<Map<Integer, String
     // 标题行
     private Map<Integer, String> titleMap = new HashMap<>();
     // 子表条目
-    private final List<StockListSubEntity> stockListSubEntityList = new ArrayList<>();
+    private final List<StockListRecordEntity> stockListSubEntityList = new ArrayList<>();
 
-    public List<StockListSubEntity> getStockListSubList() {
+    public List<StockListRecordEntity> getStockListSubList() {
         return stockListSubEntityList;
     }
     // 读取首行数据
@@ -52,17 +52,17 @@ public class StockListListener extends AnalysisEventListener<Map<Integer, String
         // 行索引
         int index = analysisContext.readRowHolder().getRowIndex();
         log.debug("解析到第{}行数据：{}", index + 1, dataMap);
-        StockListSubEntity stockListSubEntity = new StockListSubEntity();
-        stockListSubEntity.setLineNum(Long.parseLong( String.valueOf(index + 1)));
-        stockListSubEntity.setBrand(dataMap.get(brandIndex));
-        stockListSubEntity.setModle(dataMap.get(modleIndex));
-        stockListSubEntity.setYear(dataMap.get(yearIndex));
-        stockListSubEntity.setQuantity(BigDecimal.valueOf(Long.parseLong(dataMap.get(quantityIndex))));
-        stockListSubEntity.setPrice(BigDecimal.valueOf(Long.parseLong(dataMap.get(priceIndex))));
+        StockListRecordEntity stockListRecordEntity = new StockListRecordEntity();
+        stockListRecordEntity.setLineNum(Long.parseLong( String.valueOf(index + 1)));
+        stockListRecordEntity.setBrand(dataMap.get(brandIndex));
+        stockListRecordEntity.setModle(dataMap.get(modleIndex));
+        stockListRecordEntity.setYear(dataMap.get(yearIndex));
+        stockListRecordEntity.setQuantity(BigDecimal.valueOf(Long.parseLong(dataMap.get(quantityIndex))));
+        stockListRecordEntity.setPrice(BigDecimal.valueOf(Long.parseLong(dataMap.get(priceIndex))));
         if (remarkIndex != null) {
-            stockListSubEntity.setRemark(dataMap.get(remarkIndex));
+            stockListRecordEntity.setRemark(dataMap.get(remarkIndex));
         }
-        stockListSubEntityList.add(stockListSubEntity);
+        stockListSubEntityList.add(stockListRecordEntity);
     }
 
     @Override

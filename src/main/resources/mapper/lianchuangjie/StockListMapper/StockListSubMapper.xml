@@ -6,14 +6,6 @@
         WHERE U_StockList1.LineNum = #{da.lineNum}
         AND U_StockList1.DocEntry = #{da.docEntry}
     </update>
-    <update id="match">
-        UPDATE U_StockList1
-        SET sno = (
-            SELECT sno FROM SDADA WHERE U_StockList1.Modle = SDADA.sno AND U_StockList1.Brand = SDADA.QuoBrand
-        )
-        WHERE DocEntry = ${DocEntry}
-    </update>
-
     <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.StockList.StockListSubVO">
         SELECT
             TT.*,

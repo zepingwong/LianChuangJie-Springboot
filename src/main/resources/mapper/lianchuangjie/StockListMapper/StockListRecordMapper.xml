@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lianchuangjie.lianchuangjie.mapper.StockList.StockListRecordMapper">
+    <update id="match">
+        INSERT U_StockList1
+        SELECT
+            U_StockList2.*,
+            SDADA.sno,
+            'N' AS Status
+        FROM U_StockList2
+        LEFT JOIN SDADA ON SDADA.sno = U_StockList2.Modle AND SDADA.QuoBrand = U_StockList2.Brand
+        WHERE DocEntry = ${DocEntry}
+
+        DELETE FROM U_StockList2 WHERE DocEntry = ${DocEntry}
+    </update>
+</mapper>

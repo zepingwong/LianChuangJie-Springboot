@@ -4,7 +4,9 @@
 
     <update id="calculate">
         /*库存排名*/
-        DROP TABLE U_StockRank
+        IF EXISTS (SELECT * FROM sys.all_objects WHERE object_id = OBJECT_ID(N'[dbo].[U_StockRank]') AND type IN ('U'))
+            DROP TABLE [dbo].[U_StockRank]
+        GO
         SELECT InitRank.Brand,
                InitRank.Modle,
                InitRank.InquiryDemandQty1, /*近3个月贸易商类型客户询价数量*/
