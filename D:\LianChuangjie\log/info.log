@@ -1,2 +1,0 @@
-2022-12-25 15:39:54.915 INFO  4039 --- [taskExecutor-1] com.lianchuangjie.lianchuangjie.service.Enquiry.impl.EnquiryMatchServiceImpl.lambda$save$0(EnquiryMatchServiceImpl.java:143) ::: 延时进程执行
-2022-12-25 15:39:54.916 INFO  4039 --- [taskExecutor-1] com.lianchuangjie.lianchuangjie.service.Enquiry.impl.EnquiryMatchServiceImpl.lambda$save$0(EnquiryMatchServiceImpl.java:148) ::: 任务结束

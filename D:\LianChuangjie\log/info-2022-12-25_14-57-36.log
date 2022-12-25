@@ -1,6 +1,0 @@
-2022-12-25 14:57:36.234 INFO  3258 --- [http-nio-8080-exec-1] org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) ::: Initializing Spring DispatcherServlet 'dispatcherServlet'
-2022-12-25 14:57:36.235 INFO  3258 --- [http-nio-8080-exec-1] org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:525) ::: Initializing Servlet 'dispatcherServlet'
-2022-12-25 14:57:36.236 INFO  3258 --- [http-nio-8080-exec-1] org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:547) ::: Completed initialization in 1 ms
-2022-12-25 14:57:36.600 INFO  3258 --- [http-nio-8080-exec-1] com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:110) ::: HikariPool-1 - Starting...
-2022-12-25 14:57:36.738 INFO  3258 --- [http-nio-8080-exec-1] com.zaxxer.hikari.pool.PoolBase.getAndSetNetworkTimeout(PoolBase.java:541) ::: HikariPool-1 - Driver does not support get/set network timeout for connections. (null)
-2022-12-25 14:57:36.789 INFO  3258 --- [http-nio-8080-exec-1] com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:123) ::: HikariPool-1 - Start completed.

@@ -1,3 +1,0 @@
-2022-12-23 21:02:41.649 INFO  6283 --- [http-nio-8080-exec-1] org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) ::: Initializing Spring DispatcherServlet 'dispatcherServlet'
-2022-12-23 21:02:41.650 INFO  6283 --- [http-nio-8080-exec-1] org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:525) ::: Initializing Servlet 'dispatcherServlet'
-2022-12-23 21:02:41.651 INFO  6283 --- [http-nio-8080-exec-1] org.springframework.web.servlet.FrameworkServlet.initServletBean(FrameworkServlet.java:547) ::: Completed initialization in 1 ms
