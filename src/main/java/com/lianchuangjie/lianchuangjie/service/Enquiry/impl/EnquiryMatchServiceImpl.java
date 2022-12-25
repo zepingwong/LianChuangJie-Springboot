@@ -90,6 +90,8 @@ public class EnquiryMatchServiceImpl implements EnquiryMatchService {
         // 询价单编号
         Long docEntry = enquiryMainMapper.selectMaxDocEntry() + 1;
         enquiryMainEntity.setDocEntry(docEntry);
+        // 需要云汉报价的需求
+        List<EnquiryMatchItemDTO> yunHanList = new ArrayList<>();
         // 保存询价单主表信息
         boolean res = enquiryMainService.save(enquiryMainEntity);
         // 断言判断是否保存成功
@@ -100,9 +102,6 @@ public class EnquiryMatchServiceImpl implements EnquiryMatchService {
         for (EnquiryMatchItemDTO item : list) {
             EnquirySubEntity enquirySubEntity = new EnquirySubEntity();
             BeanUtils.copyProperties(item, enquirySubEntity);
-            if (item.getStatus().equals("E")) {
-                redisUtil.setString("DocEntry_" + docEntry, item.getBuyer());
-            }
             // 设置询价单编号与主表相同
             enquirySubEntity.setDocEntry(docEntry);
             // LineNum 连续编号
@@ -118,9 +117,17 @@ public class EnquiryMatchServiceImpl implements EnquiryMatchService {
             if (enquiryMatchHead.getOldCustomer().equals("Y")) {
                 enquirySubEntity.setKeyUser(user.getUserSign());
             }
-            saveList.add(enquirySubEntity);
+            // 云汉报价需要等云汉的价格过来
+            if (Objects.equals(item.getStatus(), "E")) {
+                yunHanList.add(item);
+                enquirySubEntity.setBuyer(null);
+                saveList.add(enquirySubEntity);
+            } else {
+                saveList.add(enquirySubEntity);
+            }
             lineNum++;
         }
+        redisUtil.setString("Enquiry_" + docEntry, yunHanList.toString());
         enquirySubService.saveBatch(saveList);
         /*
          * 云汉报价的先不分发给采购

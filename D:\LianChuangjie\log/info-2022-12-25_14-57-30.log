@@ -1,0 +1,10 @@
+2022-12-25 14:57:30.329 WARN  3258 --- [main] org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration.getOrDeducePassword(UserDetailsServiceAutoConfiguration.java:88) ::: 
+
+Using generated security password: 49433c8e-8121-4a98-b63c-f78bcf2c23b0
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2022-12-25 14:57:30.399 INFO  3258 --- [main] org.springframework.security.web.DefaultSecurityFilterChain.<init>(DefaultSecurityFilterChain.java:55) ::: Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@7b14c61, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@8fcc534, org.springframework.security.web.context.SecurityContextPersistenceFilter@57bd6a8f, org.springframework.security.web.header.HeaderWriterFilter@50211483, org.springframework.security.web.authentication.logout.LogoutFilter@c412556, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@517704, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4b195203, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5e599100, org.springframework.security.web.session.SessionManagementFilter@68ea253b, org.springframework.security.web.access.ExceptionTranslationFilter@47a4eee2, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@3757e8e2]
+2022-12-25 14:57:30.771 INFO  3258 --- [main] org.apache.juli.logging.DirectJDKLog.log(DirectJDKLog.java:173) ::: Starting ProtocolHandler ["http-nio-8080"]
+2022-12-25 14:57:30.784 INFO  3258 --- [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:220) ::: Tomcat started on port(s): 8080 (http) with context path ''
+2022-12-25 14:57:30.794 INFO  3258 --- [main] org.springframework.boot.StartupInfoLogger.logStarted(StartupInfoLogger.java:61) ::: Started LianChuangjieApplication in 3.297 seconds (JVM running for 3.768)

@@ -85,16 +85,16 @@
                 FROM T_ICIN
                 <where>
                     T_ICIN.DocStatus = 'O' /*O表示有效、Q表示无效*/
-                    <if test="
-                    sc.cardCode!=null">AND T_ICIN.CardCode = #{sc.cardCode}
+                    <if test="sc.cardCode!=null">
+                        AND T_ICIN.CardCode = #{sc.cardCode}
                     </if>
-                    <if test="
-                    sc.uState!=null">AND T_ICIN.U_State = #{sc.uState}
+                    <if test="sc.uState!=null">
+                        AND T_ICIN.U_State = #{sc.uState}
                     </if>
-                    <if test="sc.InquiryDateStart!=null">
+                    <if test="sc.inquiryDateStart!=null">
                         AND T_ICIN.CreateDate &gt;= #{sc.inquiryDateStart}
                     </if>
-                    <if test="sc.InquiryDateEnd!=null">
+                    <if test="sc.inquiryDateEnd!=null">
                         AND T_ICIN.CreateDate &lt; #{sc.inquiryDateEnd}
                     </if>
                     <if test="sc.invalidDateStart!=null">

@@ -1,0 +1,3 @@
+2022-12-23 20:56:26.432 INFO  6283 --- [background-preinit] org.hibernate.validator.internal.util.Version.<clinit>(Version.java:21) ::: HV000001: Hibernate Validator 6.2.3.Final
+2022-12-23 20:56:26.456 INFO  6283 --- [main] org.springframework.boot.StartupInfoLogger.logStarting(StartupInfoLogger.java:55) ::: Starting LianChuangjieApplication using Java 1.8.0_352 on WANGdeMac-Pro.lan with PID 6283 (/Users/wang/Projects/LianChuangJie/springboot/target/classes started by wang in /Users/wang/Projects/LianChuangJie/springboot)
+2022-12-23 20:56:26.458 INFO  6283 --- [main] org.springframework.boot.SpringApplication.logStartupProfileInfo(SpringApplication.java:640) ::: The following 1 profile is active: "dev"
