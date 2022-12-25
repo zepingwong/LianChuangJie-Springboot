@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lianchuangjie.lianchuangjie.mapper.YunHan.YunHanQueryMapper">
+
+    <insert id="insertQuery">
+        INSERT INTO U_LIPR1(
+            DocEntry,LineNum,keyword,pro_maf,pro_num,BaseEntry,BaseLine,BaseType,CreateDate,LIPS,LIPG
+        )
+        SELECT
+            ISNULL((SELECT MAX(DocEntry) FROM U_LIPR1),0) + 1 AS DocEntry,
+            ROW_NUMBER() OVER ( ORDER BY CustomNeeds.Modle,CustomNeeds.Brand ASC) AS LineNum,
+            LTRIM(Rtrim(CustomNeeds.Modle)) AS keyword,
+            LTRIM(Rtrim(CustomNeeds.Brand)) AS pro_maf,
+            CAST(CustomNeeds.DemandQty AS NUMERIC(18,0)) AS pro_num,
+            #{DocEntry} AS BaseEntry,
+            CustomNeeds.LineNum AS BaseLine,
+            0 AS BaseType,
+            GETDATE() AS CreateDate,
+            'Y' AS LIPS,
+            'Y' AS LIPG
+        FROM (
+            SELECT * FROM U_ICIN1
+            WHERE DocEntry = #{DocEntry}
+            AND Status = 'E'
+        ) CustomNeeds
+    </insert>
+</mapper>

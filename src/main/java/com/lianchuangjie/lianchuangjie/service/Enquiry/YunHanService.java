@@ -9,4 +9,5 @@ public interface YunHanService {
      * @date 11/30/2022
      */
     Boolean runSendToBuyer();
+    Boolean yunHanQuery(Long docEntry);
 }

@@ -129,6 +129,8 @@ public class EnquiryMatchServiceImpl implements EnquiryMatchService {
         }
         redisUtil.setString("Enquiry_" + docEntry, yunHanList.toString());
         enquirySubService.saveBatch(saveList);
+        // 查询云汉价格
+        yunHanService.yunHanQuery(docEntry);
         /*
          * 云汉报价的先不分发给采购
          */
