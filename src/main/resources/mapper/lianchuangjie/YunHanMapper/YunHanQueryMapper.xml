@@ -24,4 +24,7 @@
             AND Status = 'E'
         ) CustomNeeds
     </insert>
+    <update id="sendToBuyer">
+
+    </update>
 </mapper>

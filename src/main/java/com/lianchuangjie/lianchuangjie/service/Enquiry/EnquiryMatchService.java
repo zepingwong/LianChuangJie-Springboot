@@ -27,7 +27,7 @@ public interface EnquiryMatchService {
      * @email zepingwong@gmail.com
      * @date 8/28/2022
      */
-    List<EnquiryMatchItemVO> queryBatch(List<EnquirySingleQueryDTO> enquirySingleQueryDTOList);
+    List<EnquiryMatchItemVO> queryBatch(List<String> enquirySingleQueryDTOList);
     /**
      * @param docEntry docEntry
      * @return BomQueryResVO
