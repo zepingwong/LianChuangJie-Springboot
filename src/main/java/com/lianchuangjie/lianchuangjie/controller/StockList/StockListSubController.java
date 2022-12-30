@@ -33,7 +33,6 @@ import java.util.List;
 public class StockListSubController {
     @Resource
     StockListSubService stockListSubService;
-
     /**
      * @param page     page
      * @param size     size
@@ -79,18 +78,18 @@ public class StockListSubController {
     @PostMapping("/list/select")
     @Authentication(buyer = true)
     public Result<Boolean> stockListSelectController(
-            @RequestBody @Valid List<StockListSelectDTO> stockListCompleteDTOList
+            @RequestBody @Valid List<StockListSelectDTO> stockListSelectDTO
     ) {
-        Boolean res = stockListSubService.select(stockListCompleteDTOList);
+        Boolean res = stockListSubService.select(stockListSelectDTO);
         return Result.success(res, "Success");
     }
 
     @PostMapping("/list/unSelect")
     @Authentication(buyer = true)
     public Result<Boolean> stockListUnSelectController(
-            @RequestBody @Valid List<StockListSelectDTO> stockListCompleteDTOList
+            @RequestBody @Valid List<StockListSelectDTO> stockListSelectDTO
     ) {
-        Boolean res = stockListSubService.unSelect(stockListCompleteDTOList);
+        Boolean res = stockListSubService.unSelect(stockListSelectDTO);
         return Result.success(res, "Success");
     }
 

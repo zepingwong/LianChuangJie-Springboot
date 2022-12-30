@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lianchuangjie.lianchuangjie.mapper.StockList.StockListMainMapper">
-
+    <update id="complete">
+        UPDATE U_StockList SET Status = 'Y' WHERE DocEntry = ${DocEntry}
+    </update>
     <select id="selectList" resultType="com.lianchuangjie.lianchuangjie.vo.StockList.StockListMainVO">
         SELECT
             T.DocEntry,
@@ -10,6 +12,7 @@
             T.CreateDate,
             T.GroupName,
             T.Level,
+            T.Status,
             (T.Currency + '+' + T.VatGroup + '+' + CONVERT(VARCHAR, CAST(T_OVTG.Rate AS FLOAT))) AS 'CurVat',
             T.Currency + '(' + CONVERT(VARCHAR, CAST(T_OVTG.Rate AS FLOAT)) + '%)' AS 'CurRate',
             T.Currency, /*货币类型*/
@@ -140,6 +143,6 @@
                 T_ORDR1.Dscription
             ) ORDR2 ON ORDR2.U_Brand = U_StockRank.Brand AND ORDR2.Dscription = U_StockRank.Modle /*终端客户成交数量*/
         ) StockList1 ON StockList1.DocEntry = T.DocEntry
-        GROUP BY T.DocEntry, T.CardCode, T.CardName, T.CreateDate, T.GroupName, T.Level, StockList1.EnquiryCount, StockList1.SQuantity, T.Currency, T.VatGroup, T_OVTG.Rate
+        GROUP BY T.DocEntry, T.CardCode, T.CardName, T.CreateDate, T.GroupName, T.Level, T.Status,StockList1.EnquiryCount, StockList1.SQuantity, T.Currency, T.VatGroup, T_OVTG.Rate
     </select>
 </mapper>

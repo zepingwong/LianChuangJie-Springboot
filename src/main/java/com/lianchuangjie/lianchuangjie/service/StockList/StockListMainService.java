@@ -8,4 +8,5 @@ import com.lianchuangjie.lianchuangjie.vo.StockList.StockListMainVO;
 
 public interface StockListMainService extends IService<StockListMainEntity> {
     Page<StockListMainVO> list(StockListMainSearchDTO stockListMainSearchDTO);
+    Boolean complete(Long docEntry);
 }
