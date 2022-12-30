@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class StockListCompleteDTO {
+public class StockListSelectDTO {
     @JsonProperty("DocEntry")
     private Long docEntry;
     @JsonProperty("LineNum")
