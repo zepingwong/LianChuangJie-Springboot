@@ -8,6 +8,6 @@ public interface YunHanService {
      * @email zepingwong@gmail.com
      * @date 11/30/2022
      */
-    Boolean runSendToBuyer();
+    Boolean runSendToBuyer(Long docEntry);
     Boolean yunHanQuery(Long docEntry);
 }

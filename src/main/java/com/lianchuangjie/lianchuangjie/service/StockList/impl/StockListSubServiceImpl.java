@@ -3,7 +3,7 @@ package com.lianchuangjie.lianchuangjie.service.StockList.impl;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.lianchuangjie.lianchuangjie.dto.StockList.StockListCompleteDTO;
+import com.lianchuangjie.lianchuangjie.dto.StockList.StockListSelectDTO;
 import com.lianchuangjie.lianchuangjie.dto.StockList.StockListSubSearchDTO;
 import com.lianchuangjie.lianchuangjie.entity.StockList.StockListSubEntity;
 import com.lianchuangjie.lianchuangjie.mapper.StockList.StockListSubMapper;
@@ -27,13 +27,20 @@ public class StockListSubServiceImpl extends ServiceImpl<StockListSubMapper, Sto
         stockListSubMapper.selectList(page, searchCondition);
         return page;
     }
+    @Override
+    public Boolean select(List<StockListSelectDTO> stockListSubVolumes) {
+        for (StockListSelectDTO item : stockListSubVolumes) {
+            stockListSubMapper.select(item);
+        }
+        return true;
+    }
 
     @Override
-    public Boolean complete(List<StockListCompleteDTO> stockListSubVolumes) {
-        for (StockListCompleteDTO item : stockListSubVolumes) {
-            stockListSubMapper.complete(item);
+    public Boolean unSelect(List<StockListSelectDTO> stockListSubVolumes) {
+        for (StockListSelectDTO item : stockListSubVolumes) {
+            stockListSubMapper.unSelect(item);
         }
-        return null;
+        return true;
     }
 
     @Override

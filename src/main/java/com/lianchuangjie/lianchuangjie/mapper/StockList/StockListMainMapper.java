@@ -14,4 +14,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface StockListMainMapper extends BaseMapper<StockListMainEntity> {
     IPage<StockListMainVO> selectList(Page<StockListMainVO> page, @Param("sc") StockListMainSearchDTO searchCondition);
+    Boolean complete(@Param("DocEntry") Long docEntry);
 }

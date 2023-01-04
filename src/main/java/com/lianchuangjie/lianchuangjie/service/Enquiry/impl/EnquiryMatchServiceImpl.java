@@ -69,7 +69,7 @@ public class EnquiryMatchServiceImpl implements EnquiryMatchService {
     }
 
     @Override
-    public List<EnquiryMatchItemVO> queryBatch(List<EnquirySingleQueryDTO> enquirySingleQueryDTOList) {
+    public List<EnquiryMatchItemVO> queryBatch(List<String> enquirySingleQueryDTOList) {
         UserEntity user = ContextUtil.getUser();
         return enquiryBatchMatchMapper.query(enquirySingleQueryDTOList, user.getDftDept(), user.getUserSign());
     }
@@ -91,7 +91,7 @@ public class EnquiryMatchServiceImpl implements EnquiryMatchService {
         Long docEntry = enquiryMainMapper.selectMaxDocEntry() + 1;
         enquiryMainEntity.setDocEntry(docEntry);
         // 需要云汉报价的需求
-        List<EnquiryMatchItemDTO> yunHanList = new ArrayList<>();
+        List<EnquirySubEntity> yunHanList = new ArrayList<>();
         // 保存询价单主表信息
         boolean res = enquiryMainService.save(enquiryMainEntity);
         // 断言判断是否保存成功
@@ -119,7 +119,9 @@ public class EnquiryMatchServiceImpl implements EnquiryMatchService {
             }
             // 云汉报价需要等云汉的价格过来
             if (Objects.equals(item.getStatus(), "E")) {
-                yunHanList.add(item);
+                // 先添加缓存信息
+                yunHanList.add(enquirySubEntity);
+                // 存入客户需求表的数据需要清空采购员信息
                 enquirySubEntity.setBuyer(null);
                 saveList.add(enquirySubEntity);
             } else {
@@ -138,7 +140,7 @@ public class EnquiryMatchServiceImpl implements EnquiryMatchService {
             log.info("任务开始");
             try {
                 Thread.sleep(5000);
-                yunHanService.runSendToBuyer();
+                yunHanService.runSendToBuyer(docEntry);
                 log.info("延时进程执行");
             } catch (InterruptedException e) {
                 e.printStackTrace();

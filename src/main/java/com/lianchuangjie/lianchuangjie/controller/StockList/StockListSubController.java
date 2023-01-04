@@ -6,7 +6,7 @@ import com.alibaba.excel.write.metadata.WriteSheet;
 import com.alibaba.excel.write.metadata.fill.FillConfig;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lianchuangjie.lianchuangjie.config.Authentication;
-import com.lianchuangjie.lianchuangjie.dto.StockList.StockListCompleteDTO;
+import com.lianchuangjie.lianchuangjie.dto.StockList.StockListSelectDTO;
 import com.lianchuangjie.lianchuangjie.dto.StockList.StockListSubSearchDTO;
 import com.lianchuangjie.lianchuangjie.exception.Business.ResponseEnum;
 import com.lianchuangjie.lianchuangjie.service.StockList.StockListSubService;
@@ -33,7 +33,6 @@ import java.util.List;
 public class StockListSubController {
     @Resource
     StockListSubService stockListSubService;
-
     /**
      * @param page     page
      * @param size     size
@@ -76,12 +75,21 @@ public class StockListSubController {
         return Result.success(pages, "Success");
     }
 
-    @PostMapping("/list/complete")
+    @PostMapping("/list/select")
     @Authentication(buyer = true)
-    public Result<Boolean> stockListCompleteController (
-            @RequestBody @Valid List<StockListCompleteDTO> stockListCompleteDTOList
+    public Result<Boolean> stockListSelectController(
+            @RequestBody @Valid List<StockListSelectDTO> stockListSelectDTO
     ) {
-        Boolean res = stockListSubService.complete(stockListCompleteDTOList);
+        Boolean res = stockListSubService.select(stockListSelectDTO);
+        return Result.success(res, "Success");
+    }
+
+    @PostMapping("/list/unSelect")
+    @Authentication(buyer = true)
+    public Result<Boolean> stockListUnSelectController(
+            @RequestBody @Valid List<StockListSelectDTO> stockListSelectDTO
+    ) {
+        Boolean res = stockListSubService.unSelect(stockListSelectDTO);
         return Result.success(res, "Success");
     }
 

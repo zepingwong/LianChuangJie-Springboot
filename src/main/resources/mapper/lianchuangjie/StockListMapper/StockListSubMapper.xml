@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lianchuangjie.lianchuangjie.mapper.StockList.StockListSubMapper">
-    <update id="complete">
+    <update id="select">
         UPDATE U_StockList1 SET Status = 'Y'
+        WHERE U_StockList1.LineNum = #{da.lineNum}
+        AND U_StockList1.DocEntry = #{da.docEntry}
+    </update>
+    <update id="unSelect">
+        UPDATE U_StockList1 SET Status = 'N'
         WHERE U_StockList1.LineNum = #{da.lineNum}
         AND U_StockList1.DocEntry = #{da.docEntry}
     </update>

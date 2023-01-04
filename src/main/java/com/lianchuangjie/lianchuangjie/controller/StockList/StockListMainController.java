@@ -7,11 +7,9 @@ import com.lianchuangjie.lianchuangjie.dto.StockList.StockListMainSearchDTO;
 import com.lianchuangjie.lianchuangjie.service.StockList.StockListMainService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
 import com.lianchuangjie.lianchuangjie.vo.StockList.StockListMainVO;
+import com.lianchuangjie.lianchuangjie.vo.StockList.StockListSubVO;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -58,4 +56,14 @@ public class StockListMainController extends BaseController {
         Page<StockListMainVO> pages = stockListMainService.list(stockListMainSearchDTO);
         return Result.success(pages, "Success");
     }
+
+    @PatchMapping("/list/complete/{docEntry}")
+    @Authentication(buyer = true)
+    public Result<Boolean> getStockListSubListController(
+            @PathVariable Long docEntry
+    ) {
+        Boolean res = stockListMainService.complete(docEntry);
+        return Result.success(res, "Success");
+    }
+
 }

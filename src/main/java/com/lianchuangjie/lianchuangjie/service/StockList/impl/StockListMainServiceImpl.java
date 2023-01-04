@@ -23,4 +23,9 @@ public class StockListMainServiceImpl extends ServiceImpl<StockListMainMapper, S
         stockListMainMapper.selectList(page, searchCondition);
         return page;
     }
+
+    @Override
+    public Boolean complete(Long docEntry) {
+        return stockListMainMapper.complete(docEntry);
+    }
 }

@@ -43,7 +43,7 @@ public class EnquiryMatchController extends BaseController {
      */
     @PostMapping("batch")
     @Authentication(sale = true)
-    public Result<List<EnquiryMatchItemVO>> queryBatchController(@RequestBody List<EnquirySingleQueryDTO> enquirySingleQueryDTOList) {
+    public Result<List<EnquiryMatchItemVO>> queryBatchController(@RequestBody List<String> enquirySingleQueryDTOList) {
         List<EnquiryMatchItemVO> list = enquiryMatchService.queryBatch(enquirySingleQueryDTOList);
         return Result.success(list);
     }

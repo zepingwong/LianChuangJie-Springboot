@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface EnquiryBatchMatchMapper {
     List<EnquiryMatchItemVO> query(
-            @Param("list") List<EnquirySingleQueryDTO> enquirySingleQueryDTOList,
+            @Param("modleList") List<String> enquirySingleQueryDTOList,
             @Param("DeptCode") String DeptCode,
             @Param("UserSign") Long UserSign
     );
