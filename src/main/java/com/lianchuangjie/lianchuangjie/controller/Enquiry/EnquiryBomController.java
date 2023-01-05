@@ -69,7 +69,7 @@ public class EnquiryBomController extends BaseController {
      * @date 11/6/2022
      */
     @PatchMapping("update")
-    @Authentication(sale = true)
+    @Authentication(sale = true, saleAssist = true)
     public Result<Boolean> updateBomController(
             @RequestBody @Valid EnquiryBomUpdateDTO enquiryBomUpdateDTO
     ) {
