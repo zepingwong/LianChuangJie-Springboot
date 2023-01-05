@@ -9,4 +9,5 @@ public @interface Authentication {
     boolean buyer() default false; // 采购员
 
     boolean sale() default false; // 销售员
+    boolean saleAssist() default false; // 销售助理
 }

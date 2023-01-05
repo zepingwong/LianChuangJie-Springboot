@@ -55,7 +55,7 @@ public class EnquiryBomController extends BaseController {
      * @description BOM单上传解析-并将数据存入 T_BOM 和 T_BOM1 并将 BOM单原件进行存储
      */
     @PostMapping("upload")
-    @Authentication(sale = true)
+    @Authentication(sale = true, saleAssist = true)
     public Result<BomUploadResVO> uploadBomController(@RequestParam("file") MultipartFile file) {
         BomUploadResVO result = bomService.upload(file);
         return Result.success(result);
@@ -69,7 +69,7 @@ public class EnquiryBomController extends BaseController {
      * @date 11/6/2022
      */
     @PatchMapping("update")
-    @Authentication(sale = true)
+    @Authentication(sale = true, saleAssist = true)
     public Result<Boolean> updateBomController(
             @RequestBody @Valid EnquiryBomUpdateDTO enquiryBomUpdateDTO
     ) {
@@ -85,7 +85,7 @@ public class EnquiryBomController extends BaseController {
      * @date 9/29/2022
      */
     @GetMapping(value = "download", produces = "application/ms-excel")
-    @Authentication(sale = true)
+    @Authentication(sale = true, saleAssist = true)
     public ResponseEntity<byte[]> downloadTemplate(HttpServletResponse response) throws IOException {
         ClassPathResource resource = new ClassPathResource(File.separator + "templates" + File.separator + "BOM样例-Unibetter.xlsx");
         String fileName = "BOM样例-Unibetter.xlsx";

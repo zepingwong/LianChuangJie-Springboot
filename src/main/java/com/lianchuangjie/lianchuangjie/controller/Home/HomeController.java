@@ -23,14 +23,14 @@ public class HomeController {
     HomeChartService homeChartService;
 
     @GetMapping("/todo")
-    @Authentication(buyer = true, sale = true)
+    @Authentication(buyer = true, sale = true, saleAssist = true)
     public Result<Map<String, Long>> todoController(HttpServletRequest request) {
         Map<String, Long> query = homeToDoService.getToDoNum(request);
         return Result.success(query);
     }
 
     @GetMapping("/chart")
-    @Authentication(buyer = true, sale = true)
+    @Authentication(buyer = true, sale = true, saleAssist = true)
     public Result<HashMap<String, List<Map<String, String>>>> ChartInfoController() {
         HashMap<String, List<Map<String, String>>> data = new HashMap<>();
         data.put("salesRank", homeChartService.getSalesRankService());

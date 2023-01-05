@@ -44,6 +44,9 @@ public class UserEntity {
     // 是否为销售员
     @TableField(value = "U_IsSale")
     private String uIsSale;
+    // 是否为销售助理
+    @TableField(value = "U_IsSaleAssist")
+    private String uIsSaleAssist;
     // 是否为虚拟用户
     @TableField(value = "U_IsVir")
     private String uIsVir;
