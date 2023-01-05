@@ -55,7 +55,7 @@ public class EnquiryBomController extends BaseController {
      * @description BOM单上传解析-并将数据存入 T_BOM 和 T_BOM1 并将 BOM单原件进行存储
      */
     @PostMapping("upload")
-    @Authentication(sale = true)
+    @Authentication(sale = true, saleAssist = true)
     public Result<BomUploadResVO> uploadBomController(@RequestParam("file") MultipartFile file) {
         BomUploadResVO result = bomService.upload(file);
         return Result.success(result);
