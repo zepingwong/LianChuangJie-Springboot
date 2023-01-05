@@ -85,7 +85,7 @@ public class EnquiryBomController extends BaseController {
      * @date 9/29/2022
      */
     @GetMapping(value = "download", produces = "application/ms-excel")
-    @Authentication(sale = true)
+    @Authentication(sale = true, saleAssist = true)
     public ResponseEntity<byte[]> downloadTemplate(HttpServletResponse response) throws IOException {
         ClassPathResource resource = new ClassPathResource(File.separator + "templates" + File.separator + "BOM样例-Unibetter.xlsx");
         String fileName = "BOM样例-Unibetter.xlsx";
