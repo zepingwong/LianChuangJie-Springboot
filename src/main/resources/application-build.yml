@@ -1,6 +1,0 @@
-spring:
-  profiles:
-    active: pro
-    
-# 生产环境名称
-ENV_PROD: pro
