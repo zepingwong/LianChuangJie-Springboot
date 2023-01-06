@@ -17,7 +17,7 @@ public class YunHanServiceImpl implements YunHanService {
     @Resource
     YunHanQueryMapper yunHanQueryMapper;
     @Resource
-    RedisUtil redisUtil;
+    RedisUtil<String> redisUtil;
     @Override
     public Boolean runSendToBuyer(Long docEntry) {
         String infoStr = redisUtil.getCacheObject("Enquiry:" + docEntry);

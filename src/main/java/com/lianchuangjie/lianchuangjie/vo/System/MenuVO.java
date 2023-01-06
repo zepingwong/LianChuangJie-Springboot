@@ -1,4 +1,4 @@
-package com.lianchuangjie.lianchuangjie.vo;
+package com.lianchuangjie.lianchuangjie.vo.System;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -10,11 +10,12 @@ import lombok.experimental.Accessors;
 @AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain = true)
-public class ClienteleLevelItemVO {
-    // 等级代码
-    @JsonProperty("Code")
-    private Integer code;
-    // 等级
-    @JsonProperty("Level")
-    private String level;
+public class MenuVO {
+    @JsonProperty("DocEntry")
+    private Long docEntry;
+    @JsonProperty("Parent")
+    private Long parent;
+    @JsonProperty("Name")
+    private String name;
+
 }

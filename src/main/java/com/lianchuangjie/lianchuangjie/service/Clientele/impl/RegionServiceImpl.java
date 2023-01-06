@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lianchuangjie.lianchuangjie.entity.Clientele.ClienteleRegionEntity;
 import com.lianchuangjie.lianchuangjie.mapper.Clientele.ClienteleRegionMapper;
 import com.lianchuangjie.lianchuangjie.service.Clientele.RegionService;
-import com.lianchuangjie.lianchuangjie.vo.ClienteleRegionItemVO;
+import com.lianchuangjie.lianchuangjie.vo.Clientele.ClienteleRegionItemVO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

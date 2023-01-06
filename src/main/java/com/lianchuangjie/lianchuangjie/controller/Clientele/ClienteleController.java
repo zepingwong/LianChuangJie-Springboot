@@ -4,9 +4,10 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lianchuangjie.lianchuangjie.config.Authentication;
 import com.lianchuangjie.lianchuangjie.service.Clientele.*;
 import com.lianchuangjie.lianchuangjie.utils.Result;
-import com.lianchuangjie.lianchuangjie.vo.*;
 import com.lianchuangjie.lianchuangjie.vo.Clientele.ClienteleGroupVO;
 import com.lianchuangjie.lianchuangjie.vo.Clientele.ClienteleIndustryVO;
+import com.lianchuangjie.lianchuangjie.vo.Clientele.ClienteleLevelItemVO;
+import com.lianchuangjie.lianchuangjie.vo.Clientele.ClienteleRegionItemVO;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;

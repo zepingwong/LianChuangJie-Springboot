@@ -14,7 +14,7 @@ import com.lianchuangjie.lianchuangjie.service.Enquiry.BomMainService;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.BomService;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.BomSubService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
-import com.lianchuangjie.lianchuangjie.vo.BomUploadResVO;
+import com.lianchuangjie.lianchuangjie.vo.Enquiry.BomUploadResVO;
 import com.lianchuangjie.lianchuangjie.vo.Enquiry.BomExportVO;
 import com.lianchuangjie.lianchuangjie.vo.Enquiry.BomMainVO;
 import org.springframework.core.io.ClassPathResource;

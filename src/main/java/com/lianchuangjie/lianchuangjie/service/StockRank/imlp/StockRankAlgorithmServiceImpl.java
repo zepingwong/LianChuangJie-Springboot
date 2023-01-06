@@ -18,7 +18,7 @@ public class StockRankAlgorithmServiceImpl implements StockRankAlgorithmService 
     @Resource
     StockRankLogMapper stockRankLogMapper;
     @Resource
-    RedisUtil redisUtil;
+    RedisUtil<String> redisUtil;
     @Override
     public Boolean calculate(String triggerType) {
         StockRankLogEntity stockRankLogEntity = new StockRankLogEntity();

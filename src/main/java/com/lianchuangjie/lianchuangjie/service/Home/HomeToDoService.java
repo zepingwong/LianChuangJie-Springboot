@@ -1,4 +1,4 @@
-package com.lianchuangjie.lianchuangjie.service;
+package com.lianchuangjie.lianchuangjie.service.Home;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;

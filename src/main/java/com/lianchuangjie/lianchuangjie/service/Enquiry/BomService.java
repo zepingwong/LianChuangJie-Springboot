@@ -1,6 +1,6 @@
 package com.lianchuangjie.lianchuangjie.service.Enquiry;
 
-import com.lianchuangjie.lianchuangjie.vo.BomUploadResVO;
+import com.lianchuangjie.lianchuangjie.vo.Enquiry.BomUploadResVO;
 import com.lianchuangjie.lianchuangjie.vo.Enquiry.BomExportVO;
 import org.springframework.web.multipart.MultipartFile;
 

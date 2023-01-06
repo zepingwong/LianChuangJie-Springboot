@@ -9,7 +9,7 @@ import com.lianchuangjie.lianchuangjie.service.Enquiry.BomMainService;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.BomService;
 import com.lianchuangjie.lianchuangjie.service.Enquiry.BomSubService;
 import com.lianchuangjie.lianchuangjie.utils.ContextUtil;
-import com.lianchuangjie.lianchuangjie.vo.BomUploadResVO;
+import com.lianchuangjie.lianchuangjie.vo.Enquiry.BomUploadResVO;
 import com.lianchuangjie.lianchuangjie.vo.Enquiry.BomExportVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

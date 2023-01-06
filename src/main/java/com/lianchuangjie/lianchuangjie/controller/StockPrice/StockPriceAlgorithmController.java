@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @Validated
-@RequestMapping("/stock")
+@RequestMapping("/stock/price")
 public class StockPriceAlgorithmController extends BaseController {
     @Resource
     StockPriceAlgorithmService stockPriceAlgorithmService;
@@ -24,7 +24,7 @@ public class StockPriceAlgorithmController extends BaseController {
      * @email zepingwong@gmail.com
      * @date 9/7/2022
      */
-    @PostMapping("/price/calculate")
+    @PostMapping("/calculate")
     @Authentication(buyer = true)
     public Result<Boolean> calculateController(@RequestBody List<StockPriceVO> list) {
         Boolean res = stockPriceAlgorithmService.calculateADayService(list);
@@ -37,7 +37,7 @@ public class StockPriceAlgorithmController extends BaseController {
      * @email zepingwong@gmail.com
      * @date 9/7/2022
      */
-    @GetMapping("/price/recalculate")
+    @GetMapping("/recalculate")
     @Authentication(buyer = true)
     public Result<Boolean> recalculateController() {
         Boolean res = stockPriceAlgorithmService.calculateOneDayService("手动触发");
@@ -50,7 +50,7 @@ public class StockPriceAlgorithmController extends BaseController {
      * @email zepingwong@gmail.com
      * @date 9/7/2022
      */
-    @GetMapping("/price/train")
+    @GetMapping("/train")
     @Authentication(buyer = true)
     public Result<Boolean> trainController() {
         Boolean res = stockPriceAlgorithmService.trainService("手动触发");
