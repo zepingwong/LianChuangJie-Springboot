@@ -8,6 +8,7 @@ import com.lianchuangjie.lianchuangjie.service.StockPrice.StockPriceAlgorithmSer
 import com.lianchuangjie.lianchuangjie.utils.HttpUtil;
 import com.lianchuangjie.lianchuangjie.utils.RedisUtil;
 import com.lianchuangjie.lianchuangjie.vo.StockPrice.StockPriceVO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
+@Slf4j
 public class StockPriceAlgorithmServiceImpl implements StockPriceAlgorithmService {
     @Resource
     StockPriceLogMapper stockPriceLogMapper;

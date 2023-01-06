@@ -5,6 +5,7 @@ import com.lianchuangjie.lianchuangjie.controller.BaseController;
 import com.lianchuangjie.lianchuangjie.service.StockPrice.StockPriceAlgorithmService;
 import com.lianchuangjie.lianchuangjie.utils.Result;
 import com.lianchuangjie.lianchuangjie.vo.StockPrice.StockPriceVO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +14,7 @@ import java.util.List;
 
 @RestController
 @Validated
+@Slf4j
 @RequestMapping("/stock/price")
 public class StockPriceAlgorithmController extends BaseController {
     @Resource
@@ -38,7 +40,7 @@ public class StockPriceAlgorithmController extends BaseController {
      * @date 9/7/2022
      */
     @GetMapping("/recalculate")
-    @Authentication(buyer = true)
+    @Authentication()
     public Result<Boolean> recalculateController() {
         Boolean res = stockPriceAlgorithmService.calculateOneDayService("手动触发");
         return Result.success(res, "更新成功");

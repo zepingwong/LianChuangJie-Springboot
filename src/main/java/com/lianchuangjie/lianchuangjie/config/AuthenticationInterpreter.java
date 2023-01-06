@@ -67,7 +67,7 @@ public class AuthenticationInterpreter implements HandlerInterceptor {
             AuthUtil authUtil = new AuthUtil(authentication);
             ResponseEnum.HAS_NO_AUTHENTICATION.assertIsFalse(authUtil.checkAuth(user), "无权访问 " + request.getRequestURI() + " 接口");
         }
-        return false;
+        return true;
     }
 
 }
