@@ -29,7 +29,7 @@ public class ExchangeRateController {
      * @date 9/4/2022
      */
     @GetMapping("/today")
-    @Authentication(sale = true, buyer = true)
+    @Authentication(sale = true, buyer = true, saleAssist = true)
     public Result<BigDecimal> getTodayExchangeRateController(@RequestParam(defaultValue = "RMB", value = "Currency") String currency) {
         if (Objects.equals(currency, "RMB")) {
             return Result.success(new BigDecimal(1));

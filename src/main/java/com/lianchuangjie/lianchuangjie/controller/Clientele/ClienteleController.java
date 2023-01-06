@@ -37,7 +37,7 @@ public class ClienteleController {
      * @date 08/11/2022
      */
     @GetMapping("/group")
-    @Authentication(buyer = true, sale = true)
+    @Authentication(buyer = true, sale = true, saleAssist = true)
     public Result<List<ClienteleGroupVO>> getClienteleGroupController(
             @RequestParam(defaultValue = "#{null}", value = "Type") String Type
     ) {
@@ -55,7 +55,7 @@ public class ClienteleController {
      * @date 08/11/2022
      */
     @GetMapping("/parentregion")
-    @Authentication(buyer = true, sale = true)
+    @Authentication(buyer = true, sale = true, saleAssist = true)
     Result<List<ClienteleRegionItemVO>> getParentRegionController() {
         QueryWrapper<ClienteleRegionItemVO> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("ParentCode", 0);
@@ -71,7 +71,7 @@ public class ClienteleController {
      * @date 10/11/2022
      */
     @GetMapping("/industry")
-    @Authentication(buyer = true, sale = true)
+    @Authentication(buyer = true, sale = true, saleAssist = true)
     Result<List<ClienteleIndustryVO>> getClienteleIndustryController() {
         QueryWrapper<ClienteleIndustryVO> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("ParentCode", "0");
@@ -80,7 +80,7 @@ public class ClienteleController {
     }
 
     @GetMapping("/level")
-    @Authentication(buyer = true, sale = true)
+    @Authentication(buyer = true, sale = true, saleAssist = true)
     public Result<List<ClienteleLevelItemVO>> getClienteleLevelController(
             @RequestParam(defaultValue = "#{null}", value = "Type") String Type
     ) {

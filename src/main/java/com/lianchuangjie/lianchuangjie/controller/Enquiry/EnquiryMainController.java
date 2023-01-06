@@ -36,7 +36,7 @@ public class EnquiryMainController extends BaseController {
      * @date 9/17/2022
      */
     @GetMapping("/main")
-    @Authentication(sale = true)
+    @Authentication(sale = true, saleAssist = true)
     public Result<Page<EnquiryMainItemVO>> getEnquiryMainListController(
             @RequestParam(defaultValue = "#{null}", value = "page") Integer page, // 页码
             @RequestParam(defaultValue = "#{null}", value = "size") Integer size, // 每页显示条数
@@ -72,7 +72,7 @@ public class EnquiryMainController extends BaseController {
      * @date 9/17/2022
      */
     @GetMapping("/main/{docEntry}")
-    @Authentication(sale = true)
+    @Authentication(sale = true, saleAssist = true)
     public Result<EnquiryMainInfoVO> getEnquiryMainInfoController(@PathVariable Long docEntry) {
         return Result.success(enquiryMainService.getOne(docEntry));
     }

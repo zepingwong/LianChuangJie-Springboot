@@ -27,7 +27,7 @@ public class EnquiryController extends BaseController {
      * @date 9/20/2022
      */
     @PostMapping("requote")
-    @Authentication(sale = true)
+    @Authentication(sale = true, saleAssist = true)
     public Result<Boolean> reQuoteController(@RequestBody EnquiryReQuoteDTO enquiryReQuoteDTO) {
         Boolean res = enquiryReQuoteService.handle(enquiryReQuoteDTO);
         return Result.success(res);
@@ -42,7 +42,7 @@ public class EnquiryController extends BaseController {
      * @date 9/29/2022
      */
     @PatchMapping("isOrdered")
-    @Authentication(sale = true)
+    @Authentication(sale = true, saleAssist = true)
     public Result<Boolean> isOrderedController(@RequestBody EnquiryIsOrderedDTO enquiryIsOrderedDTO) {
         Boolean res = enquiryIsOrderedService.handle(enquiryIsOrderedDTO);
         return Result.success(res);

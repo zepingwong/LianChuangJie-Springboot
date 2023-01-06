@@ -123,7 +123,7 @@ public class EnquiryBomController extends BaseController {
      * @date 11/16/2022
      */
     @GetMapping(value = "list")
-    @Authentication(sale = true)
+    @Authentication(sale = true, saleAssist = true)
     public Result<Page<BomMainVO>> getBomMainListController(
             @RequestParam(defaultValue = "#{null}", value = "page") Integer page, // 页码
             @RequestParam(defaultValue = "#{null}", value = "size") Integer size, // 每页显示条数

@@ -24,7 +24,7 @@ public class EnquiryQuoteController {
      * @date 9/29/2022
      */
     @GetMapping("/quote/{docEntry}")
-    @Authentication(sale = true)
+    @Authentication(sale = true, saleAssist = true)
     public Result<EnquiryExportDataVO> exportController(@PathVariable Long docEntry) {
         EnquiryExportDataVO enquiryExportDataVO = enquiryQuoteService.list(docEntry);
         return Result.success(enquiryExportDataVO, "success");
@@ -39,7 +39,7 @@ public class EnquiryQuoteController {
      * @date 9/29/2022
      */
     @PatchMapping("/quote")
-    @Authentication(sale = true)
+    @Authentication(sale = true, saleAssist = true)
     public Result<Boolean> saveExportController(
             @RequestBody EnquiryExportSaveDTO enquiryExportSaveDTO
     ) {

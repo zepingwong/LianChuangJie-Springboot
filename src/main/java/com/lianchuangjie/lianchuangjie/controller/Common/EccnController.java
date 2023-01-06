@@ -13,7 +13,7 @@ import java.util.List;
 @RequestMapping("/")
 public class EccnController {
     @GetMapping("eccn")
-    @Authentication(buyer = true, sale = true)
+    @Authentication(buyer = true, sale = true, saleAssist = true)
     public Result<List<EccnVO>> getEccnListController() {
         return Result.success();
     }

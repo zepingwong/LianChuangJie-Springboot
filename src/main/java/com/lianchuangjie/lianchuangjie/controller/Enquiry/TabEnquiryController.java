@@ -43,7 +43,7 @@ public class TabEnquiryController {
      * @date 8/20/2022
      */
     @GetMapping("/enquiry/needs")
-    @Authentication(sale = true)
+    @Authentication(sale = true, saleAssist = true)
     public Result<Page<TabEnquiryNeedsVO>> getCusNeedsListController(@RequestParam(defaultValue = "#{null}", value = "page") Integer page, @RequestParam(defaultValue = "#{null}", value = "size") Integer size, @RequestParam(defaultValue = "#{null}", value = "Modle") String modle) {
         TabSearchDTO tabSearchDTO = new TabSearchDTO();
         tabSearchDTO.setPage(page);
@@ -64,7 +64,7 @@ public class TabEnquiryController {
      * @date 8/21/2022
      */
     @GetMapping("/enquiry/quote")
-    @Authentication(sale = true)
+    @Authentication(sale = true, saleAssist = true)
     public Result<Page<TabEnquiryQuotationVO>> getQuotationListController(@RequestParam(defaultValue = "#{null}", value = "page") Integer page, @RequestParam(defaultValue = "#{null}", value = "size") Integer size, @RequestParam(defaultValue = "#{null}", value = "Modle") String modle) {
         TabSearchDTO tabSearchDTO = new TabSearchDTO();
         tabSearchDTO.setPage(page);
@@ -85,7 +85,7 @@ public class TabEnquiryController {
      * @date 8/21/2022
      */
     @GetMapping("/enquiry/sales")
-    @Authentication(sale = true)
+    @Authentication(sale = true, saleAssist = true)
     public Result<Page<TabEnquirySalesOrderVO>> getSalesListController(@RequestParam(defaultValue = "#{null}", value = "page") Integer page, @RequestParam(defaultValue = "#{null}", value = "size") Integer size, @RequestParam(defaultValue = "#{null}", value = "Modle") String modle) {
         TabSearchDTO tabSearchDTO = new TabSearchDTO();
         tabSearchDTO.setPage(page);
@@ -106,7 +106,7 @@ public class TabEnquiryController {
      * @date 8/21/2022
      */
     @GetMapping("/enquiry/purchase")
-    @Authentication(sale = true)
+    @Authentication(sale = true, saleAssist = true)
     public Result<Page<TabEnquiryPurchaseOrderVO>> getPurchaseListController(@RequestParam(defaultValue = "#{null}", value = "page") Integer page, @RequestParam(defaultValue = "#{null}", value = "size") Integer size, @RequestParam(defaultValue = "#{null}", value = "Modle") String modle) {
         TabSearchDTO tabSearchDTO = new TabSearchDTO();
         tabSearchDTO.setPage(page);
@@ -127,7 +127,7 @@ public class TabEnquiryController {
      * @date 8/21/2022
      */
     @GetMapping("/enquiry/stock")
-    @Authentication(sale = true)
+    @Authentication(sale = true, saleAssist = true)
     public Result<Page<TabEnquiryStockVO>> getStocksListController(@RequestParam(defaultValue = "#{null}", value = "page") Integer page, @RequestParam(defaultValue = "#{null}", value = "size") Integer size, @RequestParam(defaultValue = "#{null}", value = "Modle") String modle) {
         TabSearchDTO tabSearchDTO = new TabSearchDTO();
         tabSearchDTO.setPage(page);
@@ -138,7 +138,7 @@ public class TabEnquiryController {
     }
 
     @GetMapping("/enquiry/available")
-    @Authentication(sale = true)
+    @Authentication(sale = true, saleAssist = true)
     public Result<Page<TabEnquiryAvailableVO>> getAvailableListController(
             @RequestParam(defaultValue = "#{null}", value = "page") Integer page,
             @RequestParam(defaultValue = "#{null}", value = "size") Integer size,

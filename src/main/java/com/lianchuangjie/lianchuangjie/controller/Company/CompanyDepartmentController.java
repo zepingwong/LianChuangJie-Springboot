@@ -19,7 +19,7 @@ public class CompanyDepartmentController {
     CompanyDepartmentService companyDepartmentService;
 
     @GetMapping("/department")
-    @Authentication(sale = true, buyer = true)
+    @Authentication(sale = true, buyer = true, saleAssist = true)
     public Result<List<CompanyDepartmentVO>> letterheadListController() {
         QueryWrapper<CompanyDepartmentVO> queryWrapper = new QueryWrapper<>();
         return Result.success(companyDepartmentService.list(queryWrapper));

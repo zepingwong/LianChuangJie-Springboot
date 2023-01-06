@@ -45,7 +45,7 @@ public class BrandController {
      * @date 10/6/2022
      */
     @GetMapping("/suggestion")
-    @Authentication(buyer = true, sale = true)
+    @Authentication(buyer = true, sale = true, saleAssist = true)
     public Result<List<BrandItemVO>> getBrandSuggestionController(
             @RequestParam(defaultValue = "#{null}", value = "Brand") String brand
     ) {
@@ -62,7 +62,7 @@ public class BrandController {
      * @date 10/6/2022
      */
     @GetMapping("/buyer")
-    @Authentication(sale = true)
+    @Authentication(sale = true, saleAssist = true)
     public Result<List<EnquiryBuyerItemVO>> getBrandBuyerListController(
             @RequestParam(defaultValue = "#{null}", value = "Brand") String brand
     ) {

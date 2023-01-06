@@ -19,7 +19,7 @@ public class CompanyLetterheadController {
     CompanyLetterheadService companyLetterheadService;
 
     @GetMapping("/letterhead")
-    @Authentication(sale = true)
+    @Authentication(sale = true, saleAssist = true)
     public Result<List<CompanyLetterheadVO>> letterheadListController() {
         QueryWrapper<CompanyLetterheadVO> queryWrapper = new QueryWrapper<>();
         return Result.success(companyLetterheadService.list(queryWrapper));

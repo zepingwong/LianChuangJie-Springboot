@@ -35,7 +35,7 @@ public class EnquiryExportController {
      * @date 9/29/2022
      */
     @GetMapping("/export/{docEntry}")
-    @Authentication(sale = true)
+    @Authentication(sale = true, saleAssist = true)
     public void enquiryExportController(
             @PathVariable Long docEntry,
             HttpServletResponse response

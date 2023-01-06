@@ -37,7 +37,7 @@ public class TabSearchController {
      * @date 8/19/2022
      */
     @PostMapping("/search/sdada/{page}/{size}")
-    @Authentication(sale = true, buyer = true)
+    @Authentication(sale = true, buyer = true, saleAssist = true)
     public Result<Page<TabSearchSdadaVO>> getStandardDataList(
             @RequestBody List<String> modleList,
             @PathVariable Integer page,
@@ -59,7 +59,7 @@ public class TabSearchController {
      * @date 8/19/2022
      */
     @PostMapping("/search/quote/{page}/{size}")
-    @Authentication(sale = true, buyer = true)
+    @Authentication(sale = true, buyer = true, saleAssist = true)
     public Result<Page<TabSearchQuotationVO>> getQuotationList(
             @RequestBody List<String> modleList,
             @PathVariable Integer page,
@@ -81,7 +81,7 @@ public class TabSearchController {
      * @date 8/19/2022
      */
     @PostMapping("/search/needs/{page}/{size}")
-    @Authentication(sale = true, buyer = true)
+    @Authentication(sale = true, buyer = true, saleAssist = true)
     public Result<Page<TabSearchNeedsVO>> getNeedsList(
             @RequestBody List<String> modleList,
             @PathVariable Integer page,
@@ -103,7 +103,7 @@ public class TabSearchController {
      * @date 8/19/2022
      */
     @PostMapping("/search/sales/{page}/{size}")
-    @Authentication(sale = true, buyer = true)
+    @Authentication(sale = true, buyer = true, saleAssist = true)
     public Result<Page<TabSearchSalesOrderVO>> getSalesOrderList(
             @RequestBody List<String> modleList,
             @PathVariable Integer page,
@@ -125,7 +125,7 @@ public class TabSearchController {
      * @date 8/19/2022
      */
     @PostMapping("/search/purchase/{page}/{size}")
-    @Authentication(sale = true, buyer = true)
+    @Authentication(sale = true, buyer = true, saleAssist = true)
     public Result<Page<TabSearchPurchaseOrderVO>> getPurchaseOrderList(
             @RequestBody List<String> modleList,
             @PathVariable Integer page,

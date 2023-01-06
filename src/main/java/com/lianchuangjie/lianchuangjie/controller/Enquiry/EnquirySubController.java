@@ -30,7 +30,7 @@ public class EnquirySubController extends BaseController {
      * @date 9/17/2022
      */
     @GetMapping("/sub")
-    @Authentication(sale = true)
+    @Authentication(sale = true, saleAssist = true)
     public Result<Page<EnquirySubVO>> enquirySubController(
             @RequestParam(defaultValue = "#{null}", value = "DocEntry") Long docEntry,
             @RequestParam(defaultValue = "#{null}", value = "Modle") String modle,
@@ -59,13 +59,13 @@ public class EnquirySubController extends BaseController {
      * @date 9/19/2022
      */
     @PutMapping("/sub")
-    @Authentication(sale = true)
+    @Authentication(sale = true, saleAssist = true)
     public Result<Boolean> saveEnquirySubController(@RequestBody List<EnquirySaveItemDTO> enquirySubItemDTOList) {
         return Result.success(enquirySubService.save(enquirySubItemDTOList), "保存成功");
     }
 
     @PatchMapping("/sub")
-    @Authentication(sale = true)
+    @Authentication(sale = true, saleAssist = true)
     public Result<Boolean> saveOne(@RequestBody EnquirySaveItemDTO enquirySaveItemDTO) {
         enquirySubService.saveOne(enquirySaveItemDTO);
         return null;

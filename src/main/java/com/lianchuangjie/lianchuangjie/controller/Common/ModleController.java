@@ -26,8 +26,8 @@ public class ModleController {
      * @date 8/21/2022
      */
     @GetMapping("/suggestion")
-    @Authentication(sale = true, buyer = true)
-    public Result<List<SdadaVO>> getSnosuggestionController(@RequestParam(name = "Modle", defaultValue = "#{null}") String modle) {
+    @Authentication(sale = true, buyer = true, saleAssist = true)
+    public Result<List<SdadaVO>> getSnoSuggestionController(@RequestParam(name = "Modle", defaultValue = "#{null}") String modle) {
         List<SdadaVO> list = sdadaService.containList(modle);
         return Result.success(list, "Success");
     }
@@ -40,7 +40,7 @@ public class ModleController {
      * @date 8/21/2022
      */
     @GetMapping("related")
-    @Authentication(sale = true, buyer = true)
+    @Authentication(sale = true, buyer = true, saleAssist = true)
     public Result<List<SdadaVO>> getRelatedListController(@RequestParam(name = "Modle", defaultValue = "#{null}") String modle) {
         List<SdadaVO> list = sdadaService.relatedList(modle);
         return Result.success(list, "Success");
