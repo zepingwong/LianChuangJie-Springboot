@@ -1,6 +1,5 @@
 package com.lianchuangjie.lianchuangjie.service.User.impl;
 
-import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lianchuangjie.lianchuangjie.dto.User.EmployeeLoginDTO;
 import com.lianchuangjie.lianchuangjie.entity.User.LoginLogEntity;
@@ -64,7 +63,7 @@ public class UserLoginServiceImpl implements UserLoginService {
         // 用户信息存入Redis, 使用token做redis的key 用户信息做value
         UserInfoVO userInfo = new UserInfoVO();
         BeanUtils.copyProperties(user, userInfo);
-        redisUtil.setString("User_" + user.getUserSign(), JSONObject.toJSONString(userInfo));
+        redisUtil.setCacheObject("User:" + user.getUserSign(), user);
         // 登录成功返回信息
         return new LoginResVO(userInfo, tokenStr);
     }

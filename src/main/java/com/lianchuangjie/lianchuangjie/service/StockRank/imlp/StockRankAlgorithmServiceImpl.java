@@ -23,14 +23,14 @@ public class StockRankAlgorithmServiceImpl implements StockRankAlgorithmService 
     public Boolean calculate(String triggerType) {
         StockRankLogEntity stockRankLogEntity = new StockRankLogEntity();
         stockRankLogEntity.setTriggerType(triggerType);
-        String state = redisUtil.getString("StockRank");
+        String state = redisUtil.getCacheObject("StockRank");
         if (Objects.equals(state, "1")) {
             throw new RuntimeException("算法正在运行，请稍后刷新结果");
         }
-        redisUtil.setString("StockRank", "1");
+        redisUtil.setCacheObject("StockRank", "1");
         stockRankCalculateMapper.calculate();
         // Redis复位
-        redisUtil.setString("StockRank", "0");
+        redisUtil.setCacheObject("StockRank", "0");
         stockRankLogEntity.setEndTime(new Date());
         stockRankLogEntity.setResult(1);
         stockRankLogMapper.insert(stockRankLogEntity);

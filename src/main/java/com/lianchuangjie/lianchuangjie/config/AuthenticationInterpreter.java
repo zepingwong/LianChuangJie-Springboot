@@ -44,7 +44,7 @@ public class AuthenticationInterpreter implements HandlerInterceptor {
         Map<String, Claim> claimMap = JWTUtil.verifyToken(token);
         if (!claimMap.get("UserSign").asString().equals("")) {
             // 请求开始将Redis存储的用户信息放入上下文对象
-            UserEntity user = JSONObject.parseObject(redisUtil.getString("User_" + claimMap.get("UserSign").asString()), UserEntity.class);
+            UserEntity user = redisUtil.getCacheObject("User:" + claimMap.get("UserSign").asString());
             ContextUtil.setUser(user);
             // 如果不设置 @Authentication 注解，则对所有用户放行
             Authentication authentication = method.getAnnotation(Authentication.class);

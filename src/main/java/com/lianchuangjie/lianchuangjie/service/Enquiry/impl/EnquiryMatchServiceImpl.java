@@ -129,7 +129,7 @@ public class EnquiryMatchServiceImpl implements EnquiryMatchService {
             }
             lineNum++;
         }
-        redisUtil.setString("Enquiry_" + docEntry, yunHanList.toString());
+        redisUtil.setCacheObject("Enquiry:" + docEntry, yunHanList.toString());
         enquirySubService.saveBatch(saveList);
         // 查询云汉价格
         yunHanService.yunHanQuery(docEntry);

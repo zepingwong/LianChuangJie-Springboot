@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -16,7 +17,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName("T_OUSI")
-public class UserEntity {
+public class UserEntity implements Serializable {
     // 用户编号
     @TableId(value = "UserSign")
     private Long userSign;

@@ -17,7 +17,7 @@ public class UserLogoutServiceImpl implements UserLogoutService {
     public Boolean logoutService(HttpServletRequest request) {
         UserEntity user = ContextUtil.getUser();
         // 删除redis中的用户信息
-        redisUtil.removeString("User_" + user.getUserSign());
+        redisUtil.deleteObject("User:" + user.getUserSign());
         ContextUtil.removeSession(request);
         return true;
     }

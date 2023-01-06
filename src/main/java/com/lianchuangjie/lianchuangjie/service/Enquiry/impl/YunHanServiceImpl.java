@@ -20,7 +20,7 @@ public class YunHanServiceImpl implements YunHanService {
     RedisUtil redisUtil;
     @Override
     public Boolean runSendToBuyer(Long docEntry) {
-        String infoStr = redisUtil.getString("Enquiry_" + docEntry);
+        String infoStr = redisUtil.getCacheObject("Enquiry:" + docEntry);
         if (infoStr != null) {
             List<EnquirySubEntity> enquiryMatchItemVOList= JSONArray.parseArray(infoStr,EnquirySubEntity.class);
             for (EnquirySubEntity item: enquiryMatchItemVOList) {
