@@ -26,7 +26,7 @@ public class ClientController {
      * @date 08/11/2022
      */
     @GetMapping("/client")
-    @Authentication(sale = true)
+    @Authentication(sale = true, saleAssist = true)
     public Result<List<ClienteleVO>> getClientListController(
             @RequestParam(defaultValue = "#{null}", value = "CardName") String cardName,
             @RequestParam(defaultValue = "#{null}", value = "CardCode") String cardCode
@@ -48,7 +48,7 @@ public class ClientController {
      * @date 08/11/2022
      */
     @GetMapping("/client/{CardCode}")
-    @Authentication(sale = true)
+    @Authentication(sale = true, saleAssist = true)
     public Result<ClienteleVO> getClientInfoController(
             @PathVariable String CardCode
     ) {

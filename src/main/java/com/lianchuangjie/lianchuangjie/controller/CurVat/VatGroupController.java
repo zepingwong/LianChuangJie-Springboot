@@ -36,6 +36,7 @@ public class VatGroupController {
     }
 
     @GetMapping("/group/{code}")
+    @Authentication()
     public Result<VatGroupVO> getVatGroupMainController(
             @PathVariable String code
     ) {

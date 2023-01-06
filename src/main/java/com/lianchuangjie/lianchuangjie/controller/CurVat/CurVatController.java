@@ -28,7 +28,7 @@ public class CurVatController {
     CurVatConfService curVatConfService;
 
     @GetMapping("/config")
-    @Authentication(buyer = true, sale = true)
+    @Authentication(buyer = true, sale = true, saleAssist = true)
     public Result<List<CurVatConfVO>> getVatConfigListController(
             @RequestParam(defaultValue = "#{null}", value = "Type") String type,
             @RequestParam(defaultValue = "#{null}", value = "Currency") String currency,
@@ -83,7 +83,7 @@ public class CurVatController {
     }
 
     @GetMapping("/config/{docEntry}")
-    @Authentication(buyer = true, sale = true)
+    @Authentication(buyer = true, sale = true, saleAssist = true)
     public Result<CurVatConfVO> getVatConfigMainController(
             @PathVariable Long docEntry
     ) {
@@ -94,6 +94,7 @@ public class CurVatController {
     }
 
     @DeleteMapping("/config/{docEntry}")
+    @Authentication()
     public Result<Boolean> deleteCurVatController(
             @PathVariable Long docEntry
     ) {

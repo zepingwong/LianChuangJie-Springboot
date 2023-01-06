@@ -40,7 +40,7 @@ public class EnquirySearchController extends BaseController {
      * @return buyers
      */
     @GetMapping("buyer")
-    @Authentication(sale = true)
+    @Authentication(sale = true, saleAssist = true)
     public Result<List<EnquiryBuyerItemVO>> getPurchaserController(@RequestParam(name = "Brand", defaultValue = "#{null}") String brand, @RequestParam(name = "ECCN", defaultValue = "#{null}") String eccn, @RequestParam(name = "TotalPrice", defaultValue = "#{null}") BigDecimal totalPrice, @RequestParam(name = "SlpCode", defaultValue = "#{null}") Long slpCode, @RequestParam(name = "DeptCode", defaultValue = "#{null}") String deptCode) {
         EnquiryBuyerSearchDTO enquiryBuyerSearchDTO = new EnquiryBuyerSearchDTO();
         enquiryBuyerSearchDTO.setBrand(brand);

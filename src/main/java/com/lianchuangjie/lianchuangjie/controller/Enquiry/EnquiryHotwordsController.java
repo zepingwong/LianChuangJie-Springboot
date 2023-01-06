@@ -28,7 +28,7 @@ public class EnquiryHotwordsController {
      * @date 9/17/2022
      */
     @GetMapping("/hotwords")
-    @Authentication(sale = true)
+    @Authentication(sale = true, saleAssist = true)
     public Result<List<EnquiryHotwordsVO>> getEnquiryHotwords() {
         List<EnquiryHotwordsVO> list = enquiryHotwordsService.getList();
         return Result.success(list);

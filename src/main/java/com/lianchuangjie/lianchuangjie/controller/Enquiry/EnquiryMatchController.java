@@ -27,7 +27,7 @@ public class EnquiryMatchController extends BaseController {
      * @date 8/24/2022
      */
     @PostMapping("single")
-    @Authentication(sale = true)
+    @Authentication(sale = true, saleAssist = true)
     public Result<List<EnquiryMatchItemVO>> querySingleController(@RequestBody EnquirySingleQueryDTO enquirySingleQueryDTO) {
         List<EnquiryMatchItemVO> list = enquiryMatchService.querySingle(enquirySingleQueryDTO);
         return Result.success(list);
@@ -42,7 +42,7 @@ public class EnquiryMatchController extends BaseController {
      * @date 8/24/2022
      */
     @PostMapping("batch")
-    @Authentication(sale = true)
+    @Authentication(sale = true, saleAssist = true)
     public Result<List<EnquiryMatchItemVO>> queryBatchController(@RequestBody List<String> enquirySingleQueryDTOList) {
         List<EnquiryMatchItemVO> list = enquiryMatchService.queryBatch(enquirySingleQueryDTOList);
         return Result.success(list);
@@ -56,7 +56,7 @@ public class EnquiryMatchController extends BaseController {
      * @date 8/24/2022
      */
     @GetMapping("bom")
-    @Authentication(sale = true)
+    @Authentication(sale = true, saleAssist = true)
     public Result<List<EnquiryMatchItemVO>> queryBomController(@RequestParam(defaultValue = "#{null}", value = "DocEntry") Long docEntry) {
         List<EnquiryMatchItemVO> result = enquiryMatchService.queryBom(docEntry);
         return Result.success(result, "Success");
@@ -70,7 +70,7 @@ public class EnquiryMatchController extends BaseController {
      * @date 10/6/2022
      */
     @PostMapping("save")
-    @Authentication(sale = true)
+    @Authentication(sale = true, saleAssist = true)
     public Result<Boolean> saveMatchResultController(@RequestBody EnquiryMatchSaveDTO enquiryMatchSaveDTO) {
         Boolean res = enquiryMatchService.save(enquiryMatchSaveDTO);
         return Result.success(res, "Success");
