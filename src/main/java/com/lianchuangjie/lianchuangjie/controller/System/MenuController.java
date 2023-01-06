@@ -27,5 +27,6 @@ public class MenuController {
     @GetMapping("/menu")
     public Result<List<MenuEntity>> getMenuListController() {
         menuService.list();
+        return Result.success(null);
     }
 }
